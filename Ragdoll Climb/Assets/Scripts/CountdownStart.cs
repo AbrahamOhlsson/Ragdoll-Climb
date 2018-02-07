@@ -6,12 +6,16 @@ using UnityEngine.UI;
 public class CountdownStart : MonoBehaviour {
 
 
+
     string countdownText = "3";
     bool endOfCountdown = false;
     public int myTime= 0;
     public float cdTime = 0;
     public Font f;
     public int fontSize;
+
+
+
 
 
     void Update()
