@@ -5,12 +5,14 @@ using UnityEngine;
 public class Grab : MonoBehaviour
 {
     bool canGripLeft = false;
-    bool released = true;
-    
-    FixedJoint joint;
+    bool releasedLeft = true;
+    bool releasedRight = true;
+
+    [SerializeField] GameObject grabObjLeft;
+    [SerializeField] GameObject grabObjRight;
 
 
-	void Start ()
+    void Start ()
     {
 		
 	}
@@ -18,40 +20,57 @@ public class Grab : MonoBehaviour
 
 	void Update ()
     {
-        if (Input.GetAxis("XB-leftTrigger") == 1 && canGripLeft && released)
-        {
-            joint.connectedBody = GetComponent<Rigidbody>();
+        print("Left = " + Input.GetAxis("XB-leftTrigger"));
+        print("Right = " + Input.GetAxis("XB-rightTrigger"));
 
-            released = false;
+        if (Input.GetAxis("XB-leftTrigger") == 1 && releasedLeft)
+        {
+            grabObjLeft.SetActive(true);
+
+            releasedLeft = false;
         }
 
-        if (Input.GetAxis("XB-leftTrigger") == 0 && !released)
+        if (Input.GetAxis("XB-leftTrigger") == 0 && !releasedLeft)
         {
-            joint.connectedBody = null;
+            grabObjLeft.SetActive(false);
 
-            released = true;
+            releasedLeft = true;
         }
-    }
 
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "ClimbObj")
+        if (Input.GetAxis("XB-rightTrigger") == 1 && releasedRight)
         {
-            joint = other.GetComponent<FixedJoint>();
+            grabObjRight.SetActive(true);
 
-            canGripLeft = true;
+            releasedRight = false;
         }
-    }
 
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "ClimbObj")
+        if (Input.GetAxis("XB-rightTrigger") == 0 && !releasedRight)
         {
-            joint = null;
+            grabObjRight.SetActive(false);
 
-            canGripLeft = false;
+            releasedRight = true;
         }
     }
+
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "ClimbObj")
+    //    {
+    //        joint = other.GetComponent<FixedJoint>();
+
+    //        canGripLeft = true;
+    //    }
+    //}
+
+
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.tag == "ClimbObj")
+    //    {
+    //        joint = null;
+
+    //        canGripLeft = false;
+    //    }
+    //}
 }
