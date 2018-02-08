@@ -13,6 +13,7 @@ public class WaterBoat : MonoBehaviour
     public float speed;
     float startTime;
     float journeyLength;
+    float playerDist = 15; 
 
     public float timer;
 
@@ -38,7 +39,7 @@ public class WaterBoat : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
-        if(timer < 0 && endLerp.position.y > boat.transform.position.y  + 15)
+        if(timer < 0 && endLerp.position.y > boat.transform.position.y  + playerDist)
         {
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
