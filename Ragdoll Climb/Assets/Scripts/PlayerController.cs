@@ -4,98 +4,113 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public int playerNr = 1;
+    
+    // For hand controls
     [SerializeField] float pushForce = 100f;
-    //[SerializeField] float pushForceMult = 2f;
+    // For torso when pulling when gripped
     [SerializeField] float pullForce = 50f;
 
+    // Rigidbodies for bodyparts
     [SerializeField] Rigidbody leftHand;
     [SerializeField] Rigidbody rightHand;
     [SerializeField] Rigidbody torso;
+
+    // Grip objects on hands with joints
     [SerializeField] GameObject grabObjLeft;
     [SerializeField] GameObject grabObjRight;
 
     bool gripLeft = false;
     bool gripRight = false;
 
-    float startPushForce;
+
+    // Directions of pulling torso with hands
     Vector3 pullDirLeft;
     Vector3 pullDirRight;
 
+    // Directions of pushing hands
     Vector3 pushDirLeft;
     Vector3 pushDirRight;
 
 
-    void Start ()
+    void Start()
     {
-        startPushForce = pushForce;
-	}
-	
+    }
 
-	void Update ()
+
+    void Update()
     {
-        if (!gripLeft)
+        // Left arm and joystick
+        if (gripLeft)
         {
-            pushDirLeft = new Vector3(Input.GetAxis("XB-leftjoystickX"), -Input.GetAxis("XB-leftjoystickY"), 0f);
+            // Gets joystick X- and Y-axis, clamps Y between 0 and 1
+            pullDirLeft = new Vector3(-Input.GetAxis("XB-leftjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f, 1f));
 
-            pullDirLeft = Vector3.zero;
-        }
-        else
-        {
-            pullDirLeft = new Vector3(-Input.GetAxis("XB-leftjoystickX"), Mathf.Clamp(Input.GetAxis("XB-leftjoystickY"), 0f, 1f));
-
+            // Resets pushDir
             pushDirLeft = Vector3.zero;
         }
-        if (!gripRight)
+        else
         {
-            pushDirRight = new Vector3(Input.GetAxis("XB-rightjoystickX"), -Input.GetAxis("XB-rightjoystickY"), 0f);
+            // Gets direction of joystick axis
+            pushDirLeft = new Vector3(Input.GetAxis("XB-leftjoystickX_p" + playerNr), -Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f);
 
-            pullDirRight = Vector3.zero;
+            // Resets pullDir
+            pullDirLeft = Vector3.zero;
+        }
+        // Right arm and joystick
+        if (gripRight)
+        {
+            // Gets joystick X- and Y-axis, clamps Y between 0 and 1
+            pullDirRight = new Vector3(-Input.GetAxis("XB-rightjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f, 1f));
+
+            // Resets pushDir
+            pushDirRight = Vector3.zero;
         }
         else
         {
-            pullDirRight = new Vector3(-Input.GetAxis("XB-rightjoystickX"), Mathf.Clamp(Input.GetAxis("XB-rightjoystickY"), 0f, 1f));
+            // Gets direction of joystick axis
+            pushDirRight = new Vector3(Input.GetAxis("XB-rightjoystickX_p" + playerNr), -Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f);
 
-            pushDirRight = Vector3.zero;
+            // Resets pullDir
+            pullDirRight = Vector3.zero;
         }
-        
 
-        if (Input.GetAxis("XB-leftTrigger") == 1 && !gripLeft)
+        // Left grip controls
+        if (Input.GetAxis("XB-leftTrigger_p" + playerNr) == 1 && !gripLeft)
         {
             grabObjLeft.SetActive(true);
 
             gripLeft = true;
         }
-        else if (Input.GetAxis("XB-leftTrigger") == 0 && gripLeft)
+        else if (Input.GetAxis("XB-leftTrigger_p" + playerNr) == 0 && gripLeft)
         {
             grabObjLeft.SetActive(false);
 
             gripLeft = false;
         }
-
-        if (Input.GetAxis("XB-rightTrigger") == 1 && !gripRight)
+        // Right grip controls
+        if (Input.GetAxis("XB-rightTrigger_p" + playerNr) == 1 && !gripRight)
         {
             grabObjRight.SetActive(true);
 
             gripRight = true;
         }
-        else if (Input.GetAxis("XB-rightTrigger") == 0 && gripRight)
+        else if (Input.GetAxis("XB-rightTrigger_p" + playerNr) == 0 && gripRight)
         {
             grabObjRight.SetActive(false);
 
             gripRight = false;
         }
-
-        //if (gripLeft || gripRight)
-        //    pushForce = startPushForce * pushForceMult;
-        //else
-        //    pushForce = startPushForce;
     }
 
 
     private void FixedUpdate()
     {
+        // Add push force to hands
         leftHand.AddForce(pushDirLeft * pushForce);
         rightHand.AddForce(pushDirRight * pushForce);
+
+        // Add pull force for torso
         torso.AddForce(pullDirLeft * pullForce);
         torso.AddForce(pullDirRight * pullForce);
     }
