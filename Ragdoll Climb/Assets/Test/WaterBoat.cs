@@ -8,19 +8,23 @@ public class WaterBoat : MonoBehaviour
     public GameObject water;
     public Transform endLerp;
 
+    Rigidbody rb;
+
     public float speed;
     float startTime;
     float journeyLength;
 
-    float timer;
+    public float timer;
 
 
     // Use this for initialization
     void Start ()
     {
-        timer = 30;
+        timer = 5;
         startTime = Time.time;
         journeyLength = Vector3.Distance(boat.transform.position, endLerp.position);
+
+        rb = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
@@ -28,15 +32,17 @@ public class WaterBoat : MonoBehaviour
     {
         water.transform.position = new Vector3(0, boat.transform.position.y - 0.5f, 0);
 
+
+
         if(timer > 0)
         {
             timer -= Time.deltaTime;
         }
-        if(timer < 0)
+        if(timer < 0 && endLerp.position.y > boat.transform.position.y  + 15)
         {
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
-            transform.position = Vector3.Lerp(boat.transform.position, endLerp.position, fracJourney);
+            rb.position = Vector3.Lerp(boat.transform.position, endLerp.position, fracJourney);
         }
 
 
