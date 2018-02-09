@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MultiplayerManager : MonoBehaviour
 {
-    [SerializeField] GameObject playerPrefab;
+    //[SerializeField] GameObject playerPrefab;
 
-    [SerializeField] Transform[] playerInstantiatePos = new Transform[4];
+    //[SerializeField] Transform[] playerInstantiatePos = new Transform[4];
 
     [SerializeField] Color[] playerColors;
 
-    List<GameObject> players = new List<GameObject>();
+    [SerializeField] List<GameObject> players = new List<GameObject>();
 
     bool[] playerSpawned = new bool[4];
 
@@ -26,11 +26,14 @@ public class MultiplayerManager : MonoBehaviour
         {
             if (Input.GetButtonDown("XB-start_p" + (i+1)) && !playerSpawned[i])
             {
-                players.Add(Instantiate(playerPrefab, playerInstantiatePos[i].position, Quaternion.identity));
+                //players.Add(Instantiate(playerPrefab, playerInstantiatePos[i].position, Quaternion.identity));
+                players[i].SetActive(true);
 
-                players[players.Count - 1].GetComponent<PlayerController>().playerNr = i+1;
+                //players[players.Count - 1].GetComponent<PlayerController>().playerNr = i+1;
+                players[i].GetComponent<PlayerController>().playerNr = i + 1;
 
-                Renderer[] renderers = players[players.Count - 1].GetComponentsInChildren<Renderer>();
+                //Renderer[] renderers = players[players.Count - 1].GetComponentsInChildren<Renderer>();
+                Renderer[] renderers = players[i].GetComponentsInChildren<Renderer>();
 
                 for (int j = 0; j < renderers.Length; j++)
                 {

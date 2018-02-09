@@ -21,7 +21,7 @@ public class WaterBoat : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        timer = 5;
+        timer = 15;
         startTime = Time.time;
         journeyLength = Vector3.Distance(boat.transform.position, endLerp.position);
 

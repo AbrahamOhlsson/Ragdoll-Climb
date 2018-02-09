@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
 
             // Resets pushDir
             pushDirLeft = Vector3.zero;
+
+            print("Left grip");
         }
         else
         {
@@ -65,6 +67,8 @@ public class PlayerController : MonoBehaviour
 
             // Resets pushDir
             pushDirRight = Vector3.zero;
+
+            print("Right grip");
         }
         else
         {
