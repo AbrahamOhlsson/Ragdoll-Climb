@@ -12,6 +12,8 @@ public class ImageCountUI : MonoBehaviour {
     [SerializeField] private Image customImageClimb;
 
 
+
+
     void Start()
     {
         StartCoroutine(imageCountdown());

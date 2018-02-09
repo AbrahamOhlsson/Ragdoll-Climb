@@ -7,9 +7,19 @@ public class FinishLine : MonoBehaviour {
 
 
 
+    [SerializeField] private Image redWins;
+    [SerializeField] private Image blueWins;
+
+    [SerializeField] private GameObject menuRematch;
+//[SerializeField] private Button showingMenuTitle;
+//[SerializeField] private Button showingMenuPlay;
+//[SerializeField] private Button showingMenuQuit;
 
 
-    private string winnerText;
+private string winnerText;
+
+
+
 
 
 
@@ -20,18 +30,21 @@ public class FinishLine : MonoBehaviour {
         if (winner.gameObject.tag == "playerOne")
         {
             Debug.Log("Blue player wins!!");
-            winnerText = "Blue player Wins";
+           // winnerText = "Blue player Wins";
+            blueWins.enabled = true;
         }
 
         else if (winner.gameObject.tag == "playerTwo")
         {
-
             Debug.Log("Red player wins");
-            winnerText = "Red player Wins";
+            //winnerText = "Red player Wins";
+            redWins.enabled = true;
         }
-
+        menuRematch.SetActive(true);
 
     }
+
+
 
 
 
