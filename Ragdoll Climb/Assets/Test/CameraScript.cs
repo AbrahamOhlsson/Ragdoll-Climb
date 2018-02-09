@@ -25,8 +25,6 @@ public class CameraScript : MonoBehaviour
         
         for (int i = 0; i < players.Length; i++)
         {
-            print("Players Length = " + players.Length);
-
             if (players[i].transform.root.gameObject.activeSelf)
                 playerListYPos.Add(players[i].transform.position.y);
         }

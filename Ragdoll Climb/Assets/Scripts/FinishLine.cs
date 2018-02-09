@@ -22,8 +22,6 @@ public class FinishLine : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger enter");
-
         if (other.gameObject.tag == "Player" && !gameOver)
         {
             int playerNr = other.transform.root.GetComponent<PlayerController>().playerNr;
@@ -48,7 +46,7 @@ public class FinishLine : MonoBehaviour
             gameOver = true;
 
             menuRematch.SetActive(true);
-            menuRematch.transform.GetChild(2).GetComponent<Button>().Select();
+            menuRematch.transform.GetChild(3).GetComponent<Button>().Select();
         }
     }
 }

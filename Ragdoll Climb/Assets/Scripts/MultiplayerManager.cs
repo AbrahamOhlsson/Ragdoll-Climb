@@ -22,7 +22,7 @@ public class MultiplayerManager : MonoBehaviour
 
     void Update ()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             if (Input.GetButtonDown("XB-start_p" + (i+1)) && !playerSpawned[i])
             {
@@ -48,7 +48,7 @@ public class MultiplayerManager : MonoBehaviour
 
     public void ActivatePlayers()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             players[i].GetComponent<PlayerController>().enabled = true;
         }
