@@ -44,4 +44,13 @@ public class MultiplayerManager : MonoBehaviour
             }
         }
     }
+
+
+    public void ActivatePlayers()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            players[i].GetComponent<PlayerController>().enabled = true;
+        }
+    }
 }
