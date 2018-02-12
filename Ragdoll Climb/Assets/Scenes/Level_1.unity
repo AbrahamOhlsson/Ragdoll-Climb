@@ -476,25 +476,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 404782, guid: 19379b4b0dd7bc741ac83c5040f31d79, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 404782, guid: 19379b4b0dd7bc741ac83c5040f31d79, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.7044562
-      objectReference: {fileID: 0}
-    - target: {fileID: 404782, guid: 19379b4b0dd7bc741ac83c5040f31d79, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6427004, guid: 19379b4b0dd7bc741ac83c5040f31d79, type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 104856, guid: 19379b4b0dd7bc741ac83c5040f31d79, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 114493959769025448, guid: 19379b4b0dd7bc741ac83c5040f31d79,
+        type: 2}
+      propertyPath: water
+      value: 
+      objectReference: {fileID: 1585594278}
+    - target: {fileID: 114493959769025448, guid: 19379b4b0dd7bc741ac83c5040f31d79,
+        type: 2}
+      propertyPath: endLerp
+      value: 
+      objectReference: {fileID: 733641325}
+    - target: {fileID: 114493959769025448, guid: 19379b4b0dd7bc741ac83c5040f31d79,
+        type: 2}
+      propertyPath: speed
+      value: 0.0001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 19379b4b0dd7bc741ac83c5040f31d79, type: 2}
@@ -659,7 +654,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1372322991}
   distance: 3
-  stonesParticle: {fileID: 0}
 --- !u!1 &519409739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1195,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1372322991}
   distance: 3
-  stonesParticle: {fileID: 0}
 --- !u!1 &914508339 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1948650837922512, guid: 92e28099f32860b43813de429691125b,
@@ -1488,7 +1481,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1372322991}
   distance: 3
-  stonesParticle: {fileID: 0}
 --- !u!1 &1290752129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1677,48 +1669,6 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 104856, guid: 19379b4b0dd7bc741ac83c5040f31d79, type: 2}
   m_PrefabInternal: {fileID: 356168557}
---- !u!114 &1372322996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1372322991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba5d81631be95aa4899634c57bd90ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boat: {fileID: 1372322991}
-  water: {fileID: 1585594278}
-  endLerp: {fileID: 733641325}
-  speed: 0.001
---- !u!65 &1372322997
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1372322991}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3.5753875, y: 1.8932235, z: 9.581235}
-  m_Center: {x: 0.00000041723263, y: 0.82174146, z: -0.30637842}
---- !u!54 &1372322998
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1372322991}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!1 &1430780628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1817,7 +1767,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 12552193}
   distance: 3
-  stonesParticle: {fileID: 0}
 --- !u!114 &1450680753 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114004620791891900, guid: e5afb7de837148544aceb00b8bbff178,
@@ -1867,25 +1816,71 @@ Prefab:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1978372679648360, guid: 92e28099f32860b43813de429691125b, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 54114170546532426, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_Mass
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 54976559571572584, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_Mass
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114431303810182230, guid: 92e28099f32860b43813de429691125b,
         type: 2}
       propertyPath: pullForce
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
-    - target: {fileID: 33852272682318464, guid: 92e28099f32860b43813de429691125b,
+    - target: {fileID: 144723742964641086, guid: 92e28099f32860b43813de429691125b,
         type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 33803704563938906, guid: 92e28099f32860b43813de429691125b,
+      propertyPath: m_EnablePreprocessing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 144679509112932972, guid: 92e28099f32860b43813de429691125b,
         type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+      propertyPath: m_EnablePreprocessing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 144723742964641086, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 144387320724383416, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 144679509112932972, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 144870723650596070, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 144948831509247550, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 144976353658161984, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 144834481788644884, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 144989768919224416, guid: 92e28099f32860b43813de429691125b,
+        type: 2}
+      propertyPath: m_EnableProjection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92e28099f32860b43813de429691125b, type: 2}
   m_IsPrefabParent: 0
@@ -2338,7 +2333,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1372322991}
   distance: 3
-  stonesParticle: {fileID: 0}
 --- !u!1 &1806107838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,7 +2431,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ship: {fileID: 1372322991}
   distance: 3
-  stonesParticle: {fileID: 0}
 --- !u!1 &1813283540 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1978372679648360, guid: 92e28099f32860b43813de429691125b,
