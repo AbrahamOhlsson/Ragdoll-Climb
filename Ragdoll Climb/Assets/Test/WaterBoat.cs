@@ -15,13 +15,11 @@ public class WaterBoat : MonoBehaviour
     float journeyLength;
     float playerDist = 15; 
 
-    public float timer;
-
 
     // Use this for initialization
     void Start ()
     {
-        timer = 15;
+        
         startTime = Time.time;
         journeyLength = Vector3.Distance(boat.transform.position, endLerp.position);
 
@@ -33,13 +31,7 @@ public class WaterBoat : MonoBehaviour
     {
         water.transform.position = new Vector3(0, boat.transform.position.y - 0.5f, 0);
 
-
-
-        if(timer > 0)
-        {
-            timer -= Time.deltaTime;
-        }
-        if(timer < 0 && endLerp.position.y > boat.transform.position.y  + playerDist)
+        if(endLerp.position.y > boat.transform.position.y  + playerDist)
         {
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
