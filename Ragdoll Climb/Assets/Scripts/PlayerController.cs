@@ -15,7 +15,8 @@ public class PlayerController : MonoBehaviour
     // Rigidbodies for bodyparts
     [SerializeField] Rigidbody leftHand;
     [SerializeField] Rigidbody rightHand;
-    [SerializeField] Rigidbody torso;
+    [SerializeField] Rigidbody leftShoulder;
+    [SerializeField] Rigidbody rightShoulder;
 
     // Grip objects on hands with joints
     [SerializeField] GameObject grabObjLeft;
@@ -52,7 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             // Gets joystick X- and Y-axis, clamps Y between 0 and 1
             //pullDirLeft = new Vector3(-Input.GetAxis("XB-leftjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f, 1f));
-            pullDirLeft = new Vector3(-state.ThumbSticks.Left.X, Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
+            pullDirLeft = new Vector3(Mathf.Clamp(-state.ThumbSticks.Left.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
 
             // Resets pushDir
             pushDirLeft = Vector3.zero;
@@ -63,6 +64,8 @@ public class PlayerController : MonoBehaviour
             //pushDirLeft = new Vector3(Input.GetAxis("XB-leftjoystickX_p" + playerNr), -Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f);
             pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
 
+            leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+
             // Resets pullDir
             pullDirLeft = Vector3.zero;
         }
@@ -71,7 +74,7 @@ public class PlayerController : MonoBehaviour
         {
             // Gets joystick X- and Y-axis, clamps Y between 0 and 1
             //pullDirRight = new Vector3(-Input.GetAxis("XB-rightjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f, 1f));
-            pullDirRight = new Vector3(-state.ThumbSticks.Right.X, Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
+            pullDirRight = new Vector3(Mathf.Clamp(-state.ThumbSticks.Right.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
 
             // Resets pushDir
             pushDirRight = Vector3.zero;
@@ -81,6 +84,8 @@ public class PlayerController : MonoBehaviour
             // Gets direction of joystick axis
             //pushDirRight = new Vector3(Input.GetAxis("XB-rightjoystickX_p" + playerNr), -Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f);
             pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
+
+            rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
 
             // Resets pullDir
             pullDirRight = Vector3.zero;
@@ -122,8 +127,8 @@ public class PlayerController : MonoBehaviour
         rightHand.AddForce(pushDirRight * pushForce);
 
         // Add pull force for torso
-        torso.AddForce(pullDirLeft * pullForce);
-        torso.AddForce(pullDirRight * pullForce);
+        leftShoulder.AddForce(pullDirLeft * pullForce);
+        rightShoulder.AddForce(pullDirRight * pullForce);
     }
 
 
