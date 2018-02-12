@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImageCountUI : MonoBehaviour {
-
-
+public class ImageCountUI : MonoBehaviour
+{
     [SerializeField] private Image customImageThree;
     [SerializeField] private Image customImageTwo;
     [SerializeField] private Image customImageOne;
     [SerializeField] private Image customImageClimb;
 
+    [SerializeField] private MultiplayerManager multiplayerManager;
 
+    
     void Start()
     {
         StartCoroutine(imageCountdown());
@@ -19,20 +20,17 @@ public class ImageCountUI : MonoBehaviour {
 
     IEnumerator imageCountdown()
     {
-        Debug.Log("Image");
         customImageThree.enabled = true;
         yield return new WaitForSeconds(1);
         customImageThree.enabled = false;
-        Debug.Log("1");
         customImageTwo.enabled = true;
         yield return new WaitForSeconds(1);
         customImageTwo.enabled = false;
-        Debug.Log("2");
         customImageOne.enabled = true;
         yield return new WaitForSeconds(1);
         customImageOne.enabled = false;
-        Debug.Log("3");
         customImageClimb.enabled = true;
+        multiplayerManager.ActivatePlayers();
         yield return new WaitForSeconds(1);
         customImageClimb.enabled = false;
         Destroy(this);

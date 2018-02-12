@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,6 @@ public class PlayerController : MonoBehaviour
     bool gripLeft = false;
     bool gripRight = false;
 
-
     // Directions of pulling torso with hands
     Vector3 pullDirLeft;
     Vector3 pullDirRight;
@@ -31,6 +31,10 @@ public class PlayerController : MonoBehaviour
     // Directions of pushing hands
     Vector3 pushDirLeft;
     Vector3 pushDirRight;
+
+    PlayerIndex playerIndex;
+    GamePadState state;
+    GamePadState prevState;
 
 
     void Start()
@@ -40,21 +44,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        prevState = state;
+        state = GamePad.GetState(playerIndex);
+
         // Left arm and joystick
         if (gripLeft)
         {
             // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-            pullDirLeft = new Vector3(-Input.GetAxis("XB-leftjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f, 1f));
+            //pullDirLeft = new Vector3(-Input.GetAxis("XB-leftjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f, 1f));
+            pullDirLeft = new Vector3(-state.ThumbSticks.Left.X, Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
 
             // Resets pushDir
             pushDirLeft = Vector3.zero;
-
-            print("Left grip");
         }
         else
         {
             // Gets direction of joystick axis
-            pushDirLeft = new Vector3(Input.GetAxis("XB-leftjoystickX_p" + playerNr), -Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f);
+            //pushDirLeft = new Vector3(Input.GetAxis("XB-leftjoystickX_p" + playerNr), -Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f);
+            pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
 
             // Resets pullDir
             pullDirLeft = Vector3.zero;
@@ -63,43 +70,43 @@ public class PlayerController : MonoBehaviour
         if (gripRight)
         {
             // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-            pullDirRight = new Vector3(-Input.GetAxis("XB-rightjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f, 1f));
+            //pullDirRight = new Vector3(-Input.GetAxis("XB-rightjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f, 1f));
+            pullDirRight = new Vector3(-state.ThumbSticks.Right.X, Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
 
             // Resets pushDir
             pushDirRight = Vector3.zero;
-
-            print("Right grip");
         }
         else
         {
             // Gets direction of joystick axis
-            pushDirRight = new Vector3(Input.GetAxis("XB-rightjoystickX_p" + playerNr), -Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f);
+            //pushDirRight = new Vector3(Input.GetAxis("XB-rightjoystickX_p" + playerNr), -Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f);
+            pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
 
             // Resets pullDir
             pullDirRight = Vector3.zero;
         }
 
         // Left grip controls
-        if (Input.GetAxis("XB-leftTrigger_p" + playerNr) == 1 && !gripLeft)
+        if (/*Input.GetAxis("XB-leftTrigger_p" + playerNr)*/state.Triggers.Left == 1 && !gripLeft)
         {
             grabObjLeft.SetActive(true);
 
             gripLeft = true;
         }
-        else if (Input.GetAxis("XB-leftTrigger_p" + playerNr) == 0 && gripLeft)
+        else if (/*Input.GetAxis("XB-leftTrigger_p" + playerNr)*/state.Triggers.Left == 0 && gripLeft)
         {
             grabObjLeft.SetActive(false);
 
             gripLeft = false;
         }
         // Right grip controls
-        if (Input.GetAxis("XB-rightTrigger_p" + playerNr) == 1 && !gripRight)
+        if (/*Input.GetAxis("XB-rightTrigger_p" + playerNr)*/state.Triggers.Right == 1 && !gripRight)
         {
             grabObjRight.SetActive(true);
 
             gripRight = true;
         }
-        else if (Input.GetAxis("XB-rightTrigger_p" + playerNr) == 0 && gripRight)
+        else if (/*Input.GetAxis("XB-rightTrigger_p" + playerNr)*/state.Triggers.Right == 0 && gripRight)
         {
             grabObjRight.SetActive(false);
 
@@ -117,5 +124,11 @@ public class PlayerController : MonoBehaviour
         // Add pull force for torso
         torso.AddForce(pullDirLeft * pullForce);
         torso.AddForce(pullDirRight * pullForce);
+    }
+
+
+    public void SetGamePad(int index)
+    {
+        playerIndex = (PlayerIndex)index;
     }
 }
