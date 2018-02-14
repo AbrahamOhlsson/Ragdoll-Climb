@@ -20,19 +20,15 @@ public class ImageCountUI : MonoBehaviour
 
     IEnumerator imageCountdown()
     {
-        Debug.Log("Image");
         customImageThree.enabled = true;
         yield return new WaitForSeconds(1);
         customImageThree.enabled = false;
-        Debug.Log("1");
         customImageTwo.enabled = true;
         yield return new WaitForSeconds(1);
         customImageTwo.enabled = false;
-        Debug.Log("2");
         customImageOne.enabled = true;
         yield return new WaitForSeconds(1);
         customImageOne.enabled = false;
-        Debug.Log("3");
         customImageClimb.enabled = true;
         multiplayerManager.ActivatePlayers();
         yield return new WaitForSeconds(1);
