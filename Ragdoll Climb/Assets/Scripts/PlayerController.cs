@@ -44,14 +44,22 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float losingGrip;
     [SerializeField] float lostGrip;
 
+    [SerializeField] float minVibrate;
+    [SerializeField] float maxVibrate;
+
     // If hands are currently gripping
     bool gripLeft = false;
     bool gripRight = false;
 
-
     //Timer if the arms are too tired to climb with
     [SerializeField] float rightNumbArm = 0;
     [SerializeField] float leftNumbArm = 0;
+
+    //How much faster the player regain its stamina (Original value was 1.5)
+    [SerializeField] float staminaRegen;
+
+    // Determines how long the arms are out cold when extending stamina value.
+    [SerializeField] float armTimeOut;
 
     // If rewarding boost is active
     bool boostActive = false;
@@ -129,7 +137,7 @@ public class PlayerController : MonoBehaviour
                 gripLeft = false;
                 leftNumbArm += Time.deltaTime;
 
-                if(leftNumbArm >= 5)
+                if(leftNumbArm >= armTimeOut)
                 {
                     leftNumbArm = 0;
                     leftCanClimb = true;
@@ -166,7 +174,7 @@ public class PlayerController : MonoBehaviour
                 gripRight = false;
                 rightNumbArm += Time.deltaTime;
 
-                if(rightNumbArm >= 5)
+                if(rightNumbArm >= armTimeOut)
                 {
                     rightNumbArm = 0;
                     rightCanClimb = true;
@@ -317,7 +325,7 @@ public class PlayerController : MonoBehaviour
         if (gripRight == false)
         {
             GamePad.SetVibration(playerIndex, 0f, 0f);
-            rightTimer -= Time.deltaTime;
+            rightTimer -= Time.deltaTime * staminaRegen;
             rightTimer = Mathf.Clamp(rightTimer, 0f, lostGrip);
         }
 
@@ -350,7 +358,7 @@ public class PlayerController : MonoBehaviour
         if (gripLeft == false)
         {
             GamePad.SetVibration(playerIndex, 0f, 0f);
-            leftTimer -= Time.deltaTime;
+            leftTimer -= Time.deltaTime * staminaRegen;
             leftTimer = Mathf.Clamp(leftTimer, 0f, lostGrip);
         }
 
