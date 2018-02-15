@@ -35,20 +35,27 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] ParticleSystem boostEffect;
 
+    // If hands are currently gripping
     bool gripLeft = false;
     bool gripRight = false;
 
+    // If rewarding boost is active
     bool boostActive = false;
+    // If the hand can trigger a boost
     bool leftBoostReady = false;
     bool rightBoostReady = false;
 
+    // How many good climbs has been performed in a row
     int goodClimbs = 0;
 
+    // The initial forces, used for resetting
     float startPushForce;
     float startPullForce;
 
-    float leftGripTimer_boost = 0f;
-    float rightGripTimer_boost = 0f;
+    // How long the hands have gripped
+    float leftGripTimer = 0f;
+    float rightGripTimer = 0f;
+    // How long the boost has been activated
     float boostTimer = 0f;
 
     // Directions of pulling torso with hands
@@ -59,6 +66,7 @@ public class PlayerController : MonoBehaviour
     Vector3 pushDirLeft;
     Vector3 pushDirRight;
 
+    // Controller variables
     PlayerIndex playerIndex;
     GamePadState state;
     GamePadState prevState;
@@ -82,7 +90,8 @@ public class PlayerController : MonoBehaviour
             // Gets joystick X- and Y-axis, clamps Y between 0 and 1
             pullDirLeft = new Vector3(Mathf.Clamp(-state.ThumbSticks.Left.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
 
-            leftGripTimer_boost += Time.deltaTime;
+            // Counts time for how long this hand has gripped
+            leftGripTimer += Time.deltaTime;
 
             // Resets pushDir
             pushDirLeft = Vector3.zero;
@@ -92,6 +101,7 @@ public class PlayerController : MonoBehaviour
             // Gets direction of joystick axis
             pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
 
+            // Straightens wrist
             leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
 
             // Resets pullDir
@@ -103,7 +113,8 @@ public class PlayerController : MonoBehaviour
             // Gets joystick X- and Y-axis, clamps Y between 0 and 1
             pullDirRight = new Vector3(Mathf.Clamp(-state.ThumbSticks.Right.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
 
-            rightGripTimer_boost += Time.deltaTime;
+            // Counts time for how long this hand has gripped
+            rightGripTimer += Time.deltaTime;
 
             // Resets pushDir
             pushDirRight = Vector3.zero;
@@ -113,6 +124,7 @@ public class PlayerController : MonoBehaviour
             // Gets direction of joystick axis
             pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
 
+            // Straightens wrist
             rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
 
             // Resets pullDir
@@ -123,17 +135,23 @@ public class PlayerController : MonoBehaviour
         if (state.Triggers.Left == 1 && !gripLeft)
         {
             grabObjLeft.SetActive(true);
-
             gripLeft = true;
 
+            // Gets distance from the other hand
             float handDist = leftHand.position.y - rightHand.position.y;
 
-            print("Hand distance: " + handDist);
-
-            if (handDist >= reqHandHeightForBoost && rightGripTimer_boost <= gripTimeframeForBoost && gripRight && leftBoostReady)
+            // If distance is above the required amount AND if the other arm has been gripped within the interval AND if the other hand is gripping && if this hand can activate boost
+            if (handDist >= reqHandHeightForBoost && rightGripTimer <= gripTimeframeForBoost && gripRight && leftBoostReady)
             {
-                ActivateBoost();
+                // A good climb has been performed
+                goodClimbs++;
+
+                // Activates boost if the player has performed the required amounts of good climbs
+                if (goodClimbs >= reqGoodClimbs)
+                    ActivateBoost();
             }
+            else
+                goodClimbs = 0;
 
             // If the left hand is above the right
             if (handDist > 0)
@@ -143,11 +161,12 @@ public class PlayerController : MonoBehaviour
                 // The right hand cannot activate boost, this prevents exploiting the boost
                 rightBoostReady = false;
         }
+        // If trigger is released
         else if (state.Triggers.Left == 0 && gripLeft)
         {
             grabObjLeft.SetActive(false);
 
-            leftGripTimer_boost = 0f;
+            leftGripTimer = 0f;
 
             gripLeft = false;
         }
@@ -155,15 +174,23 @@ public class PlayerController : MonoBehaviour
         if (state.Triggers.Right == 1 && !gripRight)
         {
             grabObjRight.SetActive(true);
-
             gripRight = true;
 
+            // Gets distance from the other hand
             float handDist = rightHand.position.y - leftHand.position.y;
 
-            if (handDist >= reqHandHeightForBoost && leftGripTimer_boost <= gripTimeframeForBoost && gripLeft && rightBoostReady)
+            // If distance is above the required amount AND if the other arm has been gripped within the interval AND if the other hand is gripping && if this hand can activate boost
+            if (handDist >= reqHandHeightForBoost && leftGripTimer <= gripTimeframeForBoost && gripLeft && rightBoostReady)
             {
-                ActivateBoost();
+                // A good climb has been performed
+                goodClimbs++;
+
+                // Activates boost if the player has performed the required amounts of good climbs
+                if (goodClimbs >= reqGoodClimbs)
+                    ActivateBoost();
             }
+            else
+                goodClimbs = 0;
 
             // If the right hand is above the left
             if (handDist > 0)
@@ -173,11 +200,12 @@ public class PlayerController : MonoBehaviour
                 // The left hand cannot activate boost, this prevents exploiting the boost
                 leftBoostReady = false;
         }
+        // If trigger is released
         else if (state.Triggers.Right == 0 && gripRight)
         {
             grabObjRight.SetActive(false);
 
-            rightGripTimer_boost = 0f;
+            rightGripTimer = 0f;
 
             gripRight = false;
         }
@@ -190,11 +218,16 @@ public class PlayerController : MonoBehaviour
             // Turns off boost if boost timer has reached its limit
             if (boostTimer >= boostTime)
             {
+                // Resets forces
                 pushForce = startPushForce;
                 pullForce = startPullForce;
 
                 boostEffect.Stop();
                 boostActive = false;
+
+                // Resets amount of good climbs if the boos isn't continuous
+                if (!continuousBoost)
+                    goodClimbs = 0;
             }
         }
     }
@@ -220,11 +253,11 @@ public class PlayerController : MonoBehaviour
 
     void ActivateBoost()
     {
+        // Aborts if the boos isn't continuous and if it already is activated
         if (!continuousBoost && boostActive)
             return;
 
-        print("Activate");
-
+        // Boosts forces
         pushForce = startPushForce * boostMult;
         pullForce = startPullForce * boostMult;
 
