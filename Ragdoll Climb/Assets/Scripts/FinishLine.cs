@@ -11,6 +11,7 @@ public class FinishLine : MonoBehaviour
     [SerializeField] private Image yellowWins;
 
     [SerializeField] private GameObject rematchCanvas;
+    [SerializeField] private Button doItButton;
     //[SerializeField] private Button showingMenuTitle;
     //[SerializeField] private Button showingMenuPlay;
     //[SerializeField] private Button showingMenuQuit;
@@ -46,7 +47,7 @@ public class FinishLine : MonoBehaviour
             gameOver = true;
 
             rematchCanvas.SetActive(true);
-            rematchCanvas.transform.GetChild(3).GetComponent<Button>().Select();
+            doItButton.Select();
         }
     }
 }
