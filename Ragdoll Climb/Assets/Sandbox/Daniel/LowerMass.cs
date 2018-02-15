@@ -42,14 +42,17 @@ public class LowerMass : MonoBehaviour {
 	// Set player mass on trigger enter
 	void OnTriggerEnter(Collider other)
 	{
+		PlayerCol = other.transform.root.gameObject;
 
-		PlayerCol = other.gameObject;
+		if (PlayerCol.tag == "Player")
+		{ 
 		// get script and then change value of MassPercent
 		GetPlayerMass getplayermass = PlayerCol.transform.root.gameObject.GetComponent<GetPlayerMass>();
 		getplayermass.m_MassPercent = MassPercent;
 
 		//Run function
 		PlayerCol.transform.root.gameObject.GetComponent<GetPlayerMass>().ChangePlayerMass();
+		}
 		Destroy(gameObject);
 	}
 }
