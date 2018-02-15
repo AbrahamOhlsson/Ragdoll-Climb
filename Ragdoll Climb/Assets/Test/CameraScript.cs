@@ -30,6 +30,7 @@ public class CameraScript : MonoBehaviour
         List<float> playerListYPos = new List<float>();
         List<float> playerListXPos = new List<float>();
 
+        //Add players X and Y positions in two lists
         for (int i = 0; i < players.Length; i++)
         {
             if (players[i].transform.root.gameObject.activeSelf)
@@ -39,6 +40,7 @@ public class CameraScript : MonoBehaviour
             }
         }
 
+        //Look at what players Y position is 
         if (playerListYPos.Count > 0)
         {
             playerListYPos.Sort();
@@ -46,13 +48,16 @@ public class CameraScript : MonoBehaviour
             cameraPosY = (playerListYPos[0] + playerListYPos[playerListYPos.Count - 1]) / 2;
             endLerp.transform.position = new Vector3(0f, playerListYPos[playerListYPos.Count - 1], 0f);
         }
+
+        //Look at what players X position is
         if (playerListXPos.Count > 0)
         {
             playerListXPos.Sort();
 
             cameraPosX = (playerListXPos[0] + playerListXPos[playerListXPos.Count - 1]) / 2;
         }
-
+        
+        //Using X and Y position to get new Z position
         if (playerListXPos.Count > 0)
         {
             playersDistMax = new Vector3(playerListXPos[playerListXPos.Count - 1], playerListYPos[playerListYPos.Count - 1]);
@@ -60,8 +65,6 @@ public class CameraScript : MonoBehaviour
 
             float distance = Vector3.Distance(playerDistMin, playersDistMax);
             float zoom = distance * -cameraZoom;
-
-            print(distance);
 
             zoom = Mathf.Clamp(zoom, minZPos, maxZPos);
 
