@@ -6,11 +6,22 @@ using XInputDotNetPure;
 public class PlayerController : MonoBehaviour
 {
     public int playerNr = 1;
-    
+
     // For hand controls
     [SerializeField] float pushForce = 100f;
     // For torso when pulling when gripped
     [SerializeField] float pullForce = 50f;
+
+    //Vibration Timer
+    [SerializeField] float rightTimer;
+    [SerializeField] float leftTimer;
+    
+    //Timers for vibrating states
+    [SerializeField] float justGrabbed = 0.5f;
+    [SerializeField] float losingGrip;
+    [SerializeField] float lostGrip;
+
+
 
     // Rigidbodies for bodyparts
     [SerializeField] Rigidbody leftHand;
@@ -22,6 +33,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject grabObjLeft;
     [SerializeField] GameObject grabObjRight;
 
+    //"Stamina bools". If set false, said hand wont be able to climb.
+    bool rightCanClimb = true;
+    bool leftCanClimb = true;
+
+    //Checks if hand is griping
     bool gripLeft = false;
     bool gripRight = false;
 
@@ -40,6 +56,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        rightCanClimb = true;
+        leftCanClimb = true;
     }
 
 
@@ -48,74 +66,135 @@ public class PlayerController : MonoBehaviour
         prevState = state;
         state = GamePad.GetState(playerIndex);
 
-        // Left arm and joystick
-        if (gripLeft)
-        {
-            // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-            //pullDirLeft = new Vector3(-Input.GetAxis("XB-leftjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f, 1f));
-            pullDirLeft = new Vector3(Mathf.Clamp(-state.ThumbSticks.Left.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
 
-            // Resets pushDir
-            pushDirLeft = Vector3.zero;
+        
+            // Left arm and joystick
+            if (gripLeft)
+            {
+                // Gets joystick X- and Y-axis, clamps Y between 0 and 1
+                //pullDirLeft = new Vector3(-Input.GetAxis("XB-leftjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f, 1f));
+                pullDirLeft = new Vector3(Mathf.Clamp(-state.ThumbSticks.Left.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
+
+                // Resets pushDir
+                pushDirLeft = Vector3.zero;
+            }
+            else
+            {
+                // Gets direction of joystick axis
+                //pushDirLeft = new Vector3(Input.GetAxis("XB-leftjoystickX_p" + playerNr), -Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f);
+                pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
+
+                leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+
+                // Resets pullDir
+                pullDirLeft = Vector3.zero;
+            }
+            // Right arm and joystick
+            if (gripRight)
+            {
+                // Gets joystick X- and Y-axis, clamps Y between 0 and 1
+                //pullDirRight = new Vector3(-Input.GetAxis("XB-rightjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f, 1f));
+                pullDirRight = new Vector3(Mathf.Clamp(-state.ThumbSticks.Right.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
+
+                // Resets pushDir
+                pushDirRight = Vector3.zero;
+            }
+            else
+            {
+                // Gets direction of joystick axis
+                //pushDirRight = new Vector3(Input.GetAxis("XB-rightjoystickX_p" + playerNr), -Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f);
+                pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
+
+                rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+
+                // Resets pullDir
+                pullDirRight = Vector3.zero;
+            }
+
+            // Left grip controls
+            if (/*Input.GetAxis("XB-leftTrigger_p" + playerNr)*/state.Triggers.Left == 1 && !gripLeft)
+            {
+                grabObjLeft.SetActive(true);
+                gripLeft = true;
+            }
+            else if (/*Input.GetAxis("XB-leftTrigger_p" + playerNr)*/state.Triggers.Left == 0 && gripLeft)
+            {
+                grabObjLeft.SetActive(false);
+                gripLeft = false;
+            }
+            // Right grip controls
+            if (/*Input.GetAxis("XB-rightTrigger_p" + playerNr)*/state.Triggers.Right == 1 && !gripRight)
+            {
+                grabObjRight.SetActive(true);
+                gripRight = true;
+
+            }
+            else if (/*Input.GetAxis("XB-rightTrigger_p" + playerNr)*/state.Triggers.Right == 0 && gripRight)
+            {
+                grabObjRight.SetActive(false);
+                gripRight = false;
+            }
+
+
+        //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
+        if (gripRight == true)
+        {
+            rightTimer += Time.deltaTime;
+
+            if (rightTimer < justGrabbed)
+            {
+                GamePad.SetVibration(playerIndex, 1f, 1f);
+            }
+            else
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+
+
+            if (rightTimer >= losingGrip)
+            {
+                GamePad.SetVibration(playerIndex, 0f, 1f);
+            }
+
+            if (rightTimer >= lostGrip)
+            {
+                rightCanClimb = false;
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+            }
         }
-        else
+
+        if(gripRight == false)
         {
-            // Gets direction of joystick axis
-            //pushDirLeft = new Vector3(Input.GetAxis("XB-leftjoystickX_p" + playerNr), -Input.GetAxis("XB-leftjoystickY_p" + playerNr), 0f);
-            pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
-
-            leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
-
-            // Resets pullDir
-            pullDirLeft = Vector3.zero;
-        }
-        // Right arm and joystick
-        if (gripRight)
-        {
-            // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-            //pullDirRight = new Vector3(-Input.GetAxis("XB-rightjoystickX_p" + playerNr), Mathf.Clamp(Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f, 1f));
-            pullDirRight = new Vector3(Mathf.Clamp(-state.ThumbSticks.Right.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
-
-            // Resets pushDir
-            pushDirRight = Vector3.zero;
-        }
-        else
-        {
-            // Gets direction of joystick axis
-            //pushDirRight = new Vector3(Input.GetAxis("XB-rightjoystickX_p" + playerNr), -Input.GetAxis("XB-rightjoystickY_p" + playerNr), 0f);
-            pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
-
-            rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
-
-            // Resets pullDir
-            pullDirRight = Vector3.zero;
+            GamePad.SetVibration(playerIndex, 0f, 0f);
+            rightTimer = 0;
         }
 
-        // Left grip controls
-        if (/*Input.GetAxis("XB-leftTrigger_p" + playerNr)*/state.Triggers.Left == 1 && !gripLeft)
+        //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
+        if (gripLeft == true)
         {
-            grabObjLeft.SetActive(true);
+            leftTimer += Time.deltaTime;
 
-            gripLeft = true;
+            if (leftTimer < justGrabbed)
+            {
+                GamePad.SetVibration(playerIndex, 0.5f, 0.1f);
+            }
+            else
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+
+            if (leftTimer >= losingGrip)
+            {
+                GamePad.SetVibration(playerIndex, 0.2f, 0f);
+            }
+
+            if (leftTimer >= lostGrip)
+            {
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+                leftCanClimb = false;
+            }
         }
-        else if (/*Input.GetAxis("XB-leftTrigger_p" + playerNr)*/state.Triggers.Left == 0 && gripLeft)
-        {
-            grabObjLeft.SetActive(false);
 
-            gripLeft = false;
-        }
-        // Right grip controls
-        if (/*Input.GetAxis("XB-rightTrigger_p" + playerNr)*/state.Triggers.Right == 1 && !gripRight)
+        if (gripLeft == false)
         {
-            grabObjRight.SetActive(true);
-
-            gripRight = true;
-        }
-        else if (/*Input.GetAxis("XB-rightTrigger_p" + playerNr)*/state.Triggers.Right == 0 && gripRight)
-        {
-            grabObjRight.SetActive(false);
-
-            gripRight = false;
+            GamePad.SetVibration(playerIndex, 0f, 0f);
+            leftTimer = 0;
         }
     }
 
