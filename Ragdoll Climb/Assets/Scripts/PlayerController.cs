@@ -35,6 +35,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] ParticleSystem boostEffect;
 
+    //Vibration Timer
+    [SerializeField] float rightTimer;
+    [SerializeField] float leftTimer;
+
+    //Timers for vibrating states
+    [SerializeField] float justGrabbed = 0.5f;
+    [SerializeField] float losingGrip;
+    [SerializeField] float lostGrip;
+
     // If hands are currently gripping
     bool gripLeft = false;
     bool gripRight = false;
@@ -44,6 +53,10 @@ public class PlayerController : MonoBehaviour
     // If the hand can trigger a boost
     bool leftBoostReady = false;
     bool rightBoostReady = false;
+
+    //"Stamina bools". If set false, said hand wont be able to climb.
+    bool rightCanClimb = true;
+    bool leftCanClimb = true;
 
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
@@ -76,6 +89,9 @@ public class PlayerController : MonoBehaviour
     {
         startPushForce = pushForce;
         startPullForce = pullForce;
+
+        rightCanClimb = true;
+        leftCanClimb = true;
     }
 
 
@@ -229,6 +245,68 @@ public class PlayerController : MonoBehaviour
                 if (!continuousBoost)
                     goodClimbs = 0;
             }
+        }
+
+
+        //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
+        if (gripRight == true)
+        {
+            rightTimer += Time.deltaTime;
+
+            if (rightTimer < justGrabbed)
+            {
+                GamePad.SetVibration(playerIndex, 1f, 1f);
+            }
+            else
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+
+
+            if (rightTimer >= losingGrip)
+            {
+                GamePad.SetVibration(playerIndex, 0f, 1f);
+            }
+
+            if (rightTimer >= lostGrip)
+            {
+                rightCanClimb = false;
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+            }
+        }
+
+        if (gripRight == false)
+        {
+            GamePad.SetVibration(playerIndex, 0f, 0f);
+            rightTimer = 0;
+        }
+
+        //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
+        if (gripLeft == true)
+        {
+            leftTimer += Time.deltaTime;
+
+            if (leftTimer < justGrabbed)
+            {
+                GamePad.SetVibration(playerIndex, 0.5f, 0.1f);
+            }
+            else
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+
+            if (leftTimer >= losingGrip)
+            {
+                GamePad.SetVibration(playerIndex, 0.2f, 0f);
+            }
+
+            if (leftTimer >= lostGrip)
+            {
+                GamePad.SetVibration(playerIndex, 0f, 0f);
+                leftCanClimb = false;
+            }
+        }
+
+        if (gripLeft == false)
+        {
+            GamePad.SetVibration(playerIndex, 0f, 0f);
+            leftTimer = 0;
         }
     }
 
