@@ -29,7 +29,7 @@ public class DistanceToGoal : MonoBehaviour {
         // Calculating the dictance by procent
         Debug.Log("Distance from goal: " + distToEnd + "(start pos: " + startPos);
         procentToEnd = (cam.position.y - startPos ) / (goal.position.y - startPos ) ;
-        rangeText.text = "Finish line: " + distToEnd;
+        rangeText.text = "Distance to Finish line: " + distToEnd.ToString("F1") + " meter";
 
         // When it reach zero
         if(distToEnd <= 0)
