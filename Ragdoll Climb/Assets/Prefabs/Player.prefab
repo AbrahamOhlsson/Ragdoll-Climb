@@ -11590,11 +11590,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -177
+    limit: -90
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 177
+    limit: 140
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -11645,7 +11645,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 177
+    limit: 100
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
@@ -11702,7 +11702,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!144 &144387320724383416
@@ -11757,7 +11757,7 @@ CharacterJoint:
   m_GameObject: {fileID: 1181926896748758}
   m_ConnectedBody: {fileID: 54306390828140280}
   m_Anchor: {x: 0, y: 0, z: 0}
-  m_Axis: {x: 0, y: 1, z: 0}
+  m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: -0.036221463, y: -0.0024675694, z: -0.022215465}
   serializedVersion: 2
@@ -11766,11 +11766,11 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_LowTwistLimit:
-    limit: -177
+    limit: -90
     bounciness: 0
     contactDistance: 0
   m_HighTwistLimit:
-    limit: 177
+    limit: 140
     bounciness: 0
     contactDistance: 0
   m_SwingLimitSpring:
@@ -11922,7 +11922,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 1
+  m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!144 &144834481788644884
@@ -11981,7 +11981,7 @@ CharacterJoint:
   m_AutoConfigureConnectedAnchor: 1
   m_ConnectedAnchor: {x: -0.03210546, y: -1.9494806e-10, z: 0.000000036757793}
   serializedVersion: 2
-  m_SwingAxis: {x: 0, y: 1, z: 0}
+  m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
     spring: 0
     damper: 0
@@ -11997,7 +11997,7 @@ CharacterJoint:
     spring: 0
     damper: 0
   m_Swing1Limit:
-    limit: 177
+    limit: 100
     bounciness: 0
     contactDistance: 0
   m_Swing2Limit:
