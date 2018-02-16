@@ -31,12 +31,9 @@ public class ImageCountUI : MonoBehaviour
         customImageOne.enabled = false;
         customImageClimb.enabled = true;
         multiplayerManager.ActivatePlayers();
+        FindObjectOfType<musicAndSoundManager>().Play("startHorn"); 
         yield return new WaitForSeconds(1);
         customImageClimb.enabled = false;
-
-        Debug.Log("contdown");
-        FindObjectOfType<musicAndSoundManager>().Play("startHorn"); 
-
         Destroy(this);
     }
 

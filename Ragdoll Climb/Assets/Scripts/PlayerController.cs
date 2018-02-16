@@ -6,6 +6,7 @@ using XInputDotNetPure;
 public class PlayerController : MonoBehaviour
 {
     public int playerNr = 1;
+    public bool canMove = true;
     
     [Tooltip("For hand controls.")]
     [SerializeField] float pushForce = 100f;
@@ -110,169 +111,172 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        prevState = state;
-        state = GamePad.GetState(playerIndex);
-
-        // Left arm and joystick
-        if (gripLeft)
+        if (canMove)
         {
-            // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-            pullDirLeft = new Vector3(Mathf.Clamp(-state.ThumbSticks.Left.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
+            prevState = state;
+            state = GamePad.GetState(playerIndex);
 
-            // Counts time for how long this hand has gripped
-            leftGripTimer += Time.deltaTime;
-
-            // Resets pushDir
-            pushDirLeft = Vector3.zero;
-        }
-        else
-        {
-            if(leftCanClimb == true)
+            // Left arm and joystick
+            if (gripLeft)
             {
-                // Gets direction of joystick axis
-                pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
+                // Gets joystick X- and Y-axis, clamps Y between 0 and 1
+                pullDirLeft = new Vector3(Mathf.Clamp(-state.ThumbSticks.Left.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
+
+                // Counts time for how long this hand has gripped
+                leftGripTimer += Time.deltaTime;
+
+                // Resets pushDir
+                pushDirLeft = Vector3.zero;
             }
             else
             {
+                if (leftCanClimb == true)
+                {
+                    // Gets direction of joystick axis
+                    pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
+                }
+                else
+                {
+                    gripLeft = false;
+                    leftNumbArm += Time.deltaTime;
+
+                    if (leftNumbArm >= armTimeOut)
+                    {
+                        leftNumbArm = 0;
+                        leftCanClimb = true;
+                        leftStaminaBar.material.color = Color.green;
+                    }
+                }
+
+                // Straightens wrist
+                leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+
+                // Resets pullDir
+                pullDirLeft = Vector3.zero;
+            }
+            // Right arm and joystick
+            if (gripRight)
+            {
+                // Gets joystick X- and Y-axis, clamps Y between 0 and 1
+                pullDirRight = new Vector3(Mathf.Clamp(-state.ThumbSticks.Right.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
+
+                // Counts time for how long this hand has gripped
+                rightGripTimer += Time.deltaTime;
+
+                // Resets pushDir
+                pushDirRight = Vector3.zero;
+            }
+            else
+            {
+                if (rightCanClimb == true)
+                {
+                    // Gets direction of joystick axis
+                    pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
+                }
+                else
+                {
+                    gripRight = false;
+                    rightNumbArm += Time.deltaTime;
+
+                    if (rightNumbArm >= armTimeOut)
+                    {
+                        rightNumbArm = 0;
+                        rightCanClimb = true;
+                        rightStaminaBar.material.color = Color.green;
+                    }
+                }
+
+                // Straightens wrist
+                rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+
+                // Resets pullDir
+                pullDirRight = Vector3.zero;
+            }
+
+            // Left grip controls
+            if (state.Triggers.Left == 1 && !gripLeft)
+            {
+                if (leftCanClimb == true)
+                {
+                    grabObjLeft.SetActive(true);
+                    gripLeft = true;
+
+                    // Gets distance from the other hand
+                    float handDist = leftHand.position.y - rightHand.position.y;
+
+                    // If distance is above the required amount AND if the other arm has been gripped within the interval AND if the other hand is gripping && if this hand can activate boost
+                    if (handDist >= reqHandHeightForBoost && rightGripTimer <= gripTimeframeForBoost && gripRight && leftBoostReady)
+                    {
+                        // A good climb has been performed
+                        goodClimbs++;
+
+                        // Activates boost if the player has performed the required amounts of good climbs
+                        if (goodClimbs >= reqGoodClimbs)
+                            ActivateBoost();
+                    }
+                    else
+                        goodClimbs = 0;
+
+                    // If the left hand is above the right
+                    if (handDist > 0)
+                        // The right hand can now activate boost
+                        rightBoostReady = true;
+                    else
+                        // The right hand cannot activate boost, this prevents exploiting the boost
+                        rightBoostReady = false;
+                }
+            }
+            // If trigger is released
+            else if (state.Triggers.Left == 0 && gripLeft)
+            {
+                grabObjLeft.SetActive(false);
+
+                leftGripTimer = 0f;
+
                 gripLeft = false;
-                leftNumbArm += Time.deltaTime;
-
-                if(leftNumbArm >= armTimeOut)
+            }
+            // Right grip controls
+            if (state.Triggers.Right == 1 && !gripRight)
+            {
+                if (rightCanClimb == true)
                 {
-                    leftNumbArm = 0;
-                    leftCanClimb = true;
-                    leftStaminaBar.material.color = Color.green;
+                    grabObjRight.SetActive(true);
+                    gripRight = true;
+
+                    // Gets distance from the other hand
+                    float handDist = rightHand.position.y - leftHand.position.y;
+
+                    // If distance is above the required amount AND if the other arm has been gripped within the interval AND if the other hand is gripping && if this hand can activate boost
+                    if (handDist >= reqHandHeightForBoost && leftGripTimer <= gripTimeframeForBoost && gripLeft && rightBoostReady)
+                    {
+                        // A good climb has been performed
+                        goodClimbs++;
+
+                        // Activates boost if the player has performed the required amounts of good climbs
+                        if (goodClimbs >= reqGoodClimbs)
+                            ActivateBoost();
+                    }
+                    else
+                        goodClimbs = 0;
+
+                    // If the right hand is above the left
+                    if (handDist > 0)
+                        // The left hand can now activate boosts
+                        leftBoostReady = true;
+                    else
+                        // The left hand cannot activate boost, this prevents exploiting the boost
+                        leftBoostReady = false;
                 }
             }
-
-            // Straightens wrist
-            leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
-
-            // Resets pullDir
-            pullDirLeft = Vector3.zero;
-        }
-        // Right arm and joystick
-        if (gripRight)
-        {
-            // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-             pullDirRight = new Vector3(Mathf.Clamp(-state.ThumbSticks.Right.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
-
-            // Counts time for how long this hand has gripped
-            rightGripTimer += Time.deltaTime;
-
-            // Resets pushDir
-            pushDirRight = Vector3.zero;
-        }
-        else
-        {
-            if (rightCanClimb == true)
+            // If trigger is released
+            else if (state.Triggers.Right == 0 && gripRight)
             {
-                // Gets direction of joystick axis
-                pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
-            }
-            else
-            {
+                grabObjRight.SetActive(false);
+
+                rightGripTimer = 0f;
+
                 gripRight = false;
-                rightNumbArm += Time.deltaTime;
-
-                if(rightNumbArm >= armTimeOut)
-                {
-                    rightNumbArm = 0;
-                    rightCanClimb = true;
-                    rightStaminaBar.material.color = Color.green;
-                }
             }
-
-            // Straightens wrist
-            rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
-
-            // Resets pullDir
-            pullDirRight = Vector3.zero;
-        }
-
-        // Left grip controls
-        if (state.Triggers.Left == 1 && !gripLeft)
-        {
-            if (leftCanClimb == true)
-            {
-                grabObjLeft.SetActive(true);
-                gripLeft = true;
-
-                // Gets distance from the other hand
-                float handDist = leftHand.position.y - rightHand.position.y;
-
-                // If distance is above the required amount AND if the other arm has been gripped within the interval AND if the other hand is gripping && if this hand can activate boost
-                if (handDist >= reqHandHeightForBoost && rightGripTimer <= gripTimeframeForBoost && gripRight && leftBoostReady)
-                {
-                    // A good climb has been performed
-                    goodClimbs++;
-
-                    // Activates boost if the player has performed the required amounts of good climbs
-                    if (goodClimbs >= reqGoodClimbs)
-                        ActivateBoost();
-                }
-                else
-                    goodClimbs = 0;
-
-                // If the left hand is above the right
-                if (handDist > 0)
-                    // The right hand can now activate boost
-                    rightBoostReady = true;
-                else
-                    // The right hand cannot activate boost, this prevents exploiting the boost
-                    rightBoostReady = false;
-            }
-        }
-        // If trigger is released
-        else if (state.Triggers.Left == 0 && gripLeft)
-        {
-            grabObjLeft.SetActive(false);
-
-            leftGripTimer = 0f;
-
-            gripLeft = false;
-        }
-        // Right grip controls
-        if (state.Triggers.Right == 1 && !gripRight)
-        {
-            if (rightCanClimb == true)
-            {
-                grabObjRight.SetActive(true);
-                gripRight = true;
-
-                // Gets distance from the other hand
-                float handDist = rightHand.position.y - leftHand.position.y;
-
-                // If distance is above the required amount AND if the other arm has been gripped within the interval AND if the other hand is gripping && if this hand can activate boost
-                if (handDist >= reqHandHeightForBoost && leftGripTimer <= gripTimeframeForBoost && gripLeft && rightBoostReady)
-                {
-                    // A good climb has been performed
-                    goodClimbs++;
-
-                    // Activates boost if the player has performed the required amounts of good climbs
-                    if (goodClimbs >= reqGoodClimbs)
-                        ActivateBoost();
-                }
-                else
-                    goodClimbs = 0;
-
-                // If the right hand is above the left
-                if (handDist > 0)
-                    // The left hand can now activate boosts
-                    leftBoostReady = true;
-                else
-                    // The left hand cannot activate boost, this prevents exploiting the boost
-                    leftBoostReady = false;
-            }
-        }
-        // If trigger is released
-        else if (state.Triggers.Right == 0 && gripRight)
-        {
-            grabObjRight.SetActive(false);
-
-            rightGripTimer = 0f;
-
-            gripRight = false;
         }
 
         // If boost is active
@@ -384,7 +388,7 @@ public class PlayerController : MonoBehaviour
                 leftStaminaBar.material.color = Color.green;
             if (leftTimer <= 0.01f)
                 leftStaminaBar.enabled = false;
-        }
+            }
     }
 
 

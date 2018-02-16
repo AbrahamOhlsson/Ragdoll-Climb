@@ -16,6 +16,16 @@ public class MultiplayerManager : MonoBehaviour
     GamePadState[] states = new GamePadState[4];
     
 
+    void Start()
+    {
+        for (int i = 0; i < players.Count; i++)
+        {
+            //players[i].GetComponent<PlayerController>().enabled = true;
+            players[i].GetComponent<PlayerController>().canMove = false;
+        }
+    }
+
+
     void Update ()
     {
         // Gets states for all game pads
@@ -51,9 +61,13 @@ public class MultiplayerManager : MonoBehaviour
 
     public void ActivatePlayers()
     {
+        
+
         for (int i = 0; i < players.Count; i++)
         {
-            players[i].GetComponent<PlayerController>().enabled = true;
+            //players[i].GetComponent<PlayerController>().enabled = true;
+            players[i].GetComponent<PlayerController>().canMove = true;
+            print("ActivatePlayers");
         }
     }
 }
