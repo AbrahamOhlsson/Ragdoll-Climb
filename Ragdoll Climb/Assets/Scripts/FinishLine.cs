@@ -44,7 +44,11 @@ public class FinishLine : MonoBehaviour
                 yellowWins.enabled = true;
             }
 
+            Debug.Log("applaus inc ");
+            FindObjectOfType<musicAndSoundManager>().Play("applaus");
+
             gameOver = true;
+            
 
             rematchCanvas.SetActive(true);
             doItButton.Select();

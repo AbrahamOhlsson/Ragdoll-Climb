@@ -15,7 +15,7 @@ public class TESTSLÄNGSEN : MonoBehaviour {
         {
             Debug.Log("UP");
 
-            GetComponent<musicAndSoundManager>().Play("test");
+            GetComponent<musicAndSoundManager>().Play("applaus");
 
         }
 	}
