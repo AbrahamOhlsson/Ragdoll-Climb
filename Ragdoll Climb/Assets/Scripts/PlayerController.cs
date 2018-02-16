@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] ParticleSystem boostEffect;
 
+    [SerializeField] Renderer leftStaminaBar;
+    [SerializeField] Renderer rightStaminaBar;
+
     //Vibration Timer
     [SerializeField] float rightTimer;
     [SerializeField] float leftTimer;
@@ -102,9 +105,6 @@ public class PlayerController : MonoBehaviour
     {
         startPushForce = pushForce;
         startPullForce = pullForce;
-
-        rightCanClimb = true;
-        leftCanClimb = true;
     }
 
 
@@ -141,6 +141,7 @@ public class PlayerController : MonoBehaviour
                 {
                     leftNumbArm = 0;
                     leftCanClimb = true;
+                    leftStaminaBar.material.color = Color.green;
                 }
             }
 
@@ -178,6 +179,7 @@ public class PlayerController : MonoBehaviour
                 {
                     rightNumbArm = 0;
                     rightCanClimb = true;
+                    rightStaminaBar.material.color = Color.green;
                 }
             }
 
@@ -298,6 +300,8 @@ public class PlayerController : MonoBehaviour
         //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
         if (gripRight == true)
         {
+            rightStaminaBar.enabled = true;
+
             rightTimer += Time.deltaTime;
 
             if (rightTimer < justGrabbed)
@@ -311,6 +315,7 @@ public class PlayerController : MonoBehaviour
             if (rightTimer >= losingGrip)
             {
                 GamePad.SetVibration(playerIndex, 0f, 1f);
+                rightStaminaBar.material.color = Color.red;
             }
 
             if (rightTimer >= lostGrip)
@@ -320,6 +325,8 @@ public class PlayerController : MonoBehaviour
                 grabObjRight.SetActive(false);
                 gripRight = false;
             }
+
+            rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
         }
 
         if (gripRight == false)
@@ -327,11 +334,19 @@ public class PlayerController : MonoBehaviour
             GamePad.SetVibration(playerIndex, 0f, 0f);
             rightTimer -= Time.deltaTime * staminaRegen;
             rightTimer = Mathf.Clamp(rightTimer, 0f, lostGrip);
+            rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
+
+            if (rightTimer <= losingGrip)
+                rightStaminaBar.material.color = Color.green;
+            if (rightTimer <= 0.01f)
+                rightStaminaBar.enabled = false;
         }
 
         //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
         if (gripLeft == true)
         {
+            leftStaminaBar.enabled = true;
+
             leftTimer += Time.deltaTime;
 
             if (leftTimer < justGrabbed)
@@ -344,6 +359,7 @@ public class PlayerController : MonoBehaviour
             if (leftTimer >= losingGrip)
             {
                 GamePad.SetVibration(playerIndex, 0.1f, 0f);
+                leftStaminaBar.material.color = Color.red;
             }
 
             if (leftTimer > lostGrip)
@@ -353,6 +369,8 @@ public class PlayerController : MonoBehaviour
                 grabObjLeft.SetActive(false);
                 gripLeft = false;
             }
+
+            leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
         }
 
         if (gripLeft == false)
@@ -360,9 +378,13 @@ public class PlayerController : MonoBehaviour
             GamePad.SetVibration(playerIndex, 0f, 0f);
             leftTimer -= Time.deltaTime * staminaRegen;
             leftTimer = Mathf.Clamp(leftTimer, 0f, lostGrip);
-        }
+            leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
 
-        
+            if (leftTimer <= losingGrip)
+                leftStaminaBar.material.color = Color.green;
+            if (leftTimer <= 0.01f)
+                leftStaminaBar.enabled = false;
+        }
     }
 
 
