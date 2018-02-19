@@ -7,34 +7,31 @@ public class LowerMass : MonoBehaviour {
 	GameObject PlayerCol;
 	[SerializeField]
 	private float MassPercent;
-	private float rotSpeed;
 
 	//Float
-	private float degreesPerSecond = 15.0f;
-	private float amplitude = 0.3f;
-	private float frequency = 1f;
+	[SerializeField]
+	private float rotateSpeed = 15.0f;
+	[SerializeField]
+	private float floatLength = 0.3f;
+	[SerializeField]
+	private float floatSpeed = 1f;
 	Vector3 posOffset = new Vector3();
 	Vector3 tempPos = new Vector3();
 
 	void Start()
 	{
-		// Rotation speed
-		rotSpeed = 50;
-
 		posOffset = transform.position;
 	}
 
 	// Rotate and float up and down
 	 void Update()
 	{
-		// Rotatie
-		transform.Rotate(Vector3.up, rotSpeed * Time.deltaTime);
-
-		transform.Rotate(new Vector3(0f, Time.deltaTime * degreesPerSecond, 0f), Space.World);
+		// Rotate
+		transform.Rotate(new Vector3(0f, Time.deltaTime * rotateSpeed, 0f), Space.World);
 
 		// Float up/down with a Sin()
 		tempPos = posOffset;
-		tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * frequency) * amplitude;
+		tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * floatSpeed) * floatLength;
 
 		transform.position = tempPos;
 	}
