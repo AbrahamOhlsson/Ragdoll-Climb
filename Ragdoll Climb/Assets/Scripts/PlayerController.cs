@@ -35,9 +35,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject grabObjRight;
 
     [SerializeField] ParticleSystem boostEffect;
+    [SerializeField] ParticleSystem leftGoodClimbEffect;
+    [SerializeField] ParticleSystem rightGoodClimbEffect;
 
     [SerializeField] Renderer leftStaminaBar;
     [SerializeField] Renderer rightStaminaBar;
+
+    [SerializeField] AudioClip goodClimbSfx;
+    [SerializeField] AudioClip boostSfx;
 
     //Vibration Timer
     [SerializeField] float rightTimer;
@@ -51,9 +56,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float minVibrate;
     [SerializeField] float maxVibrate;
 
-    // If hands are currently gripping
-    bool gripLeft = false;
-    bool gripRight = false;
 
     //Timer if the arms are too tired to climb with
     [SerializeField] float rightNumbArm = 0;
@@ -65,6 +67,10 @@ public class PlayerController : MonoBehaviour
     // Determines how long the arms are out cold when extending stamina value.
     [SerializeField] float armTimeOut;
 
+    // If hands are currently gripping
+    bool gripLeft = false;
+    bool gripRight = false;
+    
     // If rewarding boost is active
     bool boostActive = false;
     // If the hand can trigger a boost
@@ -101,11 +107,15 @@ public class PlayerController : MonoBehaviour
     GamePadState state;
     GamePadState prevState;
 
+    AudioSource source;
+
 
     void Start()
     {
         startPushForce = pushForce;
         startPullForce = pullForce;
+
+        source = GetComponent<AudioSource>();
     }
 
 
@@ -210,6 +220,10 @@ public class PlayerController : MonoBehaviour
                         // A good climb has been performed
                         goodClimbs++;
 
+                        // Plays particle effect and sound effect indicating a good climb
+                        leftGoodClimbEffect.Play();
+                        source.PlayOneShot(goodClimbSfx);
+
                         // Activates boost if the player has performed the required amounts of good climbs
                         if (goodClimbs >= reqGoodClimbs)
                             ActivateBoost();
@@ -251,6 +265,10 @@ public class PlayerController : MonoBehaviour
                     {
                         // A good climb has been performed
                         goodClimbs++;
+
+                        // Plays particle effect and sound effect indicating a good climb
+                        rightGoodClimbEffect.Play();
+                        source.PlayOneShot(goodClimbSfx);
 
                         // Activates boost if the player has performed the required amounts of good climbs
                         if (goodClimbs >= reqGoodClimbs)
@@ -422,6 +440,7 @@ public class PlayerController : MonoBehaviour
 
         boostTimer = 0f;
         boostEffect.Play();
+        source.PlayOneShot(boostSfx);
         boostActive = true;
     }
 }
