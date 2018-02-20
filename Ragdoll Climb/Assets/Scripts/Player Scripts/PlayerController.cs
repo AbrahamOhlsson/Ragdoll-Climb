@@ -73,6 +73,9 @@ public class PlayerController : MonoBehaviour
     
     // If rewarding boost is active
     bool boostActive = false;
+
+    bool unlimitedStamina = false;
+
     // If the hand can trigger a boost
     bool leftBoostReady = false;
     bool rightBoostReady = false;
@@ -80,10 +83,12 @@ public class PlayerController : MonoBehaviour
     //"Stamina bools". If set false, said hand wont be able to climb.
     bool rightCanClimb = true;
     bool leftCanClimb = true;
-
+    
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
 
+    int invertedPull = 1;
+    
     // The initial forces, used for resetting
     float startPushForce;
     float startPullForce;
@@ -129,8 +134,11 @@ public class PlayerController : MonoBehaviour
             // Left arm and joystick
             if (gripLeft)
             {
-                // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-                pullDirLeft = new Vector3(Mathf.Clamp(-state.ThumbSticks.Left.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Left.Y, 0, 1f));
+                // Gets joystick X- and Y-axis, invertes if needed
+                pullDirLeft = new Vector3(-state.ThumbSticks.Left.X, -state.ThumbSticks.Left.Y) * invertedPull;
+                
+                // Clamps pullDir so that X isn't too big and Y can only be above 0
+                pullDirLeft = new Vector3(Mathf.Clamp(pullDirLeft.x, -0.5f, 0.5f), Mathf.Clamp(pullDirLeft.y, 0f, 1f));
 
                 // Counts time for how long this hand has gripped
                 leftGripTimer += Time.deltaTime;
@@ -167,8 +175,11 @@ public class PlayerController : MonoBehaviour
             // Right arm and joystick
             if (gripRight)
             {
-                // Gets joystick X- and Y-axis, clamps Y between 0 and 1
-                pullDirRight = new Vector3(Mathf.Clamp(-state.ThumbSticks.Right.X, -0.5f, 0.5f), Mathf.Clamp(-state.ThumbSticks.Right.Y, 0, 1f));
+                // Gets joystick X- and Y-axis, invertes if needed
+                pullDirRight = new Vector3(-state.ThumbSticks.Right.X, -state.ThumbSticks.Right.Y) * invertedPull;
+
+                // Clamps pullDir so that X isn't too big and Y can only be above 0
+                pullDirRight = new Vector3(Mathf.Clamp(pullDirRight.x, -0.5f, 0.5f), Mathf.Clamp(pullDirRight.y, 0f, 1f));
 
                 // Counts time for how long this hand has gripped
                 rightGripTimer += Time.deltaTime;
@@ -320,7 +331,7 @@ public class PlayerController : MonoBehaviour
 
 
         //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
-        if (gripRight == true)
+        if (gripRight == true && !unlimitedStamina)
         {
             rightStaminaBar.enabled = true;
 
@@ -365,7 +376,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
-        if (gripLeft == true)
+        if (gripLeft == true && !unlimitedStamina)
         {
             leftStaminaBar.enabled = true;
 
@@ -428,11 +439,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void ActivateBoost()
+    public bool ActivateBoost()
     {
         // Aborts if the boos isn't continuous and if it already is activated
         if (!continuousBoost && boostActive)
-            return;
+            return false;
 
         // Boosts forces
         pushForce = startPushForce * boostMult;
@@ -442,5 +453,28 @@ public class PlayerController : MonoBehaviour
         boostEffect.Play();
         source.PlayOneShot(boostSfx);
         boostActive = true;
+
+        return true;
+    }
+
+
+    public void ToggleInvertPull()
+    {
+        invertedPull *= -1;
+    }
+
+    public void ToggleUnlimitedStamina()
+    {
+        if (unlimitedStamina)
+        {
+            unlimitedStamina = false;
+        }
+        else
+        {
+            leftTimer = 0;
+            rightTimer = 0;
+
+            unlimitedStamina = true;
+        }
     }
 }
