@@ -112,6 +112,9 @@ public class PlayerController : MonoBehaviour
     GamePadState state;
     GamePadState prevState;
 
+    CheckGrip checkGripLeft;
+    CheckGrip checkGripRight;
+
     AudioSource source;
 
 
@@ -119,6 +122,9 @@ public class PlayerController : MonoBehaviour
     {
         startPushForce = pushForce;
         startPullForce = pullForce;
+
+        checkGripLeft = leftHand.GetComponent<CheckGrip>();
+        checkGripRight = rightHand.GetComponent<CheckGrip>();
 
         source = GetComponent<AudioSource>();
     }
@@ -134,93 +140,63 @@ public class PlayerController : MonoBehaviour
             // Left arm and joystick
             if (gripLeft)
             {
-                // Gets joystick X- and Y-axis, invertes if needed
-                pullDirLeft = new Vector3(-state.ThumbSticks.Left.X, -state.ThumbSticks.Left.Y) * invertedPull;
-                
-                // Clamps pullDir so that X isn't too big and Y can only be above 0
-                pullDirLeft = new Vector3(Mathf.Clamp(pullDirLeft.x, -0.5f, 0.5f), Mathf.Clamp(pullDirLeft.y, 0f, 1f));
-
-                // Counts time for how long this hand has gripped
-                leftGripTimer += Time.deltaTime;
-
-                // Resets pushDir
-                pushDirLeft = Vector3.zero;
-            }
-            else
-            {
-                if (leftCanClimb == true)
+                if (checkGripLeft.currentGripping.tag == "Throwable")
                 {
-                    // Gets direction of joystick axis
-                    pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
+                    ArmControl(true);
                 }
                 else
                 {
-                    gripLeft = false;
-                    leftNumbArm += Time.deltaTime;
+                    // Gets joystick X- and Y-axis, invertes if needed
+                    pullDirLeft = new Vector3(-state.ThumbSticks.Left.X, -state.ThumbSticks.Left.Y) * invertedPull;
 
-                    if (leftNumbArm >= armTimeOut)
-                    {
-                        leftNumbArm = 0;
-                        leftCanClimb = true;
-                        leftStaminaBar.material.color = Color.green;
-                    }
+                    // Clamps pullDir so that X isn't too big and Y can only be above 0
+                    pullDirLeft = new Vector3(Mathf.Clamp(pullDirLeft.x, -0.5f, 0.5f), Mathf.Clamp(pullDirLeft.y, 0f, 1f));
+
+                    // Counts time for how long this hand has gripped
+                    leftGripTimer += Time.deltaTime;
+
+                    // Resets pushDir
+                    pushDirLeft = Vector3.zero;
                 }
-
-                // Straightens wrist
-                leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
-
-                // Resets pullDir
-                pullDirLeft = Vector3.zero;
+            }
+            else
+            {
+                ArmControl(true);
             }
             // Right arm and joystick
             if (gripRight)
             {
-                // Gets joystick X- and Y-axis, invertes if needed
-                pullDirRight = new Vector3(-state.ThumbSticks.Right.X, -state.ThumbSticks.Right.Y) * invertedPull;
-
-                // Clamps pullDir so that X isn't too big and Y can only be above 0
-                pullDirRight = new Vector3(Mathf.Clamp(pullDirRight.x, -0.5f, 0.5f), Mathf.Clamp(pullDirRight.y, 0f, 1f));
-
-                // Counts time for how long this hand has gripped
-                rightGripTimer += Time.deltaTime;
-
-                // Resets pushDir
-                pushDirRight = Vector3.zero;
-            }
-            else
-            {
-                if (rightCanClimb == true)
+                if (checkGripRight.currentGripping.tag == "Throwable")
                 {
-                    // Gets direction of joystick axis
-                    pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
+                    ArmControl(false);
                 }
                 else
                 {
-                    gripRight = false;
-                    rightNumbArm += Time.deltaTime;
+                    // Gets joystick X- and Y-axis, invertes if needed
+                    pullDirRight = new Vector3(-state.ThumbSticks.Right.X, -state.ThumbSticks.Right.Y) * invertedPull;
 
-                    if (rightNumbArm >= armTimeOut)
-                    {
-                        rightNumbArm = 0;
-                        rightCanClimb = true;
-                        rightStaminaBar.material.color = Color.green;
-                    }
+                    // Clamps pullDir so that X isn't too big and Y can only be above 0
+                    pullDirRight = new Vector3(Mathf.Clamp(pullDirRight.x, -0.5f, 0.5f), Mathf.Clamp(pullDirRight.y, 0f, 1f));
+
+                    // Counts time for how long this hand has gripped
+                    rightGripTimer += Time.deltaTime;
+
+                    // Resets pushDir
+                    pushDirRight = Vector3.zero;
                 }
-
-                // Straightens wrist
-                rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
-
-                // Resets pullDir
-                pullDirRight = Vector3.zero;
+            }
+            else
+            {
+                ArmControl(false);
             }
 
             // Left grip controls
-            if (state.Triggers.Left == 1 && !gripLeft && grabObjLeft.GetComponent<CheckGrip>().canGrip)
+            if ((state.Triggers.Left == 1 || state.Buttons.LeftShoulder == ButtonState.Pressed) && !gripLeft && checkGripLeft.canGrip)
             {
                 if (leftCanClimb == true)
                 {
                     //grabObjLeft.SetActive(true);
-                    grabObjLeft.GetComponent<CheckGrip>().Connect();
+                    checkGripLeft.Connect();
                     gripLeft = true;
 
                     // Gets distance from the other hand
@@ -253,22 +229,17 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if (state.Triggers.Left == 0 && gripLeft)
+            else if (state.Triggers.Left == 0 && state.Buttons.LeftShoulder == ButtonState.Released && gripLeft)
             {
-                //grabObjLeft.SetActive(false);
-                grabObjLeft.GetComponent<CheckGrip>().Disconnect();
-
-                leftGripTimer = 0f;
-
-                gripLeft = false;
+                ReleaseGrip(true);
             }
             // Right grip controls
-            if (state.Triggers.Right == 1 && !gripRight && grabObjRight.GetComponent<CheckGrip>().canGrip)
+            if ((state.Triggers.Right == 1 || state.Buttons.RightShoulder == ButtonState.Pressed) && !gripRight && checkGripRight.canGrip)
             {
                 if (rightCanClimb == true)
                 {
                     //grabObjRight.SetActive(true);
-                    grabObjRight.GetComponent<CheckGrip>().Connect();
+                    checkGripRight.Connect();
 
                     gripRight = true;
 
@@ -302,14 +273,9 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if (state.Triggers.Right == 0 && gripRight)
+            else if (state.Triggers.Right == 0 && state.Buttons.RightShoulder == ButtonState.Released && gripRight)
             {
-                //grabObjRight.SetActive(false);
-                grabObjRight.GetComponent<CheckGrip>().Disconnect();
-
-                rightGripTimer = 0f;
-
-                gripRight = false;
+                ReleaseGrip(false);
             }
         }
 
@@ -333,7 +299,6 @@ public class PlayerController : MonoBehaviour
                     goodClimbs = 0;
             }
         }
-
 
         //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
         if (gripRight == true && !unlimitedStamina)
@@ -360,8 +325,8 @@ public class PlayerController : MonoBehaviour
             {
                 rightCanClimb = false;
                 GamePad.SetVibration(playerIndex, 0f, 0f);
-                grabObjRight.SetActive(false);
-                gripRight = false;
+
+                ReleaseGrip(false);
             }
 
             rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
@@ -404,8 +369,8 @@ public class PlayerController : MonoBehaviour
             {
                 GamePad.SetVibration(playerIndex, 0f, 0f);
                 leftCanClimb = false;
-                grabObjLeft.SetActive(false);
-                gripLeft = false;
+
+                ReleaseGrip(true);
             }
 
             leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
@@ -435,6 +400,68 @@ public class PlayerController : MonoBehaviour
         // Add pull force for torso
         head.AddForce(pullDirLeft * pullForce);
         head.AddForce(pullDirRight * pullForce);
+
+        if (gripLeft)
+            checkGripLeft.currentGripping.AddForce(-pullDirLeft * pullForce);
+        if (gripRight)
+            checkGripRight.currentGripping.AddForce(-pullDirRight * pullForce);
+    }
+
+
+    private void ArmControl(bool left)
+    {
+        if (left)
+        {
+            if (leftCanClimb == true)
+            {
+                // Gets direction of joystick axis
+                pushDirLeft = new Vector3(state.ThumbSticks.Left.X, state.ThumbSticks.Left.Y);
+            }
+            else
+            {
+                gripLeft = false;
+                leftNumbArm += Time.deltaTime;
+
+                if (leftNumbArm >= armTimeOut)
+                {
+                    leftNumbArm = 0;
+                    leftCanClimb = true;
+                    leftStaminaBar.material.color = Color.green;
+                }
+            }
+
+            // Straightens wrist
+            leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+
+            // Resets pullDir
+            pullDirLeft = Vector3.zero;
+        }
+        else
+        {
+            if (rightCanClimb == true)
+            {
+                // Gets direction of joystick axis
+                pushDirRight = new Vector3(state.ThumbSticks.Right.X, state.ThumbSticks.Right.Y);
+            }
+            else
+            {
+                gripRight = false;
+                rightNumbArm += Time.deltaTime;
+
+                if (rightNumbArm >= armTimeOut)
+                {
+                    rightNumbArm = 0;
+                    rightCanClimb = true;
+                    rightStaminaBar.material.color = Color.green;
+                }
+            }
+
+            // Straightens wrist
+            rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+
+            // Resets pullDir
+            pullDirRight = Vector3.zero;
+        }
     }
 
 
@@ -468,7 +495,7 @@ public class PlayerController : MonoBehaviour
         if (left)
         {
             //grabObjLeft.SetActive(false);
-            grabObjLeft.GetComponent<CheckGrip>().Disconnect();
+            checkGripLeft.Disconnect();
 
             leftGripTimer = 0f;
 
@@ -477,7 +504,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             //grabObjRight.SetActive(false);
-            grabObjRight.GetComponent<CheckGrip>().Disconnect();
+            checkGripRight.Disconnect();
 
             rightGripTimer = 0f;
 

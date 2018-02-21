@@ -5,22 +5,20 @@ using UnityEngine;
 public class CheckGrip : MonoBehaviour
 {
     public bool canGrip = true;
+    public Rigidbody currentGripping;
+    public Rigidbody currentGripable;
 
     [SerializeField] bool leftHand = true;
 
     List<Rigidbody> grabablesInReach = new List<Rigidbody>();
 
-    Rigidbody currentGripable;
-
-    FixedJoint joint;
-
+    
     PlayerController controller;
 
 
     void Start ()
     {
         controller = transform.root.GetComponent<PlayerController>();
-        joint = GetComponent<FixedJoint>();
 	}
 	
 
@@ -56,7 +54,7 @@ public class CheckGrip : MonoBehaviour
             controller.ReleaseGrip(leftHand);
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable")
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
         }
@@ -70,7 +68,7 @@ public class CheckGrip : MonoBehaviour
             canGrip = true;
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
         }
@@ -79,10 +77,12 @@ public class CheckGrip : MonoBehaviour
 
     private void DetermineObjectToGrab()
     {
+        Rigidbody lastThrowable = new Rigidbody();
         Rigidbody lastOther = new Rigidbody();
         Rigidbody lastSlippery = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
 
+        bool foundThrowable = false;
         bool foundOther = false;
         bool foundSlippery = false;
         bool foundWall = false;
@@ -103,14 +103,20 @@ public class CheckGrip : MonoBehaviour
                     lastSlippery = grabablesInReach[i];
                     foundSlippery = true;
                 }
-                else if (tag == "Other")
+                else if (tag == "Grabable" || tag == "Player")
                 {
                     lastOther = grabablesInReach[i];
                     foundOther = true;
                 }
+                else if (tag == "Throwable")
+                {
+                    lastThrowable = grabablesInReach[i];
+                    foundThrowable = true;
+                }
             }
-
-            if (foundOther)
+            if (foundThrowable)
+                currentGripable = lastThrowable;
+            else if (foundOther)
                 currentGripable = lastOther;
             else if (foundSlippery)
                 currentGripable = lastSlippery;
@@ -119,11 +125,10 @@ public class CheckGrip : MonoBehaviour
 
             canGrip = true;
         }
-        else
+        else if (currentGripping == null)
         {
             canGrip = false;
-
-            GetComponent<FixedJoint>().connectedBody = null;
+            currentGripable = null;
         }
     }
 
@@ -131,12 +136,16 @@ public class CheckGrip : MonoBehaviour
     public void Connect()
     {
         if (canGrip)
-            joint.connectedBody = currentGripable;
+        {
+            gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
+            currentGripping = currentGripable;
+        }
     }
 
 
     public void Disconnect()
     {
-        joint.connectedBody = null;
+        Destroy(GetComponent<FixedJoint>());
+        currentGripping = null;
     }
 }
