@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using XInputDotNetPure;
+
 
 public class TutorialController : MonoBehaviour
 {
@@ -44,6 +46,10 @@ public class TutorialController : MonoBehaviour
 			ChangeImage();
 		}
 
+		if(controller.Buttons.Start == ButtonState.Pressed && prevState.Buttons.Start == ButtonState.Released)
+		{
+			SceneManager.LoadScene("Level_1");
+		}
 	}
 
 	void ChangeImage()
