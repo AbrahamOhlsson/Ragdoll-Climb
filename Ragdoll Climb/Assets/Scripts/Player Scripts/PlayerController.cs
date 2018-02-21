@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
 
-    int invertedPull = 1;
+    int invertedPull = -1;
     
     // The initial forces, used for resetting
     float startPushForce;
@@ -215,11 +215,12 @@ public class PlayerController : MonoBehaviour
             }
 
             // Left grip controls
-            if (state.Triggers.Left == 1 && !gripLeft)
+            if (state.Triggers.Left == 1 && !gripLeft && grabObjLeft.GetComponent<CheckGrip>().canGrip)
             {
                 if (leftCanClimb == true)
                 {
-                    grabObjLeft.SetActive(true);
+                    //grabObjLeft.SetActive(true);
+                    grabObjLeft.GetComponent<CheckGrip>().Connect();
                     gripLeft = true;
 
                     // Gets distance from the other hand
@@ -254,18 +255,21 @@ public class PlayerController : MonoBehaviour
             // If trigger is released
             else if (state.Triggers.Left == 0 && gripLeft)
             {
-                grabObjLeft.SetActive(false);
+                //grabObjLeft.SetActive(false);
+                grabObjLeft.GetComponent<CheckGrip>().Disconnect();
 
                 leftGripTimer = 0f;
 
                 gripLeft = false;
             }
             // Right grip controls
-            if (state.Triggers.Right == 1 && !gripRight)
+            if (state.Triggers.Right == 1 && !gripRight && grabObjRight.GetComponent<CheckGrip>().canGrip)
             {
                 if (rightCanClimb == true)
                 {
-                    grabObjRight.SetActive(true);
+                    //grabObjRight.SetActive(true);
+                    grabObjRight.GetComponent<CheckGrip>().Connect();
+
                     gripRight = true;
 
                     // Gets distance from the other hand
@@ -300,7 +304,8 @@ public class PlayerController : MonoBehaviour
             // If trigger is released
             else if (state.Triggers.Right == 0 && gripRight)
             {
-                grabObjRight.SetActive(false);
+                //grabObjRight.SetActive(false);
+                grabObjRight.GetComponent<CheckGrip>().Disconnect();
 
                 rightGripTimer = 0f;
 
@@ -458,10 +463,34 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    public void ReleaseGrip(bool left)
+    {
+        if (left)
+        {
+            //grabObjLeft.SetActive(false);
+            grabObjLeft.GetComponent<CheckGrip>().Disconnect();
+
+            leftGripTimer = 0f;
+
+            gripLeft = false;
+        }
+        else
+        {
+            //grabObjRight.SetActive(false);
+            grabObjRight.GetComponent<CheckGrip>().Disconnect();
+
+            rightGripTimer = 0f;
+
+            gripRight = false;
+        }
+    }
+
+
     public void ToggleInvertPull()
     {
         invertedPull *= -1;
     }
+
 
     public void ToggleUnlimitedStamina()
     {
