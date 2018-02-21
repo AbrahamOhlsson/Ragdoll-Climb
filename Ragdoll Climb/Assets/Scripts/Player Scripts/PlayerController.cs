@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody leftHand;
     [SerializeField] Rigidbody rightHand;
     [SerializeField] Rigidbody head;
+    [SerializeField] Rigidbody leftShoulder;
+    [SerializeField] Rigidbody rightShoulder;
 
     // Grip objects on hands with joints
     [SerializeField] GameObject grabObjLeft;
@@ -396,6 +398,17 @@ public class PlayerController : MonoBehaviour
         // Add push force to hands
         leftHand.AddForce(pushDirLeft * pushForce);
         rightHand.AddForce(pushDirRight * pushForce);
+
+        //if (pushDirLeft.x >= 0.3f || pushDirLeft.y >= 0.3f)
+        //    leftHand.MovePosition(leftShoulder.position + pushDirLeft * 0.7f);
+        //if (pushDirRight.x >= 0.3f || pushDirRight.y >= 0.3f)
+        //    rightHand.MovePosition(rightShoulder.position + pushDirRight * 0.7f);
+
+        if (pushDirLeft != Vector3.zero)
+            leftHand.position = Vector3.Lerp(leftHand.position, leftShoulder.position + pushDirLeft, 0.2f);
+        if (pushDirRight != Vector3.zero)
+            rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, 0.2f);
+
 
         // Add pull force for torso
         head.AddForce(pullDirLeft * pullForce);
