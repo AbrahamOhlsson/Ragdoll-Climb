@@ -12,7 +12,7 @@ public class EndGame : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-        if (Input.GetKeyDown("p"))  { //("escape")) {
+        if (Input.GetKeyDown("escape"))  { //("escape")) {
             Application.Quit();
         }
 

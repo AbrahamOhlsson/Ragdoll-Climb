@@ -8,7 +8,7 @@ public class LowerMass : MonoBehaviour {
 	[SerializeField]
 	private float MassPercent;
 
-	//Float
+	//floating 
 	[SerializeField]
 	private float rotateSpeed = 15.0f;
 	[SerializeField]
@@ -44,11 +44,11 @@ public class LowerMass : MonoBehaviour {
 		if (PlayerCol.tag == "Player")
 		{ 
 		// get script and then change value of MassPercent
-		GetPlayerMass getplayermass = PlayerCol.transform.root.gameObject.GetComponent<GetPlayerMass>();
-		getplayermass.m_MassPercent = MassPercent;
+		PlayerPowerups playerpowerups = PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>();
+			playerpowerups.m_MassPercent = MassPercent;
 
 		//Run function
-		PlayerCol.transform.root.gameObject.GetComponent<GetPlayerMass>().ChangePlayerMass();
+		PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>().ChangePlayerMass();
 		}
 		Destroy(gameObject);
 	}
