@@ -49,7 +49,14 @@ public class LowerMass : MonoBehaviour {
 
 		//Run function
 		PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>().ChangePlayerMass();
+
+			Destroy(gameObject);
 		}
-		Destroy(gameObject);
+
+		if(other.tag == "BottomObj")
+		{
+			Destroy(gameObject);
+		}
+		
 	}
 }
