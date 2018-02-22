@@ -418,7 +418,7 @@ GameObject:
   - component: {fileID: 33419397884863136}
   - component: {fileID: 23916649746276144}
   - component: {fileID: 114189567882111540}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Right Stamina Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2484,7 +2484,7 @@ GameObject:
   - component: {fileID: 33750155497317732}
   - component: {fileID: 23669150675231850}
   - component: {fileID: 114999862218290246}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Left Stamina Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6690,20 +6690,24 @@ MonoBehaviour:
   canMove: 1
   pushForce: 100
   pullForce: 300
+  pullForceGainSpeed: 0.3
   throwForce: 500
   boostMult: 1.5
   reqHandHeightForBoost: 1
   gripTimeframeForBoost: 1
-  boostTime: 1
+  boostTime: 2
   reqGoodClimbs: 3
   continuousBoost: 0
+  justGrabbed: 0.5
+  losingGrip: 3
+  lostGrip: 5
+  staminaRegen: 1.5
+  armTimeOut: 1.45
   leftHand: {fileID: 54303435152127130}
   rightHand: {fileID: 54352251324082422}
   head: {fileID: 54481033600431830}
   leftShoulder: {fileID: 54076970435957648}
   rightShoulder: {fileID: 54827171737167362}
-  grabObjLeft: {fileID: 1372485642894064}
-  grabObjRight: {fileID: 1406826194981762}
   boostEffect: {fileID: 198180654931165358}
   leftGoodClimbEffect: {fileID: 198015086997447648}
   rightGoodClimbEffect: {fileID: 198602883341668104}
@@ -6711,17 +6715,6 @@ MonoBehaviour:
   rightStaminaBar: {fileID: 23916649746276144}
   goodClimbSfx: {fileID: 8300000, guid: 90e08bb1ccd773942a2cf5ab0e609ca5, type: 3}
   boostSfx: {fileID: 8300000, guid: b58bc786a6d78b2419c2638f83dc5fed, type: 3}
-  rightTimer: 0
-  leftTimer: 0
-  justGrabbed: 0.5
-  losingGrip: 3
-  lostGrip: 5
-  minVibrate: 0
-  maxVibrate: 0
-  rightNumbArm: 0
-  leftNumbArm: 0
-  staminaRegen: 1.5
-  armTimeOut: 1.45
 --- !u!114 &114992443232354776
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,8 +8,6 @@ public class IgnoreArmCollision : MonoBehaviour
     List<Collider> allCollidersList = new List<Collider>();
 
     List<Collider> allArmColl = new List<Collider>();
-    List<Collider> leftArmColl = new List<Collider>();
-    List<Collider> rightArmColl = new List<Collider>();
 
 
 	void Start ()
