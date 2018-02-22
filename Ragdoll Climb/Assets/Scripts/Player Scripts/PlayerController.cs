@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float pushForce = 100f;
     [Tooltip("For torso when pulling when gripped.")]
     [SerializeField] float pullForce = 50f;
+    [Tooltip("Force that will be applied to a throwable object after it is released.")]
+    [SerializeField] float throwForce = 500f;
     [Tooltip("How much pull and push force will be multiplied when the player climbs good.")]
     [SerializeField] float boostMult = 1.5f;
     [Tooltip("How high a hand must be above the other when gripping in order to get a speed boost.")]
@@ -193,7 +195,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Left grip controls
-            if ((state.Triggers.Left == 1 || state.Buttons.LeftShoulder == ButtonState.Pressed) && !gripLeft && checkGripLeft.canGrip)
+            if ((state.Triggers.Left >= 0.8f || state.Buttons.LeftShoulder == ButtonState.Pressed) && !gripLeft && checkGripLeft.canGrip)
             {
                 if (leftCanClimb == true)
                 {
@@ -233,10 +235,13 @@ public class PlayerController : MonoBehaviour
             // If trigger is released
             else if (state.Triggers.Left == 0 && state.Buttons.LeftShoulder == ButtonState.Released && gripLeft)
             {
-                ReleaseGrip(true);
+                if (checkGripLeft.currentGripable.tag == "Throwable")
+                    ReleaseGrip(true, true);
+                else
+                    ReleaseGrip(true, false);
             }
             // Right grip controls
-            if ((state.Triggers.Right == 1 || state.Buttons.RightShoulder == ButtonState.Pressed) && !gripRight && checkGripRight.canGrip)
+            if ((state.Triggers.Right >= 0.8f || state.Buttons.RightShoulder == ButtonState.Pressed) && !gripRight && checkGripRight.canGrip)
             {
                 if (rightCanClimb == true)
                 {
@@ -277,7 +282,10 @@ public class PlayerController : MonoBehaviour
             // If trigger is released
             else if (state.Triggers.Right == 0 && state.Buttons.RightShoulder == ButtonState.Released && gripRight)
             {
-                ReleaseGrip(false);
+                if (checkGripRight.currentGripable.tag == "Throwable")
+                    ReleaseGrip(false, true);
+                else
+                    ReleaseGrip(false, false);
             }
         }
 
@@ -328,7 +336,7 @@ public class PlayerController : MonoBehaviour
                 rightCanClimb = false;
                 GamePad.SetVibration(playerIndex, 0f, 0f);
 
-                ReleaseGrip(false);
+                ReleaseGrip(false, false);
             }
 
             rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
@@ -372,7 +380,7 @@ public class PlayerController : MonoBehaviour
                 GamePad.SetVibration(playerIndex, 0f, 0f);
                 leftCanClimb = false;
 
-                ReleaseGrip(true);
+                ReleaseGrip(true, false);
             }
 
             leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
@@ -503,12 +511,14 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void ReleaseGrip(bool left)
+    public void ReleaseGrip(bool left, bool throwReleasedObj)
     {
         if (left)
         {
-            //grabObjLeft.SetActive(false);
-            checkGripLeft.Disconnect();
+            if (throwReleasedObj)
+                checkGripLeft.Disconnect(pushDirLeft, throwForce);
+            else
+                checkGripLeft.Disconnect();
 
             leftGripTimer = 0f;
 
@@ -516,8 +526,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //grabObjRight.SetActive(false);
-            checkGripRight.Disconnect();
+            if (throwReleasedObj)
+                checkGripRight.Disconnect(pushDirRight, throwForce);
+            else
+                checkGripRight.Disconnect();
 
             rightGripTimer = 0f;
 
