@@ -36,11 +36,6 @@ public class WaterBoat : MonoBehaviour
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
             rb.position = Vector3.Lerp(boat.transform.position, endLerp.position, fracJourney);
-        }
-
-
-
-
-		
+        }	
 	}
 }
