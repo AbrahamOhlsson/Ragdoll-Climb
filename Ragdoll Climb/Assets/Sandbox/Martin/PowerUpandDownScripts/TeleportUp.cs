@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TeleportUp : MonoBehaviour {
 
-    [SerializeField]
+
     GameObject PlayerTP;
     GameObject particleSys;
 
-    public GameObject teleportPos;
+    GameObject teleportPos;
 
     //public GameObject[] teleportPoints;
     public List<GameObject> teleportList;
@@ -19,7 +19,7 @@ public class TeleportUp : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        particleSys = gameObject.transform.Find("Particle System").gameObject;
+        particleSys = gameObject.transform.Find("Static Black Hole").gameObject;
 
     }
 	
