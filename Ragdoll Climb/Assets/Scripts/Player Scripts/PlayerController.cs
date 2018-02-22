@@ -412,7 +412,7 @@ public class PlayerController : MonoBehaviour
 
                 ReleaseGrip(true, false);
             }
-
+            
             leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
         }
 
@@ -427,7 +427,7 @@ public class PlayerController : MonoBehaviour
                 leftStaminaBar.material.color = Color.green;
             if (leftTimer <= 0.01f)
                 leftStaminaBar.enabled = false;
-            }
+        }
     }
 
 
@@ -437,12 +437,14 @@ public class PlayerController : MonoBehaviour
         leftHand.AddForce(pushDirLeft * pushForce);
         rightHand.AddForce(pushDirRight * pushForce);
 
-        // Lerps hand positions to stableize into its proper position
-        if (pushDirLeft != Vector3.zero)
-            leftHand.position = Vector3.Lerp(leftHand.position, leftShoulder.position + pushDirLeft, handMoveSpeed);
-        if (pushDirRight != Vector3.zero)
-            rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, handMoveSpeed);
-
+        if (canMove)
+        {
+            // Lerps hand positions to stableize into its proper position
+            if (pushDirLeft != Vector3.zero)
+                leftHand.position = Vector3.Lerp(leftHand.position, leftShoulder.position + pushDirLeft, handMoveSpeed);
+            if (pushDirRight != Vector3.zero)
+                rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, handMoveSpeed);
+        }
 
         // Add pull force for torso
         head.AddForce(pullDirLeft * currentPullForceLeft);
@@ -561,9 +563,7 @@ public class PlayerController : MonoBehaviour
                 checkGripRight.Disconnect();
 
             rightGripTimer = 0f;
-
             currentPullForceRight = 0f;
-
             gripRight = false;
         }
     }

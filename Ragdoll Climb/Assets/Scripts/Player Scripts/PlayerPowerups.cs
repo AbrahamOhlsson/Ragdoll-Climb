@@ -31,14 +31,18 @@ public class PlayerPowerups : MonoBehaviour
     {
         Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
+        GetComponent<PlayerController>().ReleaseGrip(true, false);
+        GetComponent<PlayerController>().ReleaseGrip(false, false);
+
         StartCoroutine(TheTeleporter());
 
-        m_Root.transform.position = newPos;
+        m_Root.transform.position = new Vector3(newPos.x, newPos.y, m_Root.transform.position.z);
 
     }
 
     IEnumerator TheTeleporter()
     {
+        GetComponent<PlayerController>().canMove = false;
 
         foreach (Rigidbody rigidKinematic in Rigidbodies)
         {
@@ -50,10 +54,9 @@ public class PlayerPowerups : MonoBehaviour
         foreach (Rigidbody rigidKinematic in Rigidbodies)
         {
             rigidKinematic.isKinematic = false;
-            rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-            leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
         }
 
+        GetComponent<PlayerController>().canMove = true;
     }
     ///////////////////////////////////////
     //-------------------------------------------------------------------------------------//

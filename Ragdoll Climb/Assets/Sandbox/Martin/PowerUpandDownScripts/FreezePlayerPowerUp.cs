@@ -46,7 +46,8 @@ public class FreezePlayerPowerUp : MonoBehaviour
             // Changes color of all renderers
             for (int j = 0; j < renderers.Length; j++)
             {
-                renderers[j].material.color = Color.Lerp(renderers[j].material.color, lerpedColor, lerpTime * Time.deltaTime);
+                if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
+                    renderers[j].material.color = Color.Lerp(renderers[j].material.color, lerpedColor, lerpTime * Time.deltaTime);
             }
 
         }
@@ -56,7 +57,8 @@ public class FreezePlayerPowerUp : MonoBehaviour
             // Changes color of all renderers
             for (int j = 0; j < renderers.Length; j++)
             {
-                renderers[j].material.color = Color.Lerp(renderers[j].material.color, defColor, lerpTime * Time.deltaTime);
+                if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
+                    renderers[j].material.color = Color.Lerp(renderers[j].material.color, defColor, lerpTime * Time.deltaTime);
             }
 
         }
@@ -70,6 +72,10 @@ public class FreezePlayerPowerUp : MonoBehaviour
             defColor = renderers[j].material.color;
         }
         isFrozen = true;
+
+        GetComponent<PlayerController>().canMove = false;
+        GetComponent<PlayerController>().ReleaseGrip(true, false);
+        GetComponent<PlayerController>().ReleaseGrip(false, false);
 
         foreach (Rigidbody rigidKinematic in Rigidbodies)
         {
@@ -89,9 +95,11 @@ public class FreezePlayerPowerUp : MonoBehaviour
         foreach (Rigidbody rigidKinematic in Rigidbodies)
         {
             rigidKinematic.isKinematic = false;
-            rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-            leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+            //rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+            //leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
         }
+
+        GetComponent<PlayerController>().canMove = true;
 
         if (isFrozen == false)
         {
@@ -106,7 +114,8 @@ public class FreezePlayerPowerUp : MonoBehaviour
         // Changes color of all renderers
         for (int j = 0; j < renderers.Length; j++)
         {
-            renderers[j].material.color = defColor;
+            if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
+                renderers[j].material.color = defColor;
         }
 
     }
