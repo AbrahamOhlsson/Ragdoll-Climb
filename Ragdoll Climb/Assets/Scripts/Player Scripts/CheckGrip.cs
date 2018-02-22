@@ -51,7 +51,7 @@ public class CheckGrip : MonoBehaviour
         {
             canGrip = false;
 
-            controller.ReleaseGrip(leftHand);
+            controller.ReleaseGrip(leftHand, false);
         }
 
         if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable")
@@ -146,6 +146,15 @@ public class CheckGrip : MonoBehaviour
     public void Disconnect()
     {
         Destroy(GetComponent<FixedJoint>());
+        currentGripping = null;
+    }
+
+    public void Disconnect(Vector3 throwDir, float throwForce)
+    {
+        Destroy(GetComponent<FixedJoint>());
+
+        currentGripping.AddForce(throwDir * throwForce);
+
         currentGripping = null;
     }
 }

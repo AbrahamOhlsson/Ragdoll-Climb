@@ -15,13 +15,51 @@ public class PlayerPowerups : MonoBehaviour
 	///////////////////////////////////////
 	public ParticleSystem AddMassParticle;
 	public ParticleSystem LooseMassParticle;
-	///////////////////////////////////////
+    ///////////////////////////////////////
+    ////// Teleport player
+    [SerializeField]
+    GameObject rightGrabObject;
+    [SerializeField]
+    GameObject leftGrabObject;
+    [SerializeField]
+    GameObject m_Root;
+    ///////////////////////////////////////
 
-	///////////////////////////////////////
+    //Teleport player
+    //-------------------------------------------------------------------------------------//
+    public void StartTeleport(Vector3 newPos)
+    {
+        Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
-	//Change player mass//
-	//-------------------------------------------------------------------------------------//
-	public void ChangePlayerMass()
+        StartCoroutine(TheTeleporter());
+
+        m_Root.transform.position = newPos;
+
+    }
+
+    IEnumerator TheTeleporter()
+    {
+
+        foreach (Rigidbody rigidKinematic in Rigidbodies)
+        {
+            rigidKinematic.isKinematic = true;
+        } 
+
+        yield return new WaitForSeconds(1);
+
+        foreach (Rigidbody rigidKinematic in Rigidbodies)
+        {
+            rigidKinematic.isKinematic = false;
+            rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+            leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+        }
+
+    }
+    ///////////////////////////////////////
+    //-------------------------------------------------------------------------------------//
+    //Change player mass//
+    //-------------------------------------------------------------------------------------//
+    public void ChangePlayerMass()
 	{
 
 		Rigidbodies = GetComponentsInChildren<Rigidbody>();
@@ -29,9 +67,8 @@ public class PlayerPowerups : MonoBehaviour
 		foreach (Rigidbody rigidbodymass in Rigidbodies)
 		{
 			startMass.Add(rigidbodymass.mass);
-			;
 		}
-
+        
 		StartCoroutine(ChangeMass());
 
 	}
