@@ -433,26 +433,29 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Add push force to hands
-        leftHand.AddForce(pushDirLeft * pushForce);
-        rightHand.AddForce(pushDirRight * pushForce);
+        if (canMove)
+        {
+            // Add push force to hands
+            leftHand.AddForce(pushDirLeft * pushForce);
+            rightHand.AddForce(pushDirRight * pushForce);
 
-        // Lerps hand positions to stableize into its proper position
-        if (pushDirLeft != Vector3.zero)
-            leftHand.position = Vector3.Lerp(leftHand.position, leftShoulder.position + pushDirLeft, handMoveSpeed);
-        if (pushDirRight != Vector3.zero)
-            rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, handMoveSpeed);
+            // Lerps hand positions to stableize into its proper position
+            if (pushDirLeft != Vector3.zero)
+                leftHand.position = Vector3.Lerp(leftHand.position, leftShoulder.position + pushDirLeft, handMoveSpeed);
+            if (pushDirRight != Vector3.zero)
+                rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, handMoveSpeed);
 
 
-        // Add pull force for torso
-        head.AddForce(pullDirLeft * currentPullForceLeft);
-        head.AddForce(pullDirRight * currentPullForceRight);
+            // Add pull force for torso
+            head.AddForce(pullDirLeft * currentPullForceLeft);
+            head.AddForce(pullDirRight * currentPullForceRight);
 
-        // Adds equal pull force of grabbed object but in opposite direction
-        if (gripLeft)
-            checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
-        if (gripRight)
-            checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
+            // Adds equal pull force of grabbed object but in opposite direction
+            if (gripLeft)
+                checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
+            if (gripRight)
+                checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
+        }
     }
 
 
