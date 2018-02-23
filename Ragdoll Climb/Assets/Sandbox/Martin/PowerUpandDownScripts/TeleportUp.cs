@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TeleportUp : MonoBehaviour {
 
-    [SerializeField]
-    GameObject PlayerTP;
-    GameObject particleSys;
 
-    public GameObject teleportPos;
+    GameObject PlayerTP;
+    public GameObject particleSys;
+
+    GameObject teleportPos;
 
     //public GameObject[] teleportPoints;
     public List<GameObject> teleportList;
@@ -19,35 +19,31 @@ public class TeleportUp : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        particleSys = gameObject.transform.Find("Particle System").gameObject;
-
+        //particleSys = gameObject.transform.Find("Static Black Hole").gameObject;
+        //Destroy(particleSys);
     }
-	
-	// Update is called once per frame
-	void FixedUpdate ()
-    {
-        foreach(Transform child in transform)
-        {
-            teleportList.Add(child.gameObject);
-        }
 
-    }
 
     void OnTriggerEnter(Collider other)
     {
-        Destroy(particleSys);
-
-        PlayerTP = other.transform.root.gameObject;
-
-        if(PlayerTP.tag == "Player")
+        if(other.tag == "Player")
         {
+            PlayerTP = other.transform.root.gameObject;
             GetTeleportPosition();
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        else if (other.tag == "BottomObj")
+            Destroy(gameObject);
     }
 
     void GetTeleportPosition()
     {
+        foreach (Transform child in transform)
+        {
+            if (child.tag != "Particle Effect")
+                teleportList.Add(child.gameObject);
+        }
+
         teleportPos = teleportList [Random.Range(0, teleportList.Count-1)];
         PlayerTP.GetComponent<PlayerPowerups>().StartTeleport(teleportPos.transform.position);
     }
