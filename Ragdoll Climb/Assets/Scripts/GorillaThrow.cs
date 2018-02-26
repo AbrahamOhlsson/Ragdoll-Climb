@@ -14,6 +14,7 @@ public class GorillaThrow : MonoBehaviour
     public float throwDelay;
     public float inactiveTime;
     public bool left;
+    public float playerStunTime = 1;
 
     float throwYDist;
     float throwXDist;
@@ -24,7 +25,6 @@ public class GorillaThrow : MonoBehaviour
     bool inactive;
 
     Vector3 lerpPos;
-
     ParticleSystem stars;
     ParticleSystem smoke;
     Transform playerDirection;
@@ -76,18 +76,20 @@ public class GorillaThrow : MonoBehaviour
                     for (int i = 0; i < bodyParts.Length; i++)
                     {
                         bodyParts[i].AddForce(new Vector3(throwXDist, throwYDist, 0) * thrust);
+                        
                     }
                 }
 
                 inactiveTimer = inactiveTime;
+
+                playerForce.transform.root.gameObject.GetComponent<PlayerStun>().Stun(playerStunTime);
 
                 smoke.Stop();
                 stars.Stop();
 
                 inactive = true;
                 playerCollision = false;
-
-                playerForce.transform.root.GetComponent<PlayerController>().canMove = true;
+                
                 playerForce = null;
             }
         }
@@ -133,6 +135,10 @@ public class GorillaThrow : MonoBehaviour
                 throwTimer = throwDelay;
                 playerCollision = true;
             }
+        }
+        if(other.gameObject.CompareTag("BottomObj"))
+        {
+            Destroy(gameObject);
         }
     }
 }
