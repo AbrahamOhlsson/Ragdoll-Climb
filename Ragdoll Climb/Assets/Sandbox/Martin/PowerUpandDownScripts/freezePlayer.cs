@@ -25,8 +25,9 @@ public class freezePlayer : MonoBehaviour {
         if (PlayerFreeze.tag == "Player")
         {
             TimeToFreeze();
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
+        
     }
 
 
