@@ -353,23 +353,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1317714468273082
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4778449060671546}
-  - component: {fileID: 33136576408197024}
-  - component: {fileID: 23298820185077626}
-  m_Layer: 0
-  m_Name: Bone02
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1318795585140678
 GameObject:
   m_ObjectHideFlags: 1
@@ -1377,8 +1360,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: -0.38247073, w: 0.9239676}
   m_LocalPosition: {x: -0.009118041, y: 0.24537191, z: 0.012500508}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4778449060671546}
+  m_Children: []
   m_Father: {fileID: 4191245236583530}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1978,19 +1960,6 @@ Transform:
   m_Father: {fileID: 4702488596103524}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4778449060671546
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317714468273082}
-  m_LocalRotation: {x: 0, y: 0, z: -0.019068373, w: 0.9998182}
-  m_LocalPosition: {x: -0.20906538, y: -0.00000019073484, z: 0.000000028600914}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4212766859854812}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4781315889894968
 Transform:
   m_ObjectHideFlags: 1
@@ -2278,40 +2247,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23298820185077626
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317714468273082}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: d2326f9240ffb8e4cb05532a3d8d522a, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!23 &23322194595744426
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -2387,13 +2322,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1047903669593712}
   m_Mesh: {fileID: 4300006, guid: dcdd9efcf7611a04092229da6a3ab488, type: 3}
---- !u!33 &33136576408197024
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1317714468273082}
-  m_Mesh: {fileID: 4300002, guid: dcdd9efcf7611a04092229da6a3ab488, type: 3}
 --- !u!33 &33140352891496530
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2432,8 +2360,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 3.5, z: 3.5}
-  m_Center: {x: 0, y: -0.5, z: 1.5}
+  m_Size: {x: 1, y: 2.6132696, z: 2.5078201}
+  m_Center: {x: 0, y: -0.46675527, z: 1.2520018}
 --- !u!111 &111458329959576192
 Animation:
   m_ObjectHideFlags: 1
@@ -2623,7 +2551,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1784042365
+  randomSeed: -478264815
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5984,7 +5912,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1566915155
+  randomSeed: -2082778393
   InitialModule:
     serializedVersion: 3
     enabled: 1

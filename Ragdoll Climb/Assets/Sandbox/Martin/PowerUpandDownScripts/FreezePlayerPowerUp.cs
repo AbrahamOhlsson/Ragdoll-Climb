@@ -16,7 +16,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
     Color[] FreezeColors;
     Renderer[] renderers;
 
-    bool isFrozen;
+    public bool isFrozen;
     bool doLerp;
     bool doLerpBack;
 

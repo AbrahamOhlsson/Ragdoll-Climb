@@ -3115,6 +3115,7 @@ GameObject:
   - component: {fileID: 114995593709653506}
   - component: {fileID: 114992443232354776}
   - component: {fileID: 114153009578735966}
+  - component: {fileID: 114900428859171138}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -6747,8 +6748,20 @@ MonoBehaviour:
   rightGrabObject: {fileID: 1406826194981762}
   leftGrabObject: {fileID: 1372485642894064}
   FreezeColors: []
+  isFrozen: 0
   lerpTime: 3
   lerpedColor: {r: 0, g: 1, b: 1, a: 0}
+--- !u!114 &114900428859171138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1978372679648360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a723af5aa3f0c4aaac606e96e81735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114992443232354776
 MonoBehaviour:
   m_ObjectHideFlags: 1

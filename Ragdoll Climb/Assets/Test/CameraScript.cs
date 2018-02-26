@@ -5,14 +5,16 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     public GameObject[] players;
-    public GameObject endLerp;    
+    public GameObject endLerp;
 
+    public float cameraMoveSpeed = 0.8f;
     public float playerYPos;
     public float cameraPosY;
     public float cameraPosX;
     public float cameraZoom = 1f;
     public float minZPos = -20;
     public float maxZPos = -8;
+
 
     Vector3 playersDistMax;
     Vector3 playerDistMin;
@@ -68,7 +70,7 @@ public class CameraScript : MonoBehaviour
 
             zoom = Mathf.Clamp(zoom, minZPos, maxZPos);
 
-            transform.position = new Vector3(cameraPosX, cameraPosY, zoom);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(cameraPosX, cameraPosY, zoom), cameraMoveSpeed);
         }
     }
 }
