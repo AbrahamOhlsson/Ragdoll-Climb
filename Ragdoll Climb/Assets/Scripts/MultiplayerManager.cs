@@ -68,7 +68,6 @@ public class MultiplayerManager : MonoBehaviour
         {
             //players[i].GetComponent<PlayerController>().enabled = true;
             players[i].GetComponent<PlayerController>().canMove = true;
-            print("ActivatePlayers");
         }
     }
 }
