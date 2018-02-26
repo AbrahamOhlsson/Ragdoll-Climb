@@ -33,6 +33,7 @@ public class PlayerPowerups : MonoBehaviour
 
         GetComponent<PlayerController>().ReleaseGrip(true, false);
         GetComponent<PlayerController>().ReleaseGrip(false, false);
+        GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
 
         StartCoroutine(TheTeleporter());
 

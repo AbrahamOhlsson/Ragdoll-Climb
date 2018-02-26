@@ -30,18 +30,6 @@ public class CheckGrip : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        //if (other.tag == "Player" || other.tag == "Grabable")
-        //{
-        //    currentGripable = other.GetComponent<Rigidbody>();
-        //}
-        //else if (other.tag == "Slippery")
-        //{
-        //    currentGripable = other.GetComponent<Rigidbody>();
-        //}
-        //else if (other.tag == "Wall")
-        //{
-        //    currentGripable = other.GetComponent<Rigidbody>();
-        //}
     }
 
 
@@ -139,6 +127,9 @@ public class CheckGrip : MonoBehaviour
         {
             gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
             currentGripping = currentGripable;
+
+            if (currentGripping != null && currentGripping.tag == "Player")
+                currentGripping.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
         }
     }
 
@@ -146,6 +137,10 @@ public class CheckGrip : MonoBehaviour
     public void Disconnect()
     {
         Destroy(GetComponent<FixedJoint>());
+
+        if (currentGripping != null && currentGripping.tag == "Player")
+            currentGripping.transform.root.GetComponent<PlayerInfo>().RemoveGrabbingPlayer(transform.root.gameObject);
+
         currentGripping = null;
     }
 
