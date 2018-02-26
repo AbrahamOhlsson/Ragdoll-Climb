@@ -48,7 +48,7 @@ public class TutorialController : MonoBehaviour
 
 		if(controller.Buttons.Start == ButtonState.Pressed && prevState.Buttons.Start == ButtonState.Released)
 		{
-			SceneManager.LoadScene("Level_1");
+			SceneManager.LoadScene("Level_ConstructionSite");
 		}
 	}
 

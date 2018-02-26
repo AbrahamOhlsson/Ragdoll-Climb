@@ -12,6 +12,7 @@ public class CheckGrip : MonoBehaviour
 
     List<Rigidbody> grabablesInReach = new List<Rigidbody>();
 
+    bool nearBottomObj = false;
     
     PlayerController controller;
 
@@ -37,7 +38,7 @@ public class CheckGrip : MonoBehaviour
     {
         if (other.tag == "BottomObj")
         {
-            canGrip = false;
+            nearBottomObj = true;
 
             controller.ReleaseGrip(leftHand, false);
         }
@@ -53,7 +54,7 @@ public class CheckGrip : MonoBehaviour
     {
         if (other.tag == "BottomObj")
         {
-            canGrip = true;
+            nearBottomObj = false;
         }
 
         if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable")
@@ -111,7 +112,10 @@ public class CheckGrip : MonoBehaviour
             else if (foundWall)
                 currentGripable = lastWall;
 
-            canGrip = true;
+            if (nearBottomObj)
+                canGrip = false;
+            else
+                canGrip = true;
         }
         else if (currentGripping == null)
         {

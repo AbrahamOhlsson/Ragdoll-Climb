@@ -45,8 +45,6 @@ public class GorillaThrow : MonoBehaviour
     {
         if (playerCollision && !inactive)
         {
-            print("Is lerping");
-            
             //playerForce.position = Vector3.Lerp(playerForce.position, lerpPos, lerpSpeed);
             playerForce.AddForce((lerpPos - playerForce.position).normalized * 500f);
 
@@ -59,9 +57,7 @@ public class GorillaThrow : MonoBehaviour
             {
                 throwYDist = Random.Range(minY, maxY);
                 throwXDist = Mathf.Sqrt(1 - Mathf.Pow(throwYDist, 2));
-
-                print("X = " + throwXDist + ",  Y = " + throwYDist);
-
+                
                 if (left)
                 {
                     //playerForce.AddForce(new Vector3(-throwXDist, throwYDist, 0) * thrust);
@@ -112,7 +108,6 @@ public class GorillaThrow : MonoBehaviour
         {
             if(!playerCollision && !inactive)
             {
-                print("Player found");
                 bodyParts = other.transform.root.GetComponentsInChildren<Rigidbody>();
                 smoke.Play();
                 stars.Play();
