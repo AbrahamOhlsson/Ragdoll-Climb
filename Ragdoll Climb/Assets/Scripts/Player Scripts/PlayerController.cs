@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
         //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
         if (gripRight == true && !unlimitedStamina)
         {
-            rightStaminaBar.enabled = true;
+            rightStaminaBar.gameObject.SetActive(true);
 
             rightTimer += Time.deltaTime;
 
@@ -382,13 +382,13 @@ public class PlayerController : MonoBehaviour
             if (rightTimer <= losingGrip)
                 rightStaminaBar.material.color = Color.green;
             if (rightTimer <= 0.01f)
-                rightStaminaBar.enabled = false;
+                rightStaminaBar.gameObject.SetActive(false);
         }
 
         //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
         if (gripLeft == true && !unlimitedStamina)
         {
-            leftStaminaBar.enabled = true;
+            leftStaminaBar.gameObject.SetActive(true);
 
             leftTimer += Time.deltaTime;
 
@@ -403,6 +403,7 @@ public class PlayerController : MonoBehaviour
             {
                 GamePad.SetVibration(playerIndex, 0.1f, 0f);
                 leftStaminaBar.material.color = Color.red;
+                //leftStaminaBar.material.color.r = (leftTimer - losingGrip) / 
             }
 
             if (leftTimer > lostGrip)
@@ -426,7 +427,7 @@ public class PlayerController : MonoBehaviour
             if (leftTimer <= losingGrip)
                 leftStaminaBar.material.color = Color.green;
             if (leftTimer <= 0.01f)
-                leftStaminaBar.enabled = false;
+                leftStaminaBar.gameObject.SetActive(false);
             }
     }
 
