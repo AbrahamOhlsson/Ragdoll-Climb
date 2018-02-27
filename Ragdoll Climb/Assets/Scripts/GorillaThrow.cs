@@ -47,32 +47,25 @@ public class GorillaThrow : MonoBehaviour
         {
             print("Is lerping");
             
-            //playerForce.position = Vector3.Lerp(playerForce.position, lerpPos, lerpSpeed);
             playerForce.AddForce((lerpPos - playerForce.position).normalized * 500f);
-
-            //if (playerForce.position.x < smoke.transform.position.x + 1 && playerForce.position.y < smoke.transform.position.y + 1)
-            //{
-                throwTimer -= Time.deltaTime; 
-            //}
+            throwTimer -= Time.deltaTime;
 
             if (throwTimer <= 0)
             {
                 throwYDist = Random.Range(minY, maxY);
                 throwXDist = Mathf.Sqrt(1 - Mathf.Pow(throwYDist, 2));
 
-                print("X = " + throwXDist + ",  Y = " + throwYDist);
-
+                //Throw the player to the left.
                 if (left)
                 {
-                    //playerForce.AddForce(new Vector3(-throwXDist, throwYDist, 0) * thrust);
                     for (int i = 0; i < bodyParts.Length; i++)
                     {
                         bodyParts[i].AddForce(new Vector3(-throwXDist, throwYDist, 0) * thrust);
                     }
                 }
+                //Throw the player to the right.
                 if(!left)
                 {
-                    //playerForce.AddForce(new Vector3(throwXDist, throwYDist, 0) * thrust);
                     for (int i = 0; i < bodyParts.Length; i++)
                     {
                         bodyParts[i].AddForce(new Vector3(throwXDist, throwYDist, 0) * thrust);
@@ -82,8 +75,10 @@ public class GorillaThrow : MonoBehaviour
 
                 inactiveTimer = inactiveTime;
 
+                //Apply stun effect to the player.
                 playerForce.transform.root.gameObject.GetComponent<PlayerStun>().Stun(playerStunTime);
 
+                //Stop all of Gorilla particle effects.
                 smoke.Stop();
                 stars.Stop();
 
@@ -108,19 +103,21 @@ public class GorillaThrow : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        //Get the player referens.
+        if (other.gameObject.CompareTag("Player"))
         {
             if(!playerCollision && !inactive)
             {
-                print("Player found");
                 bodyParts = other.transform.root.GetComponentsInChildren<Rigidbody>();
                 smoke.Play();
                 stars.Play();
 
+                //Remove the players movement.
                 other.transform.root.GetComponent<PlayerController>().canMove = false;
                 other.transform.root.GetComponent<PlayerController>().ReleaseGrip(true, false);
                 other.transform.root.GetComponent<PlayerController>().ReleaseGrip(false, false);
 
+                //Looking for the bodypart "Spine1_M" and then set its posision.
                 for (int i = 0; i < bodyParts.Length; i++)
                 {
                     if (bodyParts[i].name == "Spine1_M")
@@ -132,11 +129,13 @@ public class GorillaThrow : MonoBehaviour
                     }
                 }
 
+                //Add time to the throwTimer to delay the thorw. 
                 throwTimer = throwDelay;
                 playerCollision = true;
             }
         }
-        if(other.gameObject.CompareTag("BottomObj"))
+        //If the gorilla is colliding with the bottom object remove the gorilla from the game.
+        if (other.gameObject.CompareTag("BottomObj"))
         {
             Destroy(gameObject);
         }
