@@ -5,6 +5,7 @@ using UnityEngine;
 public class pathController : MonoBehaviour {
 
     public int maxBlock;
+    [HideInInspector]
     public int currentBlock = 1;
 
     public GameObject[] bloakList;
@@ -13,12 +14,10 @@ public class pathController : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	//void Start () {
 		
-	}
+	//}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
+	
 }
