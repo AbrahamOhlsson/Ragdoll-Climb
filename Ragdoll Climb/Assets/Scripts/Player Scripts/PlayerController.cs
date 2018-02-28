@@ -358,7 +358,7 @@ public class PlayerController : MonoBehaviour
             if (rightTimer >= losingGrip)
             {
                 GamePad.SetVibration(playerIndex, 0f, 1f);
-                rightStaminaBar.material.color = Color.red;
+                rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
             }
 
             if (rightTimer >= lostGrip)
@@ -379,9 +379,9 @@ public class PlayerController : MonoBehaviour
             rightTimer = Mathf.Clamp(rightTimer, 0f, lostGrip);
             rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
 
-            if (rightTimer <= losingGrip)
-                rightStaminaBar.material.color = Color.green;
-            if (rightTimer <= 0.01f)
+            if (rightTimer >= losingGrip && rightCanClimb)
+                rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
+            else if (rightTimer <= 0.01f)
                 rightStaminaBar.gameObject.SetActive(false);
         }
 
@@ -402,8 +402,8 @@ public class PlayerController : MonoBehaviour
             if (leftTimer >= losingGrip)
             {
                 GamePad.SetVibration(playerIndex, 0.1f, 0f);
-                leftStaminaBar.material.color = Color.red;
-                //leftStaminaBar.material.color.r = (leftTimer - losingGrip) / 
+                //leftStaminaBar.material.color = Color.red;
+                leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
             }
 
             if (leftTimer > lostGrip)
@@ -424,9 +424,9 @@ public class PlayerController : MonoBehaviour
             leftTimer = Mathf.Clamp(leftTimer, 0f, lostGrip);
             leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
 
-            if (leftTimer <= losingGrip)
-                leftStaminaBar.material.color = Color.green;
-            if (leftTimer <= 0.01f)
+            if (leftTimer >= losingGrip && leftCanClimb)
+                leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
+            else if (leftTimer <= 0.01f)
                 leftStaminaBar.gameObject.SetActive(false);
             }
     }
