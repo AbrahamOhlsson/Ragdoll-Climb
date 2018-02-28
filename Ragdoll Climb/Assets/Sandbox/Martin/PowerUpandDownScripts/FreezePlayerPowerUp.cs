@@ -31,7 +31,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
     {
 
         // Gets all renderers in player
-        renderers = gameObject.GetComponentsInChildren<Renderer>();
+        renderers = transform.GetChild(0).GetComponentsInChildren<Renderer>();
 
         Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
@@ -46,8 +46,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
             // Changes color of all renderers
             for (int j = 0; j < renderers.Length; j++)
             {
-                if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
-                    renderers[j].material.color = Color.Lerp(renderers[j].material.color, lerpedColor, lerpTime * Time.deltaTime);
+                renderers[j].material.color = Color.Lerp(renderers[j].material.color, lerpedColor, lerpTime * Time.deltaTime);
             }
 
         }
@@ -57,8 +56,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
             // Changes color of all renderers
             for (int j = 0; j < renderers.Length; j++)
             {
-                if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
-                    renderers[j].material.color = Color.Lerp(renderers[j].material.color, defColor, lerpTime * Time.deltaTime);
+                renderers[j].material.color = Color.Lerp(renderers[j].material.color, defColor, lerpTime * Time.deltaTime);
             }
 
         }

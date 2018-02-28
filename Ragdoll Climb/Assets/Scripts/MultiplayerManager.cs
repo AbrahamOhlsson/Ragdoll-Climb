@@ -46,7 +46,7 @@ public class MultiplayerManager : MonoBehaviour
                 players[i].GetComponent<Cheats>().SetGamePad(i);
                 
                 // Gets all renderers in player
-                Renderer[] renderers = players[i].GetComponentsInChildren<Renderer>();
+                Renderer[] renderers = players[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
 
                 // Changes color of all renderers
                 for (int j = 0; j < renderers.Length; j++)
@@ -62,8 +62,6 @@ public class MultiplayerManager : MonoBehaviour
 
     public void ActivatePlayers()
     {
-        
-
         for (int i = 0; i < players.Count; i++)
         {
             //players[i].GetComponent<PlayerController>().enabled = true;
