@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CheckGrip : MonoBehaviour
 {
-    SlipperySurface PlayerSlippery;
-
     public GameObject SlipperyCube;
 
     public bool canGrip = true;
@@ -16,18 +14,27 @@ public class CheckGrip : MonoBehaviour
 
     [SerializeField] bool leftHand = true;
 
-    List<Rigidbody> grabablesInReach = new List<Rigidbody>();
+    [SerializeField] Transform grabIndicators;
 
     bool nearBottomObj = false;
+    bool playingAnim = false;
+
+    Animator[] grabAnimators;
+
+    List<Rigidbody> grabablesInReach = new List<Rigidbody>();
     
+    SlipperySurface PlayerSlippery;
     PlayerController controller;
 
 
     void Start ()
     {
         controller = transform.root.GetComponent<PlayerController>();
+
         //Finding the player
         PlayerSlippery = transform.root.gameObject.GetComponent<SlipperySurface>();
+
+        grabAnimators = grabIndicators.GetComponentsInChildren<Animator>();
     }
 	
 
@@ -81,8 +88,7 @@ public class CheckGrip : MonoBehaviour
         Rigidbody lastOther = new Rigidbody();
         Rigidbody lastSlippery = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
-
-
+        
         bool foundThrowable = false;
         bool foundOther = false;
         bool foundSlippery = false;
@@ -121,16 +127,33 @@ public class CheckGrip : MonoBehaviour
                     foundThrowable = true;
                 }
             }
-            // The type that is first checked will be selected to be grabbed if that type was found.
-            // Rhe type that is checked last will get least priority.
+
+            // The type that is first checked will get first priority.
+            // The type that is checked last will get least priority.
             if (foundThrowable)
+            {
                 currentGripable = lastThrowable;
+                PlayGrabableAnim();
+            }
             else if (foundOther)
+            {
                 currentGripable = lastOther;
+                PlayGrabableAnim();
+            }
             else if (foundSlippery)
+            {
                 currentGripable = SlipperyCube.GetComponent<Rigidbody>();
+
+                if (currentGripping == null)
+                    StopAnim();
+            }
             else if (foundWall)
+            {
                 currentGripable = lastWall;
+
+                if (currentGripping == null)
+                    StopAnim();
+            }
 
             // You cant grip anything if the bottom object is in reach.
             // This prevent the player from holding while that object goes throught the player
@@ -145,6 +168,54 @@ public class CheckGrip : MonoBehaviour
             canGrip = false;
             currentGripable = null;
         }
+    }
+
+
+    private void PlayGrabableAnim()
+    {
+        if (!playingAnim && currentGripping == null)
+        {
+            grabIndicators.gameObject.SetActive(true);
+
+            for (int i = 0; i < grabAnimators.Length; i++)
+            {
+                grabAnimators[i].Play("Grab Available");
+            }
+
+            playingAnim = true;
+        }
+    }
+
+
+    private void PlayGrabbingAnim()
+    {
+        if (!playingAnim)
+        {
+            grabIndicators.gameObject.SetActive(true);
+
+            for (int i = 0; i < grabAnimators.Length; i++)
+            {
+                grabAnimators[i].Play("Grabbing");
+            }
+
+            playingAnim = true;
+        }
+    }
+
+
+    private void StopAnim()
+    {
+        for (int i = 0; i < grabAnimators.Length; i++)
+        {
+            grabAnimators[i].StopPlayback();
+
+            grabAnimators[i].transform.localPosition = Vector3.zero;
+            grabAnimators[i].transform.localEulerAngles = Vector3.zero;
+
+        }
+
+        playingAnim = false;
+        grabIndicators.gameObject.SetActive(false);
     }
 
 
@@ -167,7 +238,8 @@ public class CheckGrip : MonoBehaviour
             if (currentGripping != null && currentGripping.tag == "Player")
                 currentGripping.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
 
-
+            StopAnim();
+            PlayGrabbingAnim();
         }
     }
 
@@ -190,6 +262,7 @@ public class CheckGrip : MonoBehaviour
 
         currentGripping = null;
 
+        StopAnim();
     }
 
     // Disconnects and throws the grabbed object with force
@@ -200,6 +273,8 @@ public class CheckGrip : MonoBehaviour
         currentGripping.AddForce(throwDir * throwForce);
 
         currentGripping = null;
+
+        StopAnim();
     }
 
 }
