@@ -7494,6 +7494,7 @@ MonoBehaviour:
   pullForce: 300
   pullForceGainSpeed: 0.3
   throwForce: 500
+  stickyReleaseDelay: 1
   boostMult: 1.5
   reqHandHeightForBoost: 1
   gripTimeframeForBoost: 1
@@ -7624,7 +7625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37a723af5aa3f0c4aaac606e96e81735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stars: {fileID: 0}
+  stars: {fileID: 198411733549563312}
 --- !u!114 &114992443232354776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20111,7 +20112,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -493330378
+  randomSeed: 1104945008
   InitialModule:
     serializedVersion: 3
     enabled: 1
