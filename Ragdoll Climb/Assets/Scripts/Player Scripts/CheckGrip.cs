@@ -23,8 +23,7 @@ public class CheckGrip : MonoBehaviour
 
     List<Rigidbody> grabablesInReach = new List<Rigidbody>();
 
-    Rigidbody tempRb = new Rigidbody();
-    
+
     SlipperySurface PlayerSlippery;
     PlayerController controller;
 
@@ -35,7 +34,6 @@ public class CheckGrip : MonoBehaviour
 
         //Finding the player
         PlayerSlippery = transform.root.gameObject.GetComponent<SlipperySurface>();
-
         grabAnimators = grabIndicators.GetComponentsInChildren<Animator>();
     }
 	
@@ -55,10 +53,9 @@ public class CheckGrip : MonoBehaviour
             controller.ReleaseGrip(leftHand, false);
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Sticky")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric")
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
-
         }
     }
 
@@ -70,12 +67,12 @@ public class CheckGrip : MonoBehaviour
             nearBottomObj = false;
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Sticky")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
         }
 
-        if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
+        if (other.tag == "Slippery" && currentGripping != null && currentGripping.tag == "Slippery")
         {
             controller.ReleaseGrip(leftHand, false);
         }
@@ -89,14 +86,14 @@ public class CheckGrip : MonoBehaviour
         Rigidbody lastThrowable = new Rigidbody();
         Rigidbody lastOther = new Rigidbody();
         Rigidbody lastSlippery = new Rigidbody();
-        Rigidbody lastSticky = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
+        Rigidbody lastElectric = new Rigidbody();
         
         bool foundThrowable = false;
         bool foundOther = false;
         bool foundSlippery = false;
-        bool foundSticky = false;
         bool foundWall = false;
+        bool Electric = false;
 
         // If there is any grabables
         if (grabablesInReach.Count > 0)
@@ -111,10 +108,11 @@ public class CheckGrip : MonoBehaviour
                     lastWall = grabablesInReach[i];
                     foundWall = true;
                 }
-                if (tag == "Sticky")
+                // If Electric is found
+                else if (tag == "Electric")
                 {
-                    lastSticky = grabablesInReach[i];
-                    foundSticky = true;
+                    lastElectric = grabablesInReach[i];
+                    Electric = true;
                 }
                 // If a slippery wall is found
                 else if (tag == "Slippery")
@@ -133,6 +131,7 @@ public class CheckGrip : MonoBehaviour
                     lastThrowable = grabablesInReach[i];
                     foundThrowable = true;
                 }
+               
             }
 
             // The type that is first checked will get first priority.
@@ -147,27 +146,28 @@ public class CheckGrip : MonoBehaviour
                 currentGripable = lastOther;
                 PlayGrabableAnim();
             }
+            else if (Electric)
+            {
+                currentGripable = lastElectric;
+
+                if (lastElectric == null)
+                    StopAnim();
+            }
             else if (foundSlippery)
             {
                 currentGripable = SlipperyCube.GetComponent<Rigidbody>();
 
-                if (currentGripping == tempRb)
-                    StopAnim();
-            }
-            else if (foundSticky)
-            {
-                currentGripable = lastSticky;
-
-                if (currentGripping == tempRb)
+                if (currentGripping == null)
                     StopAnim();
             }
             else if (foundWall)
             {
                 currentGripable = lastWall;
 
-                if (currentGripping == tempRb)
+                if (currentGripping == null)
                     StopAnim();
             }
+            
 
             // You cant grip anything if the bottom object is in reach.
             // This prevent the player from holding while that object goes throught the player
@@ -177,17 +177,17 @@ public class CheckGrip : MonoBehaviour
                 canGrip = true;
         }
         // If nothing is no longer gripped
-        else if (currentGripping == tempRb)
+        else if (currentGripping == null)
         {
             canGrip = false;
-            currentGripable = tempRb;
+            currentGripable = null;
         }
     }
 
 
     private void PlayGrabableAnim()
     {
-        if (!playingAnim && currentGripping == tempRb)
+        if (!playingAnim && currentGripping == null)
         {
             grabIndicators.gameObject.SetActive(true);
 
@@ -225,6 +225,7 @@ public class CheckGrip : MonoBehaviour
 
             grabAnimators[i].transform.localPosition = Vector3.zero;
             grabAnimators[i].transform.localEulerAngles = Vector3.zero;
+
         }
 
         playingAnim = false;
@@ -237,20 +238,26 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
-            //StopAllCoroutines();
-
-            if (currentGripping != tempRb && currentGripping.tag == "Slippery")
-            {
-                //PlayerSlippery.SetIsGrabbing(leftHand, true);
-                //SlipperyCube.SetActive(true);
-                //SlipperyCube.GetComponent<Rigidbody>().drag = 1f;
-            }
-            
             gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
             currentGripping = currentGripable;
 
+
+            //if (currentGripping != null && currentGripping.tag == "Slippery")
+            //{
+            //    PlayerSlippery.SetIsGrabbing(leftHand, true);
+            //    SlipperyCube.SetActive(true);
+            //    SlipperyCube.GetComponent<Rigidbody>().drag = 1f;
+            //}
+
+            if (currentGripping != null && currentGripping.tag == "Electric")
+            {
+                canGrip = false;
+                transform.root.GetComponent<PlayerStun>().Stun(1);
+                
+            }
+
             // If a player is grabbed, that player will know it
-            if (currentGripping != tempRb && currentGripping.tag == "Player")
+            if (currentGripping != null && currentGripping.tag == "Player")
                 currentGripping.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
 
             StopAnim();
@@ -265,17 +272,17 @@ public class CheckGrip : MonoBehaviour
         Destroy(GetComponent<FixedJoint>());
 
         // If a player was grabbed, that player will know it no longer is
-        if (currentGripping != tempRb && currentGripping.tag == "Player")
+        if (currentGripping != null && currentGripping.tag == "Player")
             currentGripping.transform.root.GetComponent<PlayerInfo>().RemoveGrabbingPlayer(transform.root.gameObject);
 
-        if (currentGripping != tempRb && currentGripping.tag == "Slippery")
+        if (currentGripping != null && currentGripping.tag == "Slippery")
         {
             //PlayerSlippery.SetIsGrabbing(leftHand, false);
             //SlipperyCube.SetActive(false);
             //SlipperyCube.GetComponent<Rigidbody>().drag = Mathf.Infinity;
         }
 
-        currentGripping = tempRb;
+        currentGripping = null;
 
         StopAnim();
     }
@@ -286,8 +293,10 @@ public class CheckGrip : MonoBehaviour
         Destroy(GetComponent<FixedJoint>());
 
         currentGripping.AddForce(throwDir * throwForce);
-        currentGripping = tempRb;
+
+        currentGripping = null;
 
         StopAnim();
     }
+
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStun : MonoBehaviour
 {
-    bool isStunned;
+   public bool isStunned;
     float timer;
 
     public ParticleSystem stars;
