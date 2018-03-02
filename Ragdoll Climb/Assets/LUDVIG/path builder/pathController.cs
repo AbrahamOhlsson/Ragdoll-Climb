@@ -5,7 +5,7 @@ using UnityEngine;
 public class pathController : MonoBehaviour {
 
     public int maxBlock;
-    [HideInInspector]
+  //  [HideInInspector]
     public int currentBlock = 1;
 
     public GameObject[] bloakList;
