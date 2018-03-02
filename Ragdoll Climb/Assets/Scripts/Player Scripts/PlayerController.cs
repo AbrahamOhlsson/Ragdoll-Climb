@@ -147,6 +147,8 @@ public class PlayerController : MonoBehaviour
     CheckGrip checkGripLeft;
     CheckGrip checkGripRight;
 
+    Rigidbody[] bodyParts;
+
     AudioSource source;
 
     IEnumerator releaseGripDelayedRight;
@@ -165,6 +167,13 @@ public class PlayerController : MonoBehaviour
 
         releaseGripDelayedLeft = ReleaseGripDelayed(true);
         releaseGripDelayedRight = ReleaseGripDelayed(false);
+
+        bodyParts = GetComponentsInChildren<Rigidbody>();
+
+        //for (int i = 0; i < bodyParts.Length; i++)
+        //{
+        //    bodyParts[i].maxDepenetrationVelocity = 1000000000000f;
+        //}
     }
 
 
@@ -478,6 +487,11 @@ public class PlayerController : MonoBehaviour
                 checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
             if (gripRight)
                 checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
+        }
+
+        for (int i = 0; i < bodyParts.Length; i++)
+        {
+            bodyParts[i].velocity = new Vector3(bodyParts[i].velocity.x, bodyParts[i].velocity.y, 0f);
         }
     }
 
