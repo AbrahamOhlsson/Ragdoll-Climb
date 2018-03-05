@@ -45,8 +45,6 @@ public class GorillaThrow : MonoBehaviour
     {
         if (playerCollision && !inactive)
         {
-            print("Is lerping");
-            
             playerForce.AddForce((lerpPos - playerForce.position).normalized * 500f);
             throwTimer -= Time.deltaTime;
 

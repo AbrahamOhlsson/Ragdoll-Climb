@@ -39,7 +39,7 @@ public class DistanceToGoal : MonoBehaviour
         // Checks everytime of the "higestplayer" limbs wich is the highest y-position(First in the race) 
         for (int i = 0; i < limbs.Length; i++)
         {
-            if(limbs[i].transform.position.y > highestLimb.transform.position.y)
+            if (limbs[i].transform.position.y > highestLimb.transform.position.y && limbs[i].tag == "Player")
             {
                 highestLimb = limbs[i];
             }
