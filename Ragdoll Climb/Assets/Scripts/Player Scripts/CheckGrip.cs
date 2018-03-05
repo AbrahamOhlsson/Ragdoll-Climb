@@ -254,9 +254,15 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
-            gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
-            currentGripping = currentGripable;
-
+            if (currentGripable.tag != "Electric" && currentGripable != tempRb)
+            {
+                gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
+                currentGripping = currentGripable;
+            }
+            else
+            {
+                transform.root.GetComponent<PlayerStun>().Stun(1);
+            }
 
             //if (currentGripping != tempRb && currentGripping.tag == "Slippery")
             //{
@@ -264,13 +270,6 @@ public class CheckGrip : MonoBehaviour
             //    SlipperyCube.SetActive(true);
             //    SlipperyCube.GetComponent<Rigidbody>().drag = 1f;
             //}
-
-            if (currentGripping != tempRb && currentGripping.tag == "Electric")
-            {
-                canGrip = false;
-                transform.root.GetComponent<PlayerStun>().Stun(1);
-                
-            }
 
             // If a player is grabbed, that player will know it
             if (currentGripping != tempRb && currentGripping.tag == "Player")
