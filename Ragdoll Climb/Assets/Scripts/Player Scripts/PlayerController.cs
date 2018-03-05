@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Force that will be applied to a throwable object after it is released.")]
     [Range(0f, 2000f)]
     [SerializeField] float throwForce = 500f;
+    [Tooltip("The time it takes to release grip form sticky surfaces.")]
+    [Range(0.1f, 5f)]
+    [SerializeField] float stickyReleaseDelay = 1f;
 
     [Header("Boost")]
     [Tooltip("How much pull and push force will be multiplied when the player climbs good.")]
@@ -144,7 +147,12 @@ public class PlayerController : MonoBehaviour
     CheckGrip checkGripLeft;
     CheckGrip checkGripRight;
 
+    Rigidbody[] bodyParts;
+
     AudioSource source;
+
+    IEnumerator releaseGripDelayedRight;
+    IEnumerator releaseGripDelayedLeft;
 
 
     void Start()
@@ -156,6 +164,16 @@ public class PlayerController : MonoBehaviour
         checkGripRight = rightHand.GetComponent<CheckGrip>();
 
         source = GetComponent<AudioSource>();
+
+        releaseGripDelayedLeft = ReleaseGripDelayed(true);
+        releaseGripDelayedRight = ReleaseGripDelayed(false);
+
+        bodyParts = GetComponentsInChildren<Rigidbody>();
+
+        //for (int i = 0; i < bodyParts.Length; i++)
+        //{
+        //    bodyParts[i].maxDepenetrationVelocity = 1000000000000f;
+        //}
     }
 
 
@@ -226,9 +244,11 @@ public class PlayerController : MonoBehaviour
             }
 
             // Left grip controls
-            if ((state.Triggers.Left >= 0.8f || state.Buttons.LeftShoulder == ButtonState.Pressed) && !gripLeft && checkGripLeft.canGrip)
+            if ((state.Triggers.Left >= 0.8f && prevState.Triggers.Left < 0.8f) || (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released))
             {
-                if (leftCanClimb == true)
+                StopCoroutine(releaseGripDelayedLeft);
+
+                if (leftCanClimb == true && !gripLeft && checkGripLeft.canGrip)
                 {
                     checkGripLeft.Connect();
                     gripLeft = true;
@@ -263,19 +283,25 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if (state.Triggers.Left == 0 && state.Buttons.LeftShoulder == ButtonState.Released && gripLeft)
+            else if ((state.Triggers.Left == 0 && prevState.Triggers.Left > 0) || (state.Buttons.LeftShoulder == ButtonState.Released && prevState.Buttons.LeftShoulder == ButtonState.Pressed) && gripLeft)
             {
                 if (checkGripLeft.currentGripable.tag == "Throwable")
                     ReleaseGrip(true, true);
+                else if (checkGripLeft.currentGripable.tag == "Sticky")
+                {
+                    releaseGripDelayedLeft = ReleaseGripDelayed(true);
+                    StartCoroutine(releaseGripDelayedLeft);
+                }
                 else
                     ReleaseGrip(true, false);
             }
             // Right grip controls
-            if ((state.Triggers.Right >= 0.8f || state.Buttons.RightShoulder == ButtonState.Pressed) && !gripRight && checkGripRight.canGrip)
+            if ((state.Triggers.Right >= 0.8f && prevState.Triggers.Right < 0.8f) || (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released))
             {
-                if (rightCanClimb == true)
+                StopCoroutine(releaseGripDelayedRight);
+
+                if (rightCanClimb == true && !gripRight && checkGripRight.canGrip)
                 {
-                    //grabObjRight.SetActive(true);
                     checkGripRight.Connect();
 
                     gripRight = true;
@@ -310,10 +336,15 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if (state.Triggers.Right == 0 && state.Buttons.RightShoulder == ButtonState.Released && gripRight)
+            else if ((state.Triggers.Right == 0 && prevState.Triggers.Right > 0) || (state.Buttons.RightShoulder == ButtonState.Released && prevState.Buttons.RightShoulder == ButtonState.Pressed) && gripRight)
             {
                 if (checkGripRight.currentGripable.tag == "Throwable")
                     ReleaseGrip(false, true);
+                else if (checkGripRight.currentGripable.tag == "Sticky")
+                {
+                    releaseGripDelayedRight = ReleaseGripDelayed(false);
+                    StartCoroutine(releaseGripDelayedRight);
+                }
                 else
                     ReleaseGrip(false, false);
             }
@@ -343,7 +374,7 @@ public class PlayerController : MonoBehaviour
         //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
         if (gripRight == true && !unlimitedStamina)
         {
-            rightStaminaBar.enabled = true;
+            rightStaminaBar.gameObject.SetActive(true);
 
             rightTimer += Time.deltaTime;
 
@@ -358,7 +389,7 @@ public class PlayerController : MonoBehaviour
             if (rightTimer >= losingGrip)
             {
                 GamePad.SetVibration(playerIndex, 0f, 1f);
-                rightStaminaBar.material.color = Color.red;
+                rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
             }
 
             if (rightTimer >= lostGrip)
@@ -379,16 +410,16 @@ public class PlayerController : MonoBehaviour
             rightTimer = Mathf.Clamp(rightTimer, 0f, lostGrip);
             rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
 
-            if (rightTimer <= losingGrip)
-                rightStaminaBar.material.color = Color.green;
-            if (rightTimer <= 0.01f)
-                rightStaminaBar.enabled = false;
+            if (rightTimer >= losingGrip && rightCanClimb)
+                rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
+            else if (rightTimer <= 0.01f)
+                rightStaminaBar.gameObject.SetActive(false);
         }
 
         //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
         if (gripLeft == true && !unlimitedStamina)
         {
-            leftStaminaBar.enabled = true;
+            leftStaminaBar.gameObject.SetActive(true);
 
             leftTimer += Time.deltaTime;
 
@@ -402,7 +433,8 @@ public class PlayerController : MonoBehaviour
             if (leftTimer >= losingGrip)
             {
                 GamePad.SetVibration(playerIndex, 0.1f, 0f);
-                leftStaminaBar.material.color = Color.red;
+                //leftStaminaBar.material.color = Color.red;
+                leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
             }
 
             if (leftTimer > lostGrip)
@@ -423,10 +455,10 @@ public class PlayerController : MonoBehaviour
             leftTimer = Mathf.Clamp(leftTimer, 0f, lostGrip);
             leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
 
-            if (leftTimer <= losingGrip)
-                leftStaminaBar.material.color = Color.green;
-            if (leftTimer <= 0.01f)
-                leftStaminaBar.enabled = false;
+            if (leftTimer >= losingGrip && leftCanClimb)
+                leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
+            else if (leftTimer <= 0.01f)
+                leftStaminaBar.gameObject.SetActive(false);
             }
     }
 
@@ -455,6 +487,11 @@ public class PlayerController : MonoBehaviour
                 checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
             if (gripRight)
                 checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
+        }
+
+        for (int i = 0; i < bodyParts.Length; i++)
+        {
+            bodyParts[i].velocity = new Vector3(bodyParts[i].velocity.x, bodyParts[i].velocity.y, 0f);
         }
     }
 
@@ -548,6 +585,8 @@ public class PlayerController : MonoBehaviour
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
                 checkGripLeft.Disconnect(pushDirLeft, throwForce);
+            //else if (checkGripLeft.currentGripping.tag == "Sticky")
+            //    checkGripLeft.StartCoroutine(checkGripLeft.DisconnectDelayed(1f));
             else
                 checkGripLeft.Disconnect();
 
@@ -560,6 +599,12 @@ public class PlayerController : MonoBehaviour
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
                 checkGripRight.Disconnect(pushDirRight, throwForce);
+            //else if (checkGripRight.currentGripping.tag == "Sticky")
+            //{
+            //    checkGripRight.StartCoroutine(checkGripRight.DisconnectDelayed(1f));
+            //    print("Start Coroutine");
+            //}
+
             else
                 checkGripRight.Disconnect();
 
@@ -569,6 +614,16 @@ public class PlayerController : MonoBehaviour
 
             gripRight = false;
         }
+    }
+
+
+    public IEnumerator ReleaseGripDelayed(bool left)
+    {
+        yield return new WaitForSeconds(stickyReleaseDelay);
+        
+        ReleaseGrip(left, false);
+
+        yield return null;
     }
 
     // Inverts pull controls
