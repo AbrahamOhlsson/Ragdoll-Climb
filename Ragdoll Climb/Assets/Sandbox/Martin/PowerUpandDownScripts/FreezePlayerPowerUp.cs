@@ -16,6 +16,11 @@ public class FreezePlayerPowerUp : MonoBehaviour
     Color[] FreezeColors;
     Renderer[] renderers;
 
+
+    //////FreezeTimer Depending on how close the boat is to the player
+    public bool closeToBoat;
+    float freezeTime;
+
     public bool isFrozen;
     bool doLerp;
     bool doLerpBack;
@@ -41,6 +46,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
 
     void Update()
     {
+
         if (doLerp)
         {
             // Changes color of all renderers
@@ -64,6 +70,15 @@ public class FreezePlayerPowerUp : MonoBehaviour
 
     IEnumerator freezeThePlayer()
     {
+        if (closeToBoat)
+        {
+            freezeTime = 0.01f;
+        }
+        else if(!closeToBoat)
+        {
+            freezeTime = 3f;
+        }
+
         // Get player default colour
         for (int j = 0; j < renderers.Length; j++)
         {
@@ -84,7 +99,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
             doLerp = true;
         }
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(freezeTime);
 
         doLerp = false;
 
@@ -105,7 +120,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
         }
 
         //After freeze make sure the player get default colour back
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(freezeTime);
 
         doLerpBack = false;
        
