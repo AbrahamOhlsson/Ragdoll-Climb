@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
             // Left arm and joystick
             if (gripLeft)
             {
-                if (checkGripLeft.currentGripping.tag == "Throwable")
+                if (checkGripLeft.currentGripping != null && checkGripLeft.currentGripping.tag == "Throwable")
                 {
                     ArmControl(true);
                 }
@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
             // Right arm and joystick
             if (gripRight)
             {
-                if (checkGripRight.currentGripping.tag == "Throwable")
+                if (checkGripRight.currentGripping != null && checkGripRight.currentGripping.tag == "Throwable")
                 {
                     ArmControl(false);
                 }
@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Left grip controls
-            if ((state.Triggers.Left >= 0.8f && prevState.Triggers.Left < 0.8f) || (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released))
+            if ((state.Triggers.Left >= 0.8f || state.Buttons.LeftShoulder == ButtonState.Pressed) && (prevState.Triggers.Left < 0.8f && prevState.Buttons.LeftShoulder == ButtonState.Released))
             {
                 StopCoroutine(releaseGripDelayedLeft);
 
@@ -252,7 +252,7 @@ public class PlayerController : MonoBehaviour
                 {
                     checkGripLeft.Connect();
                     gripLeft = true;
-
+                    
                     // Gets distance from the other hand
                     float handDist = leftHand.position.y - rightHand.position.y;
 
@@ -283,7 +283,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if ((state.Triggers.Left == 0 && prevState.Triggers.Left > 0) || (state.Buttons.LeftShoulder == ButtonState.Released && prevState.Buttons.LeftShoulder == ButtonState.Pressed) && gripLeft)
+            else if ((state.Triggers.Left == 0 && state.Buttons.LeftShoulder == ButtonState.Released) && (prevState.Triggers.Left > 0 || prevState.Buttons.LeftShoulder == ButtonState.Pressed) && gripLeft)
             {
                 if (checkGripLeft.currentGripable.tag == "Throwable")
                     ReleaseGrip(true, true);
@@ -296,16 +296,15 @@ public class PlayerController : MonoBehaviour
                     ReleaseGrip(true, false);
             }
             // Right grip controls
-            if ((state.Triggers.Right >= 0.8f && prevState.Triggers.Right < 0.8f) || (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released))
+            if ((state.Triggers.Right >= 0.8f || state.Buttons.RightShoulder == ButtonState.Pressed) && (prevState.Triggers.Right < 0.8f && prevState.Buttons.RightShoulder == ButtonState.Released))
             {
                 StopCoroutine(releaseGripDelayedRight);
 
                 if (rightCanClimb == true && !gripRight && checkGripRight.canGrip)
                 {
                     checkGripRight.Connect();
-
                     gripRight = true;
-
+                    
                     // Gets distance from the other hand
                     float handDist = rightHand.position.y - leftHand.position.y;
 
@@ -336,7 +335,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if ((state.Triggers.Right == 0 && prevState.Triggers.Right > 0) || (state.Buttons.RightShoulder == ButtonState.Released && prevState.Buttons.RightShoulder == ButtonState.Pressed) && gripRight)
+            else if ((state.Triggers.Right == 0 && state.Buttons.RightShoulder == ButtonState.Released) && (prevState.Triggers.Right > 0 || prevState.Buttons.RightShoulder == ButtonState.Pressed) && gripRight)
             {
                 if (checkGripRight.currentGripable.tag == "Throwable")
                     ReleaseGrip(false, true);
@@ -483,9 +482,9 @@ public class PlayerController : MonoBehaviour
             head.AddForce(pullDirRight * currentPullForceRight);
 
             // Adds equal pull force of grabbed object but in opposite direction
-            if (gripLeft)
+            if (checkGripLeft.currentGripping != null && gripLeft)
                 checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
-            if (gripRight)
+            if (checkGripRight.currentGripping != null && gripRight)
                 checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
         }
 

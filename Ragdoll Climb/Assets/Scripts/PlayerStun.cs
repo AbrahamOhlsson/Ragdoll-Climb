@@ -55,6 +55,8 @@ public class PlayerStun : MonoBehaviour
             stars.Stop();
             //Give player back mobility.
             GetComponent<PlayerController>().canMove = true;
+            GetComponent<PlayerController>().ReleaseGrip(true, false);
+            GetComponent<PlayerController>().ReleaseGrip(false, false);
         }
     }
 
