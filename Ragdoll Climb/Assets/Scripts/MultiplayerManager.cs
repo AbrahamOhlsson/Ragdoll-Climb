@@ -5,10 +5,10 @@ using XInputDotNetPure;
 
 public class MultiplayerManager : MonoBehaviour
 {
+    public List<GameObject> players = new List<GameObject>();
+    
     // The colors each of the players should have
     [SerializeField] Color[] playerColors;
-
-    [SerializeField] List<GameObject> players = new List<GameObject>();
 
     bool[] playerSpawned = new bool[4];
 

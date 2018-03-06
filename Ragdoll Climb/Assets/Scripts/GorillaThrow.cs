@@ -45,8 +45,6 @@ public class GorillaThrow : MonoBehaviour
     {
         if (playerCollision && !inactive)
         {
-            print("Is lerping");
-            
             playerForce.AddForce((lerpPos - playerForce.position).normalized * 500f);
             throwTimer -= Time.deltaTime;
 
@@ -137,6 +135,9 @@ public class GorillaThrow : MonoBehaviour
         //If the gorilla is colliding with the bottom object remove the gorilla from the game.
         if (other.gameObject.CompareTag("BottomObj"))
         {
+            if (playerCollision)
+                playerForce.transform.root.GetComponent<PlayerController>().canMove = true;
+
             Destroy(gameObject);
         }
     }

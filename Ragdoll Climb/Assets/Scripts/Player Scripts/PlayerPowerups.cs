@@ -50,7 +50,7 @@ public class PlayerPowerups : MonoBehaviour
             rigidKinematic.isKinematic = true;
         } 
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.1f);
 
         foreach (Rigidbody rigidKinematic in Rigidbodies)
         {

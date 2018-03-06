@@ -12,7 +12,9 @@ public class CheckGrip : MonoBehaviour
     // The rigidbody that will be gripped
     public Rigidbody currentGripable;
 
-    [SerializeField] bool leftHand = true;
+    public bool leftHand = true;
+
+    [SerializeField] float breakForce = 3000f;
 
     [SerializeField] Transform grabIndicators;
 
@@ -42,6 +44,17 @@ public class CheckGrip : MonoBehaviour
 	void Update ()
     {
         DetermineObjectToGrab();
+
+        if (GetComponent<FixedJoint>())
+        {
+            if (GetComponent<FixedJoint>().currentForce.magnitude >= breakForce || GetComponent<FixedJoint>().connectedBody == null)
+            {
+                if (currentGripping.tag == "Throwable")
+                    controller.ReleaseGrip(leftHand, true);
+                else
+                    controller.ReleaseGrip(leftHand, false);
+            }
+        }
 	}
     
     

@@ -52,9 +52,9 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 5f)]
     [SerializeField] float justGrabbed = 0.5f;
     [Range(0f, 10f)]
-    [SerializeField] float losingGrip;
+    [SerializeField] float losingGrip = 3f;
     [Range(0f, 10f)]
-    [SerializeField] float lostGrip;
+    [SerializeField] float lostGrip = 5f;
 
     //How much faster the player regain its stamina (Original value was 1.5)
     [Tooltip("How much faster the player regain its stamina.")]
@@ -376,7 +376,7 @@ public class PlayerController : MonoBehaviour
             rightStaminaBar.gameObject.SetActive(true);
 
             rightTimer += Time.deltaTime;
-
+            
             if (rightTimer < justGrabbed)
             {
                 GamePad.SetVibration(playerIndex, 1f, 1f);
@@ -488,6 +488,7 @@ public class PlayerController : MonoBehaviour
                 checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
         }
 
+        // Stableizes z position
         for (int i = 0; i < bodyParts.Length; i++)
         {
             bodyParts[i].velocity = new Vector3(bodyParts[i].velocity.x, bodyParts[i].velocity.y, 0f);
