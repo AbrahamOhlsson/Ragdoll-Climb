@@ -46,7 +46,6 @@ public class FreezePlayerPowerUp : MonoBehaviour
 
     void Update()
     {
-
         if (doLerp)
         {
             // Changes color of all renderers
@@ -70,6 +69,8 @@ public class FreezePlayerPowerUp : MonoBehaviour
 
     IEnumerator freezeThePlayer()
     {
+        GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
+
         if (closeToBoat)
         {
             freezeTime = 0.01f;
