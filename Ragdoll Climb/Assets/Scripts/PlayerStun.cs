@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStun : MonoBehaviour
 {
-    bool isStunned;
+   public bool isStunned;
     float timer;
 
     public ParticleSystem stars;
@@ -55,6 +55,8 @@ public class PlayerStun : MonoBehaviour
             stars.Stop();
             //Give player back mobility.
             GetComponent<PlayerController>().canMove = true;
+            GetComponent<PlayerController>().ReleaseGrip(true, false);
+            GetComponent<PlayerController>().ReleaseGrip(false, false);
         }
     }
 

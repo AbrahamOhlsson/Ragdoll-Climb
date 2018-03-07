@@ -6,8 +6,8 @@ public class teleportBoatCheck : MonoBehaviour {
 
     public GameObject bout;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 		
 	}

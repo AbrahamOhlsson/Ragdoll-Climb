@@ -14,7 +14,7 @@ public class pathBuilder : MonoBehaviour {
     
 
     // Use this for initialization
-    void Start  () {
+    void Awake  () {     /// Awake om man vill spawna dom dir
 
         maxBlock = FindObjectOfType<pathController>().maxBlock;
         currentBlock = FindObjectOfType<pathController>().currentBlock;
