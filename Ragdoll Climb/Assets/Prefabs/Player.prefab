@@ -2031,7 +2031,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4986659617328570}
   - component: {fileID: 54096691684667814}
-  - component: {fileID: 114110300376178378}
   m_Layer: 0
   m_Name: RightSlippery
   m_TagString: Slippery
@@ -7509,17 +7508,6 @@ MonoBehaviour:
   leftHand: 1
   breakForce: 2000
   grabIndicators: {fileID: 4129606391769028}
---- !u!114 &114110300376178378
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1574560861528288}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114115010869122620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7562,7 +7550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21d8adee9385d34698c2542835307b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNr: 1
   canMove: 1
   pushForce: 100
   handMoveSpeed: 0.2
@@ -7692,6 +7679,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0100445012ce5346b162a7c3f22eb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  feedbackText: {fileID: 0}
+  playerNr: 1
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114658170519906246
 MonoBehaviour:
   m_ObjectHideFlags: 1

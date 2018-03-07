@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-    public int playerNr = 1;
-
     public FeedbackText feedbackText;
 
-    public Color color;
-
+    [HideInInspector] public int playerNr = 1;
+    [HideInInspector] public Color color;
+    
+    // Other players grabbing this player
     List<GameObject> grabbingPlayers = new List<GameObject>();
 
 
     private void Start()
-    {
+    { 
         feedbackText.playerNr = playerNr;
 
         Rigidbody[] limbs = GetComponentsInChildren<Rigidbody>();
