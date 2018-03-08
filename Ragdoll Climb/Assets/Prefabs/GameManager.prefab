@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4955451648103814}
   - component: {fileID: 114224605510272526}
-  - component: {fileID: 114927149532995440}
+  - component: {fileID: 114308547505513792}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,17 +52,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 672109136b135c44fb7f85674a7c1fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColors:
-  - {r: 0.7058823, g: 0, b: 0, a: 0}
-  - {r: 0, g: 0.2509804, b: 0.854902, a: 0}
-  - {r: 0.25740364, g: 0.7941176, b: 0, a: 0}
-  - {r: 0.8128297, g: 0.8602941, b: 0, a: 0}
   players:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
---- !u!114 &114927149532995440
+  playerColors:
+  - {r: 0.7058823, g: 0, b: 0, a: 0}
+  - {r: 0, g: 0.2509804, b: 0.854902, a: 0}
+  - {r: 0.25740364, g: 0.7941176, b: 0, a: 0}
+  - {r: 0.8128297, g: 0.8602941, b: 0, a: 0}
+--- !u!114 &114308547505513792
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1518572427931782}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b495343ab9d55d54a8e27fc72ca4df83, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a1e8f646a4bdf548813664c37e8abed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugText: {fileID: 0}
+  uiText: {fileID: 0}

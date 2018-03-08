@@ -12,7 +12,9 @@ public class CheckGrip : MonoBehaviour
     // The rigidbody that will be gripped
     public Rigidbody currentGripable;
 
-    [SerializeField] bool leftHand = true;
+    public bool leftHand = true;
+
+    [SerializeField] float breakForce = 3000f;
 
     [SerializeField] Transform grabIndicators;
 
@@ -22,7 +24,9 @@ public class CheckGrip : MonoBehaviour
     Animator[] grabAnimators;
 
     List<Rigidbody> grabablesInReach = new List<Rigidbody>();
-    
+
+    Rigidbody tempRb = new Rigidbody();
+
     SlipperySurface PlayerSlippery;
     PlayerController controller;
 
@@ -33,7 +37,6 @@ public class CheckGrip : MonoBehaviour
 
         //Finding the player
         PlayerSlippery = transform.root.gameObject.GetComponent<SlipperySurface>();
-
         grabAnimators = grabIndicators.GetComponentsInChildren<Animator>();
     }
 	
@@ -41,6 +44,17 @@ public class CheckGrip : MonoBehaviour
 	void Update ()
     {
         DetermineObjectToGrab();
+
+        if (GetComponent<FixedJoint>())
+        {
+            if (GetComponent<FixedJoint>().currentForce.magnitude >= breakForce || GetComponent<FixedJoint>().connectedBody == null)
+            {
+                if (currentGripping.tag == "Throwable")
+                    controller.ReleaseGrip(leftHand, true);
+                else
+                    controller.ReleaseGrip(leftHand, false);
+            }
+        }
 	}
     
     
@@ -53,10 +67,9 @@ public class CheckGrip : MonoBehaviour
             controller.ReleaseGrip(leftHand, false);
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
-
         }
     }
 
@@ -68,12 +81,12 @@ public class CheckGrip : MonoBehaviour
             nearBottomObj = false;
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
         }
 
-        if (other.tag == "Slippery" && currentGripping != null && currentGripping.tag == "Slippery")
+        if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
         {
             controller.ReleaseGrip(leftHand, false);
         }
@@ -87,11 +100,15 @@ public class CheckGrip : MonoBehaviour
         Rigidbody lastThrowable = new Rigidbody();
         Rigidbody lastOther = new Rigidbody();
         Rigidbody lastSlippery = new Rigidbody();
+        Rigidbody lastSticky = new Rigidbody();
+        Rigidbody lastElectric = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
         
         bool foundThrowable = false;
         bool foundOther = false;
         bool foundSlippery = false;
+        bool foundSticky = false;
+        bool foundElectric = false;
         bool foundWall = false;
 
         // If there is any grabables
@@ -107,12 +124,22 @@ public class CheckGrip : MonoBehaviour
                     lastWall = grabablesInReach[i];
                     foundWall = true;
                 }
+                // If a sticky wall was found
+                if(tag == "Sticky")
+                {
+                    lastSticky = grabablesInReach[i];
+                    foundSticky = true;
+                }
+                // If Electric is found
+                else if (tag == "Electric")
+                {
+                    lastElectric = grabablesInReach[i];
+                    foundElectric = true;
+                }
                 // If a slippery wall is found
                 else if (tag == "Slippery")
                 {
-
                     foundSlippery = true;
-                    print("works!");
                 }
                 // If a non-special object is found is found
                 else if (tag == "Grabable" || tag == "Player")
@@ -126,6 +153,7 @@ public class CheckGrip : MonoBehaviour
                     lastThrowable = grabablesInReach[i];
                     foundThrowable = true;
                 }
+               
             }
 
             // The type that is first checked will get first priority.
@@ -140,20 +168,35 @@ public class CheckGrip : MonoBehaviour
                 currentGripable = lastOther;
                 PlayGrabableAnim();
             }
+            else if (foundElectric)
+            {
+                currentGripable = lastElectric;
+
+                if (lastElectric == tempRb)
+                    StopAnim();
+            }
+            else if (foundSticky)
+            {
+                currentGripable = lastSticky;
+
+                if (currentGripping == tempRb)
+                    StopAnim();
+            }
             else if (foundSlippery)
             {
                 currentGripable = SlipperyCube.GetComponent<Rigidbody>();
 
-                if (currentGripping == null)
+                if (currentGripping == tempRb)
                     StopAnim();
             }
             else if (foundWall)
             {
                 currentGripable = lastWall;
 
-                if (currentGripping == null)
+                if (currentGripping == tempRb)
                     StopAnim();
             }
+            
 
             // You cant grip anything if the bottom object is in reach.
             // This prevent the player from holding while that object goes throught the player
@@ -163,17 +206,17 @@ public class CheckGrip : MonoBehaviour
                 canGrip = true;
         }
         // If nothing is no longer gripped
-        else if (currentGripping == null)
+        else if (currentGripping == tempRb)
         {
             canGrip = false;
-            currentGripable = null;
+            currentGripable = tempRb;
         }
     }
 
 
     private void PlayGrabableAnim()
     {
-        if (!playingAnim && currentGripping == null)
+        if (!playingAnim && currentGripping == tempRb)
         {
             grabIndicators.gameObject.SetActive(true);
 
@@ -224,18 +267,27 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
-            if (currentGripping != null && currentGripping.tag == "Slippery")
+            if (currentGripable.tag != "Electric" && currentGripable != tempRb)
             {
-                //PlayerSlippery.SetIsGrabbing(leftHand, true);
-                //SlipperyCube.SetActive(true);
-                //SlipperyCube.GetComponent<Rigidbody>().drag = 1f;
+                gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
+                currentGripping = currentGripable;
+            }
+            else
+            {
+                transform.root.GetComponent<PlayerStun>().Stun(1);
+
+                transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
             }
 
-            gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
-            currentGripping = currentGripable;
+            //if (currentGripping != tempRb && currentGripping.tag == "Slippery")
+            //{
+            //    PlayerSlippery.SetIsGrabbing(leftHand, true);
+            //    SlipperyCube.SetActive(true);
+            //    SlipperyCube.GetComponent<Rigidbody>().drag = 1f;
+            //}
 
             // If a player is grabbed, that player will know it
-            if (currentGripping != null && currentGripping.tag == "Player")
+            if (currentGripping != tempRb && currentGripping.tag == "Player")
                 currentGripping.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
 
             StopAnim();
@@ -250,17 +302,17 @@ public class CheckGrip : MonoBehaviour
         Destroy(GetComponent<FixedJoint>());
 
         // If a player was grabbed, that player will know it no longer is
-        if (currentGripping != null && currentGripping.tag == "Player")
+        if (currentGripping != tempRb && currentGripping.tag == "Player")
             currentGripping.transform.root.GetComponent<PlayerInfo>().RemoveGrabbingPlayer(transform.root.gameObject);
 
-        if (currentGripping != null && currentGripping.tag == "Slippery")
+        if (currentGripping != tempRb && currentGripping.tag == "Slippery")
         {
             //PlayerSlippery.SetIsGrabbing(leftHand, false);
             //SlipperyCube.SetActive(false);
             //SlipperyCube.GetComponent<Rigidbody>().drag = Mathf.Infinity;
         }
 
-        currentGripping = null;
+        currentGripping = tempRb;
 
         StopAnim();
     }
@@ -272,7 +324,7 @@ public class CheckGrip : MonoBehaviour
 
         currentGripping.AddForce(throwDir * throwForce);
 
-        currentGripping = null;
+        currentGripping = tempRb;
 
         StopAnim();
     }
