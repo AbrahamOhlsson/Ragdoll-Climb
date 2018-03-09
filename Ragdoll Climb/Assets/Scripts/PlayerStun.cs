@@ -8,6 +8,7 @@ public class PlayerStun : MonoBehaviour
     float timer;
 
     public ParticleSystem stars;
+	public ParticleSystem starBurst;
 
 
     void Update()
@@ -35,6 +36,7 @@ public class PlayerStun : MonoBehaviour
 
             //Start playing particle effect.
             stars.Play();
+			starBurst.Play();
 
             isStunned = true;
 
@@ -53,6 +55,7 @@ public class PlayerStun : MonoBehaviour
             isStunned = false;
             //Start playing particle effect.
             stars.Stop();
+			starBurst.Stop();
             //Give player back mobility.
             GetComponent<PlayerController>().canMove = true;
             GetComponent<PlayerController>().ReleaseGrip(true, false);
