@@ -44,7 +44,7 @@ public class FinishLine : MonoBehaviour
                 yellowWins.enabled = true;
             }
             
-            FindObjectOfType<musicAndSoundManager>().Play("applaus");
+            FindObjectOfType<musicAndSoundManager>().PlaySound("applaus");
 
             gameOver = true;
             
