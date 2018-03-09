@@ -45,8 +45,6 @@ public class GorillaThrow : MonoBehaviour
     {
         if (playerCollision && !inactive)
         {
-            print("Is lerping");
-            
             playerForce.AddForce((lerpPos - playerForce.position).normalized * 500f);
             throwTimer -= Time.deltaTime;
 
@@ -104,39 +102,49 @@ public class GorillaThrow : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //Get the player referens.
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !playerCollision && !inactive)
         {
-            if(!playerCollision && !inactive)
+            bodyParts = other.transform.root.GetComponentsInChildren<Rigidbody>();
+            smoke.Play();
+            stars.Play();
+
+            //Remove the players movement.
+            other.transform.root.GetComponent<PlayerController>().canMove = false;
+            other.transform.root.GetComponent<PlayerController>().ReleaseGrip(true, false);
+            other.transform.root.GetComponent<PlayerController>().ReleaseGrip(false, false);
+
+            //Looking for the bodypart "Spine1_M" and then set its posision.
+            for (int i = 0; i < bodyParts.Length; i++)
             {
-                bodyParts = other.transform.root.GetComponentsInChildren<Rigidbody>();
-                smoke.Play();
-                stars.Play();
-
-                //Remove the players movement.
-                other.transform.root.GetComponent<PlayerController>().canMove = false;
-                other.transform.root.GetComponent<PlayerController>().ReleaseGrip(true, false);
-                other.transform.root.GetComponent<PlayerController>().ReleaseGrip(false, false);
-
-                //Looking for the bodypart "Spine1_M" and then set its posision.
-                for (int i = 0; i < bodyParts.Length; i++)
+                if (bodyParts[i].name == "Spine1_M")
                 {
-                    if (bodyParts[i].name == "Spine1_M")
-                    {
-                        playerForce = bodyParts[i];
-                        lerpPos.z = playerForce.position.z;
+                    playerForce = bodyParts[i];
+                    lerpPos.z = playerForce.position.z;
 
-                        break;
-                    }
+                    break;
                 }
-
-                //Add time to the throwTimer to delay the thorw. 
-                throwTimer = throwDelay;
-                playerCollision = true;
             }
+
+            //Add time to the throwTimer to delay the thorw. 
+            throwTimer = throwDelay;
+            playerCollision = true;
+
+            if (name.Contains("Gorilla"))
+            {
+                playerForce.transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("is being wrecked by a gorilla!");
+            }
+            else if (name.Contains("Cement"))
+            {
+                playerForce.transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("is stuck in a cement mixer!");
+            }
+
         }
         //If the gorilla is colliding with the bottom object remove the gorilla from the game.
         if (other.gameObject.CompareTag("BottomObj"))
         {
+            if (playerCollision)
+                playerForce.transform.root.GetComponent<PlayerController>().canMove = true;
+
             Destroy(gameObject);
         }
     }

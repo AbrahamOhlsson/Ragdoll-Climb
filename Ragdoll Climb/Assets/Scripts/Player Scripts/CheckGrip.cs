@@ -12,7 +12,9 @@ public class CheckGrip : MonoBehaviour
     // The rigidbody that will be gripped
     public Rigidbody currentGripable;
 
-    [SerializeField] bool leftHand = true;
+    public bool leftHand = true;
+
+    [SerializeField] float breakForce = 3000f;
 
     [SerializeField] Transform grabIndicators;
 
@@ -42,6 +44,17 @@ public class CheckGrip : MonoBehaviour
 	void Update ()
     {
         DetermineObjectToGrab();
+
+        if (GetComponent<FixedJoint>())
+        {
+            if (GetComponent<FixedJoint>().currentForce.magnitude >= breakForce || GetComponent<FixedJoint>().connectedBody == null)
+            {
+                if (currentGripping.tag == "Throwable")
+                    controller.ReleaseGrip(leftHand, true);
+                else
+                    controller.ReleaseGrip(leftHand, false);
+            }
+        }
 	}
     
     
@@ -254,9 +267,17 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
-            gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
-            currentGripping = currentGripable;
+            if (currentGripable.tag != "Electric" && currentGripable != tempRb)
+            {
+                gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
+                currentGripping = currentGripable;
+            }
+            else
+            {
+                transform.root.GetComponent<PlayerStun>().Stun(1);
 
+                transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
+            }
 
             //if (currentGripping != tempRb && currentGripping.tag == "Slippery")
             //{
@@ -264,13 +285,6 @@ public class CheckGrip : MonoBehaviour
             //    SlipperyCube.SetActive(true);
             //    SlipperyCube.GetComponent<Rigidbody>().drag = 1f;
             //}
-
-            if (currentGripping != tempRb && currentGripping.tag == "Electric")
-            {
-                canGrip = false;
-                transform.root.GetComponent<PlayerStun>().Stun(1);
-                
-            }
 
             // If a player is grabbed, that player will know it
             if (currentGripping != tempRb && currentGripping.tag == "Player")

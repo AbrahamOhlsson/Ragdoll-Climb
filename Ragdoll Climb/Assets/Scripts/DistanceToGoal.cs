@@ -39,7 +39,7 @@ public class DistanceToGoal : MonoBehaviour
         // Checks everytime of the "higestplayer" limbs wich is the highest y-position(First in the race) 
         for (int i = 0; i < limbs.Length; i++)
         {
-            if(limbs[i].transform.position.y > highestLimb.transform.position.y)
+            if (limbs[i].transform.position.y > highestLimb.transform.position.y && limbs[i].tag == "Player")
             {
                 highestLimb = limbs[i];
             }
@@ -59,12 +59,12 @@ public class DistanceToGoal : MonoBehaviour
         // ****LOST GENERATION **END**
 
         // Shows the remaining distance of the highest player(First in the race)
-        rangeText.text = "Distance to Finish line: " + distToEnd.ToString("F0") + " units";
+        rangeText.text = "Goal Distance: " + distToEnd.ToString("F0") /*+ " units"*/;
 
         // When it reach Finish Line
         if(distToEnd <= 0)
         {
-            rangeText.text = "Finish line: GOAL";
+            rangeText.text = "GOAL";
         }
     }
 }

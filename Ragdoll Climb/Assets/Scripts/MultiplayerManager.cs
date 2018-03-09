@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using XInputDotNetPure;
 
 public class MultiplayerManager : MonoBehaviour
 {
+    public List<GameObject> players = new List<GameObject>();
+    
     // The colors each of the players should have
     [SerializeField] Color[] playerColors;
-
-    [SerializeField] List<GameObject> players = new List<GameObject>();
 
     bool[] playerSpawned = new bool[4];
 
@@ -41,7 +42,6 @@ public class MultiplayerManager : MonoBehaviour
             {
                 // Activates player and gives it the right player number
                 players[i].SetActive(true);
-                players[i].GetComponent<PlayerController>().playerNr = i + 1;
                 players[i].GetComponent<PlayerController>().SetGamePad(i);
                 players[i].GetComponent<Cheats>().SetGamePad(i);
                 
@@ -53,6 +53,10 @@ public class MultiplayerManager : MonoBehaviour
                 {
                     renderers[j].material.color = playerColors[i];
                 }
+
+                players[i].GetComponent<PlayerInfo>().playerNr = i + 1;
+                players[i].GetComponent<PlayerInfo>().color = playerColors[i];
+                players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = playerColors[i];
 
                 playerSpawned[i] = true;
             }

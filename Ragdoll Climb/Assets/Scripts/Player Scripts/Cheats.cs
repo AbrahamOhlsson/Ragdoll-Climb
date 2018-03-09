@@ -83,16 +83,18 @@ public class Cheats : MonoBehaviour
 
         if (state.Buttons.B == ButtonState.Pressed && prevState.Buttons.B == ButtonState.Released)
         {
+            controller.ToggleUnlimitedStamina();
+
             if (stamina)
             {
-                controller.ToggleUnlimitedStamina();
                 debugText.AddText("Player " + playerIndex + " deactivated Unlimited Stamina Cheat");
                 stamina = false;
             }
-
-            controller.ToggleUnlimitedStamina();
-            debugText.AddText("Player " + playerIndex + " activated Unlimited Stamina Cheat");
-            stamina = true;
+            else
+            {
+                debugText.AddText("Player " + playerIndex + " activated Unlimited Stamina Cheat");
+                stamina = true;
+            }
         }
     }
 
