@@ -20,14 +20,11 @@ public class FreezeCloseToBoat : MonoBehaviour {
     {
         if (transform.position.y < Boat.transform.position.y + tooCloseToBoat)
         {
-            print("In too close");
             transform.root.GetComponent<FreezePlayerPowerUp>().closeToBoat = true;
         }
         if (transform.position.y > Boat.transform.position.y + tooCloseToBoat)
         {
-            print("Outside too close");
             transform.root.GetComponent<FreezePlayerPowerUp>().closeToBoat = false;
         }
-
     }
 }

@@ -29,6 +29,8 @@ public class PlayerPowerups : MonoBehaviour
     //-------------------------------------------------------------------------------------//
     public void StartTeleport(Vector3 newPos)
     {
+        GetComponent<PlayerInfo>().feedbackText.Activate("got teleported!");
+
         Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
         GetComponent<PlayerController>().ReleaseGrip(true, false);
@@ -65,7 +67,6 @@ public class PlayerPowerups : MonoBehaviour
     //-------------------------------------------------------------------------------------//
     public void ChangePlayerMass()
 	{
-
 		Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
 		foreach (Rigidbody rigidbodymass in Rigidbodies)
@@ -88,13 +89,17 @@ public class PlayerPowerups : MonoBehaviour
 		{
 			LooseMassParticle.Play();
 			AddMassParticle.Stop();
-		}
+
+            GetComponent<PlayerInfo>().feedbackText.Activate("got light weighted!");
+        }
 
 		if (m_MassPercent > 1)
 		{
 			AddMassParticle.Play();
 			LooseMassParticle.Stop();
-		}
+
+            GetComponent<PlayerInfo>().feedbackText.Activate("got heavy!");
+        }
 		pos = 0;
 
 		yield return new WaitForSeconds(MassDuration);

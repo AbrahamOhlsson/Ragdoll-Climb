@@ -25,7 +25,7 @@ public class FinishLine : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && !gameOver)
         {
-            int playerNr = other.transform.root.GetComponent<PlayerController>().playerNr;
+            int playerNr = other.transform.root.GetComponent<PlayerInfo>().playerNr;
 
             if (playerNr == 1)
             {

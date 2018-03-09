@@ -5,7 +5,6 @@ using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour
 {
-    public int playerNr = 1;
     public bool canMove = true;
 
     [Header("Forces and Movement")]

@@ -275,6 +275,8 @@ public class CheckGrip : MonoBehaviour
             else
             {
                 transform.root.GetComponent<PlayerStun>().Stun(1);
+
+                transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
             }
 
             //if (currentGripping != tempRb && currentGripping.tag == "Slippery")
