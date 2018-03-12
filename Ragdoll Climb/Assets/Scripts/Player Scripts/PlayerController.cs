@@ -168,11 +168,6 @@ public class PlayerController : MonoBehaviour
         releaseGripDelayedRight = ReleaseGripDelayed(false);
 
         bodyParts = GetComponentsInChildren<Rigidbody>();
-
-        //for (int i = 0; i < bodyParts.Length; i++)
-        //{
-        //    bodyParts[i].maxDepenetrationVelocity = 1000000000000f;
-        //}
     }
 
 
@@ -552,9 +547,9 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void SetGamePad(int index)
+    public void SetGamePad(PlayerIndex index)
     {
-        playerIndex = (PlayerIndex)index;
+        playerIndex = index;
     }
 
 

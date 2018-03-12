@@ -11,12 +11,15 @@ public class Cheats : MonoBehaviour
     bool invertedPullControls = false;
     bool stamina = false;
 
+    int playerNr;
+
     // Controller variables
     PlayerIndex playerIndex;
     GamePadState state;
     GamePadState prevState;
 
     PlayerController controller;
+    PlayerInfo playerInfo;
 
     Rigidbody[] bodies;
     float bodyMasses;
@@ -25,6 +28,10 @@ public class Cheats : MonoBehaviour
 	void Start ()
     {
         controller = GetComponent<PlayerController>();
+        playerInfo = GetComponent<PlayerInfo>();
+
+        playerIndex = playerInfo.playerIndex;
+        playerNr = playerInfo.playerNr;
 
         bodies = GetComponentsInChildren<Rigidbody>();
 	}
@@ -38,7 +45,7 @@ public class Cheats : MonoBehaviour
         if (state.Buttons.A == ButtonState.Pressed && prevState.Buttons.A == ButtonState.Released)
         {
             if (controller.ActivateBoost())
-                debugText.AddText("Player " + playerIndex + " activated Boost Cheat");
+                debugText.AddText("Player " + playerNr + " activated Boost Cheat");
         }
         
         if (state.Buttons.X == ButtonState.Pressed && prevState.Buttons.X == ButtonState.Released)
@@ -51,7 +58,7 @@ public class Cheats : MonoBehaviour
                 }
 
                 lightWeightActive = false;
-                debugText.AddText("Player " + playerIndex + " deactivated Light Weight Cheat");
+                debugText.AddText("Player " + playerNr + " deactivated Light Weight Cheat");
             }
             else
             {
@@ -61,7 +68,7 @@ public class Cheats : MonoBehaviour
                 }
 
                 lightWeightActive = true;
-                debugText.AddText("Player " + playerIndex + " activated Light Weight Cheat");
+                debugText.AddText("Player " + playerNr + " activated Light Weight Cheat");
             }
         }
 
@@ -70,13 +77,13 @@ public class Cheats : MonoBehaviour
             if (invertedPullControls)
             {
                 controller.ToggleInvertPull();
-                debugText.AddText("Player " + playerIndex + " reverted pull controls");
+                debugText.AddText("Player " + playerNr + " reverted pull controls");
                 invertedPullControls = false;
             }
             else
             {
                 controller.ToggleInvertPull();
-                debugText.AddText("Player " + playerIndex + " inverted pull controls");
+                debugText.AddText("Player " + playerNr + " inverted pull controls");
                 invertedPullControls = true;
             }
         }
@@ -87,12 +94,12 @@ public class Cheats : MonoBehaviour
 
             if (stamina)
             {
-                debugText.AddText("Player " + playerIndex + " deactivated Unlimited Stamina Cheat");
+                debugText.AddText("Player " + playerNr + " deactivated Unlimited Stamina Cheat");
                 stamina = false;
             }
             else
             {
-                debugText.AddText("Player " + playerIndex + " activated Unlimited Stamina Cheat");
+                debugText.AddText("Player " + playerNr + " activated Unlimited Stamina Cheat");
                 stamina = true;
             }
         }
