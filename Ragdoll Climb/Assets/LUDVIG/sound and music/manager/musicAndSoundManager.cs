@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Audio; 
-using UnityEngine;
+using UnityEngine.Audio;
+ using UnityEngine;
 
 
 
 public class musicAndSoundManager : MonoBehaviour {
 
     public Sound[] sounds;
-    
-	// Use this for initialization
-	void Awake () {
+    public Sound[] feedbackSounds;
+
+    // Use this for initialization
+    void Awake () {
 		foreach (Sound i in sounds)
         {
             i.source = gameObject.AddComponent<AudioSource>();
@@ -25,11 +26,12 @@ public class musicAndSoundManager : MonoBehaviour {
 
     void Start()
     {
-        Play("music");
+        PlaySound("music");
+       
     }
 
 
-    public void Play(string name)
+    public void PlaySound(string name)
     {
         Sound s= null;
 
@@ -41,10 +43,14 @@ public class musicAndSoundManager : MonoBehaviour {
                 s.source.Play();
             }
         }
+
         if (s == null)
         {
             Debug.LogWarning("Sound:" + name + " not found.");
 
         }
     }
+
+    
+
 }
