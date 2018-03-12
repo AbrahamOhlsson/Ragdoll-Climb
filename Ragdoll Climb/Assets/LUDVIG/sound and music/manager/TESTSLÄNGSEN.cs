@@ -9,14 +9,24 @@ public class TESTSLÄNGSEN : MonoBehaviour {
 		
 	}
 	
+
 	// Update is called once per frame
 	void Update () {
+
 		if (Input.GetKeyDown("up"))
         {
             Debug.Log("UP");
 
-            GetComponent<musicAndSoundManager>().Play("applaus");
+            FindObjectOfType<musicAndSoundManager>().PlaySound("applaus");
 
         }
-	}
+
+        if (Input.GetKeyDown("down"))
+        {
+            Debug.Log("DOWN");
+
+           FindObjectOfType<feedbackManager>().PlaySound("ice",feedbackSound.player.Blue);
+
+        }
+    }
 }
