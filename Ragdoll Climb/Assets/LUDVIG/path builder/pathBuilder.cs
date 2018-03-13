@@ -79,7 +79,7 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().bloakList.Length;
 
-                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize )], new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), 0), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
+                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize )], new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), transform.position.z), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
               
 
             }
@@ -91,7 +91,7 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().bloakList.Length;
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), 0), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
+                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), transform.position.z), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
                 
 
             }
@@ -107,7 +107,7 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().bloakList.Length;
 
-                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize )], new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), 0), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
+                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize )], new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), transform.position.z), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
                 
 
             }
@@ -119,7 +119,7 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().bloakList.Length;
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), 0), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
+                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), transform.position.z), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
 
 
             }
