@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114443783346781166}
   m_Layer: 0
   m_Name: FinishArea
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42,9 +42,10 @@ GameObject:
   - component: {fileID: 33501795280268046}
   - component: {fileID: 65714486794834910}
   - component: {fileID: 23334514256553922}
+  - component: {fileID: 54655970811733458}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,9 +61,10 @@ GameObject:
   - component: {fileID: 33861729837350676}
   - component: {fileID: 65557923345292164}
   - component: {fileID: 23136540553456718}
+  - component: {fileID: 54274047666265752}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,9 +81,10 @@ GameObject:
   - component: {fileID: 65160871476475544}
   - component: {fileID: 23045949132566302}
   - component: {fileID: 114070852919614914}
+  - component: {fileID: 54913815570762178}
   m_Layer: 0
   m_Name: EndModul
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +135,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1663660393859050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 16.08, z: 1}
+  m_LocalPosition: {x: 2.0100164, y: 53.54985, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children:
   - {fileID: 4229628827267016}
@@ -305,6 +308,51 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1598160926083990}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54274047666265752
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1598160926083990}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54655970811733458
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1389376366892356}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54913815570762178
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1663660393859050}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65160871476475544
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -377,10 +425,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355dd1880a0f2b24fb9f6b573973d418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redWins: {fileID: 0}
-  blueWins: {fileID: 0}
-  greenWins: {fileID: 0}
-  yellowWins: {fileID: 0}
+  p1Wins: {fileID: 0}
+  p2Wins: {fileID: 0}
+  p3Wins: {fileID: 0}
+  p4Wins: {fileID: 0}
   rematchCanvas: {fileID: 0}
   doItButton: {fileID: 0}
 --- !u!114 &114443783346781166
