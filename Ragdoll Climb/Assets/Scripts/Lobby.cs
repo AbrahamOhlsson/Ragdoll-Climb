@@ -153,7 +153,7 @@ public class Lobby : MonoBehaviour
                         {
                             break;
                         }
-                        else if (playersReady[i] && j == playerIndexes.Count - 1)
+                        else if (playersReady[i] && j == playerIndexes.Count - 1 && playerIndexes.Count >= 2)
                         {
                             allReady = true;
                             continueButton.SetActive(true);
