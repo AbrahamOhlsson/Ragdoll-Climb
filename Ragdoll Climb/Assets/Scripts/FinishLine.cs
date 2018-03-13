@@ -25,23 +25,29 @@ public class FinishLine : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && !gameOver)
         {
-            int playerNr = other.transform.root.GetComponent<PlayerInfo>().playerNr;
+            PlayerInfo playerInfo = other.transform.root.GetComponent<PlayerInfo>();
+
+            int playerNr = playerInfo.playerNr;
 
             if (playerNr == 1)
             {
                 redWins.enabled = true;
+                redWins.color = playerInfo.color;
             }
             else if (playerNr == 2)
             {
                 blueWins.enabled = true;
+                blueWins.color = playerInfo.color;
             }
             else if (playerNr == 3)
             {
                 greenWins.enabled = true;
+                greenWins.color = playerInfo.color;
             }
             else if (playerNr == 4)
             {
                 yellowWins.enabled = true;
+                yellowWins.color = playerInfo.color;
             }
             
             FindObjectOfType<musicAndSoundManager>().PlaySound("applaus");

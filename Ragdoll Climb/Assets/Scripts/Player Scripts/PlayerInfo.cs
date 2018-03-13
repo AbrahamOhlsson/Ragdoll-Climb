@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XInputDotNetPure;
 
 
 public class PlayerInfo : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerInfo : MonoBehaviour
 
     [HideInInspector] public int playerNr = 1;
     [HideInInspector] public Color color;
+    [HideInInspector] public PlayerIndex playerIndex;
     
     // Other players grabbing this player
     List<GameObject> grabbingPlayers = new List<GameObject>();
