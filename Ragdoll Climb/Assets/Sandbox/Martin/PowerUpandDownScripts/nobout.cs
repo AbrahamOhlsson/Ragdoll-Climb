@@ -17,7 +17,7 @@ public class nobout : MonoBehaviour {
         //Add manager with boat
         //startObj = manager.boat
         //remove public from gameobject startObj.
-        startObj = FindObjectOfType<teleportBoatCheck>().bout;   // tabort gör inget
+        startObj = FindObjectOfType<teleportBoatCheck>().bottomObj;   // tabort gör inget
 		
 	}
 	
