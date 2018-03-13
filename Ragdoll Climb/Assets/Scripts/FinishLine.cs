@@ -10,6 +10,8 @@ public class FinishLine : MonoBehaviour
     [SerializeField] private Image p3Wins;
     [SerializeField] private Image p4Wins;
 
+
+
     [SerializeField] private GameObject rematchCanvas;
     [SerializeField] private Button doItButton;
     //[SerializeField] private Button showingMenuTitle;
@@ -28,6 +30,8 @@ public class FinishLine : MonoBehaviour
             PlayerInfo playerInfo = other.transform.root.GetComponent<PlayerInfo>();
 
             int playerNr = playerInfo.playerNr;
+
+            print(playerNr);
 
             if (playerNr == 1)
             {

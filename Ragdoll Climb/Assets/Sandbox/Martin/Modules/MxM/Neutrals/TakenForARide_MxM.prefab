@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4380181344791842}
   - component: {fileID: 33416796898079508}
   - component: {fileID: 23408637301762194}
+  - component: {fileID: 54146466251689272}
   m_Layer: 0
   m_Name: Cube_013
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,9 +39,10 @@ GameObject:
   - component: {fileID: 4317040518358110}
   - component: {fileID: 33703139727305800}
   - component: {fileID: 23500193168853074}
+  - component: {fileID: 54776806207134454}
   m_Layer: 0
   m_Name: Cube_004
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,9 +57,10 @@ GameObject:
   - component: {fileID: 4181965535059478}
   - component: {fileID: 33420214769035796}
   - component: {fileID: 23140241998858842}
+  - component: {fileID: 54946924994497184}
   m_Layer: 0
   m_Name: Cube_020
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,6 +77,7 @@ GameObject:
   - component: {fileID: 65031766947910136}
   - component: {fileID: 23225796395051818}
   - component: {fileID: 114755271544168720}
+  - component: {fileID: 54764415826699022}
   m_Layer: 0
   m_Name: TakenForARide_MxM
   m_TagString: Wall
@@ -90,9 +94,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4819182505418150}
   - component: {fileID: 64096027589206254}
+  - component: {fileID: 54350075456199228}
   m_Layer: 0
   m_Name: TakenForARide_MxM
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +122,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1518374361626742}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.7, y: 361.7238, z: -38.489}
+  m_LocalPosition: {x: -0.24738741, y: 43.43035, z: 0}
   m_LocalScale: {x: 10.000005, y: 47.087486, z: 0.99848557}
   m_Children:
   - {fileID: 4819182505418150}
@@ -330,6 +335,81 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1352289836334084}
   m_Mesh: {fileID: 4300000, guid: d4b37df446fc64549b5e9abf5a5a94f3, type: 3}
+--- !u!54 &54146466251689272
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1154830381260024}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54350075456199228
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1708453872141236}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54764415826699022
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1518374361626742}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54776806207134454
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1352289836334084}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!54 &54946924994497184
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1466033283858052}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!64 &64096027589206254
 MeshCollider:
   m_ObjectHideFlags: 1
