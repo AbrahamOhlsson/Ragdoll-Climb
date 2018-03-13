@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject mainGroup;
     [SerializeField] GameObject playerSelectGroup;
     [SerializeField] GameObject levelSelectGroup;
+    [SerializeField] GameObject howToPlayGroup;
     [SerializeField] GameObject optionsGroup;
     [SerializeField] GameObject creditsGroup;
 
@@ -30,6 +31,7 @@ public class MenuManager : MonoBehaviour
         mainGroup.SetActive(true);
         playerSelectGroup.SetActive(false);
         levelSelectGroup.SetActive(false);
+        howToPlayGroup.SetActive(false);
         optionsGroup.SetActive(false);
         creditsGroup.SetActive(false);
 

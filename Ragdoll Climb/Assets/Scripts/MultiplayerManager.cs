@@ -68,6 +68,7 @@ public class MultiplayerManager : MonoBehaviour
                     // Activates player and gives it the right player number
                     players[i].SetActive(true);
                     players[i].GetComponent<PlayerController>().SetGamePad((PlayerIndex)i);
+                    players[i].GetComponent<PlayerInfo>().playerIndex = (PlayerIndex)i;
                     players[i].GetComponent<Cheats>().SetGamePad(i);
 
                     // Gets all renderers in player
