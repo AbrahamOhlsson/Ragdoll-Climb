@@ -15,15 +15,15 @@ public class feedbackSound
     [SerializeField]
     public player PlayerColor;
 
-   //[Range(1, 4)] 
+    //[Range(1, 4)] 
     //public int player=1;
 
     public AudioClip clip;
 
     [Range(0f, 1f)]
-    public float volume = 1;
+    public float volume;
     [Range(0.1f, 3f)]
-    public float pitch = 1;
+    public float pitch;
 
     [HideInInspector]
     public AudioSource source;
