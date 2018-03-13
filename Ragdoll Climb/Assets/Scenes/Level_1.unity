@@ -8266,6 +8266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df23132f6b3af0488d3280eefddce71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   ship: {fileID: 1372322991}
   distance: 6
 --- !u!1 &519409739
@@ -15976,6 +15977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df23132f6b3af0488d3280eefddce71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   ship: {fileID: 1372322991}
   distance: 3
 --- !u!1 &897501935
@@ -20029,6 +20031,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df23132f6b3af0488d3280eefddce71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   ship: {fileID: 1372322991}
   distance: 3
 --- !u!1 &1136735936
@@ -27871,6 +27874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df23132f6b3af0488d3280eefddce71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   ship: {fileID: 12552193}
   distance: 6
 --- !u!114 &1450680753 stripped
@@ -31452,6 +31456,11 @@ Prefab:
       propertyPath: sounds.Array.size
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114538572855517192, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
+        type: 2}
+      propertyPath: feedbackSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4671174015493038, guid: f89f5f772075dd2438ed7fc90b3aa1c2, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4.7649403
@@ -31513,6 +31522,36 @@ Prefab:
         type: 2}
       propertyPath: sounds.Array.data[0].volume
       value: 0.063
+      objectReference: {fileID: 0}
+    - target: {fileID: 114538572855517192, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
+        type: 2}
+      propertyPath: feedbackSounds.Array.data[0].PlayerColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114538572855517192, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
+        type: 2}
+      propertyPath: feedbackSounds.Array.data[0].name
+      value: ice
+      objectReference: {fileID: 0}
+    - target: {fileID: 114538572855517192, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
+        type: 2}
+      propertyPath: feedbackSounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 32bbe4880d5c05948a1f11885d121b61, type: 3}
+    - target: {fileID: 114538572855517192, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
+        type: 2}
+      propertyPath: feedbackSounds.Array.data[0].volume
+      value: 0.568
+      objectReference: {fileID: 0}
+    - target: {fileID: 114538572855517192, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
+        type: 2}
+      propertyPath: feedbackSounds.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114538572855517192, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
+        type: 2}
+      propertyPath: CdTime
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f89f5f772075dd2438ed7fc90b3aa1c2, type: 2}
@@ -31742,6 +31781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df23132f6b3af0488d3280eefddce71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   ship: {fileID: 1372322991}
   distance: 3
 --- !u!54 &1777505550 stripped
@@ -31845,6 +31885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df23132f6b3af0488d3280eefddce71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
   ship: {fileID: 1372322991}
   distance: 3
 --- !u!1 &1813283540 stripped
