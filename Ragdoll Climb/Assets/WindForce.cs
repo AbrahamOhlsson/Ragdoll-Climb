@@ -21,11 +21,13 @@ public class WindForce : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        rbs.Add(other.GetComponent<Rigidbody>());
+		if (other.GetComponent<Rigidbody>())
+			rbs.Add(other.GetComponent<Rigidbody>());
     }
 
     private void OnTriggerExit(Collider other)
     {
-        rbs.Remove(other.GetComponent<Rigidbody>());
+		if (other.GetComponent<Rigidbody>())
+			rbs.Remove(other.GetComponent<Rigidbody>());
     }
 }
