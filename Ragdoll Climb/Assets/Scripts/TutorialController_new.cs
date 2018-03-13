@@ -8,6 +8,8 @@ using XInputDotNetPure;
 
 public class TutorialController_new : MonoBehaviour
 {
+    [SerializeField] Text indexText;
+
 	//PlayerIndex[] playerIndex;
 	GamePadState[] state = new GamePadState[4];
 	GamePadState[] prevState = new GamePadState[4];
@@ -68,5 +70,6 @@ public class TutorialController_new : MonoBehaviour
 	void ChangeImage()
 	{
 		playerTutorial.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ragdollTutorial" + spriteNumb);
+        indexText.text = spriteNumb + " / 3";
     }
 }

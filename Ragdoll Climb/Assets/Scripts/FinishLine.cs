@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class FinishLine : MonoBehaviour
 {
-    [SerializeField] private Image redWins;
-    [SerializeField] private Image blueWins;
-    [SerializeField] private Image greenWins;
-    [SerializeField] private Image yellowWins;
+    [SerializeField] private Image p1Wins;
+    [SerializeField] private Image p2Wins;
+    [SerializeField] private Image p3Wins;
+    [SerializeField] private Image p4Wins;
 
     [SerializeField] private GameObject rematchCanvas;
     [SerializeField] private Button doItButton;
@@ -31,23 +31,23 @@ public class FinishLine : MonoBehaviour
 
             if (playerNr == 1)
             {
-                redWins.enabled = true;
-                redWins.color = playerInfo.color;
+                p1Wins.enabled = true;
+                p1Wins.color = playerInfo.color;
             }
             else if (playerNr == 2)
             {
-                blueWins.enabled = true;
-                blueWins.color = playerInfo.color;
+                p2Wins.enabled = true;
+                p2Wins.color = playerInfo.color;
             }
             else if (playerNr == 3)
             {
-                greenWins.enabled = true;
-                greenWins.color = playerInfo.color;
+                p3Wins.enabled = true;
+                p3Wins.color = playerInfo.color;
             }
             else if (playerNr == 4)
             {
-                yellowWins.enabled = true;
-                yellowWins.color = playerInfo.color;
+                p4Wins.enabled = true;
+                p4Wins.color = playerInfo.color;
             }
             
             FindObjectOfType<musicAndSoundManager>().PlaySound("applaus");

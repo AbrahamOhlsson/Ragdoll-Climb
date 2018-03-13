@@ -7,8 +7,8 @@ public class feedbackManager : MonoBehaviour {
 
     
     public feedbackSound[] feedbackSounds;
-   
 
+    public float CdTime;
     // Use this for initialization
     void Awake()
     {
@@ -26,10 +26,16 @@ public class feedbackManager : MonoBehaviour {
 
     void Start()
     {
-        //PlaySound("ice", 1);
-        //gameObject.GetComponent<feedbackManager>().PlaySound("sada",1);
-
+        CdTime = 0;
     }
+
+    void Update()
+    {
+        if (CdTime <0){
+            CdTime += 1 * Time.deltaTime;
+        }
+    }
+
 
 
     /// <summary>
@@ -39,41 +45,46 @@ public class feedbackManager : MonoBehaviour {
     /// <param name="player"> / Red = 1 / Blue = 2 / Green = 3 / Yellow = 4 / </param>
     public void PlaySound(string name, feedbackSound.player playerColler)
     {
-        feedbackSound s = null;  //varför en ny? (se line 51   ;) )
+        feedbackSound s = null;  //varför en ny? (se if (s == null)  ;)  )
 
-        foreach (feedbackSound i in feedbackSounds)
+        if (CdTime >= 0)
         {
-            if (i.name == name)
+
+            foreach (feedbackSound i in feedbackSounds)
             {
-                
-
-
-                if (i.PlayerColor == playerColler)  // Red = 1 / Blue = 2 / Green = 3 / Yellow = 4 /
+                if (i.name == name)
                 {
-                    s = i;
-                    s.source.Play();
-                    
-                    i.source.Play();
-                    
-                }
-                else if (i.PlayerColor != playerColler)
-                {
-                    Debug.LogWarning("Feedback Sound:" + name + "not  found or it did not have the correct color! ");
-                    
-                }
 
-                //print("in name == name. " + playerColler + " <- from func :::  -> from i "+ i.PlayerColor);
+                        s = i;
+
+                    if (i.PlayerColor == playerColler)  // Red = 1 / Blue = 2 / Green = 3 / Yellow = 4 /
+                    {
+                       
+                        s.source.Play();
+
+                       // i.source.Play();
+
+                        CdTime = -i.source.clip.length ;
+
+                    }
+                    else if (i.PlayerColor != playerColler)
+                    {
+                        Debug.LogWarning("Feedback Sound:" + name + "not  found or it did not have the correct color! ");
+
+                    }
+
+                    //print("in name == name. " + playerColler + " <- from func :::  -> from i "+ i.PlayerColor);
+                }
             }
+
+            if (s == null)
+            {
+                  Debug.LogWarning("Feedback Sound:" + name + " not found.");
+
+            }
+
+
         }
-
-        if (s == null)
-        {
-          //  Debug.LogWarning("Feedback Sound:" + name + " not found.");
-
-        }
-
-
-
 
     }
 

@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 
 
-public class MenuRematch : MonoBehaviour {
-
+public class MenuRematch : MonoBehaviour
+{
     public void PlayGame()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -16,9 +16,6 @@ public class MenuRematch : MonoBehaviour {
 
     public void QuitGame()
     {
-        Debug.Log("Game Quits");
-        Application.Quit();
+        SceneManager.LoadScene("Main Menu");
     }
-
-
 }
