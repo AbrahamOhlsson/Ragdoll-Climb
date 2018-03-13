@@ -11,13 +11,12 @@ public class WorldMenuManager : MonoBehaviour
     [SerializeField] GameObject mainGroup;
     [SerializeField] GameObject playerSelectGroup;
     [SerializeField] GameObject levelSelectGroup;
-    [SerializeField] GameObject optionsGroup;
+	[SerializeField] GameObject howToPlayGroup;
+	[SerializeField] GameObject optionsGroup;
     [SerializeField] GameObject creditsGroup;
 
 	[SerializeField] float cameraSpeed = 0.5f;
 	[SerializeField] GameObject mainCamera;
-	[SerializeField] GameObject mainGroupPos;
-	[SerializeField] GameObject playerSelectGroupPos;
 
 	[SerializeField] EventSystem eventSystem;
 
@@ -39,6 +38,7 @@ public class WorldMenuManager : MonoBehaviour
         mainGroup.SetActive(true);
         playerSelectGroup.SetActive(false);
         levelSelectGroup.SetActive(false);
+		howToPlayGroup.SetActive(false);
         optionsGroup.SetActive(false);
         creditsGroup.SetActive(false);
 
@@ -76,6 +76,9 @@ public class WorldMenuManager : MonoBehaviour
 			eventSystem.enabled = true;
 			eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
 			moving = false;
+
+			if (groupPath.Peek() == playerSelectGroup)
+				eventSystem.SetSelectedGameObject(null);
 		}
 	}
 
