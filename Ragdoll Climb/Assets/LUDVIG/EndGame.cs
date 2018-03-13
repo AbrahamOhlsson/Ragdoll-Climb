@@ -3,28 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EndGame : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
+public class EndGame : MonoBehaviour
+{
 	void Update () {
 		
-        if (Input.GetKeyDown("escape"))  { //("escape")) {
+        if (Input.GetKeyDown("escape"))
+        {
             Application.Quit();
         }
 
         if (Input.GetKeyDown("r"))
         { 
-
-            Scene thisScene = SceneManager.GetActiveScene();
+           Scene thisScene = SceneManager.GetActiveScene();
            SceneManager.LoadScene(thisScene.buildIndex);
-
-            
-
         }
 
     }

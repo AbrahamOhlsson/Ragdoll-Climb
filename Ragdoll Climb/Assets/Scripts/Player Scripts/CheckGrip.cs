@@ -279,13 +279,6 @@ public class CheckGrip : MonoBehaviour
                 transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
             }
 
-            //if (currentGripping != tempRb && currentGripping.tag == "Slippery")
-            //{
-            //    PlayerSlippery.SetIsGrabbing(leftHand, true);
-            //    SlipperyCube.SetActive(true);
-            //    SlipperyCube.GetComponent<Rigidbody>().drag = 1f;
-            //}
-
             // If a player is grabbed, that player will know it
             if (currentGripping != tempRb && currentGripping.tag == "Player")
                 currentGripping.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
@@ -304,13 +297,6 @@ public class CheckGrip : MonoBehaviour
         // If a player was grabbed, that player will know it no longer is
         if (currentGripping != tempRb && currentGripping.tag == "Player")
             currentGripping.transform.root.GetComponent<PlayerInfo>().RemoveGrabbingPlayer(transform.root.gameObject);
-
-        if (currentGripping != tempRb && currentGripping.tag == "Slippery")
-        {
-            //PlayerSlippery.SetIsGrabbing(leftHand, false);
-            //SlipperyCube.SetActive(false);
-            //SlipperyCube.GetComponent<Rigidbody>().drag = Mathf.Infinity;
-        }
 
         currentGripping = tempRb;
 
