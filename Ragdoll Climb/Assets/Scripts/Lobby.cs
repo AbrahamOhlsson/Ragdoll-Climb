@@ -18,7 +18,7 @@ public class Lobby : MonoBehaviour
 
     [SerializeField] Color[] colors;
 
-    [SerializeField] MenuManager menuManager;
+    [SerializeField] WorldMenuManager menuManager;
 
     [SerializeField] EventSystem eventSystem;
 
