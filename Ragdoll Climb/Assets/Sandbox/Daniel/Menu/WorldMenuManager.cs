@@ -60,9 +60,24 @@ public class WorldMenuManager : MonoBehaviour
             states[i] = GamePad.GetState(playerIndexes[i]);
 
             // If B is pressed and the current menu group isn't the main one
-            if (states[i].Buttons.B == ButtonState.Pressed && prevStates[i].Buttons.B == ButtonState.Released && groupPath.Peek() != mainGroup)
+            if (states[i].Buttons.B == ButtonState.Pressed && prevStates[i].Buttons.B == ButtonState.Released && groupPath.Peek() != mainGroup && !moving)
                 Back();
-        }
+
+
+			if (eventSystem.currentSelectedGameObject == null)
+			{
+
+
+				if ((states[i].DPad.Down == ButtonState.Pressed && prevStates[i].DPad.Down == ButtonState.Released) || (states[i].DPad.Up == ButtonState.Pressed && prevStates[i].DPad.Up == ButtonState.Released) || (states[i].DPad.Left == ButtonState.Pressed && prevStates[i].DPad.Left == ButtonState.Released) || (states[i].DPad.Right == ButtonState.Pressed && prevStates[i].DPad.Right == ButtonState.Released) || (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released))
+				{
+					eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+					print("set event obj to START");
+				}
+				print("NULL event obj");
+
+			}
+
+		}
 		print(groupPath.Peek());
 
 		Vector3 camGoalPos = groupPath.Peek().transform.GetChild(0).transform.position;
@@ -79,7 +94,19 @@ public class WorldMenuManager : MonoBehaviour
 
 			if (groupPath.Peek() == playerSelectGroup)
 				eventSystem.SetSelectedGameObject(null);
+
+
+
 		}
+
+		if (Input.GetKeyDown("b") && eventSystem.currentSelectedGameObject == null) {
+				eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+				print("set event obj to START");
+			}
+
+
+		
+
 	}
 
 
@@ -103,6 +130,7 @@ public class WorldMenuManager : MonoBehaviour
     {
 		//groupPath.Pop().SetActive(false);
 		//eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+		eventSystem.enabled = false;
 		lastGroup = groupPath.Peek();
 		groupPath.Pop();
 		groupPath.Peek().SetActive(true);
