@@ -7,6 +7,7 @@ public class DoorDestroyer : MonoBehaviour {
     GameObject button;
     [SerializeField]
     GameObject door;
+    [SerializeField]
     GameObject player;
 
     Renderer renderers;
@@ -19,8 +20,12 @@ public class DoorDestroyer : MonoBehaviour {
     {
         notActivated = Color.red;
         activated = Color.green;
-        gameObject.GetComponent<Renderer>().material.color = notActivated;
 
+        //Makes the Door Red
+        door.gameObject.GetComponent<Renderer>().material.color = Color.red;
+
+        //Makes the button grey-ish before it activates.
+        gameObject.GetComponent<Renderer>().material.color = notActivated;
     }
 
 
@@ -31,15 +36,9 @@ public class DoorDestroyer : MonoBehaviour {
         if (player.tag == "Player")
         {
             Destroy(door);
+
+            //Switches the color to green when activated.
             gameObject.GetComponent<Renderer>().material.color = activated;
         }
-
-    }
-
-
-    // Update is called once per frame
-    void Update ()
-    {
-       
     }
 }
