@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class teleportBoatCheck : MonoBehaviour {
 
-    public GameObject bout;
+    public GameObject bottomObj;
 
     // Use this for initialization
     void Start ()
     {
+		bottomObj = GameObject.Find("bottom");
 		
 	}
 }
