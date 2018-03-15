@@ -59,20 +59,7 @@ public class Lobby : MonoBehaviour
         }
     }
 
-
-    private void OnEnable()
-    {
-        for (int i = 0; i < 4; i++)
-        {
-            checkMarkers[i].SetActive(false);
-            playersReady[i] = false;
-        }
-
-        continueButton.SetActive(false);
-        allReady = false;
-    }
-
-
+	
     void Update ()
     {
 		for (int i = 0; i < states_nonSpec.Length; i++)
@@ -228,9 +215,19 @@ public class Lobby : MonoBehaviour
 
         PlayerInfoSingleton.instance.playerIndexes = playerIndexes;
         PlayerInfoSingleton.instance.debug = false;
+		PlayerInfoSingleton.instance.playerAmount = playerIndexes.Count;
 
-        menuManager.OpenMenuGroup(levelSelectGroup);
-    }
+		menuManager.OpenMenuGroup(levelSelectGroup);
+
+		for (int i = 0; i < 4; i++)
+		{
+			checkMarkers[i].SetActive(false);
+			playersReady[i] = false;
+		}
+
+		continueButton.SetActive(false);
+		allReady = false;
+	}
 
     public void ResetValues()
     {
