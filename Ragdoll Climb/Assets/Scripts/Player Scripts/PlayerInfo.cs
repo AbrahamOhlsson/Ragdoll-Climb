@@ -11,6 +11,7 @@ public class PlayerInfo : MonoBehaviour
     [HideInInspector] public int playerNr = 1;
     [HideInInspector] public Color color;
     [HideInInspector] public PlayerIndex playerIndex;
+	[HideInInspector] public GameObject rootObj;
     
     // Other players grabbing this player
     List<GameObject> grabbingPlayers = new List<GameObject>();
@@ -24,8 +25,13 @@ public class PlayerInfo : MonoBehaviour
 
         for (int i = 0; i < limbs.Length; i++)
         {
-            if (limbs[i].name == "Root_M")
-                feedbackText.playerTrans = limbs[i].transform;
+			if (limbs[i].name == "Root_M")
+			{
+				feedbackText.playerTrans = limbs[i].transform;
+				rootObj = limbs[i].gameObject;
+			}
+
+			break;
         }
     }
 

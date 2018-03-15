@@ -85,6 +85,8 @@ public class MultiplayerManager : MonoBehaviour
                     players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = playerColors[i];
 
                     playerSpawned[i] = true;
+
+					PlayerInfoSingleton.instance.playerAmount++;
                 }
             }
         }

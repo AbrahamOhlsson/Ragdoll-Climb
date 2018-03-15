@@ -57,7 +57,6 @@ public class DistanceToGoal : MonoBehaviour
 		if (limbs == null)
 		{
 			limbs = highestPlayer.GetComponentsInChildren<Rigidbody>();
-			print("adjklajdkajdahdka");
 
 			highestLimb = limbs[0];
 		}
