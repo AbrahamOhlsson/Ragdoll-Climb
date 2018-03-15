@@ -11,13 +11,15 @@ public class pathController : MonoBehaviour {
     public GameObject[] bloakList;
     [Space]
     public GameObject endBox;
+    [Space]
+    public GameObject startBox;
 
 
-	// Use this for initialization
-	//void Start () {
-		
-	//}
-	
-	// Update is called once per frame
-	
+    // Use this for initialization
+    //void Start () {
+
+    //}
+
+    // Update is called once per frame
+
 }
