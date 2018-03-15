@@ -43,7 +43,6 @@ public class CrushCheck : MonoBehaviour
                     if (colls[i].impulse >= crushImpulse || colls[j].impulse >= crushImpulse)
                     {
                         // Kills the player
-                        print("DEATH");
                         GetComponent<DeathManager>().Death();
                         break;
                     }

@@ -87,7 +87,7 @@ public class DeathManager : MonoBehaviour
                     else
                     {
                         // The renderer is now transparent
-                        rends[i].material.color = new Color(0, rends[i].material.color.g, rends[i].material.color.b, transparency);
+                        rends[i].material.color = new Color(rends[i].material.color.r, rends[i].material.color.g, rends[i].material.color.b, transparency);
                         //rends[i].enabled = false;
                     }
                 }
@@ -123,6 +123,9 @@ public class DeathManager : MonoBehaviour
 
             invincibleTimer += Time.deltaTime;
         }
+
+        if (rootTrans.position.y < bottomObj.position.y)
+            Death();
 	}
 
 
