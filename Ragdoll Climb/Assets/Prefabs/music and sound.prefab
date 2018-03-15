@@ -19,9 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4671174015493038}
-  - component: {fileID: 114062420707678938}
   - component: {fileID: 114538572855517192}
   - component: {fileID: 114630416352356480}
+  - component: {fileID: 114386443048885184}
+  - component: {fileID: 114729029357823040}
   m_Layer: 0
   m_Name: music and sound
   m_TagString: Untagged
@@ -42,7 +43,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114062420707678938
+--- !u!114 &114386443048885184
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -50,26 +51,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1680754423933450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3e8f65ffd99c54485e9cdb00076bc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 85d1b3a1ac4d5d149b68db7010dbccf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: music
-    clip: {fileID: 8300000, guid: 6768349dc37684942898113d802500bd, type: 3}
-    volume: 0
-    pitch: 1
-    source: {fileID: 0}
-  - name: applaus
-    clip: {fileID: 8300000, guid: 32bbe4880d5c05948a1f11885d121b61, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: startHorn
-    clip: {fileID: 8300000, guid: 19f51fbe411cfb24f9d295466f28cc86, type: 3}
-    volume: 0.539
-    pitch: 1
-    source: {fileID: 0}
-  feedbackSounds: []
+  sounds: []
 --- !u!114 &114538572855517192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -82,6 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackSounds: []
+  CdTime: 0
 --- !u!114 &114630416352356480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,5 +77,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21156b4426824d949b87e4668e3b9bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114729029357823040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1680754423933450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3ff4ab0797f694ca3a90a44410da82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
