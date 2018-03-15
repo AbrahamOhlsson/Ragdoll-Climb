@@ -38,7 +38,7 @@ public class CountdownStart : MonoBehaviour {
         if(myTime == 1)
         {
             countdownText = "2";
-            Debug.Log("in my time == 1");
+            
         }
 
         else if (myTime == 2)
