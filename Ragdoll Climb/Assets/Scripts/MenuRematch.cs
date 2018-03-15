@@ -16,6 +16,6 @@ public class MenuRematch : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene("Ice Menu");
     }
 }

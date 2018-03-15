@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DistanceToGoal : MonoBehaviour
 {    
     public Text rangeText;
-    public GameObject[] players; // max 4 players(Root_M)
+    public List<GameObject> players; // max 4 players(Root_M)
     public GameObject highestPlayer;
     public Rigidbody highestLimb;
 
@@ -14,21 +14,63 @@ public class DistanceToGoal : MonoBehaviour
     private Transform target; 
     private float distToEnd;
 
+	public GameObject playerTemp;
+	public GameObject playerRoot;
+
 
     void Start ()
     {
         // "startPos" is the camera position
         //startPos = target.position.y;
         distToEnd = 0;
-    }
+
+
+		for(int i= 1; i<5; i++) { 
+		playerTemp = GameObject.Find("Player ("+ i +")");
+
+			if (playerTemp != null)
+			{
+
+
+				//print("jo det gör den ");
+				playerRoot = playerTemp.transform.Find("Main/DeformationSystem/Root_M").gameObject;
+				//players.Add(Child);
+
+				if (playerRoot != null)
+				{
+
+					players.Add(playerRoot);
+					//print("den hittar root ");
+				}
+
+			}
+		}
+
+		highestPlayer = players[0];
+
+		
+	}
 	
 	void Update ()
     {
+
+		if (limbs == null)
+		{
+			limbs = highestPlayer.GetComponentsInChildren<Rigidbody>();
+			print("adjklajdkajdahdka");
+
+			highestLimb = limbs[0];
+		}
+
+		print(limbs.Length);
+
         // Checks everytime among the players who is the highest y-position(First in the race) 
-        for (int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Count; i++)
         {
             if (players[i].transform.position.y > highestPlayer.transform.position.y)
             {
+
+				print("test i for");
                 highestPlayer = players[i];
             }
         }
@@ -39,10 +81,12 @@ public class DistanceToGoal : MonoBehaviour
         // Checks everytime of the "higestplayer" limbs wich is the highest y-position(First in the race) 
         for (int i = 0; i < limbs.Length; i++)
         {
-            if (limbs[i].transform.position.y > highestLimb.transform.position.y && limbs[i].tag == "Player")
+			
+			if (limbs[i].transform.position.y > highestLimb.transform.position.y && limbs[i].tag == "Player")
             {
                 highestLimb = limbs[i];
-            }
+				print("i limbs");
+			}
         }
 
         // "highestLimp" transform becomes "target" 

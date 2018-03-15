@@ -41,7 +41,7 @@ public class TutorialController_new : MonoBehaviour
             state[i] = GamePad.GetState((PlayerIndex)i);
 
             if ((state[i].DPad.Right == ButtonState.Pressed && prevState[i].DPad.Right == ButtonState.Released)
-                || (prevState[i].ThumbSticks.Left.X >= 0.5f && prevState[i].ThumbSticks.Left.X < 0.5f))
+                || (state[i].ThumbSticks.Left.X >= 0.5f && prevState[i].ThumbSticks.Left.X < 0.5f))
             {
                 spriteNumb++;
 
@@ -53,7 +53,7 @@ public class TutorialController_new : MonoBehaviour
                 ChangeImage();
             }
             else if ((state[i].DPad.Left == ButtonState.Pressed && prevState[i].DPad.Left == ButtonState.Released)
-                || (prevState[i].ThumbSticks.Left.X <= -0.5f && prevState[i].ThumbSticks.Left.X > -0.5f))
+                || (state[i].ThumbSticks.Left.X <= -0.5f && prevState[i].ThumbSticks.Left.X > -0.5f))
             {
                 spriteNumb--;
 
