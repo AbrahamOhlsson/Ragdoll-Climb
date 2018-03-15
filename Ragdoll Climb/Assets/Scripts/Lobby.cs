@@ -215,8 +215,9 @@ public class Lobby : MonoBehaviour
 
         PlayerInfoSingleton.instance.playerIndexes = playerIndexes;
         PlayerInfoSingleton.instance.debug = false;
+		PlayerInfoSingleton.instance.playerAmount = playerIndexes.Count;
 
-        menuManager.OpenMenuGroup(levelSelectGroup);
+		menuManager.OpenMenuGroup(levelSelectGroup);
 
 		for (int i = 0; i < 4; i++)
 		{
