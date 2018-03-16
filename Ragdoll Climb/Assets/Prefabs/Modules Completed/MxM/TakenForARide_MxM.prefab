@@ -1183,6 +1183,7 @@ GameObject:
   - component: {fileID: 4861903080809256}
   - component: {fileID: 33352581727786900}
   - component: {fileID: 23571566961908002}
+  - component: {fileID: 64943058384152674}
   m_Layer: 0
   m_Name: Cube_013
   m_TagString: Crush
@@ -2436,7 +2437,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1018997297274330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -52.591408, y: 17.05382, z: -264.97415}
+  m_LocalPosition: {x: -43.408195, y: 69.46235, z: -184.66518}
   m_LocalScale: {x: 10, y: 47.128845, z: 1}
   m_Children:
   - {fileID: 4706834057065472}
@@ -3843,6 +3844,20 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 51d991948f09708459dde66629cf42bf, type: 3}
+--- !u!64 &64943058384152674
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1578663307018200}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: 51d991948f09708459dde66629cf42bf, type: 3}
 --- !u!65 &65003869989671120
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -4406,7 +4421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114024040984656922
 MonoBehaviour:
@@ -4431,7 +4446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114071953896266350
 MonoBehaviour:
@@ -4445,7 +4460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114072459454836744
 MonoBehaviour:
@@ -4470,7 +4485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114143221847247562
 MonoBehaviour:
@@ -4484,7 +4499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114145679870455804
 MonoBehaviour:
@@ -4498,7 +4513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114154497140503366
 MonoBehaviour:
@@ -4512,7 +4527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114196234572166194
 MonoBehaviour:
@@ -4526,7 +4541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114204078576502716
 MonoBehaviour:
@@ -4551,7 +4566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114349427904712506
 MonoBehaviour:
@@ -4576,7 +4591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114387530353522634
 MonoBehaviour:
@@ -4590,7 +4605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114395498989163800
 MonoBehaviour:
@@ -4615,7 +4630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114440583431552050
 MonoBehaviour:
@@ -4629,7 +4644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114459758957707086
 MonoBehaviour:
@@ -4643,7 +4658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114478179843049200
 MonoBehaviour:
@@ -4657,7 +4672,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114481703946695410
 MonoBehaviour:
@@ -4671,7 +4686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114484456160993084
 MonoBehaviour:
@@ -4685,7 +4700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114488065956035872
 MonoBehaviour:
@@ -4712,7 +4727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114546625093209138
 MonoBehaviour:
@@ -4738,7 +4753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114584847783735576
 MonoBehaviour:
@@ -4774,7 +4789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114621837194779108
 MonoBehaviour:
@@ -4788,7 +4803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114623935944586628
 MonoBehaviour:
@@ -4802,7 +4817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114627290874357778
 MonoBehaviour:
@@ -4816,7 +4831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114649008699259674
 MonoBehaviour:
@@ -4830,7 +4845,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114657495254747362
 MonoBehaviour:
@@ -4856,7 +4871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114726796257744744
 MonoBehaviour:
@@ -4870,7 +4885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114780696180819486
 MonoBehaviour:
@@ -4919,7 +4934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114900586416717112
 MonoBehaviour:
@@ -4933,7 +4948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114942881253645604
 MonoBehaviour:
@@ -4947,7 +4962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114951740071302620
 MonoBehaviour:
@@ -4961,7 +4976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114963132547974250
 MonoBehaviour:
@@ -4975,7 +4990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114979302071313828
 MonoBehaviour:
