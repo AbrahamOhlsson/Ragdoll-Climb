@@ -474,6 +474,8 @@ public class PlayerController : MonoBehaviour
             // Add pull force for torso
             head.AddForce(pullDirLeft * currentPullForceLeft);
             head.AddForce(pullDirRight * currentPullForceRight);
+            //leftHand.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft * 1000f);
+            //rightHand.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight * 1000f);
 
             // Adds equal pull force of grabbed object but in opposite direction
             if (checkGripLeft.currentGripping != null && gripLeft)

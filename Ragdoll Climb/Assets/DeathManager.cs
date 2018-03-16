@@ -133,9 +133,7 @@ public class DeathManager : MonoBehaviour
                         minDist = dist;
                     }
                 }
-
-                print(minDist);
-
+                
                 // If the minimum distance to players are great enough to go solid again
                 if (minDist > minPlayerDist)
                     Solid();
@@ -185,7 +183,6 @@ public class DeathManager : MonoBehaviour
     // Kills the player
     public void Death()
     {
-        print("Death");
         playerInfo.solid = false;
         ghostTimer = 0f;
 
@@ -223,7 +220,7 @@ public class DeathManager : MonoBehaviour
             if (dist < minDist)
             {
                 minDist = dist;
-                spawnPos = spawnPoints[i].transform.position;
+                spawnPos = new Vector3(spawnPoints[i].transform.position.x, spawnPoints[i].transform.position.y, rootTrans.position.z);
             }
         }
 
