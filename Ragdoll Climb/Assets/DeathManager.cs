@@ -34,6 +34,9 @@ public class DeathManager : MonoBehaviour
     Collider[] myColliders;
     List<Collider> otherColliders = new List<Collider>();
 
+    Transform[] transforms;
+    Transform[] originTransforms;
+
     Rigidbody[] rbs;
 
     Renderer[] rends;
@@ -63,6 +66,15 @@ public class DeathManager : MonoBehaviour
         startMasses = new float[rbs.Length];
 
         playerInfo = GetComponent<PlayerInfo>();
+
+        transforms = GetComponentsInChildren<Transform>();
+
+        originTransforms = new Transform[transforms.Length];
+
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            originTransforms[i] = transforms[i];
+        }
 
         for (int i = 0; i < rbs.Length; i++)
         {
@@ -229,6 +241,11 @@ public class DeathManager : MonoBehaviour
         {
             // Teleports the player
             rootTrans.transform.position = spawnPos;
+
+            //for (int i = 0; i < transforms.Length; i++)
+            //{
+            //    transforms[i] = originTransforms[i];
+            //}
         }
         else
         {

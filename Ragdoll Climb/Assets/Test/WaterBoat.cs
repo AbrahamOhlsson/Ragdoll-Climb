@@ -19,9 +19,7 @@ public class WaterBoat : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        
         startTime = Time.time;
-        journeyLength = Vector3.Distance(boat.transform.position, endLerp.position);
 
         rb = GetComponent<Rigidbody>();
 	}
@@ -31,11 +29,13 @@ public class WaterBoat : MonoBehaviour
     {
         //water.transform.position = new Vector3(0, boat.transform.position.y - 0.5f, 0);
 
-        if(endLerp.position.y > boat.transform.position.y  + playerDist)
+        journeyLength = Vector3.Distance(boat.transform.position, endLerp.position);
+
+        if (endLerp.position.y > boat.transform.position.y  + playerDist)
         {
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
-            rb.position = Vector3.Lerp(boat.transform.position, endLerp.position, fracJourney);
+            rb.position = Vector3.Lerp(boat.transform.position, endLerp.position, speed);
         }	
 	}
 }
