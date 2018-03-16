@@ -32,6 +32,7 @@ public class PlayerInfoSingleton : MonoBehaviour
     }
 
     public bool debug = true;
+	public int playerAmount = 0;
     public List<PlayerIndex> playerIndexes;
     public Color[] colors = new Color[4];
 }

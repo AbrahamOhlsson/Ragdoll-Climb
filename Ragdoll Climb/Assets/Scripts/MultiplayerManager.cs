@@ -11,6 +11,8 @@ public class MultiplayerManager : MonoBehaviour
     // The colors each of the players should have
     [SerializeField] Color[] playerColors;
 
+    bool started = false;
+
     bool[] playerSpawned = new bool[4];
 
     // States for four XInput game pads
@@ -22,36 +24,50 @@ public class MultiplayerManager : MonoBehaviour
     void Awake()
     {
         singleton = PlayerInfoSingleton.instance;
-
-        if (!singleton.debug)
-        {
-            for (int i = 0; i < players.Count; i++)
-            {
-                players[i].GetComponent<PlayerController>().canMove = false;
-            }
-
-            for (int i = 0; i < singleton.playerIndexes.Count; i++)
-            {
-                Renderer[] renderers = players[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
-
-                for (int j = 0; j < renderers.Length; j++)
-                {
-                    renderers[j].material.color = singleton.colors[i];
-                }
-
-                players[i].GetComponent<PlayerController>().SetGamePad(singleton.playerIndexes[i]);
-                players[i].GetComponent<PlayerInfo>().playerIndex = singleton.playerIndexes[i];
-                players[i].GetComponent<PlayerInfo>().color = singleton.colors[i];
-                players[i].GetComponent<PlayerInfo>().playerNr = i + 1;
-                players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = singleton.colors[i];
-                players[i].SetActive(true);
-            }
-        }
     }
 
 
     void Update ()
     {
+        // If wer aren't in debug mode (we came to this level from the menu)
+        if (!singleton.debug && !started)
+        {
+            // Resets players so they can't move
+            for (int i = 0; i < players.Count; i++)
+            {
+                players[i].GetComponent<PlayerController>().canMove = false;
+            }
+
+            // Goes through as many players that was ready in the menu
+            for (int i = 0; i < singleton.playerAmount; i++)
+            {
+                // Gets renderers of the player
+                Renderer[] renderers = players[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
+
+                // Recolors the player to the one it selected in the menu
+                for (int j = 0; j < renderers.Length; j++)
+                {
+                    renderers[j].material.color = singleton.colors[i];
+                }
+
+                // Sets which controller that should control this player
+                players[i].GetComponent<PlayerController>().SetGamePad(singleton.playerIndexes[i]);
+                players[i].GetComponent<PlayerInfo>().playerIndex = singleton.playerIndexes[i];
+
+                // Stores color and player nr i Player Info
+                players[i].GetComponent<PlayerInfo>().color = singleton.colors[i];
+                players[i].GetComponent<PlayerInfo>().playerNr = i + 1;
+
+                // Recolors the player's Feedback Text to match the player
+                players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = singleton.colors[i];
+
+                players[i].SetActive(true);
+            }
+
+            started = true;
+        }
+
+        // If we are in debug mode (we started the level directly from the editor)
         if (singleton.debug)
         {
             // Gets states for all game pads
@@ -85,6 +101,8 @@ public class MultiplayerManager : MonoBehaviour
                     players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = playerColors[i];
 
                     playerSpawned[i] = true;
+
+					PlayerInfoSingleton.instance.playerAmount++;
                 }
             }
         }

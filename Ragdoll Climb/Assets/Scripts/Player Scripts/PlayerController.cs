@@ -574,7 +574,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReleaseGrip(bool left, bool throwReleasedObj)
     {
-        if (left)
+        if (left && gripLeft)
         {
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
@@ -588,7 +588,7 @@ public class PlayerController : MonoBehaviour
             currentPullForceLeft = 0f;
             gripLeft = false;
         }
-        else
+        else if (gripRight)
         {
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
