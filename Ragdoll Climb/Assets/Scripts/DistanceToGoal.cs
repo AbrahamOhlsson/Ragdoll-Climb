@@ -18,14 +18,15 @@ public class DistanceToGoal : MonoBehaviour
 	public GameObject playerRoot;
 
 
-    void Start ()
+    void Awake ()
     {
         // "startPos" is the camera position
         //startPos = target.position.y;
         distToEnd = 0;
 
 
-		for(int i= 1; i<5; i++) { 
+		for(int i= 1; i<5; i++)
+		{ 
 		playerTemp = GameObject.Find("Player ("+ i +")");
 
 			if (playerTemp != null)
@@ -40,7 +41,7 @@ public class DistanceToGoal : MonoBehaviour
 				{
 
 					players.Add(playerRoot);
-					//print("den hittar root ");
+					print("den hittar root ");
 				}
 
 			}
@@ -96,7 +97,7 @@ public class DistanceToGoal : MonoBehaviour
         distToEnd = Mathf.Floor(distToEnd);
 
         // ****LOST GENARATION****
-        // Calculating the dictance by procent
+        // Calculating the dictance by percent
         //Debug.Log("Distance from goal: " + distToEnd + "(start pos: " + startPos);
         //procentToEnd = (target.position.y - startPos ) / (goal.position.y - startPos ) ;
         // ****LOST GENERATION **END**
