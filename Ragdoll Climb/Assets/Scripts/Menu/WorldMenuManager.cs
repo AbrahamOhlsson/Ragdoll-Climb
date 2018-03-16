@@ -89,15 +89,16 @@ public class WorldMenuManager : MonoBehaviour
 		{
 			lastGroup.SetActive(false);
 			eventSystem.enabled = true;
-			eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+			//eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
 			moving = false;
 
 			if (groupPath.Peek() == playerSelectGroup)
 				eventSystem.SetSelectedGameObject(null);
 
+            eventSystem.SetSelectedGameObject(null); 
 
 
-		}
+        }
 
 		if (Input.GetKeyDown("b") && eventSystem.currentSelectedGameObject == null) {
 				eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
@@ -105,15 +106,18 @@ public class WorldMenuManager : MonoBehaviour
 			}
 
 
-		
+
+        print(" eventSystem.currentSelectedGameObject = " + eventSystem.currentSelectedGameObject);
+
 
 	}
 
 
     public void OpenMenuGroup(GameObject group)
     {
-		//groupPath.Peek().SetActive(false);
-		eventSystem.enabled = false;
+        eventSystem.SetSelectedGameObject(null);
+        //groupPath.Peek().SetActive(false);
+        eventSystem.enabled = false;
 		lastGroup = groupPath.Peek();
         groupPath.Push(group);
         //eventSystem.SetSelectedGameObject(group.GetComponentInChildren<Button>().gameObject);
