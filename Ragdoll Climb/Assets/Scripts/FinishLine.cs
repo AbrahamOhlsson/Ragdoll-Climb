@@ -86,7 +86,7 @@ public class FinishLine : MonoBehaviour
                 p4Wins.color = playerInfo.color;
             }
             
-            FindObjectOfType<musicAndSoundManager>().PlaySound("applaus");
+            FindObjectOfType<soundManager>().PlaySound("applaus");
 
             gameOver = true;
             

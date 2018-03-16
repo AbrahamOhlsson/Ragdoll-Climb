@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Audio;
- using UnityEngine;
+using UnityEngine;
 
 
 
-public class musicAndSoundManager : MonoBehaviour {
+public class musicManager : MonoBehaviour
+{
 
     public Sound[] sounds;
-    public Sound[] feedbackSounds;
+
 
     // Use this for initialization
-    void Awake () {
-		foreach (Sound i in sounds)
+    void Awake()
+    {
+        foreach (Sound i in sounds)
         {
             i.source = gameObject.AddComponent<AudioSource>();
             i.source.clip = i.clip;
@@ -22,22 +24,22 @@ public class musicAndSoundManager : MonoBehaviour {
 
         }
 
-	}
+    }
 
     void Start()
     {
-        PlaySound("music");
-       
+        //PlaySound("music");
+
     }
 
 
     public void PlaySound(string name)
     {
-        Sound s= null;
+        Sound s = null;
 
         foreach (Sound i in sounds)
         {
-            if(i.name == name)
+            if (i.name == name)
             {
                 s = i;
                 s.source.Play();
@@ -51,6 +53,6 @@ public class musicAndSoundManager : MonoBehaviour {
         }
     }
 
-    
+
 
 }
