@@ -15,7 +15,7 @@ public class DeathManager : MonoBehaviour
 
     bool solid = true;
 
-    // Layer mask for 14 that prevents ignorance of that layer when using this mask in overlappin sphere
+    // Layer mask for 14 that prevents ignorance of that layer when using this mask in overlapping sphere
     int layerMask = 1 << 14;
 
     float blinkTimer = 0f;
