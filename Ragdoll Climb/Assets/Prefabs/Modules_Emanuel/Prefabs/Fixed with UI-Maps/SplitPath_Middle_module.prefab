@@ -149,7 +149,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1127801139794150
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -704,13 +704,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211833307437438}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.000000014901161, z: -1, w: 0}
+  m_LocalPosition: {x: -0.13626862, y: 21.166426, z: 1.0509872}
+  m_LocalScale: {x: 0.13460217, y: 0.13460222, z: 0.1346022}
   m_Children:
   - {fileID: 4111050048646784}
-  m_Father: {fileID: 4725015499137714}
-  m_RootOrder: 0
+  m_Father: {fileID: 4422221274314528}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4019010077826644
 Transform:
@@ -904,11 +904,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1929341874092088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.30373, y: 4.518, z: -35.968}
+  m_LocalPosition: {x: -65.34818, y: 299.8028, z: -1.8}
   m_LocalScale: {x: 10, y: 70.911736, z: 0.9975943}
   m_Children:
   - {fileID: 4030297770411958}
-  - {fileID: 4821351986596336}
   - {fileID: 4725015499137714}
   - {fileID: 4422221274314528}
   m_Father: {fileID: 0}
@@ -1018,8 +1017,10 @@ Transform:
   m_Children:
   - {fileID: 4633363321923482}
   - {fileID: 4019010077826644}
+  - {fileID: 4821351986596336}
+  - {fileID: 4012723432024480}
   m_Father: {fileID: 4291361532618432}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4428150189405292
 Transform:
@@ -1160,10 +1161,9 @@ Transform:
   m_LocalRotation: {x: -1, y: -0, z: -0, w: 0.000000014901161}
   m_LocalPosition: {x: 0.013627052, y: 0.29476082, z: -0.7939097}
   m_LocalScale: {x: 0.013460218, y: 0.0018981656, z: 0.1349268}
-  m_Children:
-  - {fileID: 4012723432024480}
+  m_Children: []
   m_Father: {fileID: 4291361532618432}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
 --- !u!4 &4743674125141208
 Transform:
@@ -1223,13 +1223,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1127801139794150}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01073227, y: -0.22228569, z: -1.2650443}
-  m_LocalScale: {x: 0.018183686, y: 0.002564269, z: 0.18227525}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: -0.1073227, y: -15.498251, z: 1.5209885}
+  m_LocalScale: {x: 0.18183686, y: 0.18183675, z: 0.18183675}
   m_Children:
   - {fileID: 4350351437450834}
-  m_Father: {fileID: 4291361532618432}
-  m_RootOrder: 1
+  m_Father: {fileID: 4422221274314528}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4850606349194694
 Transform:
@@ -1930,7 +1930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114066132941223816
 MonoBehaviour:
@@ -1944,7 +1944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114139931517082026
 MonoBehaviour:
@@ -1958,7 +1958,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114152377681818736
 MonoBehaviour:
@@ -1972,7 +1972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114191057853027044
 MonoBehaviour:
@@ -1986,7 +1986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114212645080308938
 MonoBehaviour:
@@ -2000,7 +2000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114226597180213438
 MonoBehaviour:
@@ -2014,7 +2014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114293928003011506
 MonoBehaviour:
@@ -2028,7 +2028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114374570342215408
 MonoBehaviour:
@@ -2042,7 +2042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114401491105977632
 MonoBehaviour:
@@ -2056,7 +2056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114479761033366756
 MonoBehaviour:
@@ -2070,7 +2070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114489170256961740
 MonoBehaviour:
@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114501794812913018
 MonoBehaviour:
@@ -2098,7 +2098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114512858043116340
 MonoBehaviour:
@@ -2112,7 +2112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114571849681186240
 MonoBehaviour:
@@ -2126,7 +2126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114572991078186494
 MonoBehaviour:
@@ -2140,7 +2140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114579851688162282
 MonoBehaviour:
@@ -2170,7 +2170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114642747377109272
 MonoBehaviour:
@@ -2184,7 +2184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114679909924636346
 MonoBehaviour:
@@ -2198,7 +2198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114704986558026048
 MonoBehaviour:
@@ -2212,7 +2212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114709360447299816
 MonoBehaviour:
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114727017542883280
 MonoBehaviour:
@@ -2240,7 +2240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114750912479654070
 MonoBehaviour:
@@ -2254,7 +2254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114764111214458446
 MonoBehaviour:
@@ -2268,7 +2268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114813617120788908
 MonoBehaviour:
@@ -2282,7 +2282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114825038236339956
 MonoBehaviour:
@@ -2296,7 +2296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114835423380387236
 MonoBehaviour:
@@ -2323,7 +2323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114840098873752356
 MonoBehaviour:
@@ -2337,7 +2337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114901908411254770
 MonoBehaviour:
@@ -2351,7 +2351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114996887378311512
 MonoBehaviour:
@@ -5796,7 +5796,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -794122320
+  randomSeed: -2028675263
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12524,7 +12524,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 768324233
+  randomSeed: 1597078236
   InitialModule:
     serializedVersion: 3
     enabled: 1

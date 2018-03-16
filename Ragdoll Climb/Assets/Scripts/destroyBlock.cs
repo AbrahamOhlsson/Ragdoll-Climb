@@ -20,6 +20,8 @@ public class destroyBlock : MonoBehaviour
     {
         if (transform.position.y < (bottomObj.transform.position.y + distance))
         {
+
+            // ta bort ??    #####################
             for (int i = 0; i < gameManager.players.Count; i++)
             {
                 CheckGrip[] hands = gameManager.players[i].GetComponentsInChildren<CheckGrip>();
