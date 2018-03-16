@@ -42,15 +42,18 @@ public class LowerMass : MonoBehaviour {
 		PlayerCol = other.transform.root.gameObject;
 
 		if (PlayerCol.tag == "Player")
-		{ 
-		// get script and then change value of MassPercent
-		PlayerPowerups playerpowerups = PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>();
-			playerpowerups.m_MassPercent = MassPercent;
+		{
+            if (PlayerCol.GetComponent<PlayerInfo>().solid)
+            {
+                // get script and then change value of MassPercent
+                PlayerPowerups playerpowerups = PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>();
+                playerpowerups.m_MassPercent = MassPercent;
 
-		//Run function
-		PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>().ChangePlayerMass();
+                //Run function
+                PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>().ChangePlayerMass();
 
-			Destroy(gameObject);
+                Destroy(gameObject);
+            }
 		}
 
 		if(other.tag == "BottomObj")

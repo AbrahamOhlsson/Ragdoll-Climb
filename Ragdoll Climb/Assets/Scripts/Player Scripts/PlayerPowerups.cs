@@ -78,6 +78,21 @@ public class PlayerPowerups : MonoBehaviour
 
 	}
 
+    public void ResetPlayerMass()
+    {
+        LooseMassParticle.Stop();
+        AddMassParticle.Stop();
+
+        foreach (Rigidbody rigidbodymass in Rigidbodies)
+        {
+            rigidbodymass.mass = startMass[pos];
+            pos++;
+        }
+        pos = 0;
+
+        StopCoroutine(ChangeMass());
+    }
+
 	IEnumerator ChangeMass()
 	{
 		foreach (Rigidbody rigidbody in Rigidbodies)
@@ -104,15 +119,8 @@ public class PlayerPowerups : MonoBehaviour
 
 		yield return new WaitForSeconds(MassDuration);
 
-		LooseMassParticle.Stop();
-		AddMassParticle.Stop();
-
-		foreach (Rigidbody rigidbodymass in Rigidbodies)
-		{
-			rigidbodymass.mass = startMass[pos];
-			pos++;
-		}
-		pos = 0;
+        print("Reset");
+        ResetPlayerMass();
 	}
 	//-----------------------------------------------------------------------//
 }
