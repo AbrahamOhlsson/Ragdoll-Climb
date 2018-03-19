@@ -35,7 +35,8 @@ public class DeathManager : MonoBehaviour
     List<Collider> otherColliders = new List<Collider>();
 
     Transform[] transforms;
-    Transform[] originTransforms;
+    Vector3[] originPos;
+    Quaternion[] originRot;
 
     Rigidbody[] rbs;
 
@@ -69,11 +70,13 @@ public class DeathManager : MonoBehaviour
 
         transforms = GetComponentsInChildren<Transform>();
 
-        originTransforms = new Transform[transforms.Length];
+        originPos = new Vector3[transforms.Length];
+        originRot = new Quaternion[transforms.Length];
 
         for (int i = 0; i < transforms.Length; i++)
         {
-            originTransforms[i] = transforms[i];
+            originPos[i] = transforms[i].localPosition;
+            originRot[i] = transforms[i].localRotation;
         }
 
         for (int i = 0; i < rbs.Length; i++)
@@ -242,14 +245,20 @@ public class DeathManager : MonoBehaviour
             // Teleports the player
             rootTrans.transform.position = spawnPos;
 
-            //for (int i = 0; i < transforms.Length; i++)
-            //{
-            //    transforms[i] = originTransforms[i];
-            //}
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                if (transforms[i].name != "Root_M")
+                    transforms[i].localPosition = originPos[i];
+                else
+                    transforms[i].localPosition = new Vector3(transforms[i].localPosition.x, transforms[i].localPosition.y, originPos[i].z);
+
+                transforms[i].localRotation = originRot[i];
+            }
         }
         else
         {
             Debug.LogError("No spawn points were found!");
+            manager.GetComponent<DebugText>().AddText("ERROR!!! No spawn points were found!");
         }
 
         ChangeMass(ghostMassMult);
