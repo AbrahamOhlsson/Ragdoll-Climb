@@ -27,6 +27,16 @@ public class PlayerController : MonoBehaviour
     [Range(0.1f, 5f)]
     [SerializeField] float stickyReleaseDelay = 1f;
 
+    [Header("Punching")]
+    [Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
+    [SerializeField] float punchPullBackForce = 1000f;
+    [Tooltip("The force that is applied to the arm to for punching.")]
+    [SerializeField] float punchForce = 3000f;
+    [Tooltip("The time it takes for the punch force to be applied after the punch pull back force.")]
+    [SerializeField] float punchDelay = 0.3f;
+    [Tooltip("The time it takes for the punch state to be reset after the punch force has been applied.")]
+    [SerializeField] float punchStateResetDelay = 0.2f;
+
     [Header("Boost")]
     [Tooltip("How much pull and push force will be multiplied when the player climbs good.")]
     [Range(1.01f, 10f)]
@@ -108,6 +118,9 @@ public class PlayerController : MonoBehaviour
     //"Stamina bools". If set false, said hand wont be able to climb.
     bool rightCanClimb = true;
     bool leftCanClimb = true;
+
+    bool leftPunching = false;
+    bool rightPunching = false;
     
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
@@ -216,7 +229,11 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                ArmControl(true);
+                //if (!leftPunching)
+                    ArmControl(true);
+
+                if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching)
+                    StartCoroutine(Punch(leftHand, pushDirLeft));
             }
             // Right arm and joystick
             if (gripRight)
@@ -245,11 +262,15 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                ArmControl(false);
+                //if (!rightPunching)
+                    ArmControl(false);
+
+                if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching)
+                    StartCoroutine(Punch(rightHand, pushDirRight));
             }
 
             // Left grip controls
-            if ((state.Triggers.Left >= 0.8f || state.Buttons.LeftShoulder == ButtonState.Pressed) && (prevState.Triggers.Left < 0.8f && prevState.Buttons.LeftShoulder == ButtonState.Released))
+            if ((state.Triggers.Left >= 0.8f /*|| state.Buttons.LeftShoulder == ButtonState.Pressed*/) && (prevState.Triggers.Left < 0.8f /*&& prevState.Buttons.LeftShoulder == ButtonState.Released*/))
             {
                 StopCoroutine(releaseGripDelayedLeft);
 
@@ -288,7 +309,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if ((state.Triggers.Left == 0 && state.Buttons.LeftShoulder == ButtonState.Released) && (prevState.Triggers.Left > 0 || prevState.Buttons.LeftShoulder == ButtonState.Pressed) && gripLeft)
+            else if ((state.Triggers.Left == 0/* && state.Buttons.LeftShoulder == ButtonState.Released*/) && (prevState.Triggers.Left > 0 /*|| prevState.Buttons.LeftShoulder == ButtonState.Pressed*/) && gripLeft)
             {
                 if (checkGripLeft.currentGripable.tag == "Throwable")
                     ReleaseGrip(true, true);
@@ -301,7 +322,7 @@ public class PlayerController : MonoBehaviour
                     ReleaseGrip(true, false);
             }
             // Right grip controls
-            if ((state.Triggers.Right >= 0.8f || state.Buttons.RightShoulder == ButtonState.Pressed) && (prevState.Triggers.Right < 0.8f && prevState.Buttons.RightShoulder == ButtonState.Released))
+            if ((state.Triggers.Right >= 0.8f/* || state.Buttons.RightShoulder == ButtonState.Pressed*/) && (prevState.Triggers.Right < 0.8f/* && prevState.Buttons.RightShoulder == ButtonState.Released*/))
             {
                 StopCoroutine(releaseGripDelayedRight);
 
@@ -340,7 +361,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if ((state.Triggers.Right == 0 && state.Buttons.RightShoulder == ButtonState.Released) && (prevState.Triggers.Right > 0 || prevState.Buttons.RightShoulder == ButtonState.Pressed) && gripRight)
+            else if ((state.Triggers.Right == 0/* && state.Buttons.RightShoulder == ButtonState.Released*/) && (prevState.Triggers.Right > 0/* || prevState.Buttons.RightShoulder == ButtonState.Pressed*/) && gripRight)
             {
                 if (checkGripRight.currentGripable.tag == "Throwable")
                     ReleaseGrip(false, true);
@@ -574,11 +595,29 @@ public class PlayerController : MonoBehaviour
             pullDirRight = Vector3.zero;
         }
     }
+    
 
-
-    public void SetGamePad(PlayerIndex index)
+    IEnumerator Punch(Rigidbody hand, Vector2 direction)
     {
-        playerIndex = index;
+        //if (hand == leftHand)
+        //    leftPunching = true;
+        //else
+        //    rightPunching = true;
+
+        ////yield return new WaitForFixedUpdate();
+        ////hand.AddForce(-direction.normalized * punchPullBackForce);
+
+        ////yield return new WaitForSeconds(punchDelay);
+        //yield return new WaitForFixedUpdate();
+        //hand.AddForce(direction.normalized * punchForce);
+
+        //yield return new WaitForSeconds(punchStateResetDelay);
+        //if (hand == leftHand)
+        //    leftPunching = false;
+        //else
+        //    rightPunching = false;
+
+        yield return null;
     }
 
 
@@ -649,6 +688,13 @@ public class PlayerController : MonoBehaviour
         yield return null;
     }
 
+
+    public void SetGamePad(PlayerIndex index)
+    {
+        playerIndex = index;
+    }
+    
+    
     // Inverts pull controls
     public void ToggleInvertPull()
     {

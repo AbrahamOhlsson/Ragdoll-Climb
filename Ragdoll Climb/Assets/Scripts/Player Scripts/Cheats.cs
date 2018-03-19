@@ -6,6 +6,10 @@ using XInputDotNetPure;
 public class Cheats : MonoBehaviour
 {
     [SerializeField] DebugText debugText;
+    [SerializeField] bool lightWeightAvailable = true;
+    [SerializeField] bool boostAvailable = true;
+    [SerializeField] bool invertPullAvailable = true;
+    [SerializeField] bool unlimitedStaminaAvailable = true;
 
     bool lightWeightActive = false;
     bool invertedPullControls = false;
@@ -42,13 +46,13 @@ public class Cheats : MonoBehaviour
         prevState = state;
         state = GamePad.GetState(playerIndex);
 
-        if (state.Buttons.A == ButtonState.Pressed && prevState.Buttons.A == ButtonState.Released)
+        if (state.Buttons.A == ButtonState.Pressed && prevState.Buttons.A == ButtonState.Released && boostAvailable)
         {
             if (controller.ActivateBoost())
                 debugText.AddText("Player " + playerNr + " activated Boost Cheat");
         }
 
-        if (state.Buttons.X == ButtonState.Pressed && prevState.Buttons.X == ButtonState.Released)
+        if (state.Buttons.X == ButtonState.Pressed && prevState.Buttons.X == ButtonState.Released && lightWeightAvailable)
         {
             if (lightWeightActive)
             {
@@ -72,7 +76,7 @@ public class Cheats : MonoBehaviour
             }
         }
 
-        if (state.Buttons.Y == ButtonState.Pressed && prevState.Buttons.Y == ButtonState.Released)
+        if (state.Buttons.Y == ButtonState.Pressed && prevState.Buttons.Y == ButtonState.Released && invertPullAvailable)
         {
             if (invertedPullControls)
             {
@@ -88,7 +92,7 @@ public class Cheats : MonoBehaviour
             }
         }
 
-        if (state.Buttons.B == ButtonState.Pressed && prevState.Buttons.B == ButtonState.Released)
+        if (state.Buttons.B == ButtonState.Pressed && prevState.Buttons.B == ButtonState.Released && unlimitedStaminaAvailable)
         {
             controller.ToggleUnlimitedStamina();
 
