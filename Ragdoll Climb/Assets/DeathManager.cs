@@ -8,18 +8,21 @@ public class DeathManager : MonoBehaviour
     [SerializeField] float transparency = 0.5f;
     [SerializeField] float minPlayerDist = 3f;
     [SerializeField] float spawnPointSearchRad = 20f;
-    [SerializeField] float invincibleTime = 3f;
+    [SerializeField] float ghostTime = 3f;
+    [SerializeField] float ghostMassMult = 0.8f;
 
     [SerializeField] Transform bottomObj;
     [SerializeField] MultiplayerManager manager;
 
-    bool solid = true;
+    //bool solid = true;
 
     // Layer mask for 14 that prevents ignorance of that layer when using this mask in overlapping sphere
     int layerMask = 1 << 14;
 
     float blinkTimer = 0f;
-    float invincibleTimer = 0f;
+    float ghostTimer = 0f;
+
+    float[] startMasses;
 
     List<GameObject> otherPlayers = new List<GameObject>();
 
@@ -31,7 +34,15 @@ public class DeathManager : MonoBehaviour
     Collider[] myColliders;
     List<Collider> otherColliders = new List<Collider>();
 
+    Transform[] transforms;
+    Vector3[] originPos;
+    Quaternion[] originRot;
+
+    Rigidbody[] rbs;
+
     Renderer[] rends;
+
+    PlayerInfo playerInfo;
 
 
 	void Start ()
@@ -45,11 +56,33 @@ public class DeathManager : MonoBehaviour
         // Excludes this player
         otherPlayers.Remove(gameObject);
 
+        rbs = GetComponentsInChildren<Rigidbody>();
+
         rootTrans = GetRoot(gameObject);
 
         rends = transform.GetChild(0).GetComponentsInChildren<Renderer>();
 
         myColliders = GetComponentsInChildren<Collider>();
+
+        startMasses = new float[rbs.Length];
+
+        playerInfo = GetComponent<PlayerInfo>();
+
+        transforms = GetComponentsInChildren<Transform>();
+
+        originPos = new Vector3[transforms.Length];
+        originRot = new Quaternion[transforms.Length];
+
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            originPos[i] = transforms[i].localPosition;
+            originRot[i] = transforms[i].localRotation;
+        }
+
+        for (int i = 0; i < rbs.Length; i++)
+        {
+            startMasses[i] = rbs[i].mass;
+        }
 
         // Gets stuff from the other players
         for (int i = 0; i < otherPlayers.Count; i++)
@@ -69,7 +102,7 @@ public class DeathManager : MonoBehaviour
 	void Update ()
     {
         // The player has no collision with other players
-		if (!solid)
+		if (!playerInfo.solid)
         {
             // If it is time to blink transparency
             if (blinkTimer >= blinkInterval)
@@ -98,7 +131,7 @@ public class DeathManager : MonoBehaviour
             blinkTimer += Time.deltaTime;
 
             // If it is time to go solid again
-            if (invincibleTimer >= invincibleTime)
+            if (ghostTimer >= ghostTime)
             {
                 // Will be used to store the minimum distance to any other player
                 float minDist = Mathf.Infinity;
@@ -115,13 +148,13 @@ public class DeathManager : MonoBehaviour
                         minDist = dist;
                     }
                 }
-
+                
                 // If the minimum distance to players are great enough to go solid again
                 if (minDist > minPlayerDist)
                     Solid();
             }
 
-            invincibleTimer += Time.deltaTime;
+            ghostTimer += Time.deltaTime;
         }
 
         if (rootTrans.position.y < bottomObj.position.y)
@@ -144,14 +177,35 @@ public class DeathManager : MonoBehaviour
     }
 
 
+    private void ChangeMass(float massMult)
+    {
+        for (int i = 0; i < rbs.Length; i++)
+        {
+            rbs[i].mass = massMult * startMasses[i];
+        }
+    }
+
+
+    private void ResetMass()
+    {
+        for (int i = 0; i < rbs.Length; i++)
+        {
+            rbs[i].mass = startMasses[i];
+        }
+    }
+
+
     // Kills the player
     public void Death()
     {
-        solid = false;
-        invincibleTimer = 0f;
+        playerInfo.solid = false;
+        ghostTimer = 0f;
 
         // Disconnects all potential layers that are grabbing this one
         GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
+
+        GetComponent<PlayerStun>().UnStun();
+        GetComponent<PlayerPowerups>().ResetPlayerMass();
 
         // Ignores collision between this player and the others
         for (int i = 0; i < myColliders.Length; i++)
@@ -181,7 +235,7 @@ public class DeathManager : MonoBehaviour
             if (dist < minDist)
             {
                 minDist = dist;
-                spawnPos = spawnPoints[i].transform.position;
+                spawnPos = new Vector3(spawnPoints[i].transform.position.x, spawnPoints[i].transform.position.y, rootTrans.position.z);
             }
         }
 
@@ -190,18 +244,31 @@ public class DeathManager : MonoBehaviour
         {
             // Teleports the player
             rootTrans.transform.position = spawnPos;
+
+            for (int i = 0; i < transforms.Length; i++)
+            {
+                if (transforms[i].name != "Root_M")
+                    transforms[i].localPosition = originPos[i];
+                else
+                    transforms[i].localPosition = new Vector3(transforms[i].localPosition.x, transforms[i].localPosition.y, originPos[i].z);
+
+                transforms[i].localRotation = originRot[i];
+            }
         }
         else
         {
             Debug.LogError("No spawn points were found!");
+            manager.GetComponent<DebugText>().AddText("ERROR!!! No spawn points were found!");
         }
+
+        ChangeMass(ghostMassMult);
     }
 
 
     // Makes the player solid again
     public void Solid()
     {
-        solid = true;
+        playerInfo.solid = true;
 
         for (int i = 0; i < rends.Length; i++)
         {
@@ -218,5 +285,7 @@ public class DeathManager : MonoBehaviour
                 Physics.IgnoreCollision(myColliders[i], otherColliders[j], false);
             }
         }
+
+        ResetMass();
     }
 }

@@ -3532,7 +3532,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149611625766414}
   m_LocalRotation: {x: 0.48197326, y: 0.5169434, z: 0.51707006, w: 0.48281452}
-  m_LocalPosition: {x: 22.24, y: 27.16, z: -177.61}
+  m_LocalPosition: {x: 22.24, y: 27.16, z: -177.56}
   m_LocalScale: {x: 3.5739686, y: 0.040923122, z: 2.0031343}
   m_Children: []
   m_Father: {fileID: 4325806066538904}
@@ -3545,7 +3545,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966291485910762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -82.0328, y: 21.85372, z: -218.07552}
+  m_LocalPosition: {x: -64.436615, y: 60.925964, z: -1.68}
   m_LocalScale: {x: 10, y: 31.40677, z: 1}
   m_Children:
   - {fileID: 4149764008678482}
@@ -3643,7 +3643,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1888029518018448}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.854, y: 29.064377, z: -178.25067}
+  m_LocalPosition: {x: 0.854, y: 29.064377, z: -178.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4343254480012272}
@@ -4311,15 +4311,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1006953937117084}
-  m_LocalRotation: {x: -0.4790474, y: -0.52010924, z: -0.52010924, w: 0.4790474}
-  m_LocalPosition: {x: 14.123, y: 29.064377, z: -178.24}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 14.123, y: 29.064377, z: -178.03934}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4540000926090950}
   - {fileID: 4636201435310854}
   m_Father: {fileID: 4325806066538904}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -94.707}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -90}
 --- !u!4 &4424981085845626
 Transform:
   m_ObjectHideFlags: 1
@@ -4678,7 +4678,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1635732021033620}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6392517, y: 13.242824, z: -68.136795}
+  m_LocalPosition: {x: -5.6392517, y: 11.84, z: -68.136795}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 4562887774283356}
@@ -5051,7 +5051,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289578118867476}
   m_LocalRotation: {x: 0.48197326, y: 0.5169434, z: 0.51707006, w: 0.48281452}
-  m_LocalPosition: {x: -8.276, y: 27.332, z: -177.573}
+  m_LocalPosition: {x: -8.276, y: 27.332, z: -177.562}
   m_LocalScale: {x: 3.5739686, y: 0.040923122, z: 2.0031343}
   m_Children: []
   m_Father: {fileID: 4325806066538904}
@@ -7176,8 +7176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114095055203456838
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7190,8 +7190,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114111167245409816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7220,8 +7220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114169240839651750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7245,8 +7245,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114183591801472256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7294,8 +7294,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114385152641811584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7308,8 +7308,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114408071565012952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7322,8 +7322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114490262805400598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7336,8 +7336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114549857916052558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7350,8 +7350,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114552329641456330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7364,8 +7364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114558474339790472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7378,8 +7378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114563214446875518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7392,8 +7392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114587058068843704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7406,8 +7406,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114670995352852498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7420,8 +7420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114699460892006644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7434,8 +7434,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114718767569132760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7448,8 +7448,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114812655955048060
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7462,8 +7462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114853691416451256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7521,8 +7521,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114940184700468460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7565,8 +7565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114963780392580250
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7579,8 +7579,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!114 &114987349464760830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7593,8 +7593,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
-  distance: 4
+  bottomObj: {fileID: 0}
+  distance: 5
 --- !u!137 &137727932703358584
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -38098,7 +38098,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 548063841
+  randomSeed: -300273700
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -64830,7 +64830,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 124405762
+  randomSeed: 329156422
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeleportUp : MonoBehaviour {
-
-
+public class TeleportUp : MonoBehaviour
+{
     GameObject PlayerTP;
     public GameObject particleSys;
 
@@ -28,9 +27,12 @@ public class TeleportUp : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            PlayerTP = other.transform.root.gameObject;
-            GetTeleportPosition();
-            Destroy(gameObject);
+            if (other.transform.root.GetComponent<PlayerInfo>().solid)
+            {
+                PlayerTP = other.transform.root.gameObject;
+                GetTeleportPosition();
+                Destroy(gameObject);
+            }
         }
         else if (other.tag == "BottomObj")
             Destroy(gameObject);
