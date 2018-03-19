@@ -42,14 +42,19 @@ public class FitWind : MonoBehaviour
 
     private void Update()
     {
+        // Resizes trigger box based on given values in inspector
         collider.size = new Vector3(width, collider.size.y, lenght);
         collider.center = new Vector3(0f, 0f, lenght / 2);
 
         for (int i = 0; i < particleSystems.Length; i++)
         {
+            // Sets lifetime so the particles vanishes at the end of the trigger box
             psMain[i].startLifetime = lenght / 10;
+
+            // Resizes shape of particle emitter to match trigger box width
             psShape[i].scale = new Vector3(width, psShape[i].scale.y, psShape[i].scale.z);
 
+            // Sets rate of particle emitting based on width and amount required
             if (particleSystems[i].name == "Clouds")
                 psEmission[i].rateOverTime = cloudAmount * width;
             else if (particleSystems[i].name == "Lines")
