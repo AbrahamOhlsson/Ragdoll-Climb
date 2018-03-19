@@ -3991,15 +3991,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1962025966996692}
-  m_LocalRotation: {x: -0.4790474, y: -0.52010924, z: -0.52010924, w: 0.4790474}
-  m_LocalPosition: {x: 13.511003, y: 28.859, z: -178.295}
+  m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 13.511003, y: 28.859, z: -178.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4124503762968430}
   - {fileID: 4764382331260104}
   m_Father: {fileID: 4106935760842722}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -94.707}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: -90}
 --- !u!4 &4349290285042314
 Transform:
   m_ObjectHideFlags: 1
@@ -5071,7 +5071,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1636576170688936}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.471, y: 28.859, z: -178.295}
+  m_LocalPosition: {x: 0.471, y: 28.859, z: -178.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4423499357698804}
@@ -5247,7 +5247,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1473450006313238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.02, y: 21.204369, z: -219.49513}
+  m_LocalPosition: {x: -22.623543, y: 59.168915, z: -1.68}
   m_LocalScale: {x: 10, y: 31.40677, z: 1}
   m_Children:
   - {fileID: 4855727034089650}
@@ -7184,7 +7184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114187063158305462
 MonoBehaviour:
@@ -7217,7 +7217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114202504728764956
 MonoBehaviour:
@@ -7265,7 +7265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114298798129227842
 MonoBehaviour:
@@ -7291,7 +7291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114347913546636264
 MonoBehaviour:
@@ -7305,7 +7305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114350492551879400
 MonoBehaviour:
@@ -7319,7 +7319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114356630279362728
 MonoBehaviour:
@@ -7333,7 +7333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114406114499687992
 MonoBehaviour:
@@ -7363,7 +7363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114441308880770362
 MonoBehaviour:
@@ -7404,7 +7404,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114523119891289246
 MonoBehaviour:
@@ -7430,7 +7430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114549479927865668
 MonoBehaviour:
@@ -7488,7 +7488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114706841593139166
 MonoBehaviour:
@@ -7502,7 +7502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114790365577663988
 MonoBehaviour:
@@ -7516,7 +7516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114865010163150434
 MonoBehaviour:
@@ -7530,7 +7530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114877502897697336
 MonoBehaviour:
@@ -7560,7 +7560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114910359427394832
 MonoBehaviour:
@@ -7574,7 +7574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114959503260339660
 MonoBehaviour:
@@ -7588,7 +7588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114978828502227042
 MonoBehaviour:
@@ -7602,7 +7602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114982113288159320
 MonoBehaviour:
@@ -7616,7 +7616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114984512410162270
 MonoBehaviour:
@@ -7630,7 +7630,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114987955363803740
 MonoBehaviour:
@@ -7644,7 +7644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 0}
-  ship: {fileID: 0}
+  bottomObj: {fileID: 0}
   distance: 4
 --- !u!114 &114997632953407510
 MonoBehaviour:
@@ -34709,7 +34709,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1714324870
+  randomSeed: 375219349
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -44720,7 +44720,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -908468010
+  randomSeed: -257956051
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -54809,7 +54809,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2055721799
+  randomSeed: -1968440131
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -74969,7 +74969,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1585141442
+  randomSeed: 998339077
   InitialModule:
     serializedVersion: 3
     enabled: 1

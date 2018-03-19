@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody head;
     [SerializeField] Rigidbody leftShoulder;
     [SerializeField] Rigidbody rightShoulder;
+    [SerializeField] Rigidbody leftElbow;
+    [SerializeField] Rigidbody rightElbow;
+    [SerializeField] Rigidbody root;
+    [SerializeField] Rigidbody leftFoot;
+    [SerializeField] Rigidbody rightFoot;
 
     [Header("Particle Systems")]
     [SerializeField] ParticleSystem boostEffect;
@@ -168,6 +173,12 @@ public class PlayerController : MonoBehaviour
         releaseGripDelayedRight = ReleaseGripDelayed(false);
 
         bodyParts = GetComponentsInChildren<Rigidbody>();
+
+        leftHand.maxAngularVelocity = Mathf.Infinity;
+        rightHand.maxAngularVelocity = Mathf.Infinity;
+        root.maxAngularVelocity = Mathf.Infinity;
+        leftShoulder.maxAngularVelocity = Mathf.Infinity;
+        rightShoulder.maxAngularVelocity = Mathf.Infinity;
     }
 
 
@@ -470,12 +481,28 @@ public class PlayerController : MonoBehaviour
             if (pushDirRight != Vector3.zero)
                 rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, handMoveSpeed);
 
-
             // Add pull force for torso
             head.AddForce(pullDirLeft * currentPullForceLeft);
             head.AddForce(pullDirRight * currentPullForceRight);
-            //leftHand.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft * 1000f);
-            //rightHand.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight * 1000f);
+            //head.AddForce(0f, pullDirLeft.y * currentPullForceLeft, 0f);
+            //head.AddForce(0f, pullDirRight.y * currentPullForceRight, 0f);
+
+            //leftShoulder.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft);
+            //rightShoulder.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight);
+
+            //leftShoulder.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft);
+            //rightShoulder.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight);
+
+            //root.AddForce(pullDirLeft.x * currentPullForceLeft, 0f, 0f);
+            //root.AddForce(pullDirRight.x * currentPullForceRight, 0f, 0f);
+
+            //root.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft / 2);
+            //root.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight / 2);
+
+            //leftFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
+            //leftFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
+            //rightFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
+            //rightFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
 
             // Adds equal pull force of grabbed object but in opposite direction
             if (checkGripLeft.currentGripping != null && gripLeft)
