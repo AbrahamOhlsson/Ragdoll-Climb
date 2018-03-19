@@ -47,6 +47,8 @@ public class DistanceToGoal : MonoBehaviour
 			}
 		}
 
+        rangeText = GameObject.Find("RangeText").GetComponent<Text>();
+
 		highestPlayer = players[0];
 
 		
