@@ -18,6 +18,8 @@ public class LowerMass : MonoBehaviour {
 	Vector3 posOffset = new Vector3();
 	Vector3 tempPos = new Vector3();
 
+    bool canColide = true; //Can only colide  
+
 	void Start()
 	{
 		posOffset = transform.position;
@@ -39,27 +41,33 @@ public class LowerMass : MonoBehaviour {
 	// Set player mass on trigger enter
 	void OnTriggerEnter(Collider other)
 	{
-		PlayerCol = other.transform.root.gameObject;
+        if (canColide)
+        {
+            print("i cancolide");
+            PlayerCol = other.transform.root.gameObject;
 
-		if (PlayerCol.tag == "Player")
-		{
-            if (PlayerCol.GetComponent<PlayerInfo>().solid)
+            if (PlayerCol.tag == "Player")
             {
-                // get script and then change value of MassPercent
-                PlayerPowerups playerpowerups = PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>();
-                playerpowerups.m_MassPercent = MassPercent;
+                if (PlayerCol.GetComponent<PlayerInfo>().solid)
+                {
+                    // get script and then change value of MassPercent
+                    PlayerPowerups playerpowerups = PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>();
+                    playerpowerups.m_MassPercent = MassPercent;
 
-                //Run function
-                PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>().ChangePlayerMass();
+                    //Run function
+                    PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>().ChangePlayerMass();
 
+                    canColide = false;
+                    Destroy(gameObject);
+                }
+            }
+
+            if (other.tag == "BottomObj")
+            {
+                canColide = false;
                 Destroy(gameObject);
             }
-		}
 
-		if(other.tag == "BottomObj")
-		{
-			Destroy(gameObject);
-		}
-		
+        }
 	}
 }

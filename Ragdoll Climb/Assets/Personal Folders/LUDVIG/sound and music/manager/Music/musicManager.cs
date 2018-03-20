@@ -15,6 +15,10 @@ public class musicManager : MonoBehaviour
     Sound[] songs;
 
     [Space]
+    [Space]
+    [Space]
+    [Space]
+    [Space]
     public AudioSource song1;
     [Space]
     public AudioSource song2;
@@ -65,7 +69,7 @@ public class musicManager : MonoBehaviour
 
         endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
 
-        cameraTransform = GameObject.Find("Main Camera").transform;
+        cameraTransform = GameObject.Find("Main Camera (1)").transform;
 
     }
 
@@ -117,7 +121,7 @@ public class musicManager : MonoBehaviour
 
             song1.Play();
 
-            StartCoroutine(FadeOut(song2, 0.1f));
+            StartCoroutine(FadeOut(song2, 0.11f));
             StartCoroutine(FadeIn(song1, 0.1f));
 
         }
