@@ -24,6 +24,14 @@ public class PlayerPowerups : MonoBehaviour
     [SerializeField]
     GameObject m_Root;
     ///////////////////////////////////////
+    PlayerInfo playerInfo;
+
+    private void Start()
+    {
+        playerInfo = GetComponent<PlayerInfo>();
+
+        Rigidbodies = GetComponentsInChildren<Rigidbody>();
+    }
 
     //Teleport player
     //-------------------------------------------------------------------------------------//
@@ -31,7 +39,7 @@ public class PlayerPowerups : MonoBehaviour
     {
         GetComponent<PlayerInfo>().feedbackText.Activate("got teleported!");
 
-        Rigidbodies = GetComponentsInChildren<Rigidbody>();
+        //Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
         GetComponent<PlayerController>().ReleaseGrip(true, false);
         GetComponent<PlayerController>().ReleaseGrip(false, false);
@@ -68,14 +76,14 @@ public class PlayerPowerups : MonoBehaviour
     //-------------------------------------------------------------------------------------//
     public void ChangePlayerMass()
 	{
-		Rigidbodies = GetComponentsInChildren<Rigidbody>();
+		/*Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
 		foreach (Rigidbody rigidbodymass in Rigidbodies)
 		{
 			startMass.Add(rigidbodymass.mass);
 		}
 
-        print("i change player mass");
+        print("i change player mass");*/
 
         StartCoroutine(ChangeMass());
         StopCoroutine(ChangeMass());
@@ -86,15 +94,12 @@ public class PlayerPowerups : MonoBehaviour
         LooseMassParticle.Stop();
         AddMassParticle.Stop();
 
-        foreach (Rigidbody rigidbodymass in Rigidbodies)
+        for (int i = 0; i < Rigidbodies.Length; i++)
         {
-            rigidbodymass.mass = startMass[pos];
-
-            //GetComponent<PlayerInfo>().targetMasses[pos] = startMass[pos];
-
-            pos++;
+            //rigidbodymass.mass = startMass[pos];
+            playerInfo.targetMasses[i] = playerInfo.standardMasses[i];
+            Rigidbodies[i].mass = playerInfo.targetMasses[i];
         }
-        pos = 0;
 
         StopCoroutine(ChangeMass());
         //startMass.Clear();
@@ -102,13 +107,11 @@ public class PlayerPowerups : MonoBehaviour
 
 	IEnumerator ChangeMass()
 	{
-		foreach (Rigidbody rigidbody in Rigidbodies)
-		{
-			rigidbody.mass = startMass[pos] * m_MassPercent;
-
-            //GetComponent<PlayerInfo>().targetMasses[pos] = startMass[pos] * m_MassPercent;
-            
-            pos++;
+        for (int i = 0; i < Rigidbodies.Length; i++)
+        {
+            //rigidbody.mass = startMass[pos] * m_MassPercent;
+            playerInfo.targetMasses[i] = playerInfo.standardMasses[i] * m_MassPercent;
+            Rigidbodies[i].mass = playerInfo.targetMasses[i];
 		}
 		if (m_MassPercent < 1)
 		{

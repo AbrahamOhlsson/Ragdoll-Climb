@@ -7756,12 +7756,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
-  pushForce: 100
+  pushForce: 35
   handMoveSpeed: 0.2
   pullForce: 300
   pullForceGainSpeed: 0.3
   throwForce: 500
   stickyReleaseDelay: 1
+  armMassDecrease: 0.3
   punchPullBackForce: 1000
   punchForce: 1000
   punchDelay: 0.05
@@ -7785,6 +7786,7 @@ MonoBehaviour:
   leftElbow: {fileID: 54340197277472240}
   rightElbow: {fileID: 54844410497184776}
   root: {fileID: 54449681285469722}
+  spine: {fileID: 54020886512508446}
   leftFoot: {fileID: 54762315995141088}
   rightFoot: {fileID: 54338889538479760}
   boostEffect: {fileID: 198741184960123614}
@@ -8001,11 +8003,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackText: {fileID: 0}
-  solid: 1
-  playerNr: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
-  playerIndex: 0
-  rootObj: {fileID: 0}
 --- !u!114 &114633275682806546
 MonoBehaviour:
   m_ObjectHideFlags: 1

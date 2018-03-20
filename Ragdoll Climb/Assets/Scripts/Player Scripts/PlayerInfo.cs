@@ -22,10 +22,10 @@ public class PlayerInfo : MonoBehaviour
     internal GameObject rootObj;
 
     // The masses of the rigidbodies from the very start
-    internal List<float> standardMasses;
+    internal List<float> standardMasses = new List<float>();
 
     // The mass values that the rigidbodies should have right now
-    internal List<float> targetMasses;
+    internal List<float> targetMasses = new List<float>();
 
     // Other players grabbing this player
     List<GameObject> grabbingPlayers = new List<GameObject>();
@@ -37,9 +37,6 @@ public class PlayerInfo : MonoBehaviour
 
         Rigidbody[] limbs = GetComponentsInChildren<Rigidbody>();
 
-        standardMasses = new List<float>(limbs.Length);
-        targetMasses = new List<float>(limbs.Length);
-
         for (int i = 0; i < limbs.Length; i++)
         {
 			if (limbs[i].name == "Root_M")
@@ -49,9 +46,8 @@ public class PlayerInfo : MonoBehaviour
 			}
 
             standardMasses.Add(limbs[i].mass);
+            targetMasses.Add(limbs[i].mass);
         }
-
-        targetMasses = standardMasses;
     }
 
 
