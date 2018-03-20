@@ -10,17 +10,23 @@ public class PlayerInfo : MonoBehaviour
     public FeedbackText feedbackText;
 
     // If the player has collision with other players
-    [HideInInspector] public bool solid = true;
+    internal bool solid = true;
 
-    [HideInInspector] public int playerNr = 1;
-    [HideInInspector] public Color color;
+    internal int playerNr = 1;
+    internal Color color;
 
     // The game pad index that controls this player
-    [HideInInspector] public PlayerIndex playerIndex;
+    internal PlayerIndex playerIndex;
 
     // The "Root_M" object of this player
-	[HideInInspector] public GameObject rootObj;
-    
+    internal GameObject rootObj;
+
+    // The masses of the rigidbodies from the very start
+    internal List<float> standardMasses;
+
+    // The mass values that the rigidbodies should have right now
+    internal List<float> targetMasses;
+
     // Other players grabbing this player
     List<GameObject> grabbingPlayers = new List<GameObject>();
 
@@ -31,6 +37,9 @@ public class PlayerInfo : MonoBehaviour
 
         Rigidbody[] limbs = GetComponentsInChildren<Rigidbody>();
 
+        standardMasses = new List<float>(limbs.Length);
+        targetMasses = new List<float>(limbs.Length);
+
         for (int i = 0; i < limbs.Length; i++)
         {
 			if (limbs[i].name == "Root_M")
@@ -39,8 +48,10 @@ public class PlayerInfo : MonoBehaviour
 				rootObj = limbs[i].gameObject;
 			}
 
-			break;
+            standardMasses.Add(limbs[i].mass);
         }
+
+        targetMasses = standardMasses;
     }
 
 
