@@ -560,8 +560,9 @@ public class PlayerController : MonoBehaviour
                 rightShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)];
             }
 
-            root.mass = playerInfo.targetMasses[bodyParts.IndexOf(root)] + totalMassLoss / 2;
-            spine.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 2;
+            root.mass = playerInfo.targetMasses[bodyParts.IndexOf(root)] + totalMassLoss / 3;
+            spine.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
+            head.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
 
             // Add pull force for torso
             head.AddForce(pullDirLeft * currentPullForceLeft);
