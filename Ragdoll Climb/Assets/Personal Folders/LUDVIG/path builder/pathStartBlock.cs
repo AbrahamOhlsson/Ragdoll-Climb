@@ -21,7 +21,7 @@ public class pathStartBlock : MonoBehaviour {
         maxBlock = FindObjectOfType<pathController>().maxBlock;
         currentBlock = FindObjectOfType<pathController>().currentBlock;
         startBoxZpos = FindObjectOfType<pathController>().startBox.transform.position.z;
-        startBoxZpos = startBoxZpos + (FindObjectOfType<pathController>().startBox.transform.localScale.z / 2);
+       // startBoxZpos = startBoxZpos + (FindObjectOfType<pathController>().startBox.transform.localScale.z / 2);
 
         //###################################################################################################################################
         //   spawn block from the middle
