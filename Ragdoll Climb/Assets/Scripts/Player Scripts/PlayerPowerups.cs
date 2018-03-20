@@ -41,6 +41,7 @@ public class PlayerPowerups : MonoBehaviour
 
         m_Root.transform.position = new Vector3(newPos.x, newPos.y, m_Root.transform.position.z);
 
+       
     }
 
     IEnumerator TheTeleporter()
@@ -73,9 +74,11 @@ public class PlayerPowerups : MonoBehaviour
 		{
 			startMass.Add(rigidbodymass.mass);
 		}
-        
-		StartCoroutine(ChangeMass());
 
+        print("i change player mass");
+
+        StartCoroutine(ChangeMass());
+        StopCoroutine(ChangeMass());
 	}
 
     public void ResetPlayerMass()
@@ -91,6 +94,7 @@ public class PlayerPowerups : MonoBehaviour
         pos = 0;
 
         StopCoroutine(ChangeMass());
+        //startMass.Clear();
     }
 
 	IEnumerator ChangeMass()
@@ -119,7 +123,7 @@ public class PlayerPowerups : MonoBehaviour
 
 		yield return new WaitForSeconds(MassDuration);
 
-        print("Reset");
+        print("Reset  in changeMass");
         ResetPlayerMass();
 	}
 	//-----------------------------------------------------------------------//

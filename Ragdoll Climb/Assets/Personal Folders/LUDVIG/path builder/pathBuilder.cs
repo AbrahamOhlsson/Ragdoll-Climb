@@ -24,6 +24,8 @@ public class pathBuilder : MonoBehaviour {
         startBoxZpos = FindObjectOfType<pathController>().startBox.transform.position.z;
         startBoxZpos = startBoxZpos + (FindObjectOfType<pathController>().startBox.transform.localScale.z / 2);
 
+        print("block " + currentBlock + "  start pos = " + transform.position.z + " start scale = "+ transform.localScale.z + "  minus = " + transform.localScale.z / 2);
+
 
         // move block
         if (StartPos == Direction.Middle)
@@ -56,7 +58,7 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().bloakList.Length;
 
-                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize )], new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos/*transform.position.z - (transform.localScale.z / 2)*/), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
+                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize )], new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
               
 
             }
@@ -68,7 +70,7 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().bloakList.Length;
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
+                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
         
 
             }
