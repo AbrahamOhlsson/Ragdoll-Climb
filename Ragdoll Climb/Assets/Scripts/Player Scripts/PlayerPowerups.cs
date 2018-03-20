@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPowerups : MonoBehaviour
 {
 	////// Add/loose mass
-	public Component[] Rigidbodies;
+	public Rigidbody[] Rigidbodies;
 	public List<float> startMass;
 	public int pos = 0;
 	[SerializeField]
@@ -24,6 +24,14 @@ public class PlayerPowerups : MonoBehaviour
     [SerializeField]
     GameObject m_Root;
     ///////////////////////////////////////
+    PlayerInfo playerInfo;
+
+    private void Start()
+    {
+        playerInfo = GetComponent<PlayerInfo>();
+
+        Rigidbodies = GetComponentsInChildren<Rigidbody>();
+    }
 
     //Teleport player
     //-------------------------------------------------------------------------------------//
@@ -31,7 +39,7 @@ public class PlayerPowerups : MonoBehaviour
     {
         GetComponent<PlayerInfo>().feedbackText.Activate("got teleported!");
 
-        Rigidbodies = GetComponentsInChildren<Rigidbody>();
+        //Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
         GetComponent<PlayerController>().ReleaseGrip(true, false);
         GetComponent<PlayerController>().ReleaseGrip(false, false);
@@ -41,6 +49,7 @@ public class PlayerPowerups : MonoBehaviour
 
         m_Root.transform.position = new Vector3(newPos.x, newPos.y, m_Root.transform.position.z);
 
+       
     }
 
     IEnumerator TheTeleporter()
@@ -67,15 +76,17 @@ public class PlayerPowerups : MonoBehaviour
     //-------------------------------------------------------------------------------------//
     public void ChangePlayerMass()
 	{
-		Rigidbodies = GetComponentsInChildren<Rigidbody>();
+		/*Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
 		foreach (Rigidbody rigidbodymass in Rigidbodies)
 		{
 			startMass.Add(rigidbodymass.mass);
 		}
-        
-		StartCoroutine(ChangeMass());
 
+        print("i change player mass");*/
+
+        StartCoroutine(ChangeMass());
+        StopCoroutine(ChangeMass());
 	}
 
     public void ResetPlayerMass()
@@ -83,22 +94,24 @@ public class PlayerPowerups : MonoBehaviour
         LooseMassParticle.Stop();
         AddMassParticle.Stop();
 
-        foreach (Rigidbody rigidbodymass in Rigidbodies)
+        for (int i = 0; i < Rigidbodies.Length; i++)
         {
-            rigidbodymass.mass = startMass[pos];
-            pos++;
+            //rigidbodymass.mass = startMass[pos];
+            playerInfo.targetMasses[i] = playerInfo.standardMasses[i];
+            Rigidbodies[i].mass = playerInfo.targetMasses[i];
         }
-        pos = 0;
 
         StopCoroutine(ChangeMass());
+        //startMass.Clear();
     }
 
 	IEnumerator ChangeMass()
 	{
-		foreach (Rigidbody rigidbody in Rigidbodies)
-		{
-			rigidbody.mass = startMass[pos] * m_MassPercent;
-			pos++;
+        for (int i = 0; i < Rigidbodies.Length; i++)
+        {
+            //rigidbody.mass = startMass[pos] * m_MassPercent;
+            playerInfo.targetMasses[i] = playerInfo.standardMasses[i] * m_MassPercent;
+            Rigidbodies[i].mass = playerInfo.targetMasses[i];
 		}
 		if (m_MassPercent < 1)
 		{
@@ -119,7 +132,7 @@ public class PlayerPowerups : MonoBehaviour
 
 		yield return new WaitForSeconds(MassDuration);
 
-        print("Reset");
+        print("Reset  in changeMass");
         ResetPlayerMass();
 	}
 	//-----------------------------------------------------------------------//
