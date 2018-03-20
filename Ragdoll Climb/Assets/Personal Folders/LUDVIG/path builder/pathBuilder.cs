@@ -6,7 +6,7 @@ public class pathBuilder : MonoBehaviour {
 
     int maxBlock;
     int currentBlock;
-    float startBoxZpos;
+    public float startBoxZpos;
     enum Direction {Right, Middle, Left };
     [SerializeField]
     Direction StartPos;
