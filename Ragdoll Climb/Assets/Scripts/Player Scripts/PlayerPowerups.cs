@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPowerups : MonoBehaviour
 {
 	////// Add/loose mass
-	public Component[] Rigidbodies;
+	public Rigidbody[] Rigidbodies;
 	public List<float> startMass;
 	public int pos = 0;
 	[SerializeField]
@@ -89,6 +89,9 @@ public class PlayerPowerups : MonoBehaviour
         foreach (Rigidbody rigidbodymass in Rigidbodies)
         {
             rigidbodymass.mass = startMass[pos];
+
+            //GetComponent<PlayerInfo>().targetMasses[pos] = startMass[pos];
+
             pos++;
         }
         pos = 0;
@@ -102,7 +105,10 @@ public class PlayerPowerups : MonoBehaviour
 		foreach (Rigidbody rigidbody in Rigidbodies)
 		{
 			rigidbody.mass = startMass[pos] * m_MassPercent;
-			pos++;
+
+            //GetComponent<PlayerInfo>().targetMasses[pos] = startMass[pos] * m_MassPercent;
+            
+            pos++;
 		}
 		if (m_MassPercent < 1)
 		{

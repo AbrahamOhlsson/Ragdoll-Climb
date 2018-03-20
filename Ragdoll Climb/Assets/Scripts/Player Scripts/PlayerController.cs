@@ -26,8 +26,11 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The time it takes to release grip form sticky surfaces.")]
     [Range(0.1f, 5f)]
     [SerializeField] float stickyReleaseDelay = 1f;
+    [Tooltip("The percentage of mass tht the arm limbs will have when they are controlled")]
+    [Range(0f, 1f)]
+    [SerializeField] float armMassDecrease = 0.4f;
 
-    [Header("Punching")]
+    [Header("Punching (NOT IN USE)")]
     [Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
     [SerializeField] float punchPullBackForce = 1000f;
     [Tooltip("The force that is applied to the arm to for punching.")]
@@ -85,6 +88,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Rigidbody leftElbow;
     [SerializeField] Rigidbody rightElbow;
     [SerializeField] Rigidbody root;
+    [SerializeField] Rigidbody spine;
     [SerializeField] Rigidbody leftFoot;
     [SerializeField] Rigidbody rightFoot;
 
@@ -164,7 +168,9 @@ public class PlayerController : MonoBehaviour
     CheckGrip checkGripLeft;
     CheckGrip checkGripRight;
 
-    Rigidbody[] bodyParts;
+    PlayerInfo playerInfo;
+
+    List<Rigidbody> bodyParts = new List<Rigidbody>();
 
     AudioSource source;
 
@@ -180,12 +186,14 @@ public class PlayerController : MonoBehaviour
         checkGripLeft = leftHand.GetComponent<CheckGrip>();
         checkGripRight = rightHand.GetComponent<CheckGrip>();
 
+        playerInfo = GetComponent<PlayerInfo>();
+
         source = GetComponent<AudioSource>();
 
         releaseGripDelayedLeft = ReleaseGripDelayed(true);
         releaseGripDelayedRight = ReleaseGripDelayed(false);
 
-        bodyParts = GetComponentsInChildren<Rigidbody>();
+        bodyParts.AddRange(GetComponentsInChildren<Rigidbody>());
 
         leftHand.maxAngularVelocity = Mathf.Infinity;
         rightHand.maxAngularVelocity = Mathf.Infinity;
@@ -229,7 +237,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                //if (!leftPunching)
+                if (!leftPunching)
                     ArmControl(true);
 
                 if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching)
@@ -262,7 +270,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                //if (!rightPunching)
+                if (!rightPunching)
                     ArmControl(false);
 
                 if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching)
@@ -496,11 +504,65 @@ public class PlayerController : MonoBehaviour
             leftHand.AddForce(pushDirLeft * pushForce);
             rightHand.AddForce(pushDirRight * pushForce);
 
+            float totalMassLoss = 0;
+
             // Lerps hand positions to stableize into its proper position
             if (pushDirLeft != Vector3.zero)
+            {
                 leftHand.position = Vector3.Lerp(leftHand.position, leftShoulder.position + pushDirLeft, handMoveSpeed);
+
+                //leftHand.useGravity = false;
+                //leftElbow.useGravity = false;
+                //leftShoulder.useGravity = false;
+
+                leftHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftHand)] * armMassDecrease;
+                leftElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)] * armMassDecrease;
+                leftShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)] * armMassDecrease;
+
+                totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(leftHand)] - playerInfo.targetMasses[bodyParts.IndexOf(leftHand)] * armMassDecrease;
+                totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)] - playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)] * armMassDecrease;
+                totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)] - playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)] * armMassDecrease;
+            }
+            else
+            {
+                //leftHand.useGravity = true;
+                //leftElbow.useGravity = true;
+                //leftShoulder.useGravity = true;
+
+                leftHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftHand)];
+                leftElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)];
+                leftShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)];
+            }
             if (pushDirRight != Vector3.zero)
+            {
                 rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, handMoveSpeed);
+
+                //rightHand.useGravity = false;
+                //rightElbow.useGravity = false;
+                //rightShoulder.useGravity = false;
+
+                rightHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightHand)] * armMassDecrease;
+                rightElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)] * armMassDecrease;
+                rightShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)] * armMassDecrease;
+
+                totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(rightHand)] - playerInfo.targetMasses[bodyParts.IndexOf(rightHand)] * armMassDecrease;
+                totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)] - playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)] * armMassDecrease;
+                totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)] - playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)] * armMassDecrease;
+            }
+            else
+            {
+                //rightHand.useGravity = true;
+                //rightElbow.useGravity = true;
+                //rightShoulder.useGravity = true;
+
+                rightHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightHand)];
+                rightElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)];
+                rightShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)];
+            }
+
+            root.mass = playerInfo.targetMasses[bodyParts.IndexOf(root)] + totalMassLoss / 3;
+            spine.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
+            head.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
 
             // Add pull force for torso
             head.AddForce(pullDirLeft * currentPullForceLeft);
@@ -533,7 +595,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Stableizes z position
-        for (int i = 0; i < bodyParts.Length; i++)
+        for (int i = 0; i < bodyParts.Count; i++)
         {
             bodyParts[i].velocity = new Vector3(bodyParts[i].velocity.x, bodyParts[i].velocity.y, 0f);
         }
@@ -599,23 +661,29 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Punch(Rigidbody hand, Vector2 direction)
     {
-        //if (hand == leftHand)
-        //    leftPunching = true;
-        //else
-        //    rightPunching = true;
+        /*if (hand == leftHand)
+        {
+            leftPunching = true;
+            pushDirLeft = Vector3.zero;
+        }
+        else
+        {
+            rightPunching = true;
+            pushDirRight = Vector3.zero;
+        }
 
-        ////yield return new WaitForFixedUpdate();
-        ////hand.AddForce(-direction.normalized * punchPullBackForce);
+        yield return new WaitForFixedUpdate();
+        hand.AddForce(-direction.normalized * punchPullBackForce);
 
-        ////yield return new WaitForSeconds(punchDelay);
-        //yield return new WaitForFixedUpdate();
-        //hand.AddForce(direction.normalized * punchForce);
+        yield return new WaitForSeconds(punchDelay);
+        yield return new WaitForFixedUpdate();
+        hand.AddForce(direction.normalized * punchForce);
 
-        //yield return new WaitForSeconds(punchStateResetDelay);
-        //if (hand == leftHand)
-        //    leftPunching = false;
-        //else
-        //    rightPunching = false;
+        yield return new WaitForSeconds(punchStateResetDelay);
+        if (hand == leftHand)
+            leftPunching = false;
+        else
+            rightPunching = false;*/
 
         yield return null;
     }
