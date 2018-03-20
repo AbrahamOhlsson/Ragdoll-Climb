@@ -2132,11 +2132,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 095e37ecae450c64f8d5b5ca388a2a4a, type: 2}
   m_IsPrefabParent: 0
---- !u!54 &851798818 stripped
-Rigidbody:
-  m_PrefabParentObject: {fileID: 54020886512508446, guid: 55f8f221a8f908640878b50d9d14b202,
-    type: 2}
-  m_PrefabInternal: {fileID: 1863021013}
 --- !u!1001 &877284036
 Prefab:
   m_ObjectHideFlags: 0
@@ -4310,18 +4305,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114277244581100346, guid: 55f8f221a8f908640878b50d9d14b202,
         type: 2}
-      propertyPath: spine
-      value: 
-      objectReference: {fileID: 851798818}
-    - target: {fileID: 114277244581100346, guid: 55f8f221a8f908640878b50d9d14b202,
-        type: 2}
-      propertyPath: armMassDecrease
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114277244581100346, guid: 55f8f221a8f908640878b50d9d14b202,
-        type: 2}
-      propertyPath: pushForce
-      value: 35
+      propertyPath: pullForce
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
