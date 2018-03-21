@@ -58,7 +58,8 @@ public class Cheats : MonoBehaviour
             {
                 for (int i = 0; i < bodies.Length; i++)
                 {
-                    bodies[i].mass *= 2f;
+                    playerInfo.standardMasses[i] *= 10f;
+                    bodies[i].mass = playerInfo.standardMasses[i];
                 }
 
                 lightWeightActive = false;
@@ -68,7 +69,8 @@ public class Cheats : MonoBehaviour
             {
                 for (int i = 0; i < bodies.Length; i++)
                 {
-                    bodies[i].mass *= 0.5f;
+                    playerInfo.standardMasses[i] *= 0.1f;
+                    bodies[i].mass = playerInfo.standardMasses[i];
                 }
 
                 lightWeightActive = true;
