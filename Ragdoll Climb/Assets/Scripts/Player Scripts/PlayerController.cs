@@ -5,9 +5,9 @@ using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Forces and Movement")]
     public bool canMove = true;
 
-    [Header("Forces and Movement")]
     [Tooltip("For hand controls.")]
     [Range(0f, 300f)]
     [SerializeField] float pushForce = 100f;
@@ -20,6 +20,12 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How fast the pull force will reach it's value set above.")]
     [Range(0f, 1f)]
     [SerializeField] float pullForceGainSpeed = 0.3f;
+    [Tooltip("Swing force in X-axis")]
+    [Range(0f, 500f)]
+    [SerializeField] float swingForceX = 85f;
+    [Tooltip("Swing force in Y-axis. This always pushes down when swinging.")]
+    [Range(0f, 300f)]
+    [SerializeField] float swingForceY = 30f;
     [Tooltip("Force that will be applied to a throwable object after it is released.")]
     [Range(0f, 2000f)]
     [SerializeField] float throwForce = 500f;
@@ -577,10 +583,10 @@ public class PlayerController : MonoBehaviour
             //root.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight / 4);
 
             // THIS IS PRETTY ALRIGHT
-            leftFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
-            leftFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
-            rightFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
-            rightFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
+            leftFoot.AddForce(pullDirLeft.x * swingForceX, -Mathf.Abs(pullDirLeft.x) * swingForceY, 0f);
+            leftFoot.AddForce(pullDirRight.x * swingForceX, -Mathf.Abs(pullDirRight.x) * swingForceY, 0f);
+            rightFoot.AddForce(pullDirLeft.x * swingForceX, -Mathf.Abs(pullDirLeft.x) * swingForceY, 0f);
+            rightFoot.AddForce(pullDirRight.x * swingForceX, -Mathf.Abs(pullDirRight.x) * swingForceY, 0f);
 
             // Adds equal pull force of grabbed object but in opposite direction
             if (checkGripLeft.currentGripping != null && gripLeft)
