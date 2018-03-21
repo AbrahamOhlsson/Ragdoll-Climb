@@ -91,7 +91,23 @@ public class musicManager : MonoBehaviour
 
     void Update()
     {
-        //if()
+        if (startBlockTransform == null)
+        {
+            startBlockTransform = GameObject.Find("StartModul").transform;
+        }
+
+        if (endBlockTransform == null)
+        {
+            endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+        }
+
+        if (cameraTransform == null)
+        {
+            cameraTransform = GameObject.Find("Main Camera (1)").transform;
+        }
+
+
+
 
         if ( (cameraTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
         {
