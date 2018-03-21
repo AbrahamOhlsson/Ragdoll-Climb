@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (canMove)
+        if (canMove && Time.timeScale > 0f)
         {
             prevState = state;
             state = GamePad.GetState(playerIndex);
