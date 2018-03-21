@@ -506,72 +506,66 @@ public class PlayerController : MonoBehaviour
 
             float totalMassLoss = 0;
 
-            // Lerps hand positions to stableize into its proper position
+            // If the left hand is being moved
             if (pushDirLeft != Vector3.zero)
             {
+                // Lerps hand position to stableize into its proper position
                 leftHand.position = Vector3.Lerp(leftHand.position, leftShoulder.position + pushDirLeft, handMoveSpeed);
-
-                //leftHand.useGravity = false;
-                //leftElbow.useGravity = false;
-                //leftShoulder.useGravity = false;
-
+                
+                // Lowers mass of arms so they are easier to move
                 leftHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftHand)] * armMassDecrease;
                 leftElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)] * armMassDecrease;
                 leftShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)] * armMassDecrease;
 
+                // Counts the total loss of mass of the hand so it can be appliesd to other body parts
                 totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(leftHand)] - playerInfo.targetMasses[bodyParts.IndexOf(leftHand)] * armMassDecrease;
                 totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)] - playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)] * armMassDecrease;
                 totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)] - playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)] * armMassDecrease;
             }
             else
             {
-                //leftHand.useGravity = true;
-                //leftElbow.useGravity = true;
-                //leftShoulder.useGravity = true;
-
+                // Resets masses to the masses they should be
                 leftHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftHand)];
                 leftElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftElbow)];
                 leftShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(leftShoulder)];
             }
+            // If the right hand is being moved
             if (pushDirRight != Vector3.zero)
             {
+                // Lerps hand position to stableize into its proper position
                 rightHand.position = Vector3.Lerp(rightHand.position, rightShoulder.position + pushDirRight, handMoveSpeed);
 
-                //rightHand.useGravity = false;
-                //rightElbow.useGravity = false;
-                //rightShoulder.useGravity = false;
-
+                // Lowers mass of arms so they are easier to move
                 rightHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightHand)] * armMassDecrease;
                 rightElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)] * armMassDecrease;
                 rightShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)] * armMassDecrease;
 
+                // Counts the total loss of mass of the hand so it can be appliesd to other body parts
                 totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(rightHand)] - playerInfo.targetMasses[bodyParts.IndexOf(rightHand)] * armMassDecrease;
                 totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)] - playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)] * armMassDecrease;
                 totalMassLoss += playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)] - playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)] * armMassDecrease;
             }
             else
             {
-                //rightHand.useGravity = true;
-                //rightElbow.useGravity = true;
-                //rightShoulder.useGravity = true;
-
+                // Resets masses to the masses they should be
                 rightHand.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightHand)];
                 rightElbow.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightElbow)];
                 rightShoulder.mass = playerInfo.targetMasses[bodyParts.IndexOf(rightShoulder)];
             }
 
+            // The loss of mass of the hands is applied equally between root, spine and head
             root.mass = playerInfo.targetMasses[bodyParts.IndexOf(root)] + totalMassLoss / 3;
             spine.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
             head.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
 
             // Add pull force for torso
-            head.AddForce(pullDirLeft * currentPullForceLeft);
-            head.AddForce(pullDirRight * currentPullForceRight);
-            //head.AddForce(0f, pullDirLeft.y * currentPullForceLeft, 0f);
-            //head.AddForce(0f, pullDirRight.y * currentPullForceRight, 0f);
+            //head.AddForce(pullDirLeft * currentPullForceLeft);
+            //head.AddForce(pullDirRight * currentPullForceRight);
+            head.AddForce(0f, pullDirLeft.y * currentPullForceLeft, 0f);
+            head.AddForce(0f, pullDirRight.y * currentPullForceRight, 0f);
 
-            //leftShoulder.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft);
-            //rightShoulder.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight);
+            //leftHand.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft * 1000f);
+            //rightHand.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight * 1000f);
 
             //leftShoulder.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft);
             //rightShoulder.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight);
@@ -579,13 +573,14 @@ public class PlayerController : MonoBehaviour
             //root.AddForce(pullDirLeft.x * currentPullForceLeft, 0f, 0f);
             //root.AddForce(pullDirRight.x * currentPullForceRight, 0f, 0f);
 
-            //root.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft / 2);
-            //root.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight / 2);
+            //root.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft / 4);
+            //root.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight / 4);
 
-            //leftFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
-            //leftFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
-            //rightFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
-            //rightFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
+            // THIS IS PRETTY ALRIGHT
+            leftFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
+            leftFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
+            rightFoot.AddForce(pullDirLeft.x * currentPullForceLeft / 4f, -Mathf.Abs(pullDirLeft.x) * currentPullForceLeft / 12f, 0f);
+            rightFoot.AddForce(pullDirRight.x * currentPullForceRight / 4f, -Mathf.Abs(pullDirRight.x) * currentPullForceLeft / 12f, 0f);
 
             // Adds equal pull force of grabbed object but in opposite direction
             if (checkGripLeft.currentGripping != null && gripLeft)
