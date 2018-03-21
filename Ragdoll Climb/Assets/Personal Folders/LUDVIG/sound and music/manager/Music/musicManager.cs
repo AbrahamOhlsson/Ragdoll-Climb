@@ -1,15 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.Audio;
 using UnityEngine;
 
 
 
 public class musicManager : MonoBehaviour
 {
+    //[SerializeField]
+    //float musicVolume;
+
     [SerializeField]
     int partInt;
-    public float distansToGoal; // public for test
+    float distansToGoal; // public for test
     [Space]
     [SerializeField]
     Sound[] songs;
@@ -80,6 +81,9 @@ public class musicManager : MonoBehaviour
 
         distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
 
+        song1.loop = true;
+        song2.loop = true;
+
         song1.clip = songs[0].clip;
         song1.volume = songs[0].volume;
         song1.pitch = songs[0].pitch;
@@ -91,7 +95,23 @@ public class musicManager : MonoBehaviour
 
     void Update()
     {
-        //if()
+        if (startBlockTransform == null)
+        {
+            startBlockTransform = GameObject.Find("StartModul").transform;
+        }
+
+        if (endBlockTransform == null)
+        {
+            endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+        }
+
+        if (cameraTransform == null)
+        {
+            cameraTransform = GameObject.Find("Main Camera (1)").transform;
+        }
+
+
+
 
         if ( (cameraTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
         {
@@ -136,7 +156,7 @@ public class musicManager : MonoBehaviour
 
             song2.Play();
 
-            StartCoroutine( FadeOut(song1, 0.1f));
+            StartCoroutine( FadeOut(song1, 0.11f));
             StartCoroutine( FadeIn(song2, 0.1f));
 
         }
@@ -148,33 +168,40 @@ public class musicManager : MonoBehaviour
     public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
     {
         float startVolume = audioSource.volume;
+        float timetest = 0;     // TA BORT SEN 
 
-        while (audioSource.volume > 0)
+        while (audioSource.volume > 0) 
         {
-            audioSource.volume -= startVolume * (Time.deltaTime / FadeTime);
+            timetest += 1 * Time.deltaTime;
+            audioSource.volume -= (startVolume / FadeTime) * Time.deltaTime; //startVolume * (FadeTime / Time.deltaTime);
 
             yield return null;
         }
 
+        print("klar i fade Out på " + timetest + " sec");
         audioSource.Stop();
-        //audioSource.volume = startVolume;
+        
     }
 
 
     public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
     {
+        float timetest = 0;     // TA BORT SEN 
         float startVolume = audioSource.volume;
         audioSource.volume = 0;
 
         while (audioSource.volume < startVolume)
         {
-            audioSource.volume += startVolume * (Time.deltaTime / FadeTime);
+            timetest += 1 * Time.deltaTime;
 
+            audioSource.volume +=   (startVolume / FadeTime) * Time.deltaTime; // startVolume * ( FadeTime / Time.deltaTime);
+            print("här kommer FadeTime / Time.deltaTime " + 1*(Time.deltaTime / FadeTime) );
             yield return null;
         }
+        audioSource.volume = startVolume;
 
-        //audioSource.Stop();
-       // audioSource.volume = startVolume;
+        print("klar i fade in på " + timetest + " sec");
+        
     }
 
 }
