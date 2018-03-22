@@ -9484,11 +9484,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackText: {fileID: 0}
-  solid: 1
-  playerNr: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
-  playerIndex: 0
-  rootObj: {fileID: 0}
 --- !u!114 &263845396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9616,8 +9611,11 @@ MonoBehaviour:
   handMoveSpeed: 0.2
   pullForce: 300
   pullForceGainSpeed: 0.3
+  swingForceX: 85
+  swingForceY: 30
   throwForce: 500
   stickyReleaseDelay: 1
+  armMassDecrease: 0.4
   punchPullBackForce: 1000
   punchForce: 3000
   punchDelay: 0.3
@@ -9641,6 +9639,7 @@ MonoBehaviour:
   leftElbow: {fileID: 0}
   rightElbow: {fileID: 0}
   root: {fileID: 0}
+  spine: {fileID: 0}
   leftFoot: {fileID: 0}
   rightFoot: {fileID: 0}
   boostEffect: {fileID: 707575839}
@@ -17609,6 +17608,11 @@ Prefab:
       propertyPath: players.Array.data[3]
       value: 
       objectReference: {fileID: 5785035}
+    - target: {fileID: 114362967103018540, guid: 57083c3910d21bf46905df139ddcf55f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 57083c3910d21bf46905df139ddcf55f, type: 2}
   m_IsPrefabParent: 0
@@ -69899,11 +69903,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackText: {fileID: 0}
-  solid: 1
-  playerNr: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
-  playerIndex: 0
-  rootObj: {fileID: 0}
 --- !u!114 &1104931374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70031,8 +70030,11 @@ MonoBehaviour:
   handMoveSpeed: 0.2
   pullForce: 300
   pullForceGainSpeed: 0.3
+  swingForceX: 85
+  swingForceY: 30
   throwForce: 500
   stickyReleaseDelay: 1
+  armMassDecrease: 0.4
   punchPullBackForce: 1000
   punchForce: 3000
   punchDelay: 0.3
@@ -70056,6 +70058,7 @@ MonoBehaviour:
   leftElbow: {fileID: 0}
   rightElbow: {fileID: 0}
   root: {fileID: 0}
+  spine: {fileID: 0}
   leftFoot: {fileID: 0}
   rightFoot: {fileID: 0}
   boostEffect: {fileID: 842801128}
@@ -96280,6 +96283,111 @@ Transform:
   m_Father: {fileID: 2101316021}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1597015234
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224505876009324272, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114520794139435742, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 102135856}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 07edc6a48e13a6a4eb674e37d6511423, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1597957706
 GameObject:
   m_ObjectHideFlags: 0
@@ -115943,11 +116051,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feedbackText: {fileID: 0}
-  solid: 1
-  playerNr: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
-  playerIndex: 0
-  rootObj: {fileID: 0}
 --- !u!114 &2034255653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116075,8 +116178,11 @@ MonoBehaviour:
   handMoveSpeed: 0.2
   pullForce: 300
   pullForceGainSpeed: 0.3
+  swingForceX: 85
+  swingForceY: 30
   throwForce: 500
   stickyReleaseDelay: 1
+  armMassDecrease: 0.4
   punchPullBackForce: 1000
   punchForce: 3000
   punchDelay: 0.3
@@ -116100,6 +116206,7 @@ MonoBehaviour:
   leftElbow: {fileID: 0}
   rightElbow: {fileID: 0}
   root: {fileID: 0}
+  spine: {fileID: 0}
   leftFoot: {fileID: 0}
   rightFoot: {fileID: 0}
   boostEffect: {fileID: 433398314}
