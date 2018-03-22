@@ -44,7 +44,21 @@ public class FreezePlayerPowerUp : MonoBehaviour
 
     }
 
-    void Update()
+
+	public void DeathFreezeTime()
+	{
+
+		// Gets all renderers in player
+		renderers = transform.GetChild(0).GetComponentsInChildren<Renderer>();
+
+		Rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+		StartCoroutine(freezeDeathThePlayer());
+
+	}
+
+
+	void Update()
     {
         if (doLerp)
         {
@@ -67,71 +81,140 @@ public class FreezePlayerPowerUp : MonoBehaviour
         }
     }
 
-    IEnumerator freezeThePlayer()
-    {
-        GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
+	IEnumerator freezeThePlayer()
+	{
+		GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
 
-        if (closeToBoat)
-        {
-            freezeTime = 0.01f;
-        }
-        else if(!closeToBoat)
-        {
-            freezeTime = 3f;
-        }
+		if (closeToBoat)
+		{
+			freezeTime = 0.01f;
+		}
+		else if (!closeToBoat)
+		{
+			freezeTime = 3f;
+		}
 
-        // Get player default colour
-        for (int j = 0; j < renderers.Length; j++)
-        {
-            defColor = renderers[j].material.color;
-        }
-        isFrozen = true;
+		// Get player default colour
+		for (int j = 0; j < renderers.Length; j++)
+		{
+			defColor = renderers[j].material.color;
+		}
+		isFrozen = true;
 
-        GetComponent<PlayerController>().canMove = false;
-        GetComponent<PlayerController>().ReleaseGrip(true, false);
-        GetComponent<PlayerController>().ReleaseGrip(false, false);
+		GetComponent<PlayerController>().canMove = false;
+		GetComponent<PlayerController>().ReleaseGrip(true, false);
+		GetComponent<PlayerController>().ReleaseGrip(false, false);
 
-        foreach (Rigidbody rigidKinematic in Rigidbodies)
-        {
-            rigidKinematic.isKinematic = true;
-        }
-        if (isFrozen == true)
-        {
-            doLerp = true;
-        }
+		foreach (Rigidbody rigidKinematic in Rigidbodies)
+		{
+			rigidKinematic.isKinematic = true;
+		}
+		if (isFrozen == true)
+		{
+			doLerp = true;
+		}
 
-        yield return new WaitForSeconds(freezeTime);
+		yield return new WaitForSeconds(freezeTime);
 
-        doLerp = false;
+		doLerp = false;
 
-        isFrozen = false;
+		isFrozen = false;
 
-        foreach (Rigidbody rigidKinematic in Rigidbodies)
-        {
-            rigidKinematic.isKinematic = false;
-            //rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-            //leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-        }
+		foreach (Rigidbody rigidKinematic in Rigidbodies)
+		{
+			rigidKinematic.isKinematic = false;
+			//rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+			//leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+		}
 
-        GetComponent<PlayerController>().canMove = true;
+		GetComponent<PlayerController>().canMove = true;
 
-        if (isFrozen == false)
-        {
-            doLerpBack = true;
-        }
+		if (isFrozen == false)
+		{
+			doLerpBack = true;
+		}
 
-        //After freeze make sure the player get default colour back
-        yield return new WaitForSeconds(freezeTime);
+		//After freeze make sure the player get default colour back
+		yield return new WaitForSeconds(freezeTime);
 
-        doLerpBack = false;
-       
-        // Changes color of all renderers
-        for (int j = 0; j < renderers.Length; j++)
-        {
-            if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
-                renderers[j].material.color = defColor;
-        }
+		doLerpBack = false;
 
-    }
+		// Changes color of all renderers
+		for (int j = 0; j < renderers.Length; j++)
+		{
+			if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
+				renderers[j].material.color = defColor;
+		}
+
+	}
+
+
+	//  FOR DEATH FREEZE ##############################################################
+	IEnumerator freezeDeathThePlayer()
+	{
+		GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
+
+		if (closeToBoat)
+		{
+			freezeTime = 0.01f;
+		}
+		else if (!closeToBoat)
+		{
+			freezeTime = 1f;
+		}
+
+		// Get player default colour
+		for (int j = 0; j < renderers.Length; j++)
+		{
+			defColor = renderers[j].material.color;
+		}
+		isFrozen = true;
+
+		GetComponent<PlayerController>().canMove = false;
+		GetComponent<PlayerController>().ReleaseGrip(true, false);
+		GetComponent<PlayerController>().ReleaseGrip(false, false);
+
+		foreach (Rigidbody rigidKinematic in Rigidbodies)
+		{
+			rigidKinematic.isKinematic = true;
+		}
+		if (isFrozen == true)
+		{
+			doLerp = true;
+		}
+
+		yield return new WaitForSeconds(freezeTime);
+
+		doLerp = false;
+
+		isFrozen = false;
+
+		foreach (Rigidbody rigidKinematic in Rigidbodies)
+		{
+			rigidKinematic.isKinematic = false;
+			//rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+			//leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
+		}
+
+		GetComponent<PlayerController>().canMove = true;
+
+		if (isFrozen == false)
+		{
+			doLerpBack = true;
+		}
+
+		//After freeze make sure the player get default colour back
+		yield return new WaitForSeconds(freezeTime);
+
+		doLerpBack = false;
+
+		// Changes color of all renderers
+		for (int j = 0; j < renderers.Length; j++)
+		{
+			if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
+				renderers[j].material.color = defColor;
+		}
+
+	}
 
 }

@@ -45,7 +45,7 @@ public class DeathManager : MonoBehaviour
     PlayerInfo playerInfo;
 
 
-	void Start ()
+	void Awake ()
     {
         // Gets all the players
         for (int i = 0; i < manager.players.Count; i++)
@@ -159,6 +159,20 @@ public class DeathManager : MonoBehaviour
 
         if (rootTrans.position.y < bottomObj.position.y)
             Death();
+
+		//Death if ragdoll explodes
+		foreach(Rigidbody i in rbs)
+		{
+			if (i.tag != "Slippery")
+			{	//Check distance between regidbodies and root_M
+				if (Vector3.Distance(i.transform.position, rootTrans.position) > 3)
+				{
+					Death();
+				}
+			}
+		}
+
+
 	}
 
 

@@ -183,8 +183,13 @@ public class PlayerController : MonoBehaviour
     IEnumerator releaseGripDelayedRight;
     IEnumerator releaseGripDelayedLeft;
 
+	// Death ########
+	float deathTimer;
+	[SerializeField]
+	float deathPressTime;
 
-    void Start()
+
+	void Start()
     {
         startPushForce = pushForce;
         startPullForce = pullForce;
@@ -206,7 +211,9 @@ public class PlayerController : MonoBehaviour
         root.maxAngularVelocity = Mathf.Infinity;
         leftShoulder.maxAngularVelocity = Mathf.Infinity;
         rightShoulder.maxAngularVelocity = Mathf.Infinity;
-    }
+
+		deathTimer = 0;
+	}
 
 
     void Update()
@@ -499,7 +506,34 @@ public class PlayerController : MonoBehaviour
             else if (leftTimer <= 0.01f)
                 leftStaminaBar.gameObject.SetActive(false);
             }
-    }
+		// DEATH     ###############################################################################################################
+
+		if(state.DPad.Down == ButtonState.Pressed)
+		{
+			if(deathTimer > deathPressTime)
+			{
+				GetComponent<DeathManager>().Death();
+
+				GetComponent<FreezePlayerPowerUp>().closeToBoat= false;
+				GetComponent<FreezePlayerPowerUp>().DeathFreezeTime();
+				deathTimer = 0;
+			}
+
+			deathTimer += 1 * Time.deltaTime;
+
+		}
+
+		if (state.DPad.Down == ButtonState.Released)
+		{
+			if (deathTimer > 0)
+				{
+					deathTimer = 0;
+				}
+		}
+
+
+
+	}
 
 
     private void FixedUpdate()
@@ -593,6 +627,11 @@ public class PlayerController : MonoBehaviour
                 checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
             if (checkGripRight.currentGripping != null && gripRight)
                 checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
+
+            //leftShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
+            //rightShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
+            //leftElbow.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
+            //rightElbow.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
         }
 
         // Stableizes z position
