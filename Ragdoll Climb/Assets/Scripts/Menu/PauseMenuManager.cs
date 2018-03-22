@@ -28,7 +28,7 @@ public class PauseMenuManager : MonoBehaviour
     private void Start ()
     {
         // Defaults to main group in case we forget to switch all groups in editor
-        mainGroup.SetActive(true);
+        mainGroup.SetActive(false);
         howToPlayGroup.SetActive(false);
         optionsGroup.SetActive(false);
         quitGroup.SetActive(false);
@@ -85,13 +85,28 @@ public class PauseMenuManager : MonoBehaviour
     {
         if (paused)
         {
-            paused = false;
+			mainGroup.SetActive(false);
+			howToPlayGroup.SetActive(false);
+			optionsGroup.SetActive(false);
+			quitGroup.SetActive(false);
+
+			groupPath.Clear();
+
+			eventSystem.SetSelectedGameObject(null);
+
+			paused = false;
             Time.timeScale = 1f;
             GetComponent<Canvas>().enabled = false;
             Cursor.visible = false;
         }
         else
         {
+			mainGroup.SetActive(true);
+
+			groupPath.Push(mainGroup);
+
+			eventSystem.SetSelectedGameObject(mainGroup.GetComponentInChildren<Button>().gameObject);
+
             paused = true;
             Time.timeScale = 0f;
             GetComponent<Canvas>().enabled = true;
