@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CheckGrip : MonoBehaviour
 {
-    public GameObject SlipperyCube;
+    public GameObject slipperyObj;
 
     public bool canGrip = true;
     // The rigidbody that is being gripped right now
@@ -16,10 +16,14 @@ public class CheckGrip : MonoBehaviour
 
     [SerializeField] float breakForce = 3000f;
 
+    [SerializeField] float failsafeCheckInterval = 0.5f;
+
     [SerializeField] Transform grabIndicators;
 
     bool nearBottomObj = false;
     bool playingAnim = false;
+
+    float failsafeTimer = 0;
 
     Animator[] grabAnimators;
 
@@ -55,6 +59,8 @@ public class CheckGrip : MonoBehaviour
                     controller.ReleaseGrip(leftHand, false);
             }
         }
+
+        failsafeTimer += Time.deltaTime;
 	}
     
     
@@ -89,6 +95,22 @@ public class CheckGrip : MonoBehaviour
         if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
         {
             controller.ReleaseGrip(leftHand, false);
+        }
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (grabablesInReach.Count == 0 && failsafeTimer >= failsafeCheckInterval)
+        {
+            Debug.LogWarning("TIME TO CHECK");
+
+            if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
+            {
+                grabablesInReach.Add(other.GetComponent<Rigidbody>());
+            }
+
+            failsafeTimer = 0;
         }
     }
 
@@ -184,7 +206,7 @@ public class CheckGrip : MonoBehaviour
             }
             else if (foundSlippery)
             {
-                currentGripable = SlipperyCube.GetComponent<Rigidbody>();
+                currentGripable = slipperyObj.GetComponent<Rigidbody>();
 
                 if (currentGripping == tempRb)
                     StopAnim();
@@ -269,13 +291,16 @@ public class CheckGrip : MonoBehaviour
         {
             if (currentGripable.tag != "Electric" && currentGripable != tempRb)
             {
+                // If a slippery wall was grabbed, the slippery child object will now move down
+                if (currentGripable.tag == "Slippery")
+                    currentGripable.GetComponent<Rigidbody>().isKinematic = false;
+
                 gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
                 currentGripping = currentGripable;
             }
             else
             {
                 transform.root.GetComponent<PlayerStun>().Stun(1);
-
                 transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
             }
 
@@ -294,9 +319,16 @@ public class CheckGrip : MonoBehaviour
     {
         Destroy(GetComponent<FixedJoint>());
 
-        // If a player was grabbed, that player will know it no longer is
-        if (currentGripping != tempRb && currentGripping.tag == "Player")
-            currentGripping.transform.root.GetComponent<PlayerInfo>().RemoveGrabbingPlayer(transform.root.gameObject);
+        
+        if (currentGripping != tempRb)
+        {
+            // If a player was grabbed, that player will know it no longer is
+            if (currentGripping.tag == "Player")
+                currentGripping.transform.root.GetComponent<PlayerInfo>().RemoveGrabbingPlayer(transform.root.gameObject);
+            // If a slippery wall was released, the slippery child object will be non kinematic to prevent it from going down to infinity
+            else if (currentGripping.tag == "Slippery")
+                currentGripable.GetComponent<Rigidbody>().isKinematic = true;
+        }
 
         currentGripping = tempRb;
 

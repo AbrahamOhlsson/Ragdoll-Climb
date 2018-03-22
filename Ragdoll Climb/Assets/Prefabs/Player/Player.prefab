@@ -201,6 +201,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1050965566695974
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4994963417082476}
+  - component: {fileID: 135355723986414630}
+  - component: {fileID: 114902586822026930}
+  m_Layer: 9
+  m_Name: Knee Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1055206269990582
 GameObject:
   m_ObjectHideFlags: 1
@@ -1382,6 +1399,23 @@ GameObject:
   - component: {fileID: 137634380163387784}
   m_Layer: 9
   m_Name: Scapula_R_Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1351806647937256
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4723430899447514}
+  - component: {fileID: 135891855690309476}
+  - component: {fileID: 114216325575478216}
+  m_Layer: 9
+  m_Name: Knee Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5115,6 +5149,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4350466283686310}
+  - {fileID: 4723430899447514}
   m_Father: {fileID: 4021091609374092}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6177,6 +6212,19 @@ Transform:
   m_Father: {fileID: 4833642351222728}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4723430899447514
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1351806647937256}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_Children: []
+  m_Father: {fileID: 4421595255347972}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4727054739638452
 Transform:
   m_ObjectHideFlags: 1
@@ -6852,6 +6900,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4800849837858560}
+  - {fileID: 4994963417082476}
   m_Father: {fileID: 4381327237682132}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6936,6 +6985,19 @@ Transform:
   - {fileID: 4060595645665936}
   m_Father: {fileID: 4899481243914630}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4994963417082476
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050965566695974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_Children: []
+  m_Father: {fileID: 4975409462348310}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4996180625650794
 Transform:
@@ -7058,7 +7120,7 @@ Rigidbody:
   m_Drag: 12
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
@@ -7088,7 +7150,7 @@ Rigidbody:
   m_Drag: 12
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
@@ -7682,12 +7744,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907c85959a8a6b04fb929fabf45c01a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlipperyCube: {fileID: 1473603232043348}
+  slipperyObj: {fileID: 1473603232043348}
   canGrip: 1
   currentGripping: {fileID: 0}
   currentGripable: {fileID: 0}
   leftHand: 1
   breakForce: 2000
+  failsafeCheckInterval: 0.5
   grabIndicators: {fileID: 4129606391769028}
 --- !u!114 &114115010869122620
 MonoBehaviour:
@@ -7736,12 +7799,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907c85959a8a6b04fb929fabf45c01a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SlipperyCube: {fileID: 1574560861528288}
+  slipperyObj: {fileID: 1574560861528288}
   canGrip: 1
   currentGripping: {fileID: 0}
   currentGripable: {fileID: 0}
   leftHand: 0
   breakForce: 2000
+  failsafeCheckInterval: 0.5
   grabIndicators: {fileID: 4068004182381046}
 --- !u!114 &114211680776791010
 MonoBehaviour:
@@ -7756,6 +7820,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDist: 3
   crushImpulse: 100
+--- !u!114 &114216325575478216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1351806647937256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c15b5db83cd8ac439a8c3c67678ab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knee: {fileID: 136756750424737648}
+  hip: {fileID: 136879975867502702}
 --- !u!114 &114223089102954604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8184,6 +8261,19 @@ MonoBehaviour:
   isStunned: 0
   stars: {fileID: 198780767708867556}
   starBurst: {fileID: 198367121623946740}
+--- !u!114 &114902586822026930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050965566695974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c15b5db83cd8ac439a8c3c67678ab34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knee: {fileID: 136186336291420702}
+  hip: {fileID: 136355884383627728}
 --- !u!114 &114918794386877482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8211,6 +8301,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAtCamera: 1
   lockRotation: 1
+--- !u!135 &135355723986414630
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050965566695974}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135685014492996228
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -8223,6 +8325,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.015
   m_Center: {x: 0.010744967, y: 0.02, z: -0.0000000054000684}
+--- !u!135 &135891855690309476
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1351806647937256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135966345684359406
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -8258,7 +8372,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.007
-  m_Height: 0.04810219
+  m_Height: 0.048103
   m_Direction: 0
   m_Center: {x: 0.024051094, y: 0, z: 0}
 --- !u!136 &136195684892263356
@@ -8349,7 +8463,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.007
-  m_Height: 0.048102204
+  m_Height: 0.048103
   m_Direction: 0
   m_Center: {x: -0.024051102, y: 0, z: 0}
 --- !u!136 &136757602360653308
