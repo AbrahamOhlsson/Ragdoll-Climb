@@ -7,6 +7,9 @@ public class WindForce : MonoBehaviour
     [Range(0f, 100f)]
     public float force = 10f;
 
+    [Range(0f, 1f)]
+    public float armForceMult = 0.1f;
+
     List<Rigidbody> rbs = new List<Rigidbody>();
 
 
@@ -14,7 +17,13 @@ public class WindForce : MonoBehaviour
     {
         for (int i = 0; i < rbs.Count; i++)
         {
-            rbs[i].AddForce(transform.forward * force);
+            if (rbs[i].gameObject.layer == 8)
+            {
+                rbs[i].AddForce(transform.forward * force * armForceMult);
+                print("ARM");
+            }
+            else
+                rbs[i].AddForce(transform.forward * force);
         }
     }
 
