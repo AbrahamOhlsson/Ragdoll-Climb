@@ -20,7 +20,6 @@ public class WindForce : MonoBehaviour
             if (rbs[i].gameObject.layer == 8)
             {
                 rbs[i].AddForce(transform.forward * force * armForceMult);
-                print("ARM");
             }
             else
                 rbs[i].AddForce(transform.forward * force);
