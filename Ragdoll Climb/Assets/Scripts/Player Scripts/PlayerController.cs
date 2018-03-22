@@ -593,6 +593,11 @@ public class PlayerController : MonoBehaviour
                 checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
             if (checkGripRight.currentGripping != null && gripRight)
                 checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
+
+            //leftShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
+            //rightShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
+            //leftElbow.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
+            //rightElbow.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
         }
 
         // Stableizes z position
