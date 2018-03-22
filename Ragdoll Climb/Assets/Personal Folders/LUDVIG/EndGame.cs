@@ -7,10 +7,10 @@ public class EndGame : MonoBehaviour
 {
 	void Update () {
 		
-        if (Input.GetKeyDown("escape"))
-        {
-            Application.Quit();
-        }
+        //if (Input.GetKeyDown("escape"))
+        //{
+        //    Application.Quit();
+        //}
 
         if (Input.GetKeyDown("r"))
         { 
