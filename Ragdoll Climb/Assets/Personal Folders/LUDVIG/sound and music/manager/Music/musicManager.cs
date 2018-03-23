@@ -178,7 +178,7 @@ public class musicManager : MonoBehaviour
             yield return null;
         }
 
-        print("klar i fade Out på " + timetest + " sec");
+       // print("klar i fade Out på " + timetest + " sec");
         audioSource.Stop();
         
     }
@@ -195,12 +195,12 @@ public class musicManager : MonoBehaviour
             timetest += 1 * Time.deltaTime;
 
             audioSource.volume +=   (startVolume / FadeTime) * Time.deltaTime; // startVolume * ( FadeTime / Time.deltaTime);
-            print("här kommer FadeTime / Time.deltaTime " + 1*(Time.deltaTime / FadeTime) );
+            //print("här kommer FadeTime / Time.deltaTime " + 1*(Time.deltaTime / FadeTime) );
             yield return null;
         }
         audioSource.volume = startVolume;
 
-        print("klar i fade in på " + timetest + " sec");
+        //print("klar i fade in på " + timetest + " sec");
         
     }
 

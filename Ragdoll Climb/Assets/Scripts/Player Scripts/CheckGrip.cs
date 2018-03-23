@@ -25,9 +25,9 @@ public class CheckGrip : MonoBehaviour
 
     float failsafeTimer = 0;
 
-    Animator[] grabAnimators;
+   public Animator[] grabAnimators;    // ska inte av public 
 
-    List<Rigidbody> grabablesInReach = new List<Rigidbody>();
+    public  List<Rigidbody> grabablesInReach = new List<Rigidbody>();
 
     Rigidbody tempRb = new Rigidbody();
 
@@ -90,6 +90,7 @@ public class CheckGrip : MonoBehaviour
         if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
+           
         }
 
         if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
@@ -101,15 +102,18 @@ public class CheckGrip : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (grabablesInReach.Count == 0 && failsafeTimer >= failsafeCheckInterval)
+        if (grabablesInReach.Count == 0 /*&&  failsafeTimer >= failsafeCheckInterval*/)
         {
             Debug.LogWarning("TIME TO CHECK");
 
             if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
             {
+
+         
                 grabablesInReach.Add(other.GetComponent<Rigidbody>());
             }
 
+          
             failsafeTimer = 0;
         }
     }
@@ -293,7 +297,10 @@ public class CheckGrip : MonoBehaviour
             {
                 // If a slippery wall was grabbed, the slippery child object will now move down
                 if (currentGripable.tag == "Slippery")
+                {
                     currentGripable.GetComponent<Rigidbody>().isKinematic = false;
+                    currentGripable.transform.localPosition = Vector3.zero;
+                }
 
                 gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
                 currentGripping = currentGripable;

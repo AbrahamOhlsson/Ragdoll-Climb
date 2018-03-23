@@ -39,9 +39,7 @@ public class DistanceToGoal : MonoBehaviour
 
 				if (playerRoot != null)
 				{
-
 					players.Add(playerRoot);
-					print("den hittar root ");
 				}
 
 			}
@@ -64,7 +62,7 @@ public class DistanceToGoal : MonoBehaviour
 			highestLimb = limbs[0];
 		}
 
-		print(limbs.Length);
+		
 
         // Checks everytime among the players who is the highest y-position(First in the race) 
         for (int i = 0; i < players.Count; i++)
@@ -72,7 +70,7 @@ public class DistanceToGoal : MonoBehaviour
             if (players[i].transform.position.y > highestPlayer.transform.position.y)
             {
 
-				print("test i for");
+				
                 highestPlayer = players[i];
             }
         }
@@ -87,7 +85,7 @@ public class DistanceToGoal : MonoBehaviour
 			if (limbs[i].transform.position.y > highestLimb.transform.position.y && limbs[i].tag == "Player")
             {
                 highestLimb = limbs[i];
-				print("i limbs");
+				
 			}
         }
 

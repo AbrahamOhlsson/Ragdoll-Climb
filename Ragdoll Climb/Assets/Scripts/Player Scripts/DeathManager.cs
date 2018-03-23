@@ -24,7 +24,7 @@ public class DeathManager : MonoBehaviour
 
     float[] startMasses;
 
-    List<GameObject> otherPlayers = new List<GameObject>();
+    public List<GameObject> otherPlayers = new List<GameObject>();
 
     // Transform of the "Root_M" object of this player
     Transform rootTrans;
@@ -47,10 +47,11 @@ public class DeathManager : MonoBehaviour
 
 	void Awake ()
     {
-        // Gets all the players
+        // Gets all the players   (even the disabled players)
         for (int i = 0; i < manager.players.Count; i++)
         {
             otherPlayers.Add(manager.players[i]);
+            
         }
 
         // Excludes this player
