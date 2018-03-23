@@ -24,7 +24,7 @@ public class pathBuilder : MonoBehaviour {
         startBoxZpos = FindObjectOfType<pathController>().startBox.transform.position.z;
        // startBoxZpos = startBoxZpos - 1; // (FindObjectOfType<pathController>().startBox.transform.localScale.z / 2);
 
-        print("block " + currentBlock + "  start pos = " + transform.position.z + " start scale = "+ transform.localScale.z + "  minus = " + transform.localScale.z / 2);
+        //print("block " + currentBlock + "  start pos = " + transform.position.z + " start scale = "+ transform.localScale.z + "  minus = " + transform.localScale.z / 2);
 
 
         // move block

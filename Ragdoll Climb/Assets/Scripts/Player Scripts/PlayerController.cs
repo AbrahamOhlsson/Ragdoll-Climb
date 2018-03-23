@@ -183,8 +183,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator releaseGripDelayedRight;
     IEnumerator releaseGripDelayedLeft;
 
-	// Death ########
-	float deathTimer;
+    // Death ########
+   public  float deathTimer;
 	[SerializeField]
 	float deathPressTime;
 
@@ -212,7 +212,7 @@ public class PlayerController : MonoBehaviour
         leftShoulder.maxAngularVelocity = Mathf.Infinity;
         rightShoulder.maxAngularVelocity = Mathf.Infinity;
 
-		deathTimer = 0;
+		deathTimer = -1000;
 	}
 
 
@@ -506,10 +506,11 @@ public class PlayerController : MonoBehaviour
             else if (leftTimer <= 0.01f)
                 leftStaminaBar.gameObject.SetActive(false);
             }
-		// DEATH     ###############################################################################################################
+        // DPad DEATH     ###############################################################################################################
 
-		if(state.DPad.Down == ButtonState.Pressed)
+        if (state.DPad.Down == ButtonState.Pressed)
 		{
+
 			if(deathTimer > deathPressTime)
 			{
 				GetComponent<DeathManager>().Death();
@@ -525,7 +526,8 @@ public class PlayerController : MonoBehaviour
 
 		if (state.DPad.Down == ButtonState.Released)
 		{
-			if (deathTimer > 0)
+
+            if (deathTimer != 0 )
 				{
 					deathTimer = 0;
 				}

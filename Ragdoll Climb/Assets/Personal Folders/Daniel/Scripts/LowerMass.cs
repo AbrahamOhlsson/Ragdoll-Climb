@@ -43,7 +43,7 @@ public class LowerMass : MonoBehaviour {
 	{
         if (canColide)
         {
-            print("i cancolide");
+
             PlayerCol = other.transform.root.gameObject;
 
             if (PlayerCol.tag == "Player")

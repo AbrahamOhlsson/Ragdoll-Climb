@@ -24,7 +24,7 @@ public class DeathManager : MonoBehaviour
 
     float[] startMasses;
 
-    List<GameObject> otherPlayers = new List<GameObject>();
+    public List<GameObject> otherPlayers = new List<GameObject>();
 
     // Transform of the "Root_M" object of this player
     Transform rootTrans;
@@ -47,10 +47,11 @@ public class DeathManager : MonoBehaviour
 
 	void Awake ()
     {
-        // Gets all the players
+        // Gets all the players   (even the disabled players)
         for (int i = 0; i < manager.players.Count; i++)
         {
             otherPlayers.Add(manager.players[i]);
+            
         }
 
         // Excludes this player
@@ -91,7 +92,8 @@ public class DeathManager : MonoBehaviour
 
             for (int j = 0; j < colls.Length; j++)
             {
-                otherColliders.Add(colls[j]);
+                if (!colls[j].gameObject.name.Contains("Wrist"))
+                    otherColliders.Add(colls[j]);
             }
 
             otherTrans.Add(GetRoot(otherPlayers[i]));
@@ -226,7 +228,8 @@ public class DeathManager : MonoBehaviour
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
-                Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
+                if (!myColliders[i].gameObject.name.Contains("Wrist"))
+                    Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
             }
         }
 
@@ -296,7 +299,8 @@ public class DeathManager : MonoBehaviour
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
-                Physics.IgnoreCollision(myColliders[i], otherColliders[j], false);
+                if (!myColliders[i].name.Contains("Wrist"))
+                    Physics.IgnoreCollision(myColliders[i], otherColliders[j], false);
             }
         }
 
