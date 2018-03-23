@@ -92,7 +92,8 @@ public class DeathManager : MonoBehaviour
 
             for (int j = 0; j < colls.Length; j++)
             {
-                otherColliders.Add(colls[j]);
+                if (!colls[j].gameObject.name.Contains("Wrist"))
+                    otherColliders.Add(colls[j]);
             }
 
             otherTrans.Add(GetRoot(otherPlayers[i]));
@@ -227,7 +228,8 @@ public class DeathManager : MonoBehaviour
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
-                Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
+                if (!myColliders[i].gameObject.name.Contains("Wrist"))
+                    Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
             }
         }
 
@@ -297,7 +299,8 @@ public class DeathManager : MonoBehaviour
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
-                Physics.IgnoreCollision(myColliders[i], otherColliders[j], false);
+                if (!myColliders[i].name.Contains("Wrist"))
+                    Physics.IgnoreCollision(myColliders[i], otherColliders[j], false);
             }
         }
 
