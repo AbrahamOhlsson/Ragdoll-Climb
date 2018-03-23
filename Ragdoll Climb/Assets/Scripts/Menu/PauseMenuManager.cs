@@ -42,6 +42,10 @@ public class PauseMenuManager : MonoBehaviour
         playerIndexes[1] = PlayerIndex.Two;
         playerIndexes[2] = PlayerIndex.Three;
         playerIndexes[3] = PlayerIndex.Four;
+
+        string[] names = Input.GetJoystickNames();
+        foreach (string name in names)
+            print(name);
     }
 
 
@@ -141,8 +145,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
-        Pause();
-        Cursor.visible = true;
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Ice Menu");
     }
 
