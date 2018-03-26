@@ -14,7 +14,6 @@ public class IgnoreColl : MonoBehaviour
         for (int i = 0; i < colls.Length; i++)
         {
             Physics.IgnoreCollision(coll, colls[i]);
-            print(colls[i].gameObject.name);
         }
     }
 }
