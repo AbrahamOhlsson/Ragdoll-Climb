@@ -104,16 +104,13 @@ public class CheckGrip : MonoBehaviour
     {
         if (grabablesInReach.Count == 0 /*&&  failsafeTimer >= failsafeCheckInterval*/)
         {
-            Debug.LogWarning("TIME TO CHECK");
+            //Debug.LogWarning("TIME TO CHECK");
 
             if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
             {
-
-         
                 grabablesInReach.Add(other.GetComponent<Rigidbody>());
             }
-
-          
+            
             failsafeTimer = 0;
         }
     }

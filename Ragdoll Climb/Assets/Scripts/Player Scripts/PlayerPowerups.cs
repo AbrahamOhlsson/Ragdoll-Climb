@@ -131,8 +131,7 @@ public class PlayerPowerups : MonoBehaviour
 		pos = 0;
 
 		yield return new WaitForSeconds(MassDuration);
-
-        print("Reset  in changeMass");
+        
         ResetPlayerMass();
 	}
 	//-----------------------------------------------------------------------//

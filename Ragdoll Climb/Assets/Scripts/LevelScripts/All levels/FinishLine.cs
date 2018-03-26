@@ -63,8 +63,6 @@ public class FinishLine : MonoBehaviour
 
             int playerNr = playerInfo.playerNr;
 
-            print(playerNr);
-
             if (playerNr == 1)
             {
                 p1Wins.enabled = true;
