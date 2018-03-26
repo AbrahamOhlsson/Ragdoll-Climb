@@ -44,8 +44,6 @@ public class PauseMenuManager : MonoBehaviour
         playerIndexes[3] = PlayerIndex.Four;
 
         string[] names = Input.GetJoystickNames();
-        foreach (string name in names)
-            print(name);
     }
 
 

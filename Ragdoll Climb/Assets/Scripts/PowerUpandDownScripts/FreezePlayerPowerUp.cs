@@ -94,11 +94,9 @@ public class FreezePlayerPowerUp : MonoBehaviour
 			freezeTime = 3f;
 		}
 
-		// Get player default colour
-		for (int j = 0; j < renderers.Length; j++)
-		{
-			defColor = renderers[j].material.color;
-		}
+        // Get player default colour
+        defColor = GetComponent<PlayerInfo>().color;
+
 		isFrozen = true;
 
 		GetComponent<PlayerController>().canMove = false;
@@ -163,12 +161,10 @@ public class FreezePlayerPowerUp : MonoBehaviour
 			freezeTime = 1f;
 		}
 
-		// Get player default colour
-		for (int j = 0; j < renderers.Length; j++)
-		{
-			defColor = renderers[j].material.color;
-		}
-		isFrozen = true;
+        // Get player default colour
+        defColor = GetComponent<PlayerInfo>().color;
+
+        isFrozen = true;
 
 		GetComponent<PlayerController>().canMove = false;
 		GetComponent<PlayerController>().ReleaseGrip(true, false);
