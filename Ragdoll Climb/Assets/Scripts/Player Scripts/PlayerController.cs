@@ -158,8 +158,11 @@ public class PlayerController : MonoBehaviour
     float rightNumbArm = 0;
     float leftNumbArm = 0;
 
-    // Directions of pulling torso with hands
-    Vector3 pullDirLeft;
+	Quaternion wristStartRotLeft;
+	Quaternion wristStartRotRight;
+
+	// Directions of pulling torso with hands
+	Vector3 pullDirLeft;
     Vector3 pullDirRight;
 
     // Directions of pushing hands
@@ -213,6 +216,9 @@ public class PlayerController : MonoBehaviour
         rightShoulder.maxAngularVelocity = Mathf.Infinity;
 
 		deathTimer = -1000;
+
+		wristStartRotLeft = leftHand.transform.localRotation;
+		wristStartRotRight = rightHand.transform.localRotation;
 	}
 
 
@@ -667,7 +673,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Straightens wrist
-            leftHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+            leftHand.transform.localRotation = wristStartRotLeft;
 
             // Resets pullDir
             pullDirLeft = Vector3.zero;
@@ -693,7 +699,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Straightens wrist
-            rightHand.transform.localRotation = Quaternion.Euler(-180f, 0f, 0f);
+            rightHand.transform.localRotation = wristStartRotRight;
 
             // Resets pullDir
             pullDirRight = Vector3.zero;
