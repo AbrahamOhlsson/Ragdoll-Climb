@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightningBall : MonoBehaviour {
 
-    public Transform Player;
+    Transform Player;
     public Vector3 relativeDistance = Vector3.zero;
     [SerializeField]
     float orbitDistance;
@@ -25,7 +25,7 @@ public class LightningBall : MonoBehaviour {
         {
             //Keep us at the last known relatve position
             transform.position = (Player.position + relativeDistance);
-            transform.RotateAround(Player.position, Vector3.up, OrbitDegreesPerSec * Time.deltaTime);
+            transform.RotateAround(Player.position, Vector3.forward, OrbitDegreesPerSec * Time.deltaTime);
 
             //Reset relative position after rotate
             if(once)
