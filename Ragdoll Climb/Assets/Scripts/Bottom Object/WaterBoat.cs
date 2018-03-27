@@ -34,7 +34,7 @@ public class WaterBoat : MonoBehaviour
         if (endLerp.position.y > boat.transform.position.y  + playerDist)
         {
             float distCovered = (Time.time - startTime) * speed;
-            float fracJourney = distCovered / journeyLength;
+            //float fracJourney = distCovered / journeyLength;
             rb.position = Vector3.Lerp(boat.transform.position, endLerp.position, speed);
         }	
 	}

@@ -7,16 +7,17 @@ public class CheckGrip : MonoBehaviour
     public GameObject slipperyObj;
 
     public bool canGrip = true;
-    // The rigidbody that is being gripped right now
-    public Rigidbody currentGripping;
-    // The rigidbody that will be gripped
-    public Rigidbody currentGripable;
 
     public bool leftHand = true;
+    
+    // The rigidbody that is being gripped right now
+    internal Rigidbody currentGripping;
+    // The rigidbody that will be gripped
+    internal Rigidbody currentGripable;
 
     [SerializeField] float breakForce = 3000f;
 
-    [SerializeField] float failsafeCheckInterval = 0.5f;
+    [SerializeField] float failsafeCheckInterval = 0.2f;
 
     [SerializeField] Transform grabIndicators;
 
@@ -25,13 +26,12 @@ public class CheckGrip : MonoBehaviour
 
     float failsafeTimer = 0;
 
-   public Animator[] grabAnimators;    // ska inte av public 
+    Animator[] grabAnimators;
 
-    public  List<Rigidbody> grabablesInReach = new List<Rigidbody>();
+    List<Rigidbody> grabablesInReach = new List<Rigidbody>();
 
     Rigidbody tempRb = new Rigidbody();
-
-    SlipperySurface PlayerSlippery;
+    
     PlayerController controller;
 
 
@@ -40,7 +40,6 @@ public class CheckGrip : MonoBehaviour
         controller = transform.root.GetComponent<PlayerController>();
 
         //Finding the player
-        PlayerSlippery = transform.root.gameObject.GetComponent<SlipperySurface>();
         grabAnimators = grabIndicators.GetComponentsInChildren<Animator>();
     }
 	
@@ -90,19 +89,20 @@ public class CheckGrip : MonoBehaviour
         if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
-           
+            DetermineObjectToGrab();
         }
 
         if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
         {
             controller.ReleaseGrip(leftHand, false);
+            
         }
     }
-
+    
 
     private void OnTriggerStay(Collider other)
     {
-        if (grabablesInReach.Count == 0 /*&&  failsafeTimer >= failsafeCheckInterval*/)
+        if (grabablesInReach.Count == 0 &&  failsafeTimer >= failsafeCheckInterval)
         {
             //Debug.LogWarning("TIME TO CHECK");
 
@@ -122,7 +122,6 @@ public class CheckGrip : MonoBehaviour
     {
         Rigidbody lastThrowable = new Rigidbody();
         Rigidbody lastOther = new Rigidbody();
-        Rigidbody lastSlippery = new Rigidbody();
         Rigidbody lastSticky = new Rigidbody();
         Rigidbody lastElectric = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
@@ -322,7 +321,6 @@ public class CheckGrip : MonoBehaviour
     public void Disconnect()
     {
         Destroy(GetComponent<FixedJoint>());
-
         
         if (currentGripping != tempRb)
         {
