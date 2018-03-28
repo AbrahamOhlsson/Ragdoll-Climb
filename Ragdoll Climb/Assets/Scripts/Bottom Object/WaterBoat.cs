@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WaterBoat : MonoBehaviour
 {
-    public GameObject boat;
     //public GameObject water;
     public Transform endLerp;
 
@@ -29,13 +28,15 @@ public class WaterBoat : MonoBehaviour
     {
         //water.transform.position = new Vector3(0, boat.transform.position.y - 0.5f, 0);
 
-        journeyLength = Vector3.Distance(boat.transform.position, endLerp.position);
+        journeyLength = Vector3.Distance(rb.position, endLerp.position);
 
-        if (endLerp.position.y > boat.transform.position.y  + playerDist)
+        Vector3 targetPos = new Vector3(rb.position.x, endLerp.position.y, rb.position.z);
+
+        if (endLerp.position.y > rb.position.y  + playerDist)
         {
             float distCovered = (Time.time - startTime) * speed;
             //float fracJourney = distCovered / journeyLength;
-            rb.position = Vector3.Lerp(boat.transform.position, endLerp.position, speed);
+            rb.position = Vector3.Lerp(rb.position, targetPos, speed);
         }	
 	}
 }

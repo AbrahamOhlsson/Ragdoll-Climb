@@ -50,8 +50,8 @@ public class MultiplayerManager : MonoBehaviour
                     renderers[j].material.color = singleton.colors[i];
                 }
 
-                TrailRenderer[] trailRenderers = GetComponentsInChildren<TrailRenderer>();
-
+                TrailRenderer[] trailRenderers = players[i].GetComponentsInChildren<TrailRenderer>();
+                
                 for (int j = 0; j < trailRenderers.Length; j++)
                 {
                     trailRenderers[j].startColor = singleton.colors[i];
