@@ -7,25 +7,52 @@ public class SimpleFollow : MonoBehaviour
     [SerializeField] bool x = true;
     [SerializeField] bool y = false;
     [SerializeField] bool z = false;
+    [SerializeField] bool physics = false;
 
     [SerializeField] Vector3 offset = Vector3.zero;
 
     [SerializeField] Transform target;
-    
 
-	void Update ()
+    Rigidbody rb;
+
+
+    private void Start()
     {
-        if (x)
+        rb = GetComponent<Rigidbody>();
+    }
+
+
+    void Update ()
+    {
+        if (physics)
         {
-            transform.position = new Vector3(target.position.x + offset.x, transform.position.y, transform.position.z);
+            if (x)
+            {
+                rb.position = new Vector3(target.position.x + offset.x, rb.position.y, rb.position.z);
+            }
+            if (y)
+            {
+                rb.position = new Vector3(rb.position.x, target.position.y + offset.y, rb.position.z);
+            }
+            if (z)
+            {
+                rb.position = new Vector3(rb.position.x, rb.position.y, target.position.z + offset.z);
+            }
         }
-        if (y)
+        else
         {
-            transform.position = new Vector3(transform.position.x, target.position.y + offset.y, transform.position.z);
-        }
-        if (z)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y, target.position.z + offset.z);
+            if (x)
+            {
+                transform.position = new Vector3(target.position.x + offset.x, transform.position.y, transform.position.z);
+            }
+            if (y)
+            {
+                transform.position = new Vector3(transform.position.x, target.position.y + offset.y, transform.position.z);
+            }
+            if (z)
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, target.position.z + offset.z);
+            }
         }
 	}
 }
