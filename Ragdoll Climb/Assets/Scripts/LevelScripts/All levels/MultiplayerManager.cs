@@ -50,6 +50,13 @@ public class MultiplayerManager : MonoBehaviour
                     renderers[j].material.color = singleton.colors[i];
                 }
 
+                TrailRenderer[] trailRenderers = GetComponentsInChildren<TrailRenderer>();
+
+                for (int j = 0; j < trailRenderers.Length; j++)
+                {
+                    trailRenderers[j].startColor = singleton.colors[i];
+                }
+
                 // Sets which controller that should control this player
                 players[i].GetComponent<PlayerController>().SetGamePad(singleton.playerIndexes[i]);
                 players[i].GetComponent<PlayerInfo>().playerIndex = singleton.playerIndexes[i];
@@ -94,6 +101,14 @@ public class MultiplayerManager : MonoBehaviour
                     for (int j = 0; j < renderers.Length; j++)
                     {
                         renderers[j].material.color = playerColors[i];
+                    }
+
+                    TrailRenderer[] trailRenderers = players[i].GetComponentsInChildren<TrailRenderer>();
+                    
+                    for (int j = 0; j < trailRenderers.Length; j++)
+                    {
+                        //trailRenderers[j].colorGradient = gradient;
+                        trailRenderers[j].startColor = playerColors[i];
                     }
 
                     players[i].GetComponent<PlayerInfo>().playerNr = i + 1;

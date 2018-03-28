@@ -41,6 +41,8 @@ public class CheckGrip : MonoBehaviour
 
         //Finding the player
         grabAnimators = grabIndicators.GetComponentsInChildren<Animator>();
+
+        GetComponent<Rigidbody>().centerOfMass = Vector3.zero;
     }
 	
 
