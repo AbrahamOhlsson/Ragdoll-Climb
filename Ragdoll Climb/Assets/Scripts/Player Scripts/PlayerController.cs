@@ -36,13 +36,13 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] float armMassDecrease = 0.4f;
 
-    [Header("Punching (NOT IN USE)")]
+    [Header("Punching")]
     [Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
-    [SerializeField] float punchPullBackForce = 1000f;
+    [SerializeField] float punchPullBackForce = 500;
     [Tooltip("The force that is applied to the arm to for punching.")]
-    [SerializeField] float punchForce = 3000f;
+    [SerializeField] float punchForce = 2000f;
     [Tooltip("The time it takes for the punch force to be applied after the punch pull back force.")]
-    [SerializeField] float punchDelay = 0.3f;
+    [SerializeField] float punchDelay = 0.1f;
     [Tooltip("The time it takes for the punch state to be reset after the punch force has been applied.")]
     [SerializeField] float punchStateResetDelay = 0.2f;
 
@@ -110,7 +110,10 @@ public class PlayerController : MonoBehaviour
     [Header("Audio clips")]
     [SerializeField] AudioClip goodClimbSfx;
     [SerializeField] AudioClip boostSfx;
+    [SerializeField] AudioClip punchSwooshSfx;
 
+    internal bool leftPunching = false;
+    internal bool rightPunching = false;
 
     // If hands are currently gripping
     bool gripLeft = false;
@@ -128,9 +131,6 @@ public class PlayerController : MonoBehaviour
     //"Stamina bools". If set false, said hand wont be able to climb.
     bool rightCanClimb = true;
     bool leftCanClimb = true;
-
-    bool leftPunching = false;
-    bool rightPunching = false;
     
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
@@ -187,7 +187,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator releaseGripDelayedLeft;
 
     // Death ########
-   public  float deathTimer;
+    public  float deathTimer;
 	[SerializeField]
 	float deathPressTime;
 
@@ -259,6 +259,7 @@ public class PlayerController : MonoBehaviour
                 if (!leftPunching)
                     ArmControl(true);
 
+                // Punch
                 if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching)
                     StartCoroutine(Punch(leftHand, pushDirLeft));
             }
@@ -292,6 +293,7 @@ public class PlayerController : MonoBehaviour
                 if (!rightPunching)
                     ArmControl(false);
 
+                // Punch
                 if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching)
                     StartCoroutine(Punch(rightHand, pushDirRight));
             }
@@ -532,15 +534,11 @@ public class PlayerController : MonoBehaviour
 
 		if (state.DPad.Down == ButtonState.Released)
 		{
-
             if (deathTimer != 0 )
-				{
-					deathTimer = 0;
-				}
+			{
+				deathTimer = 0;
+			}
 		}
-
-
-
 	}
 
 
@@ -709,30 +707,42 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Punch(Rigidbody hand, Vector2 direction)
     {
-        /*if (hand == leftHand)
+        if (hand == leftHand)
         {
             leftPunching = true;
+
+            // Makes sure the hand wont continue to stretch out
             pushDirLeft = Vector3.zero;
         }
         else
         {
             rightPunching = true;
+
+            // Makes sure the hand wont continue to stretch out
             pushDirRight = Vector3.zero;
         }
 
+        hand.GetComponent<TrailRenderer>().enabled = true;
+        source.PlayOneShot(punchSwooshSfx);
+
         yield return new WaitForFixedUpdate();
-        hand.AddForce(-direction.normalized * punchPullBackForce);
+        // Pulls back arm before punch
+        hand.AddForce(-direction * punchPullBackForce);
 
         yield return new WaitForSeconds(punchDelay);
         yield return new WaitForFixedUpdate();
-        hand.AddForce(direction.normalized * punchForce);
+        // Pushes hand out to punch
+        hand.AddForce(direction * punchForce);
 
         yield return new WaitForSeconds(punchStateResetDelay);
+        // The punch is done
         if (hand == leftHand)
             leftPunching = false;
         else
-            rightPunching = false;*/
+            rightPunching = false;
 
+        hand.GetComponent<TrailRenderer>().enabled = false;
+        
         yield return null;
     }
 
