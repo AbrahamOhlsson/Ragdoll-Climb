@@ -13,9 +13,12 @@ public class EndGame : MonoBehaviour
         //}
 
         if (Input.GetKeyDown("r"))
-        { 
-           Scene thisScene = SceneManager.GetActiveScene();
-           SceneManager.LoadScene(thisScene.buildIndex);
+        {
+            if (PlayerInfoSingleton.instance.debug)
+                PlayerInfoSingleton.instance.playerAmount = 0;
+
+            Scene thisScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(thisScene.buildIndex);
         }
 
     }

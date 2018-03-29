@@ -100,8 +100,5 @@ public class LightningBolt : MonoBehaviour {
 	public void startLightning()
 	{
 		StartCoroutine(LightningStrike());
-
 	}
-
-
 }

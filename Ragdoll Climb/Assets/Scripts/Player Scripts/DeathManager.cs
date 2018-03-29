@@ -51,7 +51,6 @@ public class DeathManager : MonoBehaviour
         for (int i = 0; i < manager.players.Count; i++)
         {
             otherPlayers.Add(manager.players[i]);
-            
         }
 
         // Excludes this player
