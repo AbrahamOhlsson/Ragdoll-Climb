@@ -5125,15 +5125,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1416433267373976}
-  m_LocalRotation: {x: -0.27059954, y: -0.6532809, z: 0.6532809, w: 0.27059954}
-  m_LocalPosition: {x: 26.780006, y: -10.5, z: -0.24000168}
+  m_LocalRotation: {x: -0.65328175, y: -0.27059752, z: 0.27059752, w: 0.65328175}
+  m_LocalPosition: {x: 23.13, y: -18.5, z: -0.24000163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4480357676834170}
   - {fileID: 4143988592983482}
   m_Father: {fileID: 4197476490918668}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -225, y: 89.99999, z: -90}
+  m_LocalEulerAnglesHint: {x: -135, y: 89.99999, z: -90}
 --- !u!4 &4356159362341742
 Transform:
   m_ObjectHideFlags: 1
@@ -5873,15 +5873,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385866854266270}
-  m_LocalRotation: {x: 0.2705956, y: -0.6532825, z: 0.6532825, w: -0.2705956}
-  m_LocalPosition: {x: -30.169998, y: -10.499917, z: -0.24000168}
+  m_LocalRotation: {x: 0.6532801, y: -0.27060154, z: 0.27060154, w: -0.6532801}
+  m_LocalPosition: {x: -24.272808, y: -19.494354, z: -0.24000163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4610962208880828}
   - {fileID: 4386147912173398}
   m_Father: {fileID: 4197476490918668}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -315, y: 90.00001, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: -404.999, y: 90.00001, z: -90.00001}
 --- !u!4 &4621787963433736
 Transform:
   m_ObjectHideFlags: 1
@@ -6165,7 +6165,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454694478677546}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.585426, y: 24.877792, z: -4.0886884}
+  m_LocalPosition: {x: -39.07627, y: 17.59614, z: -63.105713}
   m_LocalScale: {x: 10, y: 87.34479, z: 0.98601365}
   m_Children:
   - {fileID: 4902606341571636}
@@ -9495,8 +9495,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.21, y: 3, z: 21.06}
-  m_Center: {x: 0, y: 0, z: 10.53}
+  m_Size: {x: 26.62, y: 3, z: 4.41}
+  m_Center: {x: 0, y: 0, z: 2.205}
 --- !u!65 &65407799197676766
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -9615,8 +9615,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.21, y: 3, z: 21.06}
-  m_Center: {x: 0, y: 0, z: 10.53}
+  m_Size: {x: 28.8, y: 3, z: 3.64}
+  m_Center: {x: 0, y: 0, z: 1.82}
 --- !u!65 &65465385225973602
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -10993,9 +10993,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cda9763533c864a9f4304a5236a59e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lenght: 21.06
-  width: 3.21
-  cloudAmount: 50
+  lenght: 4.41
+  width: 26.62
+  cloudAmount: 10
   lineAmount: 8
 --- !u!114 &114373052320965804
 MonoBehaviour:
@@ -11147,9 +11147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cda9763533c864a9f4304a5236a59e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lenght: 21.06
-  width: 3.21
-  cloudAmount: 50
+  lenght: 3.64
+  width: 28.8
+  cloudAmount: 10
   lineAmount: 8
 --- !u!114 &114449211841001738
 MonoBehaviour:
@@ -12198,14 +12198,14 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -548133660
+  randomSeed: 1643411536
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.44099998
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -12649,7 +12649,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 26.62, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -12758,7 +12758,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25.68
+      scalar: 212.96
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -15566,7 +15566,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.36400002
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -16010,7 +16010,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 28.8, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -16119,7 +16119,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 160.5
+      scalar: 288
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -18927,7 +18927,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.36400002
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -19371,7 +19371,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 28.8, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -19480,7 +19480,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25.68
+      scalar: 230.4
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -22281,14 +22281,14 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -338194070
+  randomSeed: -1151571783
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.44099998
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -22732,7 +22732,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 26.62, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -22841,7 +22841,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 160.5
+      scalar: 266.2
       minScalar: 10
       maxCurve:
         serializedVersion: 2
