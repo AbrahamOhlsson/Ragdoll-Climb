@@ -8598,7 +8598,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1966503738798588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.788722, y: -8.099767, z: 15.231301}
+  m_LocalPosition: {x: -60.51506, y: 5.5183463, z: -155.3275}
   m_LocalScale: {x: 10, y: 87.34479, z: 0.98601365}
   m_Children:
   - {fileID: 4390239488389130}
@@ -9692,15 +9692,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667637917034758}
-  m_LocalRotation: {x: -0.27059954, y: -0.6532809, z: 0.6532809, w: 0.27059954}
-  m_LocalPosition: {x: 26.780006, y: -10.5, z: -0.24000168}
+  m_LocalRotation: {x: -0.65328175, y: -0.27059752, z: 0.27059752, w: 0.65328175}
+  m_LocalPosition: {x: 21.94, y: -19.73, z: -0.24000163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4170789551516264}
   - {fileID: 4649618317056646}
   m_Father: {fileID: 4575077145897868}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -225, y: 89.99999, z: -90}
+  m_LocalEulerAnglesHint: {x: -135, y: 89.99999, z: -90}
 --- !u!4 &4189579074433436
 Transform:
   m_ObjectHideFlags: 1
@@ -15180,15 +15180,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562796984354526}
-  m_LocalRotation: {x: 0.2705956, y: -0.6532825, z: 0.6532825, w: -0.2705956}
-  m_LocalPosition: {x: -30.169998, y: -10.499917, z: -0.24000168}
+  m_LocalRotation: {x: 0.6532801, y: -0.27060142, z: 0.27060142, w: -0.6532801}
+  m_LocalPosition: {x: -23.92, y: -19.71, z: -0.24000163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4764492903269314}
   - {fileID: 4280589221396512}
   m_Father: {fileID: 4575077145897868}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -315, y: 90.00001, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: -404.999, y: 90.00001, z: -90.00001}
 --- !u!4 &4994081666040552
 Transform:
   m_ObjectHideFlags: 1
@@ -21278,8 +21278,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.21, y: 3, z: 21.06}
-  m_Center: {x: 0, y: 0, z: 10.53}
+  m_Size: {x: 26.3, y: 3, z: 3.96}
+  m_Center: {x: 0, y: 0, z: 1.98}
 --- !u!65 &65186404352475252
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -22562,8 +22562,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.21, y: 3, z: 21.06}
-  m_Center: {x: 0, y: 0, z: 10.53}
+  m_Size: {x: 25.1, y: 3, z: 3.6}
+  m_Center: {x: 0, y: 0, z: 1.8}
 --- !u!65 &65836061619778640
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -23846,9 +23846,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cda9763533c864a9f4304a5236a59e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lenght: 21.06
-  width: 3.21
-  cloudAmount: 50
+  lenght: 3.96
+  width: 26.3
+  cloudAmount: 10
   lineAmount: 8
 --- !u!114 &114184006315058978
 MonoBehaviour:
@@ -23889,9 +23889,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75cda9763533c864a9f4304a5236a59e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lenght: 21.06
-  width: 3.21
-  cloudAmount: 50
+  lenght: 3.6
+  width: 25.1
+  cloudAmount: 10
   lineAmount: 8
 --- !u!114 &114190455852553964
 MonoBehaviour:
@@ -27154,7 +27154,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.35999998
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -27598,7 +27598,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 25.1, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -27707,7 +27707,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25.68
+      scalar: 200.8
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -30515,7 +30515,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.396
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -30959,7 +30959,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 26.3, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -31068,7 +31068,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25.68
+      scalar: 210.4
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -33876,7 +33876,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.396
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -34320,7 +34320,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 26.3, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -34429,7 +34429,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 160.5
+      scalar: 263
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -37237,7 +37237,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.106
+      scalar: 0.35999998
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -37681,7 +37681,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 3.21, y: 3, z: 1}
+    m_Scale: {x: 25.1, y: 3, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -37790,7 +37790,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 160.5
+      scalar: 251
       minScalar: 10
       maxCurve:
         serializedVersion: 2
