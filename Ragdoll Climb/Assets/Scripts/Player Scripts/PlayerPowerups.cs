@@ -17,12 +17,12 @@ public class PlayerPowerups : MonoBehaviour
 	public ParticleSystem LooseMassParticle;
     ///////////////////////////////////////
     ////// Teleport player
-    [SerializeField]
-    GameObject rightGrabObject;
-    [SerializeField]
-    GameObject leftGrabObject;
-    [SerializeField]
-    GameObject m_Root;
+    [SerializeField] Transform rightWrist;
+    [SerializeField] Transform leftWrist;
+    [SerializeField] GameObject m_Root;
+
+    Quaternion leftWristStartRot;
+    Quaternion rightWristStartRot;
     ///////////////////////////////////////
     PlayerInfo playerInfo;
 
@@ -31,6 +31,9 @@ public class PlayerPowerups : MonoBehaviour
         playerInfo = GetComponent<PlayerInfo>();
 
         Rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+        leftWristStartRot = leftWrist.localRotation;
+        rightWristStartRot = rightWrist.localRotation;
     }
 
     //Teleport player
@@ -48,8 +51,6 @@ public class PlayerPowerups : MonoBehaviour
         StartCoroutine(TheTeleporter());
 
         m_Root.transform.position = new Vector3(newPos.x, newPos.y, m_Root.transform.position.z);
-
-       
     }
 
     IEnumerator TheTeleporter()
@@ -59,7 +60,10 @@ public class PlayerPowerups : MonoBehaviour
         foreach (Rigidbody rigidKinematic in Rigidbodies)
         {
             rigidKinematic.isKinematic = true;
-        } 
+        }
+
+        rightWrist.localRotation = rightWristStartRot;
+        leftWrist.localRotation = leftWristStartRot;
 
         yield return new WaitForSeconds(0.1f);
 
@@ -131,8 +135,7 @@ public class PlayerPowerups : MonoBehaviour
 		pos = 0;
 
 		yield return new WaitForSeconds(MassDuration);
-
-        print("Reset  in changeMass");
+        
         ResetPlayerMass();
 	}
 	//-----------------------------------------------------------------------//

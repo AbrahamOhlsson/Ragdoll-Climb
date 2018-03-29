@@ -27,7 +27,7 @@ public class DistanceToGoal : MonoBehaviour
 
 		for(int i= 1; i<5; i++)
 		{ 
-		playerTemp = GameObject.Find("Player ("+ i +")");
+		playerTemp = GameObject.Find("Player "+ i);
 
 			if (playerTemp != null)
 			{

@@ -256,6 +256,12 @@ public class DeathManager : MonoBehaviour
             }
         }
 
+        // Resets velocity
+        for (int i = 0; i < rbs.Length; i++)
+        {
+            rbs[i].velocity = Vector3.zero;
+        }
+
         // If a spawn point was found
         if (spawnPos != Vector3.zero)
         {
