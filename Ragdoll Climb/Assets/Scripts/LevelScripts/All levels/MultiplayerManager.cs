@@ -117,7 +117,7 @@ public class MultiplayerManager : MonoBehaviour
 
                     playerSpawned[i] = true;
 
-					PlayerInfoSingleton.instance.playerAmount++;
+					singleton.playerAmount++;
                 }
             }
         }

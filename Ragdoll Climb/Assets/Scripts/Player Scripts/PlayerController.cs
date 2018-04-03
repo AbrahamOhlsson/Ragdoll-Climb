@@ -45,6 +45,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float punchDelay = 0.1f;
     [Tooltip("The time it takes for the punch state to be reset after the punch force has been applied.")]
     [SerializeField] float punchStateResetDelay = 0.2f;
+    [Tooltip("The percentage of stamina lost by a punch.")]
+    [Range(0f, 1f)]
+    [SerializeField] float punchStaminaCost = 0.1f;
 
     [Header("Boost")]
     [Tooltip("How much pull and push force will be multiplied when the player climbs good.")]
@@ -260,7 +263,7 @@ public class PlayerController : MonoBehaviour
                     ArmControl(true);
 
                 // Punch
-                if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching)
+                if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching && leftCanClimb)
                     StartCoroutine(Punch(leftHand, pushDirLeft));
             }
             // Right arm and joystick
@@ -294,7 +297,7 @@ public class PlayerController : MonoBehaviour
                     ArmControl(false);
 
                 // Punch
-                if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching)
+                if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching && rightCanClimb)
                     StartCoroutine(Punch(rightHand, pushDirRight));
             }
 
@@ -513,7 +516,7 @@ public class PlayerController : MonoBehaviour
                 leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
             else if (leftTimer <= 0.01f)
                 leftStaminaBar.gameObject.SetActive(false);
-            }
+        }
         // DPad DEATH     ###############################################################################################################
 
         if (state.DPad.Down == ButtonState.Pressed)
@@ -711,12 +714,44 @@ public class PlayerController : MonoBehaviour
         {
             leftPunching = true;
 
+            // Stamina stuff
+            if (!unlimitedStamina)
+            {
+                leftStaminaBar.gameObject.SetActive(true);
+                leftTimer += lostGrip * punchStaminaCost;
+                if (leftTimer >= losingGrip)
+                {
+                    leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
+                }
+                if (leftTimer > lostGrip)
+                {
+                    leftCanClimb = false;
+                }
+                leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
+            }
+
             // Makes sure the hand wont continue to stretch out
             pushDirLeft = Vector3.zero;
         }
         else
         {
             rightPunching = true;
+
+            // Stamina stuff
+            if (!unlimitedStamina)
+            {
+                rightStaminaBar.gameObject.SetActive(true);
+                rightTimer += lostGrip * punchStaminaCost;
+                if (rightTimer >= losingGrip)
+                {
+                    rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
+                }
+                if (rightTimer > lostGrip)
+                {
+                    rightCanClimb = false;
+                }
+                rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
+            }
 
             // Makes sure the hand wont continue to stretch out
             pushDirRight = Vector3.zero;

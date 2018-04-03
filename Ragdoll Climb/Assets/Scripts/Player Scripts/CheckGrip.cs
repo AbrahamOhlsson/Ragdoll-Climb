@@ -97,7 +97,6 @@ public class CheckGrip : MonoBehaviour
         if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
         {
             controller.ReleaseGrip(leftHand, false);
-            
         }
     }
     
@@ -317,7 +316,7 @@ public class CheckGrip : MonoBehaviour
             PlayGrabbingAnim();
         }
     }
-
+    
 
     // Disconnects connected body
     public void Disconnect()
@@ -339,6 +338,7 @@ public class CheckGrip : MonoBehaviour
         StopAnim();
     }
 
+
     // Disconnects and throws the grabbed object with force
     public void Disconnect(Vector3 throwDir, float throwForce)
     {
@@ -349,6 +349,12 @@ public class CheckGrip : MonoBehaviour
         currentGripping = tempRb;
 
         StopAnim();
+    }
+
+
+    public void RemoveFromGrabables(Rigidbody rb)
+    {
+        grabablesInReach.Remove(rb);
     }
 
 }
