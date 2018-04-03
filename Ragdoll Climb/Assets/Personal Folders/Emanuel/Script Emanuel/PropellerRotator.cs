@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class PropellerRotator : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
+    [Range(0, 50)] [Tooltip("The speed of the propeller")]
+    public float rotatingSpeed = 10;
+
 	void Update () {
-        transform.Rotate(new Vector3(0, 0, Time.deltaTime * 10));
+        transform.Rotate(new Vector3(0, 0, Time.deltaTime * rotatingSpeed));
 	}
 }
