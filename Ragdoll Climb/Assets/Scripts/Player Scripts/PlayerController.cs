@@ -76,6 +76,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float losingGrip = 3f;
     [Range(0f, 10f)]
     [SerializeField] float lostGrip = 5f;
+    [Range(0f, 10f)]
+    [SerializeField] float staminaDrainStart = 1f;
+    [Range(0f, 1f)]
+    [SerializeField] float staminaDrainReduce = 0.5f;
 
     //How much faster the player regain its stamina (Original value was 1.5)
     [Tooltip("How much faster the player regain its stamina.")]
@@ -150,6 +154,7 @@ public class PlayerController : MonoBehaviour
     // How long the hands have gripped
     float leftGripTimer = 0f;
     float rightGripTimer = 0f;
+
     // How long the boost has been activated
     float boostTimer = 0f;
 
@@ -158,6 +163,8 @@ public class PlayerController : MonoBehaviour
     float leftTimer;
     float leftVibrationAmount;
     float rightVibrationAmount;
+    
+    float staminaDrain = 1f;
 
     //Timer if the arms are too tired to climb with
     float rightNumbArm = 0;
@@ -447,19 +454,17 @@ public class PlayerController : MonoBehaviour
         {
             rightStaminaBar.gameObject.SetActive(true);
 
-            rightTimer += Time.deltaTime;
+            rightTimer += staminaDrain * Time.deltaTime;
 
             if (rightTimer >= losingGrip)
             {
-                //vibrator.VibrationManual(0f, 0.6f, 2);
-                rightVibrationAmount = 0.6f;
+                rightVibrationAmount = (rightTimer - losingGrip) / (lostGrip - losingGrip);
                 rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
             }
 
             if (rightTimer >= lostGrip)
             {
                 rightCanClimb = false;
-                //vibrator.StopVibration(2);
                 rightVibrationAmount = 0f;
 
                 ReleaseGrip(false, false);
@@ -485,19 +490,16 @@ public class PlayerController : MonoBehaviour
         {
             leftStaminaBar.gameObject.SetActive(true);
 
-            leftTimer += Time.deltaTime;
+            leftTimer += staminaDrain * Time.deltaTime;
             
             if (leftTimer >= losingGrip)
             {
-                //vibrator.VibrationManual(0.7f, 0f, 2);
-                leftVibrationAmount = 0.7f;
-                //leftStaminaBar.material.color = Color.red;
+                leftVibrationAmount = (leftTimer - losingGrip) / (lostGrip - losingGrip);
                 leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
             }
 
             if (leftTimer > lostGrip)
             {
-                //vibrator.StopVibration(2);
                 leftVibrationAmount = 0f;
                 leftCanClimb = false;
 
@@ -519,12 +521,19 @@ public class PlayerController : MonoBehaviour
                 leftStaminaBar.gameObject.SetActive(false);
         }
 
+        // Stamina drain is lesser if both hands are gripped
+        if (gripLeft && gripRight)
+            staminaDrain = staminaDrainStart * staminaDrainReduce;
+        else
+            staminaDrain = staminaDrainStart;
+
+        // Sets controller vibration
         vibrator.VibrationManual(leftVibrationAmount, rightVibrationAmount, 1);
+
         // DPad DEATH     ###############################################################################################################
 
         if (state.DPad.Down == ButtonState.Pressed)
 		{
-
 			if(deathTimer > deathPressTime)
 			{
 				GetComponent<DeathManager>().Death();
@@ -535,7 +544,6 @@ public class PlayerController : MonoBehaviour
 			}
 
 			deathTimer += 1 * Time.deltaTime;
-
 		}
 
 		if (state.DPad.Down == ButtonState.Released)
