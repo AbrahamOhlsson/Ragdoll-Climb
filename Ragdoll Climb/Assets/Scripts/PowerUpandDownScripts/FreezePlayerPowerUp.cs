@@ -5,12 +5,7 @@ using UnityEngine;
 public class FreezePlayerPowerUp : MonoBehaviour
 {
     public Component[] Rigidbodies;
-
-    [SerializeField]
-    GameObject rightGrabObject;
-    [SerializeField]
-    GameObject leftGrabObject;
-
+    
     //////Getting the color for the sake of freeze
     [SerializeField]
     Color[] FreezeColors;
@@ -84,7 +79,6 @@ public class FreezePlayerPowerUp : MonoBehaviour
 	IEnumerator freezeThePlayer()
 	{
 		GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
-
 		if (closeToBoat)
 		{
 			freezeTime = 0.01f;
@@ -92,8 +86,9 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		else if (!closeToBoat)
 		{
 			freezeTime = 3f;
-		}
-
+            GetComponent<VibrationManager>().VibrateSmoothTimed(0.2f, 3f, 5f, 5f, 5);
+        }
+        
         // Get player default colour
         defColor = GetComponent<PlayerInfo>().color;
 
@@ -102,7 +97,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		GetComponent<PlayerController>().canMove = false;
 		GetComponent<PlayerController>().ReleaseGrip(true, false);
 		GetComponent<PlayerController>().ReleaseGrip(false, false);
-
+        
 		foreach (Rigidbody rigidKinematic in Rigidbodies)
 		{
 			rigidKinematic.isKinematic = true;
@@ -121,8 +116,6 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		foreach (Rigidbody rigidKinematic in Rigidbodies)
 		{
 			rigidKinematic.isKinematic = false;
-			//rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-			//leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 
 		GetComponent<PlayerController>().canMove = true;
@@ -188,8 +181,6 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		foreach (Rigidbody rigidKinematic in Rigidbodies)
 		{
 			rigidKinematic.isKinematic = false;
-			//rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-			//leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 
 		GetComponent<PlayerController>().canMove = true;

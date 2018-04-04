@@ -216,11 +216,12 @@ public class DeathManager : MonoBehaviour
         playerInfo.solid = false;
         ghostTimer = 0f;
 
-        // Disconnects all potential layers that are grabbing this one
+        // Disconnects all potential players that are grabbing this one
         GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
 
         GetComponent<PlayerStun>().UnStun();
         GetComponent<PlayerPowerups>().ResetPlayerMass();
+        GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 6);
 
         // Ignores collision between this player and the others
         for (int i = 0; i < myColliders.Length; i++)

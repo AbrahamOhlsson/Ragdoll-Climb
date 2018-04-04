@@ -113,6 +113,8 @@ public class GorillaThrow : MonoBehaviour
             other.transform.root.GetComponent<PlayerController>().ReleaseGrip(true, false);
             other.transform.root.GetComponent<PlayerController>().ReleaseGrip(false, false);
 
+            other.transform.root.GetComponent<VibrationManager>().VibrateTimed(0.75f, throwDelay, 7);
+
             //Looking for the bodypart "Spine1_M" and then set its posision.
             for (int i = 0; i < bodyParts.Length; i++)
             {

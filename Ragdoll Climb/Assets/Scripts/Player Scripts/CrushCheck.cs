@@ -23,7 +23,7 @@ public class CrushCheck : MonoBehaviour
             for (int j = 0; j < colls.Length; j++)
             {
                 // If a collider is touching a crushing object and another is touching the bottom
-                if (colls[i].touchingCrush && colls[j].touchingBottom)
+                if (colls[i].touchingCrush && (colls[j].touchingBottom || colls[j].touchingCrush))
                 {
                     //print("Crush: " + colls[i].impulse + ",     Bottom: " + colls[j].impulse);
 
