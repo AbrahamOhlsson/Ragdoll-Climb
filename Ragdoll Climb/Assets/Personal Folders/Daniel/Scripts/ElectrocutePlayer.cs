@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class ElectrocutePlayer : MonoBehaviour
 {
-	GameObject electrocutePlayer;
-	bool canStun =true;
-
+	bool canStun = true;
+    
     List<GameObject> players;
 
     private void Start()
@@ -16,18 +15,21 @@ public class ElectrocutePlayer : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
 	{
-		electrocutePlayer = other.transform.root.gameObject;
-
-		if (electrocutePlayer.tag == "Player" && canStun)
+		if (other.tag == "Player" && canStun)
 		{
-            if (electrocutePlayer.GetComponent<PlayerInfo>().solid)
+            if (other.transform.root.GetComponent<PlayerInfo>().solid)
             {
                 canStun = false;
 
                 int i = Random.Range(0, PlayerInfoSingleton.instance.playerAmount);
 
-                players[i].transform.Find("Main/DeformationSystem/LightningCloud").gameObject.SetActive(true);
-                players[i].transform.Find("Main/DeformationSystem/LightningCloud").GetComponent<LightningBolt>().startLightning();
+                LightningBolt lightningCloud = players[i].transform.GetComponentInChildren<LightningBolt>(true);
+                lightningCloud.gameObject.SetActive(true);
+                lightningCloud.startLightning();
+
+                //players[i].transform.Find("Main/DeformationSystem/LightningCloud").gameObject.SetActive(true);
+                //players[i].transform.Find("Main/DeformationSystem/LightningCloud").GetComponent<LightningBolt>().startLightning();
+
                 //GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").SetActive(true);
                 //GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").GetComponent<LightningBolt>().startLightning();
                 //electrocutePlayer.transform.Find("Main/DeformationSystem/LightningCloud").gameObject.SetActive(true);
