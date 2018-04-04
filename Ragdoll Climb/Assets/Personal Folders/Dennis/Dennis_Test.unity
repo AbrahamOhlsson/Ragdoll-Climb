@@ -1043,6 +1043,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 65122028174242120, guid: e6337195e2ab2754e835f13764e1f076,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6337195e2ab2754e835f13764e1f076, type: 2}
   m_IsPrefabParent: 0
@@ -1261,6 +1266,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114617851912253464, guid: 55f8f221a8f908640878b50d9d14b202,
+        type: 2}
+      propertyPath: feedbackText
+      value: 
+      objectReference: {fileID: 1769404921}
+    - target: {fileID: 114538279781589948, guid: 55f8f221a8f908640878b50d9d14b202,
+        type: 2}
+      propertyPath: debugText
+      value: 
+      objectReference: {fileID: 294546741}
     - target: {fileID: 114504662466398374, guid: 55f8f221a8f908640878b50d9d14b202,
         type: 2}
       propertyPath: bottomObj
@@ -1276,16 +1291,6 @@ Prefab:
       propertyPath: Boat
       value: 
       objectReference: {fileID: 532697073}
-    - target: {fileID: 114538279781589948, guid: 55f8f221a8f908640878b50d9d14b202,
-        type: 2}
-      propertyPath: debugText
-      value: 
-      objectReference: {fileID: 294546741}
-    - target: {fileID: 114617851912253464, guid: 55f8f221a8f908640878b50d9d14b202,
-        type: 2}
-      propertyPath: feedbackText
-      value: 
-      objectReference: {fileID: 1769404921}
     - target: {fileID: 1337268335804372, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_Name
       value: Player 1
@@ -1437,7 +1442,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba5d81631be95aa4899634c57bd90ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boat: {fileID: 532697073}
   endLerp: {fileID: 733641325}
   speed: 0.0002
 --- !u!54 &532697079
