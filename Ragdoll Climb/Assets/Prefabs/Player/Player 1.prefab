@@ -1670,7 +1670,8 @@ GameObject:
   - component: {fileID: 114116716756687686}
   - component: {fileID: 114965581448775520}
   - component: {fileID: 114795660033196036}
-  - component: {fileID: 114410273655989010}
+  - component: {fileID: 114261363635467272}
+  - component: {fileID: 114058430181563946}
   m_Layer: 9
   m_Name: Player 1
   m_TagString: Player
@@ -2051,7 +2052,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4271821532245882}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4271821532245882
 Transform:
@@ -2063,11 +2064,11 @@ Transform:
   m_LocalPosition: {x: 0.144, y: 3.291, z: -1.613}
   m_LocalScale: {x: 1.16, y: 1.1600002, z: 1.1600002}
   m_Children:
+  - {fileID: 4946322779275998}
   - {fileID: 4421203495670598}
   - {fileID: 4670568346779822}
   - {fileID: 4799212789624744}
   - {fileID: 4253538663902156}
-  - {fileID: 4946322779275998}
   - {fileID: 4925890141450546}
   - {fileID: 4477167439309014}
   m_Father: {fileID: 0}
@@ -2333,7 +2334,7 @@ Transform:
   - {fileID: 4222179909929536}
   - {fileID: 4524299471296718}
   m_Father: {fileID: 4271821532245882}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
 --- !u!4 &4429918048161806
 Transform:
@@ -2712,7 +2713,7 @@ Transform:
   - {fileID: 4839416193316974}
   - {fileID: 4287547767038246}
   m_Father: {fileID: 4271821532245882}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 179.99998, z: 0}
 --- !u!4 &4683931051723464
 Transform:
@@ -2874,7 +2875,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4271821532245882}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4820080302562352
 Transform:
@@ -3197,7 +3198,7 @@ Transform:
   - {fileID: 4667724968857054}
   - {fileID: 4863486832353154}
   m_Father: {fileID: 4271821532245882}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4960648794605798
 Transform:
@@ -3731,7 +3732,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4136,6 +4137,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAtCamera: 0
   lockRotation: 0
+--- !u!114 &114058430181563946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1942473329279358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e313b1df82eda44695a7679e7eef709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114068628610209828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4167,7 +4179,7 @@ MonoBehaviour:
   startMass: []
   pos: 0
   m_MassPercent: 0
-  MassDuration: 0
+  MassDuration: 5
   AddMassParticle: {fileID: 198268428788946678}
   LooseMassParticle: {fileID: 198603331950902608}
   rightWrist: {fileID: 4129834127671928}
@@ -4292,6 +4304,28 @@ MonoBehaviour:
   touchingCrush: 0
   touchingBottom: 0
   impulse: 0
+--- !u!114 &114261363635467272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1942473329279358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057650b8f6f8c67428348639b2b15e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LightningBallPrefab: {fileID: 1733427836503494, guid: 909949986c2443c4e9f5de45c0bea2c2,
+    type: 2}
+  lightningBall: {fileID: 4374606677037942, guid: 909949986c2443c4e9f5de45c0bea2c2,
+    type: 2}
+  PlayerPos: {fileID: 4670568346779822}
+  relativeDistance: {x: 0, y: 0, z: 0}
+  orbitDistance: 1.5
+  OrbitDegreesPerSec: 180
+  ballSpeed: 20
+  haveBall: 0
+  ballIsfree: 0
 --- !u!114 &114266271407778430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4365,20 +4399,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Boat: {fileID: 0}
   tooCloseToBoat: 7
---- !u!114 &114410273655989010
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1942473329279358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe4a16003912404419a54e4f74cf673a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 100
-  knockOutTime: 3
-  healthRegen: 1
 --- !u!114 &114420637323688430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4399,7 +4419,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1796291789941306}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4933e4cf0dd24ac4b9e248b53de7326c, type: 3}
   m_Name: 
@@ -4425,12 +4445,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbodies: []
-  rightGrabObject: {fileID: 0}
-  leftGrabObject: {fileID: 0}
   FreezeColors: []
   closeToBoat: 0
   isFrozen: 0
-  lerpTime: 0
+  lerpTime: 3
   lerpedColor: {r: 0, g: 1, b: 0.95862055, a: 1}
 --- !u!114 &114464760761976420
 MonoBehaviour:
@@ -4490,17 +4508,18 @@ MonoBehaviour:
   throwForce: 500
   stickyReleaseDelay: 1
   armMassDecrease: 0.3
-  punchPullBackForce: 1000
-  punchForce: 3000
-  punchDelay: 0.3
+  punchPullBackForce: 500
+  punchForce: 2000
+  punchDelay: 0.1
   punchStateResetDelay: 0.2
+  punchStaminaCost: 0.25
   boostMult: 1.5
   reqHandHeightForBoost: 1
   gripTimeframeForBoost: 0.75
   reqGoodClimbs: 3
   boostTime: 1
   continuousBoost: 0
-  justGrabbed: 0.5
+  justGrabbed: 0.25
   losingGrip: 3
   lostGrip: 5
   staminaRegen: 1.5
@@ -4523,7 +4542,7 @@ MonoBehaviour:
   rightStaminaBar: {fileID: 23025167324568582}
   goodClimbSfx: {fileID: 8300000, guid: 90e08bb1ccd773942a2cf5ab0e609ca5, type: 3}
   boostSfx: {fileID: 8300000, guid: b58bc786a6d78b2419c2638f83dc5fed, type: 3}
-  punchSwooshSfx: {fileID: 0}
+  punchSwooshSfx: {fileID: 8300000, guid: 3fcc3f0408eebbe42b2199a57e13f6a2, type: 3}
   deathTimer: 0
   deathPressTime: 3
 --- !u!114 &114589447272100872
