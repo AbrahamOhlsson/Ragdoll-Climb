@@ -402,7 +402,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 50.000004, y: -13.127001, z: 0}
 --- !u!1 &18414340
 GameObject:
@@ -1183,7 +1183,7 @@ Transform:
   - {fileID: 295999987}
   - {fileID: 180535135}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &57795373 stripped
 MonoBehaviour:
@@ -7569,7 +7569,7 @@ Transform:
   - {fileID: 765781930}
   - {fileID: 1634819401}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &168869337
 GameObject:
@@ -9618,6 +9618,7 @@ MonoBehaviour:
   punchForce: 3000
   punchDelay: 0.3
   punchStateResetDelay: 0.2
+  punchStaminaCost: 0.1
   boostMult: 1.5
   reqHandHeightForBoost: 1
   gripTimeframeForBoost: 1
@@ -9663,8 +9664,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbodies: []
-  rightGrabObject: {fileID: 407198613}
-  leftGrabObject: {fileID: 716412973}
   FreezeColors: []
   closeToBoat: 0
   isFrozen: 0
@@ -10462,7 +10461,7 @@ Transform:
   - {fileID: 1104931370}
   - {fileID: 263845392}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303070443
 GameObject:
@@ -18991,7 +18990,7 @@ Transform:
   - {fileID: 1288779269}
   - {fileID: 309848656}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &520114283
 GameObject:
@@ -19343,6 +19342,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114091994629613304, guid: cd6f9bdc656ea894083f686d056f5050,
+        type: 2}
+      propertyPath: players.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4147011383612860, guid: cd6f9bdc656ea894083f686d056f5050, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.06
@@ -19373,7 +19377,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4147011383612860, guid: cd6f9bdc656ea894083f686d056f5050, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 114091994629613304, guid: cd6f9bdc656ea894083f686d056f5050,
         type: 2}
@@ -19444,7 +19448,12 @@ Prefab:
         type: 2}
       propertyPath: playerRoot
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2064249060}
+    - target: {fileID: 114091994629613304, guid: cd6f9bdc656ea894083f686d056f5050,
+        type: 2}
+      propertyPath: playerTemp
+      value: 
+      objectReference: {fileID: 2064249060}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd6f9bdc656ea894083f686d056f5050, type: 2}
   m_IsPrefabParent: 0
@@ -44479,7 +44488,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4269191607519984, guid: e48e2cbc576f7ca4082cdbeecf8e82c6, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1216611868476096, guid: e48e2cbc576f7ca4082cdbeecf8e82c6, type: 2}
       propertyPath: m_IsActive
@@ -63893,7 +63902,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4843718445580532, guid: 9edfbb0d834642f47808498b8cc8ab09, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114348161459237392, guid: 9edfbb0d834642f47808498b8cc8ab09,
         type: 2}
@@ -70076,6 +70085,7 @@ MonoBehaviour:
   punchForce: 3000
   punchDelay: 0.3
   punchStateResetDelay: 0.2
+  punchStaminaCost: 0.1
   boostMult: 1.5
   reqHandHeightForBoost: 1
   gripTimeframeForBoost: 1
@@ -70121,8 +70131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbodies: []
-  rightGrabObject: {fileID: 1568343449}
-  leftGrabObject: {fileID: 378015751}
   FreezeColors: []
   closeToBoat: 0
   isFrozen: 0
@@ -76997,7 +77005,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4354491431792834, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1337268335804372, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_Name
@@ -77078,6 +77086,16 @@ Prefab:
       propertyPath: debugText
       value: 
       objectReference: {fileID: 294546741}
+    - target: {fileID: 114096363572532914, guid: 55f8f221a8f908640878b50d9d14b202,
+        type: 2}
+      propertyPath: Boat
+      value: 
+      objectReference: {fileID: 532697073}
+    - target: {fileID: 114096363572532914, guid: 55f8f221a8f908640878b50d9d14b202,
+        type: 2}
+      propertyPath: tooCloseToBoat
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
   m_IsPrefabParent: 0
@@ -80156,6 +80174,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114623577001919522, guid: e5afb7de837148544aceb00b8bbff178,
+        type: 2}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 102135856}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5afb7de837148544aceb00b8bbff178, type: 2}
   m_IsPrefabParent: 0
@@ -96417,6 +96440,91 @@ Prefab:
       propertyPath: eventSystem
       value: 
       objectReference: {fileID: 102135856}
+    - target: {fileID: 224316968449279012, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224316968449279012, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224316968449279012, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 720.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 224316968449279012, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224613146274236520, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224613146274236520, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224613146274236520, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 720.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 224613146274236520, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224496680090531138, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224496680090531138, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224496680090531138, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 720.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 224496680090531138, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224999117513024704, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224999117513024704, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224999117513024704, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 720.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 224999117513024704, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223203072193792804, guid: 07edc6a48e13a6a4eb674e37d6511423,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07edc6a48e13a6a4eb674e37d6511423, type: 2}
   m_IsPrefabParent: 0
@@ -97001,7 +97109,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4671174015493038, guid: f89f5f772075dd2438ed7fc90b3aa1c2, type: 2}
       propertyPath: m_RootOrder
-      value: 18
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 114062420707678938, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
@@ -107866,18 +107974,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4354491431792834, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114504662466398374, guid: 55f8f221a8f908640878b50d9d14b202,
-        type: 2}
-      propertyPath: bottomObj
-      value: 
-      objectReference: {fileID: 532697077}
-    - target: {fileID: 114504662466398374, guid: 55f8f221a8f908640878b50d9d14b202,
-        type: 2}
-      propertyPath: manager
-      value: 
-      objectReference: {fileID: 2020950796}
     - target: {fileID: 114096363572532914, guid: 55f8f221a8f908640878b50d9d14b202,
         type: 2}
       propertyPath: Boat
@@ -107893,6 +107991,16 @@ Prefab:
       propertyPath: feedbackText
       value: 
       objectReference: {fileID: 1769404921}
+    - target: {fileID: 114504662466398374, guid: 55f8f221a8f908640878b50d9d14b202,
+        type: 2}
+      propertyPath: bottomObj
+      value: 
+      objectReference: {fileID: 532697077}
+    - target: {fileID: 114504662466398374, guid: 55f8f221a8f908640878b50d9d14b202,
+        type: 2}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 2020950796}
     - target: {fileID: 1337268335804372, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_Name
       value: Player 1
@@ -109778,7 +109886,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4354491431792834, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1337268335804372, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_Name
@@ -116210,6 +116318,7 @@ MonoBehaviour:
   punchForce: 3000
   punchDelay: 0.3
   punchStateResetDelay: 0.2
+  punchStaminaCost: 0.1
   boostMult: 1.5
   reqHandHeightForBoost: 1
   gripTimeframeForBoost: 1
@@ -116255,8 +116364,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbodies: []
-  rightGrabObject: {fileID: 900789936}
-  leftGrabObject: {fileID: 1501363090}
   FreezeColors: []
   closeToBoat: 0
   isFrozen: 0
@@ -116964,7 +117071,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4354491431792834, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1337268335804372, guid: 55f8f221a8f908640878b50d9d14b202, type: 2}
       propertyPath: m_Name

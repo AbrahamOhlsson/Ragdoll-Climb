@@ -47,6 +47,7 @@ public class PlayerPowerups : MonoBehaviour
         GetComponent<PlayerController>().ReleaseGrip(true, false);
         GetComponent<PlayerController>().ReleaseGrip(false, false);
         GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
+        GetComponent<VibrationManager>().VibrateTimed(0.5f, 0.1f, 5);
 
         StartCoroutine(TheTeleporter());
 
