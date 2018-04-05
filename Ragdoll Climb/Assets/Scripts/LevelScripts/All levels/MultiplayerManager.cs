@@ -92,6 +92,7 @@ public class MultiplayerManager : MonoBehaviour
                     players[i].SetActive(true);
                     players[i].GetComponent<PlayerController>().SetGamePad((PlayerIndex)i);
                     players[i].GetComponent<PlayerInfo>().playerIndex = (PlayerIndex)i;
+                    players[i].GetComponent<VibrationManager>().playerIndex = (PlayerIndex)i;
                     players[i].GetComponent<Cheats>().SetGamePad(i);
 
                     // Gets all renderers in player

@@ -71,11 +71,15 @@ public class PlayerController : MonoBehaviour
     [Header("Stamina")]
     //Timers for vibrating states
     [Range(0f, 5f)]
-    [SerializeField] float justGrabbed = 0.5f;
+    [SerializeField] float justGrabbed = 0.25f;
     [Range(0f, 10f)]
     [SerializeField] float losingGrip = 3f;
     [Range(0f, 10f)]
     [SerializeField] float lostGrip = 5f;
+    [Range(0f, 10f)]
+    [SerializeField] float staminaDrainStart = 1f;
+    [Range(0f, 1f)]
+    [SerializeField] float staminaDrainReduce = 0.5f;
 
     //How much faster the player regain its stamina (Original value was 1.5)
     [Tooltip("How much faster the player regain its stamina.")]
@@ -150,12 +154,17 @@ public class PlayerController : MonoBehaviour
     // How long the hands have gripped
     float leftGripTimer = 0f;
     float rightGripTimer = 0f;
+
     // How long the boost has been activated
     float boostTimer = 0f;
 
     //Vibration Timer
     float rightTimer;
     float leftTimer;
+    float leftVibrationAmount;
+    float rightVibrationAmount;
+    
+    float staminaDrain = 1f;
 
     //Timer if the arms are too tired to climb with
     float rightNumbArm = 0;
@@ -182,6 +191,8 @@ public class PlayerController : MonoBehaviour
 
     PlayerInfo playerInfo;
 
+    VibrationManager vibrator;
+
     List<Rigidbody> bodyParts = new List<Rigidbody>();
 
     AudioSource source;
@@ -204,6 +215,8 @@ public class PlayerController : MonoBehaviour
         checkGripRight = rightHand.GetComponent<CheckGrip>();
 
         playerInfo = GetComponent<PlayerInfo>();
+
+        vibrator = GetComponent<VibrationManager>();
 
         source = GetComponent<AudioSource>();
 
@@ -310,7 +323,9 @@ public class PlayerController : MonoBehaviour
                 {
                     checkGripLeft.Connect();
                     gripLeft = true;
-                    
+
+                    vibrator.VibrateTimed(0.3f, 0f, justGrabbed, 2);
+
                     // Gets distance from the other hand
                     float handDist = leftHand.position.y - rightHand.position.y;
 
@@ -352,6 +367,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                     ReleaseGrip(true, false);
+
+                leftVibrationAmount = 0;
             }
             // Right grip controls
             if ((state.Triggers.Right >= 0.8f/* || state.Buttons.RightShoulder == ButtonState.Pressed*/) && (prevState.Triggers.Right < 0.8f/* && prevState.Buttons.RightShoulder == ButtonState.Released*/))
@@ -362,6 +379,8 @@ public class PlayerController : MonoBehaviour
                 {
                     checkGripRight.Connect();
                     gripRight = true;
+
+                    vibrator.VibrateTimed(0f, 0.2f, justGrabbed, 2);
                     
                     // Gets distance from the other hand
                     float handDist = rightHand.position.y - leftHand.position.y;
@@ -404,6 +423,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                     ReleaseGrip(false, false);
+
+                rightVibrationAmount = 0f;
             }
         }
 
@@ -428,31 +449,23 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
+        //A timer when that counts how long the player is using the right hand. Hold too long and a vibration starts. Keep holding and you will fall.
         if (gripRight == true && !unlimitedStamina)
         {
             rightStaminaBar.gameObject.SetActive(true);
 
-            rightTimer += Time.deltaTime;
-            
-            if (rightTimer < justGrabbed)
-            {
-                GamePad.SetVibration(playerIndex, 1f, 1f);
-            }
-            else
-                GamePad.SetVibration(playerIndex, 0f, 0f);
-
+            rightTimer += staminaDrain * Time.deltaTime;
 
             if (rightTimer >= losingGrip)
             {
-                GamePad.SetVibration(playerIndex, 0f, 1f);
+                rightVibrationAmount = (rightTimer - losingGrip) / (lostGrip - losingGrip);
                 rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
             }
 
             if (rightTimer >= lostGrip)
             {
                 rightCanClimb = false;
-                GamePad.SetVibration(playerIndex, 0f, 0f);
+                rightVibrationAmount = 0f;
 
                 ReleaseGrip(false, false);
             }
@@ -462,7 +475,6 @@ public class PlayerController : MonoBehaviour
 
         if (gripRight == false)
         {
-            GamePad.SetVibration(playerIndex, 0f, 0f);
             rightTimer -= Time.deltaTime * staminaRegen;
             rightTimer = Mathf.Clamp(rightTimer, 0f, lostGrip);
             rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
@@ -478,25 +490,17 @@ public class PlayerController : MonoBehaviour
         {
             leftStaminaBar.gameObject.SetActive(true);
 
-            leftTimer += Time.deltaTime;
-
-            if (leftTimer < justGrabbed)
-            {
-                GamePad.SetVibration(playerIndex, 0.5f, 0.1f);
-            }
-            else
-                GamePad.SetVibration(playerIndex, 0f, 0f);
-
+            leftTimer += staminaDrain * Time.deltaTime;
+            
             if (leftTimer >= losingGrip)
             {
-                GamePad.SetVibration(playerIndex, 0.1f, 0f);
-                //leftStaminaBar.material.color = Color.red;
+                leftVibrationAmount = (leftTimer - losingGrip) / (lostGrip - losingGrip);
                 leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
             }
 
             if (leftTimer > lostGrip)
             {
-                GamePad.SetVibration(playerIndex, 0f, 0f);
+                leftVibrationAmount = 0f;
                 leftCanClimb = false;
 
                 ReleaseGrip(true, false);
@@ -507,7 +511,6 @@ public class PlayerController : MonoBehaviour
 
         if (gripLeft == false)
         {
-            GamePad.SetVibration(playerIndex, 0f, 0f);
             leftTimer -= Time.deltaTime * staminaRegen;
             leftTimer = Mathf.Clamp(leftTimer, 0f, lostGrip);
             leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
@@ -517,11 +520,20 @@ public class PlayerController : MonoBehaviour
             else if (leftTimer <= 0.01f)
                 leftStaminaBar.gameObject.SetActive(false);
         }
+
+        // Stamina drain is lesser if both hands are gripped
+        if (gripLeft && gripRight)
+            staminaDrain = staminaDrainStart * staminaDrainReduce;
+        else
+            staminaDrain = staminaDrainStart;
+
+        // Sets controller vibration
+        vibrator.VibrationManual(leftVibrationAmount, rightVibrationAmount, 1);
+
         // DPad DEATH     ###############################################################################################################
 
         if (state.DPad.Down == ButtonState.Pressed)
 		{
-
 			if(deathTimer > deathPressTime)
 			{
 				GetComponent<DeathManager>().Death();
@@ -532,7 +544,6 @@ public class PlayerController : MonoBehaviour
 			}
 
 			deathTimer += 1 * Time.deltaTime;
-
 		}
 
 		if (state.DPad.Down == ButtonState.Released)
@@ -732,6 +743,8 @@ public class PlayerController : MonoBehaviour
 
             // Makes sure the hand wont continue to stretch out
             pushDirLeft = Vector3.zero;
+
+            vibrator.VibrateTimed(0.2f, 0f, 0.2f, 3);
         }
         else
         {
@@ -755,6 +768,8 @@ public class PlayerController : MonoBehaviour
 
             // Makes sure the hand wont continue to stretch out
             pushDirRight = Vector3.zero;
+
+            vibrator.VibrateTimed(0f, 0.2f, 0.2f, 3);
         }
 
         hand.GetComponent<TrailRenderer>().enabled = true;

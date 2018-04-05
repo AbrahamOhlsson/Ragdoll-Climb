@@ -47,6 +47,8 @@ public class HealthManager : MonoBehaviour
                 stunScript.Stun(knockOutTime);
                 hp = maxHP;
             }
+
+            GetComponent<VibrationManager>().VibrateTimed(0.5f, 0.2f, 10);
         }
     }
 }
