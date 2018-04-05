@@ -234,7 +234,7 @@ public class DeathManager : MonoBehaviour
         }
 
         // Gets all spawnpoints within a radius
-        Collider[] spawnPoints = Physics.OverlapSphere(transform.position, spawnPointSearchRad, layerMask, QueryTriggerInteraction.Collide);
+        Collider[] spawnPoints = Physics.OverlapSphere(rootTrans.position, spawnPointSearchRad, layerMask, QueryTriggerInteraction.Collide);
 
         // Will be used to store the minimum distance to any spawn point
         float minDist = Mathf.Infinity;
@@ -246,7 +246,7 @@ public class DeathManager : MonoBehaviour
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             // Gets the distance between the player and a spawn point
-            float dist = Vector3.Distance(transform.position, spawnPoints[i].transform.position);
+            float dist = Vector3.Distance(rootTrans.position, spawnPoints[i].transform.position);
 
             // If this distance is lesser that the previously minimum one
             if (dist < minDist)

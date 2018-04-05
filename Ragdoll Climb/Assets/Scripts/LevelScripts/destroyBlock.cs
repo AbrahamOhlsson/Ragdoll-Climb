@@ -15,7 +15,7 @@ public class destroyBlock : MonoBehaviour
     void Start ()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<MultiplayerManager>();
-        bottomObj = GameObject.Find("Bottom Object");
+        bottomObj = GameObject.FindGameObjectWithTag("BottomObj");
 
         rbs = GetComponentsInChildren<Rigidbody>();
     }
