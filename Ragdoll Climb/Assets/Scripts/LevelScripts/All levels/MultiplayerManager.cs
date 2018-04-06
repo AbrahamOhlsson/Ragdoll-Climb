@@ -43,6 +43,8 @@ public class MultiplayerManager : MonoBehaviour
                 // CHANGE THIS LATER
                 Instantiate(characterParts[i], players[i].transform);
             }
+
+            print("INSTANTIATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 
@@ -61,6 +63,8 @@ public class MultiplayerManager : MonoBehaviour
             // Goes through as many players that was ready in the menu
             for (int i = 0; i < singleton.playerAmount; i++)
             {
+                players[i].SetActive(true);
+
                 // Gets renderers of the player
                 Renderer[] renderers = players[i].transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
@@ -87,8 +91,8 @@ public class MultiplayerManager : MonoBehaviour
 
                 // Recolors the player's Feedback Text to match the player
                 players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = singleton.colors[i];
-
-                players[i].SetActive(true);
+                
+                players[i].GetComponent<DeathManager>().SetMats();
             }
 
             if (!camActivated)
