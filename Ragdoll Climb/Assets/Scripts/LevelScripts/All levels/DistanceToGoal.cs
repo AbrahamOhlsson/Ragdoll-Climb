@@ -15,7 +15,7 @@ public class DistanceToGoal : MonoBehaviour
     private float distToEnd;
 
     
-    void Awake ()
+    void Start ()
     {
         // "startPos" is the camera position
         //startPos = target.position.y;
@@ -27,7 +27,7 @@ public class DistanceToGoal : MonoBehaviour
 
 			if (playerTemp != null)
 			{
-				GameObject playerRoot = playerTemp.transform.Find("Main/DeformationSystem/Root_M").gameObject;
+				GameObject playerRoot = playerTemp.GetComponent<PlayerInfo>().rootObj;
 
 				if (playerRoot != null)
 				{

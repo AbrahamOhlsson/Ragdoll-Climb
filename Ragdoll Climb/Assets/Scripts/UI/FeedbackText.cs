@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class FeedbackText : MonoBehaviour
 {
-    [HideInInspector] public int playerNr;
-    [HideInInspector] public Transform playerTrans;
-    [HideInInspector] public Vector2 goalPos;
+    public int playerNr;
+    internal Transform playerTrans;
+    internal Vector2 goalPos;
 
     [SerializeField] enum Alignment { AbovePlayer, TopOfScreen }
     [SerializeField] Alignment alignment = Alignment.AbovePlayer;

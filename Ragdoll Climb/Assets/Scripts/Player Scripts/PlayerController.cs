@@ -95,11 +95,11 @@ public class PlayerController : MonoBehaviour
     [Header("Rigidbodies")]
     [SerializeField] Rigidbody leftHand;
     [SerializeField] Rigidbody rightHand;
-    [SerializeField] Rigidbody head;
     [SerializeField] Rigidbody leftShoulder;
     [SerializeField] Rigidbody rightShoulder;
     [SerializeField] Rigidbody leftElbow;
     [SerializeField] Rigidbody rightElbow;
+    [SerializeField] Rigidbody head;
     [SerializeField] Rigidbody root;
     [SerializeField] Rigidbody spine;
     [SerializeField] Rigidbody leftFoot;
@@ -205,9 +205,37 @@ public class PlayerController : MonoBehaviour
 	[SerializeField]
 	float deathPressTime;
 
-
 	void Start()
     {
+        bodyParts.AddRange(GetComponentsInChildren<Rigidbody>());
+
+        // Finds the important bodyparts
+        leftHand = bodyParts.Find(x => (x.name.Contains("Wrist") || x.name.Contains("wrist")) && x.name.Contains("L"));
+        rightHand = bodyParts.Find(x => (x.name.Contains("Wrist") || x.name.Contains("wrist")) && x.name.Contains("R"));
+        leftShoulder = bodyParts.Find(x => (x.name.Contains("Shoulder") || x.name.Contains("shoulder")) && x.name.Contains("L"));
+        rightShoulder = bodyParts.Find(x => (x.name.Contains("Shoulder") || x.name.Contains("shoulder")) && x.name.Contains("R"));
+        leftElbow = bodyParts.Find(x => (x.name.Contains("Elbow") || x.name.Contains("elbow")) && x.name.Contains("L"));
+        rightElbow = bodyParts.Find(x => (x.name.Contains("Elbow") || x.name.Contains("elbow")) && x.name.Contains("R"));
+        leftFoot = bodyParts.Find(x => (x.name.Contains("Ankle") || x.name.Contains("ankle")) && x.name.Contains("L"));
+        rightFoot = bodyParts.Find(x => (x.name.Contains("Ankle") || x.name.Contains("ankle")) && x.name.Contains("R"));
+        head = bodyParts.Find(x => x.name.Contains("Head") || x.name.Contains("head"));
+        root = bodyParts.Find(x => x.name.Contains("Root") || x.name.Contains("root"));
+        spine = bodyParts.Find(x => x.name.Contains("Spine") || x.name.Contains("spine"));
+
+        // Gets all objects with WorldSpaceUI to find stamina bars, this narrows the search
+        List<WorldSpaceUI> uis = new List<WorldSpaceUI>();
+        uis.AddRange(GetComponentsInChildren<WorldSpaceUI>());
+        // Finds the stamina bars
+        leftStaminaBar = uis.Find(x => x.name.Contains("Left Stamina Bar")).GetComponent<Renderer>();
+        rightStaminaBar = uis.Find(x => x.name.Contains("Right Stamina Bar")).GetComponent<Renderer>();
+
+        // Gets all particle systems and finds the ones we need
+        List<ParticleSystem> partSys = new List<ParticleSystem>();
+        partSys.AddRange(GetComponentsInChildren<ParticleSystem>());
+        boostEffect = partSys.Find(x => x.name.Contains("Boost Effect"));
+        leftGoodClimbEffect = partSys.Find(x => x.name.Contains("Left Good Climb Effect"));
+        rightGoodClimbEffect = partSys.Find(x => x.name.Contains("Right Good Climb Effect"));
+
         startPushForce = pushForce;
         startPullForce = pullForce;
 
@@ -222,8 +250,6 @@ public class PlayerController : MonoBehaviour
 
         releaseGripDelayedLeft = ReleaseGripDelayed(true);
         releaseGripDelayedRight = ReleaseGripDelayed(false);
-
-        bodyParts.AddRange(GetComponentsInChildren<Rigidbody>());
 
         leftHand.maxAngularVelocity = Mathf.Infinity;
         rightHand.maxAngularVelocity = Mathf.Infinity;
@@ -543,7 +569,7 @@ public class PlayerController : MonoBehaviour
 				deathTimer = 0;
 			}
 
-			deathTimer += 1 * Time.deltaTime;
+			deathTimer += Time.deltaTime;
 		}
 
 		if (state.DPad.Down == ButtonState.Released)
