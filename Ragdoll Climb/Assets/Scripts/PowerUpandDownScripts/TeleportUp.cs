@@ -6,10 +6,7 @@ public class TeleportUp : MonoBehaviour
 {
     GameObject PlayerTP;
     public GameObject particleSys;
-
     GameObject teleportPos;
-
-
     public List<GameObject> teleportList;
 
 
@@ -17,7 +14,7 @@ public class TeleportUp : MonoBehaviour
     void Start()
     {
         particleSys = gameObject.transform.Find("Static Black Hole").gameObject;
-        Destroy(particleSys);
+        //Destroy(particleSys);
     }
 
 
@@ -29,7 +26,7 @@ public class TeleportUp : MonoBehaviour
             {
                 PlayerTP = other.transform.root.gameObject;
                 GetTeleportPosition();
-                Destroy(gameObject);
+                 Destroy(gameObject);
             }
         }
         else if (other.tag == "BottomObj")
@@ -41,10 +38,12 @@ public class TeleportUp : MonoBehaviour
         foreach (Transform child in transform)
         {
             if (child.tag != "Particle Effect")
+            {
                 teleportList.Add(child.gameObject);
-
-            teleportPos = teleportList[Random.Range(0, teleportList.Count - 1)];
-
+                teleportPos = teleportList[Random.Range(0, teleportList.Count - 1)];
+                PlayerTP.GetComponent<PlayerPowerups>().StartTeleport(teleportPos.transform.position);
+            }
         }
+        
     }
 }
