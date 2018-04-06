@@ -41,10 +41,8 @@ public class MultiplayerManager : MonoBehaviour
             for (int i = 0; i < players.Count; i++)
             {
                 // CHANGE THIS LATER
-                Instantiate(characterParts[i], players[i].transform);
+                Instantiate(characterParts[singleton.characterIndex[i]], players[i].transform);
             }
-
-            print("INSTANTIATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 
