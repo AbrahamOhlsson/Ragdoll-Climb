@@ -11,6 +11,15 @@ public class PlayerStun : MonoBehaviour
 	public ParticleSystem starBurst;
 
 
+    private void Start()
+    {
+        List<ParticleSystem> partSys = new List<ParticleSystem>();
+        partSys.AddRange(GetComponentsInChildren<ParticleSystem>());
+        starBurst = partSys.Find(x => x.name.Contains("BrightStars"));
+        stars = partSys.Find(x => x.name.Contains("Head"));
+    }
+
+
     void Update()
     { 
         //If the player activate the stun and start the timer.

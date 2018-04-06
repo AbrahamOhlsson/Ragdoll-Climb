@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class DeathManager : MonoBehaviour
 {
@@ -42,10 +43,13 @@ public class DeathManager : MonoBehaviour
 
     Renderer[] rends;
 
+    List<Material> originMats = new List<Material>();
+    List<Material> transMats = new List<Material>();
+
     PlayerInfo playerInfo;
 
 
-	void Awake ()
+	void Start ()
     {
         // Gets all the players   (even the disabled players)
         for (int i = 0; i < manager.players.Count; i++)
@@ -60,7 +64,7 @@ public class DeathManager : MonoBehaviour
 
         rootTrans = GetRoot(gameObject);
 
-        rends = transform.GetChild(0).GetComponentsInChildren<Renderer>();
+        rends = transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
         myColliders = GetComponentsInChildren<Collider>();
 
@@ -114,12 +118,16 @@ public class DeathManager : MonoBehaviour
                     // If the renderer already is transparent
                     if (/*!rends[i].enabled*/ rends[i].material.color.a == transparency)
                     {
+                        rends[i].material = originMats.Find(x => x.name == rends[i].material.name.Replace("_trans (Instance)", ""));
+
                         // The renderer is not transparent anymore
                         rends[i].material.color = new Color(rends[i].material.color.r, rends[i].material.color.g, rends[i].material.color.b, 1f);
                         //rends[i].enabled = true;
                     }
                     else
                     {
+                        rends[i].material = transMats.Find(x => x.name == rends[i].material.name.Replace(" (Instance)","_trans"));
+
                         // The renderer is now transparent
                         rends[i].material.color = new Color(rends[i].material.color.r, rends[i].material.color.g, rends[i].material.color.b, transparency);
                         //rends[i].enabled = false;
@@ -165,16 +173,34 @@ public class DeathManager : MonoBehaviour
 		foreach(Rigidbody i in rbs)
 		{
 			if (i.tag != "Slippery")
-			{	//Check distance between regidbodies and root_M
+			{	
+                //Check distance between regidbodies and root_M
 				if (Vector3.Distance(i.transform.position, rootTrans.position) > 3)
 				{
 					Death();
 				}
 			}
 		}
-
-
 	}
+
+
+    public void SetMats()
+    {
+        for (int i = 0; i < rends.Length; i++)
+        {
+            if (!originMats.Exists(x => x.name == rends[i].material.name.Replace(" (Instance)", "")))
+            {
+                originMats.Add((Material)Resources.Load("Materials/" + rends[i].material.name.Replace(" (Instance)", "")));
+                transMats.Add((Material)Resources.Load("Materials/" + originMats[i].name.Replace(" (Instance)", "") + "_trans"));
+            }
+        }
+
+        for (int i = 0; i < originMats.Count; i++)
+        {
+            originMats[i].color = playerInfo.color;
+            transMats[i].color = playerInfo.color;
+        }
+    }
 
 
     // Gets the "Root_M" object of players
@@ -295,6 +321,8 @@ public class DeathManager : MonoBehaviour
 
         for (int i = 0; i < rends.Length; i++)
         {
+            rends[i].material = originMats.Find(x => x.name == rends[i].material.name.Replace("_trans (Instance)", "") || x.name == rends[i].material.name.Replace(" (Instance)", ""));
+
             // Makes player not transparent
             rends[i].material.color = new Color(rends[i].material.color.r, rends[i].material.color.g, rends[i].material.color.b, 1f);
             //rends[i].enabled = true;

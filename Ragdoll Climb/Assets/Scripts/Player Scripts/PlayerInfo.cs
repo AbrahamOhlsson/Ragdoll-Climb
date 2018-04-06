@@ -8,11 +8,11 @@ public class PlayerInfo : MonoBehaviour
 {
     // Text displaying what happens to the player
     public FeedbackText feedbackText;
+    internal int playerNr = 1;
 
     // If the player has collision with other players
     internal bool solid = true;
 
-    internal int playerNr = 1;
     internal Color color;
 
     // The game pad index that controls this player
@@ -33,7 +33,7 @@ public class PlayerInfo : MonoBehaviour
 
     private void Start()
     { 
-        feedbackText.playerNr = playerNr;
+        //feedbackText.playerNr = playerNr;
 
         Rigidbody[] limbs = GetComponentsInChildren<Rigidbody>();
 
@@ -48,6 +48,8 @@ public class PlayerInfo : MonoBehaviour
             standardMasses.Add(limbs[i].mass);
             targetMasses.Add(limbs[i].mass);
         }
+
+        Camera.main.GetComponent<CameraScript>().playerTrans.Add(rootObj.transform);
     }
 
 
