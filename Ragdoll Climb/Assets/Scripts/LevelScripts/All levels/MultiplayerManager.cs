@@ -139,8 +139,7 @@ public class MultiplayerManager : MonoBehaviour
                         //trailRenderers[j].colorGradient = gradient;
                         trailRenderers[j].startColor = playerColors[i];
                     }
-
-                    print(i + 1);
+                    
                     players[i].GetComponent<PlayerInfo>().playerNr = i + 1;
                     players[i].GetComponent<PlayerInfo>().color = playerColors[i];
                     players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = playerColors[i];

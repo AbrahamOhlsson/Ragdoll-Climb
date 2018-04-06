@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class DeathManager : MonoBehaviour
 {
@@ -254,7 +253,7 @@ public class DeathManager : MonoBehaviour
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
-                if (!myColliders[i].gameObject.name.Contains("Wrist"))
+                if (!myColliders[i].gameObject.name.Contains("Wrist") || !myColliders[i].gameObject.name.Contains("wrist"))
                     Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
             }
         }
