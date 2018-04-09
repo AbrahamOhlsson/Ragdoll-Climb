@@ -103,7 +103,7 @@ public class MultiplayerManager : MonoBehaviour
         }
 
         // If we are in debug mode (we started the level directly from the editor)
-        if (singleton.debug)
+        else if (singleton.debug)
         {
             // Gets states for all game pads
             for (int i = 0; i < states.Length; i++)
