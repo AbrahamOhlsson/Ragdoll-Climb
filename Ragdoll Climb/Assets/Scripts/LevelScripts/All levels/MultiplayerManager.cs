@@ -78,6 +78,8 @@ public class MultiplayerManager : MonoBehaviour
                     trailRenderers[j].startColor = singleton.colors[i];
                 }
 
+                players[i].GetComponent<VibrationManager>().playerIndex = singleton.playerIndexes[i];
+
                 // Sets which controller that should control this player
                 players[i].GetComponent<PlayerController>().SetGamePad(singleton.playerIndexes[i]);
                 players[i].GetComponent<PlayerInfo>().playerIndex = singleton.playerIndexes[i];
