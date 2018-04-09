@@ -40,7 +40,6 @@ public class MultiplayerManager : MonoBehaviour
         {
             for (int i = 0; i < players.Count; i++)
             {
-                // CHANGE THIS LATER
                 Instantiate(characterParts[singleton.characterIndex[i]], players[i].transform);
             }
         }
