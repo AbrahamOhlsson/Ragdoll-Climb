@@ -165,10 +165,11 @@ public class DeathManager : MonoBehaviour
             ghostTimer += Time.deltaTime;
         }
 
+        // Death if below the bottom object
         if (rootTrans.position.y < bottomObj.position.y)
             Death();
 
-		//Death if ragdoll explodes
+		// Death if ragdoll explodes
 		foreach(Rigidbody i in rbs)
 		{
 			if (i.tag != "Slippery")
@@ -189,8 +190,8 @@ public class DeathManager : MonoBehaviour
         {
             if (!originMats.Exists(x => x.name == rends[i].material.name.Replace(" (Instance)", "")))
             {
-                originMats.Add((Material)Resources.Load("Materials/" + rends[i].material.name.Replace(" (Instance)", "")));
-                transMats.Add((Material)Resources.Load("Materials/" + originMats[i].name.Replace(" (Instance)", "") + "_trans"));
+                originMats.Add(new Material((Material)Resources.Load("Materials/" + rends[i].material.name.Replace(" (Instance)", ""))));
+                transMats.Add(new Material((Material)Resources.Load("Materials/" + originMats[i].name.Replace(" (Instance)", "") + "_trans")));
             }
         }
 

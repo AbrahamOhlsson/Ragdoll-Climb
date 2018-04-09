@@ -129,12 +129,12 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		yield return new WaitForSeconds(freezeTime);
 
 		doLerpBack = false;
-
+        
 		// Changes color of all renderers
 		for (int j = 0; j < renderers.Length; j++)
 		{
 			if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
-                renderers[j].material.color = new Color(defColor.r, defColor.g, defColor.g, renderers[j].material.color.a);
+                renderers[j].material.color = new Color(defColor.r, defColor.g, defColor.b, renderers[j].material.color.a);
         }
 
 	}
@@ -198,7 +198,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		for (int j = 0; j < renderers.Length; j++)
 		{
             if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
-				renderers[j].material.color = new Color(defColor.r, defColor.g, defColor.g, renderers[j].material.color.a);
+				renderers[j].material.color = new Color(defColor.r, defColor.g, defColor.b, renderers[j].material.color.a);
 		}
 	}
 }

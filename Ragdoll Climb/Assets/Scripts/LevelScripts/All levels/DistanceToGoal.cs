@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class DistanceToGoal : MonoBehaviour
 {    
     public Text rangeText;
-    public List<GameObject> players; // max 4 players(Root_M)
-    public GameObject highestPlayer;
+    public List<Transform> playerRoots;
+    public Transform highestPlayer;
     public Rigidbody highestLimb;
     
+    private List<GameObject> players;
     private Rigidbody[] limbs;
     private Transform target; 
     private float distToEnd;
@@ -20,25 +21,32 @@ public class DistanceToGoal : MonoBehaviour
         // "startPos" is the camera position
         //startPos = target.position.y;
         distToEnd = 0;
-        
-		for(int i= 1; i<5; i++)
-		{ 
-		    GameObject playerTemp = GameObject.Find("Player "+ i);
 
-			if (playerTemp != null)
-			{
-				GameObject playerRoot = playerTemp.GetComponent<PlayerInfo>().rootObj;
+        players = GameObject.Find("GameManager").GetComponent<MultiplayerManager>().players;
+        for (int i = 0; i < players.Count; i++)
+        {
+            playerRoots.Add(players[i].GetComponent<PlayerInfo>().rootObj.transform);
+        }
 
-				if (playerRoot != null)
-				{
-					players.Add(playerRoot);
-				}
-			}
-		}
+		//for(int i= 1; i<5; i++)
+		//{
+		//    GameObject playerTemp = GameObject.Find("Player "+ i);
+  //          print("Tried to get player");
+
+		//	if (playerTemp != null)
+		//	{
+		//		GameObject playerRoot = playerTemp.GetComponent<PlayerInfo>().rootObj;
+
+		//		if (playerRoot != null)
+		//		{
+		//			players.Add(playerRoot);
+		//		}
+		//	}
+		//}
 
         rangeText = GameObject.Find("RangeText").GetComponent<Text>();
 
-		highestPlayer = players[0];
+		highestPlayer = playerRoots[0];
 	}
 	
 	void Update ()
@@ -52,11 +60,11 @@ public class DistanceToGoal : MonoBehaviour
 
 		
         // Checks everytime among the players who is the highest y-position(First in the race) 
-        for (int i = 0; i < players.Count; i++)
+        for (int i = 0; i < playerRoots.Count; i++)
         {
-            if (players[i].transform.position.y > highestPlayer.transform.position.y)
+            if (playerRoots[i].transform.position.y > highestPlayer.transform.position.y)
             {
-                highestPlayer = players[i];
+                highestPlayer = playerRoots[i];
             }
         }
 
