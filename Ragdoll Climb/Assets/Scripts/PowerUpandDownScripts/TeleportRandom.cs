@@ -51,7 +51,7 @@ public class TeleportRandom : MonoBehaviour
 
 	private void OnDrawGizmosSelected()
 	{
-		Gizmos.color = Color.red;
+		Gizmos.color = Color.magenta;
 	 //Use the same vars you use to draw your Overlap SPhere to draw your Wire Sphere.
 		Gizmos.DrawWireSphere(transform.position, sphereRadius);
 	}
