@@ -66,23 +66,17 @@ public class musicManager : MonoBehaviour
         //}
 
 
-        //startBlockTransform = GameObject.Find("StartModul").transform;
+        startBlockTransform = GameObject.Find("StartModul").transform;
 
-        //endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+        endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
 
-        //cameraTransform = GameObject.Find("Main Camera (1)").transform;
+        cameraTransform = GameObject.Find("Main Camera").transform;
 
     }
 
     void Start()
     {
-
-        startBlockTransform = GameObject.Find("StartModul").transform;
-
-        endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
-
-        cameraTransform = GameObject.Find("Main Camera (1)").transform;
-
+        
         partInt = 1;  // 1 = first part 
 
         distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
@@ -174,15 +168,17 @@ public class musicManager : MonoBehaviour
     public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
     {
         float startVolume = audioSource.volume;
-        
+        float timetest = 0;     // TA BORT SEN 
 
         while (audioSource.volume > 0) 
         {
+            timetest += 1 * Time.deltaTime;
             audioSource.volume -= (startVolume / FadeTime) * Time.deltaTime; //startVolume * (FadeTime / Time.deltaTime);
 
             yield return null;
         }
 
+       // print("klar i fade Out på " + timetest + " sec");
         audioSource.Stop();
         
     }
@@ -204,7 +200,8 @@ public class musicManager : MonoBehaviour
         }
         audioSource.volume = startVolume;
 
-
+        //print("klar i fade in på " + timetest + " sec");
+        
     }
 
 }

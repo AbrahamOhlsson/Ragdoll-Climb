@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CrushCheck : MonoBehaviour
 {
-    [SerializeField] float minDist = 1.5f;
     [SerializeField] float crushImpulse = 100f;
 
     CrushAndBottomColl[] colls;
@@ -23,19 +22,8 @@ public class CrushCheck : MonoBehaviour
         {
             for (int j = 0; j < colls.Length; j++)
             {
-                //if (colls[i].touchingCrush && colls[j].touchingBottom && colls[i].canBeCrushed
-                //    && colls[i].lowestCrushPoint > GetComponent<PlayerInfo>().rootObj.transform.position.y)
-                //{
-                //    if (colls[i].lowestCrushPoint - colls[j].highestBottomObjPoint <= minDist)
-                //    {
-                //        print("DEATH");
-                //        GetComponent<DeathManager>().Death();
-                //        break;
-                //    }
-                //}
-
                 // If a collider is touching a crushing object and another is touching the bottom
-                if (colls[i].touchingCrush && colls[j].touchingBottom)
+                if (colls[i].touchingCrush && (colls[j].touchingBottom || colls[j].touchingCrush))
                 {
                     //print("Crush: " + colls[i].impulse + ",     Bottom: " + colls[j].impulse);
 

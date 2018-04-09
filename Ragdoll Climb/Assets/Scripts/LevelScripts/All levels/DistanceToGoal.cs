@@ -9,52 +9,40 @@ public class DistanceToGoal : MonoBehaviour
     public List<GameObject> players; // max 4 players(Root_M)
     public GameObject highestPlayer;
     public Rigidbody highestLimb;
-
+    
     private Rigidbody[] limbs;
     private Transform target; 
     private float distToEnd;
 
-	public GameObject playerTemp;
-	public GameObject playerRoot;
-
-
-    void Awake ()
+    
+    void Start ()
     {
         // "startPos" is the camera position
         //startPos = target.position.y;
         distToEnd = 0;
-
-
+        
 		for(int i= 1; i<5; i++)
 		{ 
-		playerTemp = GameObject.Find("Player ("+ i +")");
+		    GameObject playerTemp = GameObject.Find("Player "+ i);
 
 			if (playerTemp != null)
 			{
-
-
-				//print("jo det gör den ");
-				playerRoot = playerTemp.transform.Find("Main/DeformationSystem/Root_M").gameObject;
-				//players.Add(Child);
+				GameObject playerRoot = playerTemp.GetComponent<PlayerInfo>().rootObj;
 
 				if (playerRoot != null)
 				{
 					players.Add(playerRoot);
 				}
-
 			}
 		}
 
         rangeText = GameObject.Find("RangeText").GetComponent<Text>();
 
 		highestPlayer = players[0];
-
-		
 	}
 	
 	void Update ()
     {
-
 		if (limbs == null)
 		{
 			limbs = highestPlayer.GetComponentsInChildren<Rigidbody>();
@@ -63,14 +51,11 @@ public class DistanceToGoal : MonoBehaviour
 		}
 
 		
-
         // Checks everytime among the players who is the highest y-position(First in the race) 
         for (int i = 0; i < players.Count; i++)
         {
             if (players[i].transform.position.y > highestPlayer.transform.position.y)
             {
-
-				
                 highestPlayer = players[i];
             }
         }
@@ -81,11 +66,9 @@ public class DistanceToGoal : MonoBehaviour
         // Checks everytime of the "higestplayer" limbs wich is the highest y-position(First in the race) 
         for (int i = 0; i < limbs.Length; i++)
         {
-			
 			if (limbs[i].transform.position.y > highestLimb.transform.position.y && limbs[i].tag == "Player")
             {
                 highestLimb = limbs[i];
-				
 			}
         }
 

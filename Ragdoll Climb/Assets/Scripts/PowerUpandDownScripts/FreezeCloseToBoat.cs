@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreezeCloseToBoat : MonoBehaviour {
+public class FreezeCloseToBoat : MonoBehaviour
+{
+    [SerializeField] float tooCloseToBottom;
 
-    public GameObject Boat;
-
-    [SerializeField]
-    float tooCloseToBoat;
+    GameObject bottomObj;
 
 	// Use this for initialization
 	void Start ()
     {
-        //Boat = FindObjectOfType<teleportBoatCheck>().bout;
+        bottomObj = GameObject.FindGameObjectWithTag("BottomObj");
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        if (transform.position.y < Boat.transform.position.y + tooCloseToBoat)
+        if (transform.position.y < bottomObj.transform.position.y + tooCloseToBottom)
         {
             transform.root.GetComponent<FreezePlayerPowerUp>().closeToBoat = true;
         }
-        if (transform.position.y > Boat.transform.position.y + tooCloseToBoat)
+        if (transform.position.y > bottomObj.transform.position.y + tooCloseToBottom)
         {
             transform.root.GetComponent<FreezePlayerPowerUp>().closeToBoat = false;
         }

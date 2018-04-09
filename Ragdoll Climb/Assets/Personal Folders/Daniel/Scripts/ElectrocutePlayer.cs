@@ -2,26 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElectrocutePlayer : MonoBehaviour {
+public class ElectrocutePlayer : MonoBehaviour
+{
+	bool canStun = true;
+    
+    List<GameObject> players;
 
-	GameObject electrocutePlayer;
-	bool canStun =true;
+    private void Start()
+    {
+        players = GameObject.Find("GameManager").GetComponent<MultiplayerManager>().players;
+    }
 
-	void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
 	{
-		electrocutePlayer = other.transform.root.gameObject;
-
-		if (electrocutePlayer.tag == "Player" && canStun)
+		if (other.tag == "Player" && canStun)
 		{
-            if (electrocutePlayer.GetComponent<PlayerInfo>().solid)
+            if (other.transform.root.GetComponent<PlayerInfo>().solid)
             {
                 canStun = false;
-                int i = Random.Range(1, PlayerInfoSingleton.instance.playerAmount);
 
-                print("player amount" + PlayerInfoSingleton.instance.playerAmount + 1);
-                print("stun player test " + i);
-                GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").SetActive(true);
-                GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").GetComponent<LightningBolt>().startLightning();
+                int i = Random.Range(0, PlayerInfoSingleton.instance.playerAmount);
+
+                LightningBolt lightningCloud = players[i].transform.GetComponentInChildren<LightningBolt>(true);
+                lightningCloud.gameObject.SetActive(true);
+                lightningCloud.startLightning();
+
+                //players[i].transform.Find("Main/DeformationSystem/LightningCloud").gameObject.SetActive(true);
+                //players[i].transform.Find("Main/DeformationSystem/LightningCloud").GetComponent<LightningBolt>().startLightning();
+
+                //GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").SetActive(true);
+                //GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").GetComponent<LightningBolt>().startLightning();
                 //electrocutePlayer.transform.Find("Main/DeformationSystem/LightningCloud").gameObject.SetActive(true);
 
                 Destroy(gameObject);

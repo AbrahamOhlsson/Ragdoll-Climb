@@ -36,15 +36,18 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 1f)]
     [SerializeField] float armMassDecrease = 0.4f;
 
-    [Header("Punching (NOT IN USE)")]
+    [Header("Punching")]
     [Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
-    [SerializeField] float punchPullBackForce = 1000f;
+    [SerializeField] float punchPullBackForce = 500;
     [Tooltip("The force that is applied to the arm to for punching.")]
-    [SerializeField] float punchForce = 3000f;
+    [SerializeField] float punchForce = 2000f;
     [Tooltip("The time it takes for the punch force to be applied after the punch pull back force.")]
-    [SerializeField] float punchDelay = 0.3f;
+    [SerializeField] float punchDelay = 0.1f;
     [Tooltip("The time it takes for the punch state to be reset after the punch force has been applied.")]
     [SerializeField] float punchStateResetDelay = 0.2f;
+    [Tooltip("The percentage of stamina lost by a punch.")]
+    [Range(0f, 1f)]
+    [SerializeField] float punchStaminaCost = 0.1f;
 
     [Header("Boost")]
     [Tooltip("How much pull and push force will be multiplied when the player climbs good.")]
@@ -68,11 +71,15 @@ public class PlayerController : MonoBehaviour
     [Header("Stamina")]
     //Timers for vibrating states
     [Range(0f, 5f)]
-    [SerializeField] float justGrabbed = 0.5f;
+    [SerializeField] float justGrabbed = 0.25f;
     [Range(0f, 10f)]
     [SerializeField] float losingGrip = 3f;
     [Range(0f, 10f)]
     [SerializeField] float lostGrip = 5f;
+    [Range(0f, 10f)]
+    [SerializeField] float staminaDrainStart = 1f;
+    [Range(0f, 1f)]
+    [SerializeField] float staminaDrainReduce = 0.5f;
 
     //How much faster the player regain its stamina (Original value was 1.5)
     [Tooltip("How much faster the player regain its stamina.")]
@@ -88,11 +95,11 @@ public class PlayerController : MonoBehaviour
     [Header("Rigidbodies")]
     [SerializeField] Rigidbody leftHand;
     [SerializeField] Rigidbody rightHand;
-    [SerializeField] Rigidbody head;
     [SerializeField] Rigidbody leftShoulder;
     [SerializeField] Rigidbody rightShoulder;
     [SerializeField] Rigidbody leftElbow;
     [SerializeField] Rigidbody rightElbow;
+    [SerializeField] Rigidbody head;
     [SerializeField] Rigidbody root;
     [SerializeField] Rigidbody spine;
     [SerializeField] Rigidbody leftFoot;
@@ -110,7 +117,10 @@ public class PlayerController : MonoBehaviour
     [Header("Audio clips")]
     [SerializeField] AudioClip goodClimbSfx;
     [SerializeField] AudioClip boostSfx;
+    [SerializeField] AudioClip punchSwooshSfx;
 
+    internal bool leftPunching = false;
+    internal bool rightPunching = false;
 
     // If hands are currently gripping
     bool gripLeft = false;
@@ -128,9 +138,6 @@ public class PlayerController : MonoBehaviour
     //"Stamina bools". If set false, said hand wont be able to climb.
     bool rightCanClimb = true;
     bool leftCanClimb = true;
-
-    bool leftPunching = false;
-    bool rightPunching = false;
     
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
@@ -147,12 +154,17 @@ public class PlayerController : MonoBehaviour
     // How long the hands have gripped
     float leftGripTimer = 0f;
     float rightGripTimer = 0f;
+
     // How long the boost has been activated
     float boostTimer = 0f;
 
     //Vibration Timer
     float rightTimer;
     float leftTimer;
+    float leftVibrationAmount;
+    float rightVibrationAmount;
+    
+    float staminaDrain = 1f;
 
     //Timer if the arms are too tired to climb with
     float rightNumbArm = 0;
@@ -179,6 +191,8 @@ public class PlayerController : MonoBehaviour
 
     PlayerInfo playerInfo;
 
+    VibrationManager vibrator;
+
     List<Rigidbody> bodyParts = new List<Rigidbody>();
 
     AudioSource source;
@@ -187,13 +201,41 @@ public class PlayerController : MonoBehaviour
     IEnumerator releaseGripDelayedLeft;
 
     // Death ########
-   public  float deathTimer;
+    public  float deathTimer;
 	[SerializeField]
 	float deathPressTime;
 
-
 	void Start()
     {
+        bodyParts.AddRange(GetComponentsInChildren<Rigidbody>());
+
+        // Finds the important bodyparts
+        leftHand = bodyParts.Find(x => (x.name.Contains("Wrist") || x.name.Contains("wrist")) && x.name.Contains("L"));
+        rightHand = bodyParts.Find(x => (x.name.Contains("Wrist") || x.name.Contains("wrist")) && x.name.Contains("R"));
+        leftShoulder = bodyParts.Find(x => (x.name.Contains("Shoulder") || x.name.Contains("shoulder")) && x.name.Contains("L"));
+        rightShoulder = bodyParts.Find(x => (x.name.Contains("Shoulder") || x.name.Contains("shoulder")) && x.name.Contains("R"));
+        leftElbow = bodyParts.Find(x => (x.name.Contains("Elbow") || x.name.Contains("elbow")) && x.name.Contains("L"));
+        rightElbow = bodyParts.Find(x => (x.name.Contains("Elbow") || x.name.Contains("elbow")) && x.name.Contains("R"));
+        leftFoot = bodyParts.Find(x => (x.name.Contains("Ankle") || x.name.Contains("ankle")) && x.name.Contains("L"));
+        rightFoot = bodyParts.Find(x => (x.name.Contains("Ankle") || x.name.Contains("ankle")) && x.name.Contains("R"));
+        head = bodyParts.Find(x => x.name.Contains("Head") || x.name.Contains("head"));
+        root = bodyParts.Find(x => x.name.Contains("Root") || x.name.Contains("root"));
+        spine = bodyParts.Find(x => x.name.Contains("Spine") || x.name.Contains("spine"));
+
+        // Gets all objects with WorldSpaceUI to find stamina bars, this narrows the search
+        List<WorldSpaceUI> uis = new List<WorldSpaceUI>();
+        uis.AddRange(GetComponentsInChildren<WorldSpaceUI>());
+        // Finds the stamina bars
+        leftStaminaBar = uis.Find(x => x.name.Contains("Left Stamina Bar")).GetComponent<Renderer>();
+        rightStaminaBar = uis.Find(x => x.name.Contains("Right Stamina Bar")).GetComponent<Renderer>();
+
+        // Gets all particle systems and finds the ones we need
+        List<ParticleSystem> partSys = new List<ParticleSystem>();
+        partSys.AddRange(GetComponentsInChildren<ParticleSystem>());
+        boostEffect = partSys.Find(x => x.name.Contains("Boost Effect"));
+        leftGoodClimbEffect = partSys.Find(x => x.name.Contains("Left Good Climb Effect"));
+        rightGoodClimbEffect = partSys.Find(x => x.name.Contains("Right Good Climb Effect"));
+
         startPushForce = pushForce;
         startPullForce = pullForce;
 
@@ -202,12 +244,12 @@ public class PlayerController : MonoBehaviour
 
         playerInfo = GetComponent<PlayerInfo>();
 
+        vibrator = GetComponent<VibrationManager>();
+
         source = GetComponent<AudioSource>();
 
         releaseGripDelayedLeft = ReleaseGripDelayed(true);
         releaseGripDelayedRight = ReleaseGripDelayed(false);
-
-        bodyParts.AddRange(GetComponentsInChildren<Rigidbody>());
 
         leftHand.maxAngularVelocity = Mathf.Infinity;
         rightHand.maxAngularVelocity = Mathf.Infinity;
@@ -259,7 +301,8 @@ public class PlayerController : MonoBehaviour
                 if (!leftPunching)
                     ArmControl(true);
 
-                if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching)
+                // Punch
+                if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching && leftCanClimb)
                     StartCoroutine(Punch(leftHand, pushDirLeft));
             }
             // Right arm and joystick
@@ -292,7 +335,8 @@ public class PlayerController : MonoBehaviour
                 if (!rightPunching)
                     ArmControl(false);
 
-                if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching)
+                // Punch
+                if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching && rightCanClimb)
                     StartCoroutine(Punch(rightHand, pushDirRight));
             }
 
@@ -305,7 +349,9 @@ public class PlayerController : MonoBehaviour
                 {
                     checkGripLeft.Connect();
                     gripLeft = true;
-                    
+
+                    vibrator.VibrateTimed(0.3f, 0f, justGrabbed, 2);
+
                     // Gets distance from the other hand
                     float handDist = leftHand.position.y - rightHand.position.y;
 
@@ -347,6 +393,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                     ReleaseGrip(true, false);
+
+                leftVibrationAmount = 0;
             }
             // Right grip controls
             if ((state.Triggers.Right >= 0.8f/* || state.Buttons.RightShoulder == ButtonState.Pressed*/) && (prevState.Triggers.Right < 0.8f/* && prevState.Buttons.RightShoulder == ButtonState.Released*/))
@@ -357,6 +405,8 @@ public class PlayerController : MonoBehaviour
                 {
                     checkGripRight.Connect();
                     gripRight = true;
+
+                    vibrator.VibrateTimed(0f, 0.2f, justGrabbed, 2);
                     
                     // Gets distance from the other hand
                     float handDist = rightHand.position.y - leftHand.position.y;
@@ -399,6 +449,8 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                     ReleaseGrip(false, false);
+
+                rightVibrationAmount = 0f;
             }
         }
 
@@ -423,31 +475,23 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //A timer when that counts how long the player is using the right hand. Hold too long and a vibration stars. Keep holding and you will fall.
+        //A timer when that counts how long the player is using the right hand. Hold too long and a vibration starts. Keep holding and you will fall.
         if (gripRight == true && !unlimitedStamina)
         {
             rightStaminaBar.gameObject.SetActive(true);
 
-            rightTimer += Time.deltaTime;
-            
-            if (rightTimer < justGrabbed)
-            {
-                GamePad.SetVibration(playerIndex, 1f, 1f);
-            }
-            else
-                GamePad.SetVibration(playerIndex, 0f, 0f);
-
+            rightTimer += staminaDrain * Time.deltaTime;
 
             if (rightTimer >= losingGrip)
             {
-                GamePad.SetVibration(playerIndex, 0f, 1f);
+                rightVibrationAmount = (rightTimer - losingGrip) / (lostGrip - losingGrip);
                 rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
             }
 
             if (rightTimer >= lostGrip)
             {
                 rightCanClimb = false;
-                GamePad.SetVibration(playerIndex, 0f, 0f);
+                rightVibrationAmount = 0f;
 
                 ReleaseGrip(false, false);
             }
@@ -457,7 +501,6 @@ public class PlayerController : MonoBehaviour
 
         if (gripRight == false)
         {
-            GamePad.SetVibration(playerIndex, 0f, 0f);
             rightTimer -= Time.deltaTime * staminaRegen;
             rightTimer = Mathf.Clamp(rightTimer, 0f, lostGrip);
             rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
@@ -473,25 +516,17 @@ public class PlayerController : MonoBehaviour
         {
             leftStaminaBar.gameObject.SetActive(true);
 
-            leftTimer += Time.deltaTime;
-
-            if (leftTimer < justGrabbed)
-            {
-                GamePad.SetVibration(playerIndex, 0.5f, 0.1f);
-            }
-            else
-                GamePad.SetVibration(playerIndex, 0f, 0f);
-
+            leftTimer += staminaDrain * Time.deltaTime;
+            
             if (leftTimer >= losingGrip)
             {
-                GamePad.SetVibration(playerIndex, 0.1f, 0f);
-                //leftStaminaBar.material.color = Color.red;
+                leftVibrationAmount = (leftTimer - losingGrip) / (lostGrip - losingGrip);
                 leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
             }
 
             if (leftTimer > lostGrip)
             {
-                GamePad.SetVibration(playerIndex, 0f, 0f);
+                leftVibrationAmount = 0f;
                 leftCanClimb = false;
 
                 ReleaseGrip(true, false);
@@ -502,7 +537,6 @@ public class PlayerController : MonoBehaviour
 
         if (gripLeft == false)
         {
-            GamePad.SetVibration(playerIndex, 0f, 0f);
             leftTimer -= Time.deltaTime * staminaRegen;
             leftTimer = Mathf.Clamp(leftTimer, 0f, lostGrip);
             leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
@@ -511,12 +545,21 @@ public class PlayerController : MonoBehaviour
                 leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
             else if (leftTimer <= 0.01f)
                 leftStaminaBar.gameObject.SetActive(false);
-            }
+        }
+
+        // Stamina drain is lesser if both hands are gripped
+        if (gripLeft && gripRight)
+            staminaDrain = staminaDrainStart * staminaDrainReduce;
+        else
+            staminaDrain = staminaDrainStart;
+
+        // Sets controller vibration
+        vibrator.VibrationManual(leftVibrationAmount, rightVibrationAmount, 1);
+
         // DPad DEATH     ###############################################################################################################
 
         if (state.DPad.Down == ButtonState.Pressed)
 		{
-
 			if(deathTimer > deathPressTime)
 			{
 				GetComponent<DeathManager>().Death();
@@ -526,21 +569,16 @@ public class PlayerController : MonoBehaviour
 				deathTimer = 0;
 			}
 
-			deathTimer += 1 * Time.deltaTime;
-
+			deathTimer += Time.deltaTime;
 		}
 
 		if (state.DPad.Down == ButtonState.Released)
 		{
-
             if (deathTimer != 0 )
-				{
-					deathTimer = 0;
-				}
+			{
+				deathTimer = 0;
+			}
 		}
-
-
-
 	}
 
 
@@ -709,30 +747,78 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator Punch(Rigidbody hand, Vector2 direction)
     {
-        /*if (hand == leftHand)
+        if (hand == leftHand)
         {
             leftPunching = true;
+
+            // Stamina stuff
+            if (!unlimitedStamina)
+            {
+                leftStaminaBar.gameObject.SetActive(true);
+                leftTimer += lostGrip * punchStaminaCost;
+                if (leftTimer >= losingGrip)
+                {
+                    leftStaminaBar.material.color = new Color(Mathf.Clamp01(((leftTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - leftTimer) / (lostGrip - losingGrip) * 2), leftStaminaBar.material.color.b);
+                }
+                if (leftTimer > lostGrip)
+                {
+                    leftCanClimb = false;
+                }
+                leftStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(leftTimer / lostGrip, 0.01f, 1f));
+            }
+
+            // Makes sure the hand wont continue to stretch out
             pushDirLeft = Vector3.zero;
+
+            vibrator.VibrateTimed(0.2f, 0f, 0.2f, 3);
         }
         else
         {
             rightPunching = true;
+
+            // Stamina stuff
+            if (!unlimitedStamina)
+            {
+                rightStaminaBar.gameObject.SetActive(true);
+                rightTimer += lostGrip * punchStaminaCost;
+                if (rightTimer >= losingGrip)
+                {
+                    rightStaminaBar.material.color = new Color(Mathf.Clamp01(((rightTimer - losingGrip) / ((lostGrip - losingGrip) / 2))), Mathf.Clamp01((lostGrip - rightTimer) / (lostGrip - losingGrip) * 2), rightStaminaBar.material.color.b);
+                }
+                if (rightTimer > lostGrip)
+                {
+                    rightCanClimb = false;
+                }
+                rightStaminaBar.material.SetFloat("_Cutoff", Mathf.Clamp(rightTimer / lostGrip, 0.01f, 1f));
+            }
+
+            // Makes sure the hand wont continue to stretch out
             pushDirRight = Vector3.zero;
+
+            vibrator.VibrateTimed(0f, 0.2f, 0.2f, 3);
         }
 
+        hand.GetComponent<TrailRenderer>().enabled = true;
+        source.PlayOneShot(punchSwooshSfx);
+
         yield return new WaitForFixedUpdate();
-        hand.AddForce(-direction.normalized * punchPullBackForce);
+        // Pulls back arm before punch
+        hand.AddForce(-direction * punchPullBackForce);
 
         yield return new WaitForSeconds(punchDelay);
         yield return new WaitForFixedUpdate();
-        hand.AddForce(direction.normalized * punchForce);
+        // Pushes hand out to punch
+        hand.AddForce(direction * punchForce);
 
         yield return new WaitForSeconds(punchStateResetDelay);
+        // The punch is done
         if (hand == leftHand)
             leftPunching = false;
         else
-            rightPunching = false;*/
+            rightPunching = false;
 
+        hand.GetComponent<TrailRenderer>().enabled = false;
+        
         yield return null;
     }
 

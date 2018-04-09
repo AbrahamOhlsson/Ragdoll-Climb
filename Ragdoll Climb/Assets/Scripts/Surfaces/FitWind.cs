@@ -11,7 +11,7 @@ public class FitWind : MonoBehaviour
     [SerializeField] float cloudAmount = 50f;
     [SerializeField] float lineAmount = 5f;
 
-    BoxCollider collider;
+    BoxCollider coll;
     ParticleSystem[] particleSystems;
     ParticleSystem.MainModule[] psMain;
     ParticleSystem.ShapeModule[] psShape;
@@ -21,7 +21,7 @@ public class FitWind : MonoBehaviour
 
     private void Start()
     {
-        collider = GetComponent<BoxCollider>();
+        coll = GetComponent<BoxCollider>();
 
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
@@ -43,8 +43,8 @@ public class FitWind : MonoBehaviour
     private void Update()
     {
         // Resizes trigger box based on given values in inspector
-        collider.size = new Vector3(width, collider.size.y, lenght);
-        collider.center = new Vector3(0f, 0f, lenght / 2);
+        coll.size = new Vector3(width, coll.size.y, lenght);
+        coll.center = new Vector3(0f, 0f, lenght / 2);
 
         for (int i = 0; i < particleSystems.Length; i++)
         {

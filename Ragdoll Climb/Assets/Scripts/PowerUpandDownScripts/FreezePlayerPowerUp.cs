@@ -5,15 +5,8 @@ using UnityEngine;
 public class FreezePlayerPowerUp : MonoBehaviour
 {
     public Component[] Rigidbodies;
-
-    [SerializeField]
-    GameObject rightGrabObject;
-    [SerializeField]
-    GameObject leftGrabObject;
-
+    
     //////Getting the color for the sake of freeze
-    [SerializeField]
-    Color[] FreezeColors;
     Renderer[] renderers;
 
 
@@ -31,30 +24,29 @@ public class FreezePlayerPowerUp : MonoBehaviour
     [SerializeField]
     private Color lerpedColor;
     private Color defColor;
+    private Color currentColor;
 
-    public void FreezeTime()
+    private void Start()
     {
-
         // Gets all renderers in player
-        renderers = transform.GetChild(0).GetComponentsInChildren<Renderer>();
+        renderers = transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
         Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
-        StartCoroutine(freezeThePlayer());
+        // Get player default colour
+        defColor = GetComponent<PlayerInfo>().color;
+        currentColor = defColor;
+    }
 
+    public void FreezeTime()
+    {
+        StartCoroutine(freezeThePlayer());
     }
 
 
 	public void DeathFreezeTime()
 	{
-
-		// Gets all renderers in player
-		renderers = transform.GetChild(0).GetComponentsInChildren<Renderer>();
-
-		Rigidbodies = GetComponentsInChildren<Rigidbody>();
-
 		StartCoroutine(freezeDeathThePlayer());
-
 	}
 
 
@@ -62,20 +54,24 @@ public class FreezePlayerPowerUp : MonoBehaviour
     {
         if (doLerp)
         {
+            currentColor = Color.Lerp(currentColor, lerpedColor, lerpTime * Time.deltaTime);
+
             // Changes color of all renderers
             for (int j = 0; j < renderers.Length; j++)
             {
-                renderers[j].material.color = Color.Lerp(renderers[j].material.color, lerpedColor, lerpTime * Time.deltaTime);
+                renderers[j].material.color = new Color(currentColor.r, currentColor.g, currentColor.b, renderers[j].material.color.a);
             }
 
         }
 
         if(doLerpBack)
         {
+            currentColor = Color.Lerp(currentColor, defColor, lerpTime * Time.deltaTime);
+
             // Changes color of all renderers
             for (int j = 0; j < renderers.Length; j++)
             {
-                renderers[j].material.color = Color.Lerp(renderers[j].material.color, defColor, lerpTime * Time.deltaTime);
+                renderers[j].material.color = new Color(currentColor.r, currentColor.g, currentColor.b, renderers[j].material.color.a);
             }
 
         }
@@ -84,7 +80,6 @@ public class FreezePlayerPowerUp : MonoBehaviour
 	IEnumerator freezeThePlayer()
 	{
 		GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
-
 		if (closeToBoat)
 		{
 			freezeTime = 0.01f;
@@ -92,19 +87,17 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		else if (!closeToBoat)
 		{
 			freezeTime = 3f;
-		}
+            GetComponent<VibrationManager>().VibrateSmoothTimed(0.2f, 3f, 5f, 5f, 5);
+        }
+        
+        currentColor = defColor;
 
-		// Get player default colour
-		for (int j = 0; j < renderers.Length; j++)
-		{
-			defColor = renderers[j].material.color;
-		}
 		isFrozen = true;
 
 		GetComponent<PlayerController>().canMove = false;
 		GetComponent<PlayerController>().ReleaseGrip(true, false);
 		GetComponent<PlayerController>().ReleaseGrip(false, false);
-
+        
 		foreach (Rigidbody rigidKinematic in Rigidbodies)
 		{
 			rigidKinematic.isKinematic = true;
@@ -123,8 +116,6 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		foreach (Rigidbody rigidKinematic in Rigidbodies)
 		{
 			rigidKinematic.isKinematic = false;
-			//rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-			//leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 
 		GetComponent<PlayerController>().canMove = true;
@@ -143,8 +134,8 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		for (int j = 0; j < renderers.Length; j++)
 		{
 			if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
-				renderers[j].material.color = defColor;
-		}
+                renderers[j].material.color = new Color(defColor.r, defColor.g, defColor.g, renderers[j].material.color.a);
+        }
 
 	}
 
@@ -152,7 +143,7 @@ public class FreezePlayerPowerUp : MonoBehaviour
 	//  FOR DEATH FREEZE ##############################################################
 	IEnumerator freezeDeathThePlayer()
 	{
-		GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
+		//GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
 
 		if (closeToBoat)
 		{
@@ -162,13 +153,10 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		{
 			freezeTime = 1f;
 		}
+        
+        currentColor = defColor;
 
-		// Get player default colour
-		for (int j = 0; j < renderers.Length; j++)
-		{
-			defColor = renderers[j].material.color;
-		}
-		isFrozen = true;
+        isFrozen = true;
 
 		GetComponent<PlayerController>().canMove = false;
 		GetComponent<PlayerController>().ReleaseGrip(true, false);
@@ -192,8 +180,6 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		foreach (Rigidbody rigidKinematic in Rigidbodies)
 		{
 			rigidKinematic.isKinematic = false;
-			//rightGrabObject.GetComponent<Rigidbody>().isKinematic = true;
-			//leftGrabObject.GetComponent<Rigidbody>().isKinematic = true;
 		}
 
 		GetComponent<PlayerController>().canMove = true;
@@ -211,10 +197,8 @@ public class FreezePlayerPowerUp : MonoBehaviour
 		// Changes color of all renderers
 		for (int j = 0; j < renderers.Length; j++)
 		{
-			if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
-				renderers[j].material.color = defColor;
+            if (renderers[j].gameObject.layer != LayerMask.NameToLayer("UI"))
+				renderers[j].material.color = new Color(defColor.r, defColor.g, defColor.g, renderers[j].material.color.a);
 		}
-
 	}
-
 }

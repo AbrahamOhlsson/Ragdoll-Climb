@@ -29,13 +29,13 @@ public class WindForce : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-		if (other.GetComponent<Rigidbody>())
+		if (other.GetComponent<Rigidbody>() && (other.tag == "Player" || other.tag == "Throwable"))
 			rbs.Add(other.GetComponent<Rigidbody>());
     }
 
     private void OnTriggerExit(Collider other)
     {
-		if (other.GetComponent<Rigidbody>())
+		if (other.GetComponent<Rigidbody>() && (other.tag == "Player" || other.tag == "Throwable"))
 			rbs.Remove(other.GetComponent<Rigidbody>());
     }
 }

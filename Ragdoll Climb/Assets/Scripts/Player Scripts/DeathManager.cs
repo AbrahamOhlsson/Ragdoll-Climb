@@ -42,16 +42,18 @@ public class DeathManager : MonoBehaviour
 
     Renderer[] rends;
 
+    List<Material> originMats = new List<Material>();
+    List<Material> transMats = new List<Material>();
+
     PlayerInfo playerInfo;
 
 
-	void Awake ()
+	void Start ()
     {
         // Gets all the players   (even the disabled players)
         for (int i = 0; i < manager.players.Count; i++)
         {
             otherPlayers.Add(manager.players[i]);
-            
         }
 
         // Excludes this player
@@ -61,7 +63,7 @@ public class DeathManager : MonoBehaviour
 
         rootTrans = GetRoot(gameObject);
 
-        rends = transform.GetChild(0).GetComponentsInChildren<Renderer>();
+        rends = transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
         myColliders = GetComponentsInChildren<Collider>();
 
@@ -115,12 +117,16 @@ public class DeathManager : MonoBehaviour
                     // If the renderer already is transparent
                     if (/*!rends[i].enabled*/ rends[i].material.color.a == transparency)
                     {
+                        rends[i].material = originMats.Find(x => x.name == rends[i].material.name.Replace("_trans (Instance)", ""));
+
                         // The renderer is not transparent anymore
                         rends[i].material.color = new Color(rends[i].material.color.r, rends[i].material.color.g, rends[i].material.color.b, 1f);
                         //rends[i].enabled = true;
                     }
                     else
                     {
+                        rends[i].material = transMats.Find(x => x.name == rends[i].material.name.Replace(" (Instance)","_trans"));
+
                         // The renderer is now transparent
                         rends[i].material.color = new Color(rends[i].material.color.r, rends[i].material.color.g, rends[i].material.color.b, transparency);
                         //rends[i].enabled = false;
@@ -166,16 +172,34 @@ public class DeathManager : MonoBehaviour
 		foreach(Rigidbody i in rbs)
 		{
 			if (i.tag != "Slippery")
-			{	//Check distance between regidbodies and root_M
+			{	
+                //Check distance between regidbodies and root_M
 				if (Vector3.Distance(i.transform.position, rootTrans.position) > 3)
 				{
 					Death();
 				}
 			}
 		}
-
-
 	}
+
+
+    public void SetMats()
+    {
+        for (int i = 0; i < rends.Length; i++)
+        {
+            if (!originMats.Exists(x => x.name == rends[i].material.name.Replace(" (Instance)", "")))
+            {
+                originMats.Add((Material)Resources.Load("Materials/" + rends[i].material.name.Replace(" (Instance)", "")));
+                transMats.Add((Material)Resources.Load("Materials/" + originMats[i].name.Replace(" (Instance)", "") + "_trans"));
+            }
+        }
+
+        for (int i = 0; i < originMats.Count; i++)
+        {
+            originMats[i].color = playerInfo.color;
+            transMats[i].color = playerInfo.color;
+        }
+    }
 
 
     // Gets the "Root_M" object of players
@@ -217,24 +241,25 @@ public class DeathManager : MonoBehaviour
         playerInfo.solid = false;
         ghostTimer = 0f;
 
-        // Disconnects all potential layers that are grabbing this one
+        // Disconnects all potential players that are grabbing this one
         GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
 
         GetComponent<PlayerStun>().UnStun();
         GetComponent<PlayerPowerups>().ResetPlayerMass();
+        GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 6);
 
         // Ignores collision between this player and the others
         for (int i = 0; i < myColliders.Length; i++)
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
-                if (!myColliders[i].gameObject.name.Contains("Wrist"))
+                if (!myColliders[i].gameObject.name.Contains("Wrist") || !myColliders[i].gameObject.name.Contains("wrist"))
                     Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
             }
         }
 
         // Gets all spawnpoints within a radius
-        Collider[] spawnPoints = Physics.OverlapSphere(transform.position, spawnPointSearchRad, layerMask, QueryTriggerInteraction.Collide);
+        Collider[] spawnPoints = Physics.OverlapSphere(rootTrans.position, spawnPointSearchRad, layerMask, QueryTriggerInteraction.Collide);
 
         // Will be used to store the minimum distance to any spawn point
         float minDist = Mathf.Infinity;
@@ -246,7 +271,7 @@ public class DeathManager : MonoBehaviour
         for (int i = 0; i < spawnPoints.Length; i++)
         {
             // Gets the distance between the player and a spawn point
-            float dist = Vector3.Distance(transform.position, spawnPoints[i].transform.position);
+            float dist = Vector3.Distance(rootTrans.position, spawnPoints[i].transform.position);
 
             // If this distance is lesser that the previously minimum one
             if (dist < minDist)
@@ -254,6 +279,12 @@ public class DeathManager : MonoBehaviour
                 minDist = dist;
                 spawnPos = new Vector3(spawnPoints[i].transform.position.x, spawnPoints[i].transform.position.y, rootTrans.position.z);
             }
+        }
+
+        // Resets velocity
+        for (int i = 0; i < rbs.Length; i++)
+        {
+            rbs[i].velocity = Vector3.zero;
         }
 
         // If a spawn point was found
@@ -289,6 +320,8 @@ public class DeathManager : MonoBehaviour
 
         for (int i = 0; i < rends.Length; i++)
         {
+            rends[i].material = originMats.Find(x => x.name == rends[i].material.name.Replace("_trans (Instance)", "") || x.name == rends[i].material.name.Replace(" (Instance)", ""));
+
             // Makes player not transparent
             rends[i].material.color = new Color(rends[i].material.color.r, rends[i].material.color.g, rends[i].material.color.b, 1f);
             //rends[i].enabled = true;
