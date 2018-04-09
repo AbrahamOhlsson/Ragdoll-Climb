@@ -21,96 +21,45 @@ public class pathStartBlock : MonoBehaviour {
         maxBlock = FindObjectOfType<pathController>().maxBlock;
         currentBlock = FindObjectOfType<pathController>().currentBlock;
         startBoxZpos = FindObjectOfType<pathController>().startBox.transform.position.z;
-       // startBoxZpos = startBoxZpos + (FindObjectOfType<pathController>().startBox.transform.localScale.z / 2);
 
-        //###################################################################################################################################
-        //   spawn block from the middle
-        if (EndPos == Direction.Middle)
+
+
+        if (currentBlock < maxBlock)
         {
-            // Spawn next block 
-            if (currentBlock < maxBlock)
+            FindObjectOfType<pathController>().currentBlock++;
+
+            int listsize = FindObjectOfType<pathController>().bloakList.Count;
+            int randomNum = Random.Range(0, listsize);
+            GameObject randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+
+            if (randomObj == null)
             {
-                FindObjectOfType<pathController>().currentBlock++;
-
-                int listsize = FindObjectOfType<pathController>().bloakList.Length;
-
-                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize)], new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
-
-
+                while (randomObj == null)
+                {
+                    randomNum = Random.Range(0, listsize);
+                    randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                }
             }
 
-            else if (currentBlock == maxBlock)
-            {
+            //if (GameObject.Find(FindObjectOfType<pathController>().bloakList[randomNum].name) != null)
+            //{
 
-                FindObjectOfType<pathController>().currentBlock++;
+            //    while (GameObject.Find(FindObjectOfType<pathController>().bloakList[randomNum].name) != null)
+            //    {
+            //        randomNum = Random.Range(0, listsize);
+            //        randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+            //        print("nu finns ett obj 1");
+            //    }
 
-                int listsize = FindObjectOfType<pathController>().bloakList.Length;
+            //}
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
+            FindObjectOfType<pathController>().bloakList.RemoveAt(randomNum);
+            Instantiate(randomObj, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
 
-
-            }
         }
 
-        //   spawn block from the Right
-        else if (EndPos == Direction.Left)
-        {
-            // Spawn next block 
-            if (currentBlock < maxBlock)
-            {
-                FindObjectOfType<pathController>().currentBlock++;
-
-                int listsize = FindObjectOfType<pathController>().bloakList.Length;
-
-                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize)], new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
-
-
-            }
-
-            else if (currentBlock == maxBlock)
-            {
-
-                FindObjectOfType<pathController>().currentBlock++;
-
-                int listsize = FindObjectOfType<pathController>().bloakList.Length;
-
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
-
-
-            }
-        }
-
-        //   spawn block from the Left
-        else if (EndPos == Direction.Right)
-        {
-            // Spawn next block 
-            if (currentBlock < maxBlock)
-            {
-                FindObjectOfType<pathController>().currentBlock++;
-
-                int listsize = FindObjectOfType<pathController>().bloakList.Length;
-
-                Instantiate(FindObjectOfType<pathController>().bloakList[Random.Range(0, listsize)], new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
-
-
-            }
-
-            else if (currentBlock == maxBlock)
-            {
-
-                FindObjectOfType<pathController>().currentBlock++;
-
-                int listsize = FindObjectOfType<pathController>().bloakList.Length;
-
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); // Quaternion.identity);// new Vector3(0, transform.position.y+ (transform.localScale.y / 2),0));
-
-
-            }
-        }
-
-
-
-
+       
     }
-
 }
+
+

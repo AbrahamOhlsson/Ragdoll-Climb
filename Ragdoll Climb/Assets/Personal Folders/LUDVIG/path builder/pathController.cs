@@ -8,7 +8,7 @@ public class pathController : MonoBehaviour {
     [HideInInspector]
     public int currentBlock = 1;
 
-    public GameObject[] bloakList;
+    public List <GameObject> bloakList;
     [Space]
     public GameObject endBox;
     [Space]

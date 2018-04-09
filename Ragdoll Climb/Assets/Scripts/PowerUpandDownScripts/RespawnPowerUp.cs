@@ -10,12 +10,12 @@ public class RespawnPowerUp : MonoBehaviour {
     /// </summary>
 
 
-    [Tooltip("Put the given powerUp")]
+    [Tooltip("Put the given Floating powerUp")]
     public GameObject powerUp;
 
 
     private GameObject player;
-    private float cooldown = 3;
+    [Range(0, 10)] [Tooltip("Cooldown per second")] public float cooldown = 3;
     private bool touched;
 
 
