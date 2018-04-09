@@ -15,14 +15,14 @@ public class LowerMass : MonoBehaviour {
 	private float floatLength = 0.3f;
 	[SerializeField]
 	private float floatSpeed = 1f;
-	Vector3 posOffset = new Vector3();
-	Vector3 tempPos = new Vector3();
+	float startPosY;
+	float tempPosY;
 
     bool canColide = true; //Can only colide  
 
 	void Start()
 	{
-		posOffset = transform.position;
+		startPosY = transform.localPosition.y;
 	}
 
 	// Rotate and float up and down
@@ -32,10 +32,10 @@ public class LowerMass : MonoBehaviour {
 		transform.Rotate(new Vector3(0f, Time.deltaTime * rotateSpeed, 0f), Space.World);
 
 		// Float up/down with a Sin()
-		tempPos = posOffset;
-		tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * floatSpeed) * floatLength;
+		tempPosY = startPosY;
+		tempPosY += Mathf.Sin(Time.fixedTime * Mathf.PI * floatSpeed) * floatLength;
 
-		transform.position = tempPos;
+		transform.localPosition = new Vector3(transform.localPosition.x, tempPosY, transform.localPosition.z);
 	}
 
 	// Set player mass on trigger enter
