@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerPowerups : MonoBehaviour
 {
 	////// Add/loose mass
-	public Rigidbody[] Rigidbodies;
+	public Rigidbody[] rigidbodies;
 	public List<float> startMass;
 	public int pos = 0;
 	[SerializeField]
@@ -15,6 +15,7 @@ public class PlayerPowerups : MonoBehaviour
 	///////////////////////////////////////
 	public ParticleSystem AddMassParticle;
 	public ParticleSystem LooseMassParticle;
+    ParticleSystem[] particleSystems;
     ///////////////////////////////////////
     ////// Teleport player
     [SerializeField] Transform rightWrist;
@@ -30,7 +31,35 @@ public class PlayerPowerups : MonoBehaviour
     {
         playerInfo = GetComponent<PlayerInfo>();
 
-        Rigidbodies = GetComponentsInChildren<Rigidbody>();
+        rigidbodies = GetComponentsInChildren<Rigidbody>();
+        particleSystems = GetComponentsInChildren<ParticleSystem>();
+
+        for (int i = 0; i < rigidbodies.Length; i++)
+        {
+            string name = rigidbodies[i].name;
+
+            if (name.Contains("wrist") || name.Contains("Wrist"))
+            {
+                if (name.Contains("L"))
+                    leftWrist = rigidbodies[i].transform;
+                else if (name.Contains("R"))
+                    rightWrist = rigidbodies[i].transform;
+            }
+            else if (name.Contains("Root") || name.Contains("root"))
+            {
+                m_Root = rigidbodies[i].gameObject;
+            }
+        }
+
+        for (int i = 0; i < particleSystems.Length; i++)
+        {
+            string name = particleSystems[i].name;
+
+            if (name.Contains("AddMass"))
+                AddMassParticle = particleSystems[i];
+            else if (name.Contains("LooseMass"))
+                LooseMassParticle = particleSystems[i];
+        }
 
         leftWristStartRot = leftWrist.localRotation;
         rightWristStartRot = rightWrist.localRotation;
@@ -58,7 +87,7 @@ public class PlayerPowerups : MonoBehaviour
     {
         GetComponent<PlayerController>().canMove = false;
 
-        foreach (Rigidbody rigidKinematic in Rigidbodies)
+        foreach (Rigidbody rigidKinematic in rigidbodies)
         {
             rigidKinematic.isKinematic = true;
         }
@@ -68,7 +97,7 @@ public class PlayerPowerups : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        foreach (Rigidbody rigidKinematic in Rigidbodies)
+        foreach (Rigidbody rigidKinematic in rigidbodies)
         {
             rigidKinematic.isKinematic = false;
         }
@@ -99,11 +128,11 @@ public class PlayerPowerups : MonoBehaviour
         LooseMassParticle.Stop();
         AddMassParticle.Stop();
 
-        for (int i = 0; i < Rigidbodies.Length; i++)
+        for (int i = 0; i < rigidbodies.Length; i++)
         {
             //rigidbodymass.mass = startMass[pos];
             playerInfo.targetMasses[i] = playerInfo.standardMasses[i];
-            Rigidbodies[i].mass = playerInfo.targetMasses[i];
+            rigidbodies[i].mass = playerInfo.targetMasses[i];
         }
 
         StopCoroutine(ChangeMass());
@@ -112,11 +141,11 @@ public class PlayerPowerups : MonoBehaviour
 
 	IEnumerator ChangeMass()
 	{
-        for (int i = 0; i < Rigidbodies.Length; i++)
+        for (int i = 0; i < rigidbodies.Length; i++)
         {
             //rigidbody.mass = startMass[pos] * m_MassPercent;
             playerInfo.targetMasses[i] = playerInfo.standardMasses[i] * m_MassPercent;
-            Rigidbodies[i].mass = playerInfo.targetMasses[i];
+            rigidbodies[i].mass = playerInfo.targetMasses[i];
 		}
 		if (m_MassPercent < 1)
 		{

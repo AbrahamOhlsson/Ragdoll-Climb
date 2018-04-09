@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 65644141355734424}
   - component: {fileID: 114249627047216198}
   - component: {fileID: 23314672005446944}
+  - component: {fileID: 114236305084888372}
   m_Layer: 0
   m_Name: Ice cube
   m_TagString: Untagged
@@ -115,8 +116,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1993253279176248}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.741, y: 6.87, z: -1.95}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 34.11626, y: 44.5254, z: -701.1462}
   m_LocalScale: {x: 0.56048644, y: 0.56048626, z: 0.56048626}
   m_Children:
   - {fileID: 4341026637124718}
@@ -189,6 +190,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114236305084888372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1993253279176248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1df23132f6b3af0488d3280eefddce71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distance: 2
 --- !u!114 &114249627047216198
 MonoBehaviour:
   m_ObjectHideFlags: 1

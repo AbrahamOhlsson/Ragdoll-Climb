@@ -35,4 +35,5 @@ public class PlayerInfoSingleton : MonoBehaviour
 	public int playerAmount = 0;
     public List<PlayerIndex> playerIndexes;
     public Color[] colors = new Color[4];
+    public int[] characterIndex = new int[4];
 }

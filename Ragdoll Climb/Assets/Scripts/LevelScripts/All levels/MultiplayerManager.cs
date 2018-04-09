@@ -7,11 +7,15 @@ using XInputDotNetPure;
 public class MultiplayerManager : MonoBehaviour
 {
     public List<GameObject> players = new List<GameObject>();
+
+    [SerializeField] GameObject[] characterParts;
     
     // The colors each of the players should have
     [SerializeField] Color[] playerColors;
 
     bool started = false;
+
+    bool camActivated = false;
 
     bool[] playerSpawned = new bool[4];
 
@@ -24,12 +28,28 @@ public class MultiplayerManager : MonoBehaviour
     void Awake()
     {
         singleton = PlayerInfoSingleton.instance;
+
+        if (singleton.debug)
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                Instantiate(characterParts[i], players[i].transform);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < players.Count; i++)
+            {
+                // CHANGE THIS LATER
+                Instantiate(characterParts[singleton.characterIndex[i]], players[i].transform);
+            }
+        }
     }
 
 
     void Update ()
     {
-        // If wer aren't in debug mode (we came to this level from the menu)
+        // If we aren't in debug mode (we came to this level from the menu)
         if (!singleton.debug && !started)
         {
             // Resets players so they can't move
@@ -41,8 +61,10 @@ public class MultiplayerManager : MonoBehaviour
             // Goes through as many players that was ready in the menu
             for (int i = 0; i < singleton.playerAmount; i++)
             {
+                players[i].SetActive(true);
+
                 // Gets renderers of the player
-                Renderer[] renderers = players[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
+                Renderer[] renderers = players[i].transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
                 // Recolors the player to the one it selected in the menu
                 for (int j = 0; j < renderers.Length; j++)
@@ -67,8 +89,14 @@ public class MultiplayerManager : MonoBehaviour
 
                 // Recolors the player's Feedback Text to match the player
                 players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = singleton.colors[i];
+                
+                players[i].GetComponent<DeathManager>().SetMats();
+            }
 
-                players[i].SetActive(true);
+            if (!camActivated)
+            {
+                Camera.main.GetComponent<CameraScript>().enabled = true;
+                camActivated = true;
             }
 
             started = true;
@@ -96,7 +124,7 @@ public class MultiplayerManager : MonoBehaviour
                     players[i].GetComponent<Cheats>().SetGamePad(i);
 
                     // Gets all renderers in player
-                    Renderer[] renderers = players[i].transform.GetChild(0).GetComponentsInChildren<Renderer>();
+                    Renderer[] renderers = players[i].transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
                     // Changes color of all renderers
                     for (int j = 0; j < renderers.Length; j++)
@@ -111,14 +139,22 @@ public class MultiplayerManager : MonoBehaviour
                         //trailRenderers[j].colorGradient = gradient;
                         trailRenderers[j].startColor = playerColors[i];
                     }
-
+                    
                     players[i].GetComponent<PlayerInfo>().playerNr = i + 1;
                     players[i].GetComponent<PlayerInfo>().color = playerColors[i];
                     players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = playerColors[i];
 
+                    players[i].GetComponent<DeathManager>().SetMats();
+
                     playerSpawned[i] = true;
 
 					singleton.playerAmount++;
+
+                    if (!camActivated)
+                    {
+                        Camera.main.GetComponent<CameraScript>().enabled = true;
+                        camActivated = true;
+                    }
                 }
             }
         }

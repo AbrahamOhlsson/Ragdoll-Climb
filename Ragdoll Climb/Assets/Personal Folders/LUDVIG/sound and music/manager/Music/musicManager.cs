@@ -70,7 +70,7 @@ public class musicManager : MonoBehaviour
 
         endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
 
-        cameraTransform = GameObject.Find("Main Camera (1)").transform;
+        cameraTransform = GameObject.Find("Main Camera").transform;
 
     }
 

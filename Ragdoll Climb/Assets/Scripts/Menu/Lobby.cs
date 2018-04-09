@@ -17,6 +17,7 @@ public class Lobby : MonoBehaviour
     [SerializeField] GameObject[] joinTexts = new GameObject[4];
 
     [SerializeField] Color[] colors;
+    [SerializeField] GameObject[] characterModels;
 
     [SerializeField] WorldMenuManager menuManager;
 
@@ -29,10 +30,11 @@ public class Lobby : MonoBehaviour
     bool[] playersReady = new bool[4];
 
     int[] colorIndexAssigned = new int[4];
+    int[] characterIndexAssigned = new int[4];
 
     float joinBlinkTimer = 0f;
 
-    Renderer[,] playerRenderers;
+    List<Renderer>[] playerRenderers;
 
     List<PlayerIndex> playerIndexes = new List<PlayerIndex>();
     GamePadState[] state = new GamePadState[4];
@@ -46,16 +48,12 @@ public class Lobby : MonoBehaviour
     {
         colorTaken = new bool[colors.Length];
 
-        playerRenderers = new Renderer[4, playerModels[0].GetComponentsInChildren<Renderer>().Length];
+        playerRenderers = new List<Renderer>[4];
 
         for (int i = 0; i < playerModels.Length; i++)
         {
-            Renderer[] renderers = playerModels[i].GetComponentsInChildren<Renderer>();
-
-            for (int j = 0; j < renderers.Length; j++)
-            {
-                playerRenderers[i, j] = renderers[j];
-            }
+            playerRenderers[i] = new List<Renderer>(playerModels[i].GetComponentsInChildren<Renderer>());
+            colorIndexAssigned[i] = 0;
         }
     }
 
@@ -90,9 +88,9 @@ public class Lobby : MonoBehaviour
                     }
                 }
 
-                for (int j = 0; j < playerRenderers.GetLength(1); j++)
+                for (int j = 0; j < playerRenderers[i].Count; j++)
                 {
-                    playerRenderers[addedIndex, j].material.color = colors[colorIndex];
+                    playerRenderers[addedIndex][j].material.color = colors[colorIndex];
                 }
 
                 playerModels[addedIndex].SetActive(true);
@@ -108,13 +106,21 @@ public class Lobby : MonoBehaviour
 
             if (!playersReady[i])
             {
-                if ((state[i].ThumbSticks.Left.X >= 0.3f && prevState[i].ThumbSticks.Left.X < 0.3f) || (state[i].DPad.Right == ButtonState.Pressed && prevState[i].DPad.Right == ButtonState.Released))
+                if ((state[i].ThumbSticks.Left.Y >= 0.3f && prevState[i].ThumbSticks.Left.Y < 0.3f) || (state[i].DPad.Up == ButtonState.Pressed && prevState[i].DPad.Up == ButtonState.Released))
                 {
                     SwitchColor(i, true);
                 }
-                else if ((state[i].ThumbSticks.Left.X <= -0.3f && prevState[i].ThumbSticks.Left.X > -0.3f) || (state[i].DPad.Left == ButtonState.Pressed && prevState[i].DPad.Left == ButtonState.Released))
+                else if ((state[i].ThumbSticks.Left.Y <= -0.3f && prevState[i].ThumbSticks.Left.Y > -0.3f) || (state[i].DPad.Down == ButtonState.Pressed && prevState[i].DPad.Down == ButtonState.Released))
                 {
                     SwitchColor(i, false);
+                }
+                else if ((state[i].ThumbSticks.Left.X >= 0.3f && prevState[i].ThumbSticks.Left.X < 0.3f) || (state[i].DPad.Right == ButtonState.Pressed && prevState[i].DPad.Right == ButtonState.Released))
+                {
+                    SwitchCharacter(i, true);
+                }
+                else if ((state[i].ThumbSticks.Left.X <= -0.3f && prevState[i].ThumbSticks.Left.X > -0.3f) || (state[i].DPad.Left == ButtonState.Pressed && prevState[i].DPad.Left == ButtonState.Released))
+                {
+                    SwitchCharacter(i, false);
                 }
             }
             
@@ -198,9 +204,10 @@ public class Lobby : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < playerRenderers.GetLength(1); i++)
+        for (int i = 0; i < playerRenderers[playerIndex].Count; i++)
         {
-            playerRenderers[playerIndex, i].material.color = colors[colorIndexAssigned[playerIndex]];
+            //print(playerRenderers[playerIndex].Count);
+            playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
         }
 
         colorTaken[colorIndexAssigned[playerIndex]] = true;
@@ -208,10 +215,41 @@ public class Lobby : MonoBehaviour
     }
 
 
+    private void SwitchCharacter(int playerIndex, bool next)
+    {
+        if (next)
+        {
+            characterIndexAssigned[playerIndex]++;
+
+            if (characterIndexAssigned[playerIndex] >= characterModels.Length)
+                characterIndexAssigned[playerIndex] = 0;
+        }
+        else
+        {
+            characterIndexAssigned[playerIndex]--;
+
+            if (characterIndexAssigned[playerIndex] < 0)
+                characterIndexAssigned[playerIndex] = characterModels.Length - 1;
+        }
+
+        Destroy(playerModels[playerIndex].transform.GetChild(0).gameObject);
+        GameObject newModel = Instantiate(characterModels[characterIndexAssigned[playerIndex]], playerModels[playerIndex].transform);
+        playerRenderers[playerIndex] = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+
+        for (int i = 0; i < playerRenderers[playerIndex].Count; i++)
+        {
+            playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
+        }
+    }
+
+
     public void Continue()
     {
-        for (int i = 0; i < colorIndexAssigned.Length; i++)
+        for (int i = 0; i < 4; i++)
+        {
             PlayerInfoSingleton.instance.colors[i] = colors[colorIndexAssigned[i]];
+            PlayerInfoSingleton.instance.characterIndex[i] = characterIndexAssigned[i];
+        }
 
         PlayerInfoSingleton.instance.playerIndexes = playerIndexes;
         PlayerInfoSingleton.instance.debug = false;
@@ -240,19 +278,25 @@ public class Lobby : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            for (int j = 0; j < playerRenderers.GetLength(1); j++)
+            Destroy(playerModels[i].transform.GetChild(0).gameObject);
+            GameObject newModel = Instantiate(characterModels[0], playerModels[i].transform);
+            playerRenderers[i] = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+
+            for (int j = 0; j < playerRenderers[i].Count; j++)
             {
-                playerRenderers[i, j].material.color = Color.white;
+                playerRenderers[i][j].material.color = Color.white;
             }
 
+            characterIndexAssigned[i] = 0;
             playerModels[i].SetActive(false);
             playerModels[i].transform.rotation = Quaternion.Euler(Vector3.zero);
             checkMarkers[i].SetActive(false);
             checkBoxes[i].SetActive(false);
             joinTexts[i].SetActive(true);
             playersReady[i] = false;
-            continueButton.SetActive(false);
         }
+
+        continueButton.SetActive(false);
 
         playerIndexes.Clear();
 
