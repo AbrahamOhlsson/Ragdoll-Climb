@@ -40,7 +40,6 @@ public class MultiplayerManager : MonoBehaviour
         {
             for (int i = 0; i < players.Count; i++)
             {
-                // CHANGE THIS LATER
                 Instantiate(characterParts[singleton.characterIndex[i]], players[i].transform);
             }
         }
@@ -78,6 +77,8 @@ public class MultiplayerManager : MonoBehaviour
                 {
                     trailRenderers[j].startColor = singleton.colors[i];
                 }
+
+                players[i].GetComponent<VibrationManager>().playerIndex = singleton.playerIndexes[i];
 
                 // Sets which controller that should control this player
                 players[i].GetComponent<PlayerController>().SetGamePad(singleton.playerIndexes[i]);

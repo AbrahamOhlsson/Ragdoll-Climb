@@ -87,8 +87,8 @@ public class Lobby : MonoBehaviour
                         break;
                     }
                 }
-
-                for (int j = 0; j < playerRenderers[i].Count; j++)
+                
+                for (int j = 0; j < playerRenderers[addedIndex].Count; j++)
                 {
                     playerRenderers[addedIndex][j].material.color = colors[colorIndex];
                 }
