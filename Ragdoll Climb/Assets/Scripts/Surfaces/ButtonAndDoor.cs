@@ -49,13 +49,11 @@ public class ButtonAndDoor : MonoBehaviour {
 
             //The button lerp
             button.transform.position = Vector3.Lerp(transform.position, buttonStop.position, sinkSpeed * 1.02f);
-
-            if (sinkSpeed == 1)
-            {
-                ////Makes the button green.
-                button.gameObject.GetComponent<Renderer>().material.color = Color.green; //Normal color
-                button.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green); //Emission color
-            }
+           
+            ////Makes the button green.
+            button.gameObject.GetComponent<Renderer>().material.color = Color.green; //Normal color
+            button.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green); //Emission color
+            
 
             //Lerps the doors
             for (int i = 0; i < doorList.Count; i++)

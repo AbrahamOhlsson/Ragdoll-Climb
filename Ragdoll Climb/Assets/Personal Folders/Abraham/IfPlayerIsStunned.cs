@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class IfPlayerIsStunned : MonoBehaviour
 {
+    bool stunPlayer = false;
+
+    void Update()
+    {
+        //print(stunPlayer);
+        if (stunPlayer == true)
+        {
+            //print("Boom");
+            Destroy(gameObject);
+            stunPlayer = false; 
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player" && other.transform.root.GetComponent<PlayerStun>().isStunned == true)
         {
-            Destroy(gameObject);
+            //print("Stun");
+            stunPlayer = true;
         }
     }
 }
