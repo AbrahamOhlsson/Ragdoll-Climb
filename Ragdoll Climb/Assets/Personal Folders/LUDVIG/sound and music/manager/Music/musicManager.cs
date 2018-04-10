@@ -76,10 +76,29 @@ public class musicManager : MonoBehaviour
 
     void Start()
     {
-        
+        distansToGoal = 0f;
+
+        if (startBlockTransform == null)
+        {
+            startBlockTransform = GameObject.Find("StartModul").transform;
+        }
+
+        if (endBlockTransform == null)
+        {
+            endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+        }
+
+        if (cameraTransform == null)
+        {
+            cameraTransform = GameObject.Find("Main Camera").transform;
+        }
+
         partInt = 1;  // 1 = first part 
 
-        distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
+        if (startBlockTransform != null && endBlockTransform != null && cameraTransform != null)
+        {
+            distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
+        }
 
         song1.loop = true;
         song2.loop = true;
@@ -107,10 +126,13 @@ public class musicManager : MonoBehaviour
 
         if (cameraTransform == null)
         {
-            cameraTransform = GameObject.Find("Main Camera (1)").transform;
+            cameraTransform = GameObject.Find("Main Camera").transform;
         }
 
-
+        if (distansToGoal == 0f)
+        {
+            distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
+        }
 
 
         if ( (cameraTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
