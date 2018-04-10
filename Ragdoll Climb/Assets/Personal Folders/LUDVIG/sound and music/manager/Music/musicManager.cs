@@ -5,12 +5,9 @@ using UnityEngine;
 
 public class musicManager : MonoBehaviour
 {
-    //[SerializeField]
-    //float musicVolume;
-
-    [SerializeField]
+   
     int partInt;
-    float distansToGoal; // public for test
+    float distansToGoal; 
     [Space]
     [SerializeField]
     Sound[] songs;
@@ -23,23 +20,7 @@ public class musicManager : MonoBehaviour
     public AudioSource song1;
     [Space]
     public AudioSource song2;
-    //[Space]
-    //public AudioSource song3;
-    //[Space]
-    //public AudioSource song4;
-    //[Space]
-    //public AudioSource song5;
-    //[Space]
-    //public AudioSource song6;
-    //[Space]
-    //public AudioSource song7;
-    //[Space]
-    //public AudioSource song8;
-    //[Space]
-    //public AudioSource song9;
-    //[Space]
-    //public AudioSource song10;
-
+    
     [Space]
     [Space]
     [Space]
@@ -55,16 +36,7 @@ public class musicManager : MonoBehaviour
         song1 = gameObject.AddComponent<AudioSource>();
         song2 = gameObject.AddComponent<AudioSource>();
 
-        //foreach (Sound i in songs)
-        //{
-        //    i.source = gameObject.AddComponent<AudioSource>();
-        //    i.source.clip = i.clip;
-
-        //    i.source.volume = i.volume;
-        //    i.source.pitch = i.pitch;
-
-        //}
-
+       
 
         startBlockTransform = GameObject.Find("StartModul").transform;
 
@@ -104,17 +76,17 @@ public class musicManager : MonoBehaviour
         song2.loop = true;
 
         song1.clip = songs[0].clip;
-        song1.volume = songs[0].volume;
+        song1.volume = 0.6f; //  songs[0].volume;    sett the start volume too fix a bug 
         song1.pitch = songs[0].pitch;
         song1.Play();
 
-        //PlaySound("music");
+       
     }
 
 
     void Update()
     {
-        if (startBlockTransform == null)
+        if (startBlockTransform == null)                                                         // from here  (see below)
         {
             startBlockTransform = GameObject.Find("StartModul").transform;
         }
@@ -129,10 +101,13 @@ public class musicManager : MonoBehaviour
             cameraTransform = GameObject.Find("Main Camera").transform;
         }
 
+
         if (distansToGoal == 0f)
         {
             distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
         }
+                                                                                                // to here is probably unnecessary and should be removed  (test it)
+
 
 
         if ( (cameraTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
@@ -142,8 +117,6 @@ public class musicManager : MonoBehaviour
             //Player next song 
             PlayNextMusic();
             
-
-            //StartCoroutine( FadeOut(song1, 1f));
         } 
         
 
@@ -190,17 +163,16 @@ public class musicManager : MonoBehaviour
     public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
     {
         float startVolume = audioSource.volume;
-        float timetest = 0;     // TA BORT SEN 
+       
 
         while (audioSource.volume > 0) 
         {
-            timetest += 1 * Time.deltaTime;
-            audioSource.volume -= (startVolume / FadeTime) * Time.deltaTime; //startVolume * (FadeTime / Time.deltaTime);
 
+            audioSource.volume -= (startVolume / FadeTime) * Time.deltaTime; 
             yield return null;
         }
 
-       // print("klar i fade Out på " + timetest + " sec");
+       
         audioSource.Stop();
         
     }
@@ -208,21 +180,19 @@ public class musicManager : MonoBehaviour
 
     public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
     {
-        float timetest = 0;     // TA BORT SEN 
+ 
         float startVolume = audioSource.volume;
         audioSource.volume = 0;
 
         while (audioSource.volume < startVolume)
         {
-            timetest += 1 * Time.deltaTime;
-
-            audioSource.volume +=   (startVolume / FadeTime) * Time.deltaTime; // startVolume * ( FadeTime / Time.deltaTime);
-            //print("här kommer FadeTime / Time.deltaTime " + 1*(Time.deltaTime / FadeTime) );
+          
+            audioSource.volume +=   (startVolume / FadeTime) * Time.deltaTime;
             yield return null;
         }
         audioSource.volume = startVolume;
 
-        //print("klar i fade in på " + timetest + " sec");
+        
         
     }
 
