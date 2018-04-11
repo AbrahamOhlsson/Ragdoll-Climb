@@ -670,9 +670,9 @@ public class PlayerController : MonoBehaviour
 
             // Adds equal pull force of grabbed object but in opposite direction
             if (checkGripLeft.currentGripping != null && gripLeft)
-                checkGripLeft.currentGripping.AddForce(-pullDirLeft * currentPullForceLeft);
+                checkGripLeft.currentGripping.AddForce(0f, -pullDirLeft.y * currentPullForceLeft, 0f);
             if (checkGripRight.currentGripping != null && gripRight)
-                checkGripRight.currentGripping.AddForce(-pullDirRight * currentPullForceRight);
+                checkGripRight.currentGripping.AddForce(0f, -pullDirRight.y * currentPullForceRight, 0f);
 
             //leftShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
             //rightShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
