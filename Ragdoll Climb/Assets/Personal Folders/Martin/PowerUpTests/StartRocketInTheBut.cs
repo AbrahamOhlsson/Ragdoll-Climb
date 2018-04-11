@@ -16,6 +16,7 @@ public class StartRocketInTheBut : MonoBehaviour {
     float startPosY;
     float tempPosY;
 
+    RocketInTheButt rocketInTheButt;
 
     void Start()
     {
@@ -41,12 +42,15 @@ public class StartRocketInTheBut : MonoBehaviour {
 
         if (player.tag == "Player")
         {
-            RocketInTheButt rocketInTheButt = player.GetComponentInChildren<RocketInTheButt>(true);
-            rocketInTheButt.gameObject.SetActive(true);
-            rocketInTheButt.startTheRocket();
+           
+           rocketInTheButt = player.GetComponentInChildren<RocketInTheButt>(true);
+           rocketInTheButt.gameObject.SetActive(true);
+           rocketInTheButt.startTheRocket();
+
+            print("player hit rocket");
 
             Destroy(gameObject);
         }
-        
+       
     }
 }

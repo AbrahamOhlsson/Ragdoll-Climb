@@ -6,7 +6,7 @@ public class RocketInTheButt : MonoBehaviour {
 
     public Rigidbody rb;
 
-    private GameObject player;
+    public Transform player;
     
     [SerializeField]
     float rocketTank;
@@ -24,9 +24,9 @@ public class RocketInTheButt : MonoBehaviour {
         {
             rocketFuel += Time.deltaTime * 1;
             
-            rb.AddForce(transform.forward * rocketForce);
+            rb.AddForce(transform.up * (rocketForce * 35));
 
-            if (rocketFuel >= rocketTank || flyReady == false)
+            if (rocketFuel >= rocketTank)
             {
                 rocketFuel = 0;
                 flyReady = false;
@@ -37,9 +37,9 @@ public class RocketInTheButt : MonoBehaviour {
 
     public void startTheRocket()
     {
-        player = transform.Find("Head_M").gameObject;
+        player = transform.root.transform.Find("Character Parts (Mannequin)(Clone)/Main/DeformationSystem/Root_M/RootPart1_M/RootPart2_M/Spine1_M/Spine1Part1_M/Spine1Part2_M/Chest_M/Neck_M/NeckPart1_M/NeckPart2_M/Head_M");  //.Find("Player 1");    
         rb = player.GetComponent<Rigidbody>();
         flyReady = true;
-        print("The Rocket is online!");
+        print("The Rocket is online! " + player);
     }
 }
