@@ -22,9 +22,11 @@ public class RocketInTheButt : MonoBehaviour {
     {
 		if(flyReady)
         {
+            
             rocketFuel += Time.deltaTime * 1;
             
             rb.AddForce(transform.up * (rocketForce * 35));
+
 
             if (rocketFuel >= rocketTank)
             {
@@ -41,5 +43,7 @@ public class RocketInTheButt : MonoBehaviour {
         rb = player.GetComponent<Rigidbody>();
         flyReady = true;
         print("The Rocket is online! " + player);
+        
+        //GetComponent<PlayerController>().ReleaseGrip(true, false);
     }
 }
