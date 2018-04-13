@@ -64,8 +64,8 @@ public class RocketInTheButt : MonoBehaviour {
             
               
                 rocketFuel += Time.deltaTime * 1;
-         
-                rb.AddForce(transform.up * (rocketForce * 35));
+
+                rb.AddForce(transform.up * (rocketForce * Time.deltaTime));
           
             
 
