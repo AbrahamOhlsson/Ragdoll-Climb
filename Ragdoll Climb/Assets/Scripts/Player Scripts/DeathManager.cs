@@ -13,6 +13,7 @@ public class DeathManager : MonoBehaviour
 
     [SerializeField] Transform bottomObj;
     [SerializeField] MultiplayerManager manager;
+	[SerializeField] GameObject SkullAndCrossbones;
 
     //bool solid = true;
 
@@ -239,7 +240,10 @@ public class DeathManager : MonoBehaviour
     // Kills the player
     public void Death()
     {
-        playerInfo.solid = false;
+		//Spawn visual feedback
+		Instantiate(SkullAndCrossbones, rootTrans.position, Quaternion.Euler(90, -180, 0));
+
+		playerInfo.solid = false;
         ghostTimer = 0f;
 
         // Disconnects all potential players that are grabbing this one

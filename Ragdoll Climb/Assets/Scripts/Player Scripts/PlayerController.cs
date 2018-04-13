@@ -91,6 +91,8 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 10f)]
     [SerializeField] float armTimeOut = 1.45f;
 
+	[SerializeField] GameObject respawnCounterObj;
+
     // Rigidbodies for bodyparts
     [Header("Rigidbodies")]
     [SerializeField] Rigidbody leftHand;
@@ -185,6 +187,8 @@ public class PlayerController : MonoBehaviour
     PlayerIndex playerIndex;
     GamePadState state;
     GamePadState prevState;
+
+	GameObject respawnCounter;
 
     CheckGrip checkGripLeft;
     CheckGrip checkGripRight;
@@ -560,6 +564,16 @@ public class PlayerController : MonoBehaviour
 
         if (state.DPad.Down == ButtonState.Pressed)
 		{
+			if (prevState.DPad.Down == ButtonState.Released)
+			{
+				respawnCounter = Instantiate(respawnCounterObj, root.position /*new Vector3(head.position.x , head.position.y , head.position.z)*/, Quaternion.Euler(0f, 0f, 0f));
+				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_3").texture);
+				//respawnCounter.transform.localScale = (new Vector3(0.1f, 0.1f, 0.1f));
+				respawnCounter.transform.parent = head.transform;
+
+				print(transform.localScale);
+			}
+
 			if(deathTimer > deathPressTime)
 			{
 				GetComponent<DeathManager>().Death();
@@ -567,6 +581,19 @@ public class PlayerController : MonoBehaviour
 				GetComponent<FreezePlayerPowerUp>().closeToBoat= false;
 				GetComponent<FreezePlayerPowerUp>().DeathFreezeTime();
 				deathTimer = 0;
+				Destroy(respawnCounter);
+			}
+
+			if(deathTimer >1 && deathTimer<1.1f && respawnCounter!=null)
+			{
+				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_2").texture);
+			
+			}
+
+			if (deathTimer > 2 && deathTimer < 2.1f && respawnCounter != null)
+			{
+				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_1").texture);
+				
 			}
 
 			deathTimer += Time.deltaTime;
@@ -576,7 +603,9 @@ public class PlayerController : MonoBehaviour
 		{
             if (deathTimer != 0 )
 			{
+				//respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_3").texture);
 				deathTimer = 0;
+				Destroy(respawnCounter);
 			}
 		}
 	}
