@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class musicManager : MonoBehaviour
 {
-   
+    bool firstUpdate;
     int partInt;
     float distansToGoal; 
     [Space]
@@ -36,13 +36,13 @@ public class musicManager : MonoBehaviour
         song1 = gameObject.AddComponent<AudioSource>();
         song2 = gameObject.AddComponent<AudioSource>();
 
-       
+        firstUpdate = true;
 
-        startBlockTransform = GameObject.Find("StartModul").transform;
+        // startBlockTransform = GameObject.Find("StartModul").transform;
 
-        endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+        //endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
 
-        cameraTransform = GameObject.Find("Main Camera").transform;
+        //cameraTransform = GameObject.Find("Main Camera").transform;
 
     }
 
@@ -50,35 +50,35 @@ public class musicManager : MonoBehaviour
     {
         distansToGoal = 0f;
 
-        if (startBlockTransform == null)
-        {
-            startBlockTransform = GameObject.Find("StartModul").transform;
-        }
+        //if (startBlockTransform == null)
+        //{
+        //    startBlockTransform = GameObject.Find("StartModul").transform;
+        //}
 
-        if (endBlockTransform == null)
-        {
-            endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
-        }
+        //if (endBlockTransform == null)
+        //{
+        //    endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+        //}
 
-        if (cameraTransform == null)
-        {
-            cameraTransform = GameObject.Find("Main Camera").transform;
-        }
+        //if (cameraTransform == null)
+        //{
+        //    cameraTransform = GameObject.Find("Main Camera").transform;
+        //}
 
         partInt = 1;  // 1 = first part 
 
-        if (startBlockTransform != null && endBlockTransform != null && cameraTransform != null)
-        {
-            distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
-        }
+        //if (startBlockTransform != null && endBlockTransform != null && cameraTransform != null)
+        //{
+        //    distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
+        //}
 
         song1.loop = true;
         song2.loop = true;
 
-        song1.clip = songs[0].clip;
-        song1.volume = 0.6f; //  songs[0].volume;    sett the start volume too fix a bug 
-        song1.pitch = songs[0].pitch;
-        song1.Play();
+        //song1.clip = songs[0].clip;
+        //song1.volume = 0.6f; //  songs[0].volume;    sett the start volume too fix a bug 
+        //song1.pitch = 1f;  // songs[0].pitch;
+        //song1.Play();
 
        
     }
@@ -86,28 +86,39 @@ public class musicManager : MonoBehaviour
 
     void Update()
     {
-        if (startBlockTransform == null)                                                         // from here  (see below)
+
+        if (firstUpdate)
         {
-            startBlockTransform = GameObject.Find("StartModul").transform;
+            if (startBlockTransform == null)                                                         // from here  (see below)
+            {
+                startBlockTransform = GameObject.Find("StartModul").transform;
+            }
+
+            if (endBlockTransform == null)
+            {
+                endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+            }
+
+            if (cameraTransform == null)
+            {
+                cameraTransform = GameObject.Find("Main Camera").transform;
+            }
+
+
+            if (distansToGoal == 0f)
+            {
+                distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
+            }
+
+            song1.clip = songs[0].clip;
+            song1.volume = 0.6f; //  songs[0].volume;    sett the start volume too fix a bug 
+            song1.pitch = 1f;  // songs[0].pitch;
+            song1.Play();
+
+            firstUpdate = false;
+
+            // to here is probably unnecessary and should be removed  (test it)
         }
-
-        if (endBlockTransform == null)
-        {
-            endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
-        }
-
-        if (cameraTransform == null)
-        {
-            cameraTransform = GameObject.Find("Main Camera").transform;
-        }
-
-
-        if (distansToGoal == 0f)
-        {
-            distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
-        }
-                                                                                                // to here is probably unnecessary and should be removed  (test it)
-
 
 
         if ( (cameraTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
