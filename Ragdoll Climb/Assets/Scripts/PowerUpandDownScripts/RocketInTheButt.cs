@@ -22,9 +22,8 @@ public class RocketInTheButt : MonoBehaviour {
    public  List<GameObject> LudvigTestList;
 
     // Update is called once per frame
-    void Update ()
+    private void FixedUpdate()
     {
-        
 		if(flyReady)
         {
 
@@ -65,7 +64,7 @@ public class RocketInTheButt : MonoBehaviour {
               
                 rocketFuel += Time.deltaTime * 1;
 
-                rb.AddForce(transform.up * (rocketForce * Time.deltaTime));
+                rb.AddForce(transform.up * rocketForce);
           
             
 
