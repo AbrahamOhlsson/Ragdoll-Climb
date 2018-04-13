@@ -45,8 +45,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1877954664156126}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.824, y: 0.55, z: -0.579}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1000001, y: 2.5, z: -1.5900002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -192,6 +192,7 @@ MonoBehaviour:
   ghostMassMult: 0.8
   bottomObj: {fileID: 0}
   manager: {fileID: 0}
+  SkullAndCrossbones: {fileID: 0}
   otherPlayers: []
 --- !u!114 &114258412346434612
 MonoBehaviour:
@@ -259,7 +260,7 @@ MonoBehaviour:
   pullForceGainSpeed: 0.3
   swingForceX: 100
   swingForceY: 35
-  throwForce: 500
+  throwForce: 100
   stickyReleaseDelay: 1
   armMassDecrease: 0.3
   punchPullBackForce: 500
@@ -280,6 +281,7 @@ MonoBehaviour:
   staminaDrainReduce: 0.5
   staminaRegen: 1.5
   armTimeOut: 1.45
+  respawnCounterObj: {fileID: 0}
   leftHand: {fileID: 0}
   rightHand: {fileID: 0}
   leftShoulder: {fileID: 0}

@@ -235,6 +235,7 @@ public class CheckGrip : MonoBehaviour
         {
             canGrip = false;
             currentGripable = tempRb;
+            StopAnim();
         }
     }
 
@@ -306,23 +307,15 @@ public class CheckGrip : MonoBehaviour
 
                 if (currentGripable.tag == "Throwable")
                 {
-                    //gameObject.AddComponent<ConfigurableJoint>().connectedBody = currentGripable;
-                    //GetComponent<ConfigurableJoint>().xMotion = ConfigurableJointMotion.Locked;
-                    //GetComponent<ConfigurableJoint>().yMotion = ConfigurableJointMotion.Locked;
-                    //GetComponent<ConfigurableJoint>().zMotion = ConfigurableJointMotion.Locked;
-                    //GetComponent<ConfigurableJoint>().angularXMotion = ConfigurableJointMotion.Locked;
-                    //GetComponent<ConfigurableJoint>().angularYMotion = ConfigurableJointMotion.Locked;
-                    //GetComponent<ConfigurableJoint>().angularZMotion = ConfigurableJointMotion.Locked;
-
                     throwableStartZ = currentGripable.position.z;
-                    print(currentGripable.name + "    " + throwableStartZ);
                     currentGripable.constraints = RigidbodyConstraints.None;
-                    currentGripable.transform.SetParent(transform, true);
-
-                    //currentGripable.useGravity = false;
+                    currentGripable.GetComponent<DamageThrowable>().beingHold = true;
+                    currentGripable.useGravity = false;
                 }
-                //else
+
                 gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
+                gameObject.GetComponent<FixedJoint>().enableCollision = true;
+                gameObject.GetComponent<FixedJoint>().enablePreprocessing = false;
 
                 currentGripping = currentGripable;
             }
@@ -341,7 +334,10 @@ public class CheckGrip : MonoBehaviour
     // Disconnects connected body
     public void Disconnect()
     {
-        Destroy(GetComponent<FixedJoint>());
+        //if (currentGripping.tag == "Throwable")
+        //    Destroy(currentGripping.GetComponent<CharacterJoint>());
+        //else
+            Destroy(GetComponent<FixedJoint>());
 
         if (currentGripping != tempRb)
         {
@@ -352,13 +348,7 @@ public class CheckGrip : MonoBehaviour
             else if (currentGripping.tag == "Slippery")
                 currentGripping.GetComponent<Rigidbody>().isKinematic = true;
             else if (currentGripping.tag == "Throwable")
-            {
-                currentGripping.transform.parent = null;
-                currentGripping.position = new Vector3(currentGripping.position.x, currentGripping.position.y, throwableStartZ);
-                currentGripping.constraints = RigidbodyConstraints.FreezePositionZ;
-                currentGripping.useGravity = true;
-                print("grshrshrds");
-            }
+                ResetThrowable();
         }
 
         currentGripping = tempRb;
@@ -370,22 +360,25 @@ public class CheckGrip : MonoBehaviour
     // Disconnects and throws the grabbed object with force
     public void Disconnect(Vector3 throwDir, float throwForce)
     {
-        //Destroy(GetComponent<ConfigurableJoint>());
         Destroy(GetComponent<FixedJoint>());
 
-        currentGripping.transform.parent = null;
-        currentGripping.MovePosition(new Vector3(currentGripping.position.x, currentGripping.position.y, throwableStartZ));
-        print(currentGripping.position.z);
-        currentGripping.constraints = RigidbodyConstraints.FreezePositionZ;
+        ResetThrowable();
 
-        currentGripping.useGravity = true;
-
+        // Throws object in direction of velocity with multipled force
         currentGripping.AddForce(new Vector3(currentGripping.velocity.x, currentGripping.velocity.y, 0f) * throwForce);
-
+        
         currentGripping = tempRb;
 
         StopAnim();
-        print("fhwshfshr");
+    }
+
+
+    private void ResetThrowable()
+    {
+        currentGripping.transform.position = new Vector3(currentGripping.position.x, currentGripping.position.y, throwableStartZ);
+        currentGripping.constraints = RigidbodyConstraints.FreezePositionZ;
+        currentGripping.GetComponent<DamageThrowable>().beingHold = false;
+        currentGripping.useGravity = true;
     }
 
 
