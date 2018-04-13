@@ -47,6 +47,8 @@ public class StartRocketInTheBut : MonoBehaviour {
            rocketInTheButt.gameObject.SetActive(true);
            rocketInTheButt.startTheRocket();
 
+            player.GetComponent<PlayerInfo>().feedbackText.Activate("got a rocket in the butt!");
+
             print("player hit rocket");
 
             Destroy(gameObject);
