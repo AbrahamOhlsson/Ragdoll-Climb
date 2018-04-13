@@ -85,13 +85,9 @@ public class ElectrocutePlayer : MonoBehaviour
                 //GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").SetActive(true);
                 //GameObject.Find("Player " + i + "/Main/DeformationSystem/LightningCloud").GetComponent<LightningBolt>().startLightning();
                 //electrocutePlayer.transform.Find("Main/DeformationSystem/LightningCloud").gameObject.SetActive(true);
-                foreach (GameObject j in playerRoot_mList)
-                {
-                   // print(j.transform.root.name);
-                }
-                
 
                 Destroy(gameObject);
+
             }
 		}
 	}
