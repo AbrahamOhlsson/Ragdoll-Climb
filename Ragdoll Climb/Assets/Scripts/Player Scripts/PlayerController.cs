@@ -388,9 +388,9 @@ public class PlayerController : MonoBehaviour
             // If trigger is released
             else if ((state.Triggers.Left == 0/* && state.Buttons.LeftShoulder == ButtonState.Released*/) && (prevState.Triggers.Left > 0 /*|| prevState.Buttons.LeftShoulder == ButtonState.Pressed*/) && gripLeft)
             {
-                if (checkGripLeft.currentGripable.tag == "Throwable")
+                if (checkGripLeft.currentGripping.tag == "Throwable")
                     ReleaseGrip(true, true);
-                else if (checkGripLeft.currentGripable.tag == "Sticky")
+                else if (checkGripLeft.currentGripping.tag == "Sticky")
                 {
                     releaseGripDelayedLeft = ReleaseGripDelayed(true);
                     StartCoroutine(releaseGripDelayedLeft);
@@ -444,9 +444,9 @@ public class PlayerController : MonoBehaviour
             // If trigger is released
             else if ((state.Triggers.Right == 0/* && state.Buttons.RightShoulder == ButtonState.Released*/) && (prevState.Triggers.Right > 0/* || prevState.Buttons.RightShoulder == ButtonState.Pressed*/) && gripRight)
             {
-                if (checkGripRight.currentGripable.tag == "Throwable")
+                if (checkGripRight.currentGripping.tag == "Throwable")
                     ReleaseGrip(false, true);
-                else if (checkGripRight.currentGripable.tag == "Sticky")
+                else if (checkGripRight.currentGripping.tag == "Sticky")
                 {
                     releaseGripDelayedRight = ReleaseGripDelayed(false);
                     StartCoroutine(releaseGripDelayedRight);

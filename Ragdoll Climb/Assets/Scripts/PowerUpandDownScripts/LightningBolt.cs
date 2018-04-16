@@ -42,6 +42,8 @@ public class LightningBolt : MonoBehaviour {
 	{
 		root = gameObject.transform.root.GetComponent<PlayerInfo>().rootObj;
 
+        transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("will be struck by lightning!");
+
 		lightningDuration = 0.05f;
 		lightningWait = 3;
 
