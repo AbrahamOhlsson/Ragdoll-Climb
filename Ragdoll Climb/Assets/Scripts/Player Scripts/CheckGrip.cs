@@ -26,6 +26,8 @@ public class CheckGrip : MonoBehaviour
 
     float failsafeTimer = 0;
 
+    float throwableStartZ = 0;
+    
     Animator[] grabAnimators;
 
     List<Rigidbody> grabablesInReach = new List<Rigidbody>();
@@ -70,7 +72,7 @@ public class CheckGrip : MonoBehaviour
         if (other.tag == "BottomObj")
         {
             nearBottomObj = true;
-
+            
             controller.ReleaseGrip(leftHand, false);
         }
 
@@ -233,6 +235,7 @@ public class CheckGrip : MonoBehaviour
         {
             canGrip = false;
             currentGripable = tempRb;
+            StopAnim();
         }
     }
 
@@ -298,8 +301,22 @@ public class CheckGrip : MonoBehaviour
                     currentGripable.GetComponent<Rigidbody>().isKinematic = false;
                     currentGripable.transform.localPosition = Vector3.zero;
                 }
+                // If a player is grabbed, that player will know it
+                else if (currentGripable.tag == "Player")
+                    currentGripable.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
+
+                if (currentGripable.tag == "Throwable")
+                {
+                    throwableStartZ = currentGripable.position.z;
+                    currentGripable.constraints = RigidbodyConstraints.None;
+                    currentGripable.GetComponent<DamageThrowable>().beingHold = true;
+                    currentGripable.useGravity = false;
+                }
 
                 gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
+                gameObject.GetComponent<FixedJoint>().enableCollision = true;
+                gameObject.GetComponent<FixedJoint>().enablePreprocessing = false;
+
                 currentGripping = currentGripable;
             }
             else
@@ -307,11 +324,7 @@ public class CheckGrip : MonoBehaviour
                 transform.root.GetComponent<PlayerStun>().Stun(1);
                 transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
             }
-
-            // If a player is grabbed, that player will know it
-            if (currentGripping != tempRb && currentGripping.tag == "Player")
-                currentGripping.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
-
+            
             StopAnim();
             PlayGrabbingAnim();
         }
@@ -321,8 +334,11 @@ public class CheckGrip : MonoBehaviour
     // Disconnects connected body
     public void Disconnect()
     {
-        Destroy(GetComponent<FixedJoint>());
-        
+        //if (currentGripping.tag == "Throwable")
+        //    Destroy(currentGripping.GetComponent<CharacterJoint>());
+        //else
+            Destroy(GetComponent<FixedJoint>());
+
         if (currentGripping != tempRb)
         {
             // If a player was grabbed, that player will know it no longer is
@@ -330,7 +346,9 @@ public class CheckGrip : MonoBehaviour
                 currentGripping.transform.root.GetComponent<PlayerInfo>().RemoveGrabbingPlayer(transform.root.gameObject);
             // If a slippery wall was released, the slippery child object will be non kinematic to prevent it from going down to infinity
             else if (currentGripping.tag == "Slippery")
-                currentGripable.GetComponent<Rigidbody>().isKinematic = true;
+                currentGripping.GetComponent<Rigidbody>().isKinematic = true;
+            else if (currentGripping.tag == "Throwable")
+                ResetThrowable();
         }
 
         currentGripping = tempRb;
@@ -344,11 +362,23 @@ public class CheckGrip : MonoBehaviour
     {
         Destroy(GetComponent<FixedJoint>());
 
-        currentGripping.AddForce(throwDir * throwForce);
+        ResetThrowable();
 
+        // Throws object in direction of velocity with multipled force
+        currentGripping.AddForce(new Vector3(currentGripping.velocity.x, currentGripping.velocity.y, 0f) * throwForce);
+        
         currentGripping = tempRb;
 
         StopAnim();
+    }
+
+
+    private void ResetThrowable()
+    {
+        currentGripping.transform.position = new Vector3(currentGripping.position.x, currentGripping.position.y, throwableStartZ);
+        currentGripping.constraints = RigidbodyConstraints.FreezePositionZ;
+        currentGripping.GetComponent<DamageThrowable>().beingHold = false;
+        currentGripping.useGravity = true;
     }
 
 
@@ -356,5 +386,4 @@ public class CheckGrip : MonoBehaviour
     {
         grabablesInReach.Remove(rb);
     }
-
 }
