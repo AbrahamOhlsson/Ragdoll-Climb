@@ -574,16 +574,6 @@ public class PlayerController : MonoBehaviour
 				print(transform.localScale);
 			}
 
-			if(deathTimer > deathPressTime)
-			{
-				GetComponent<DeathManager>().Death();
-
-				GetComponent<FreezePlayerPowerUp>().closeToBoat= false;
-				GetComponent<FreezePlayerPowerUp>().DeathFreezeTime();
-				deathTimer = 0;
-				Destroy(respawnCounter);
-			}
-
 			if(deathTimer >1 && deathTimer<1.1f && respawnCounter!=null)
 			{
 				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_2").texture);
@@ -595,9 +585,19 @@ public class PlayerController : MonoBehaviour
 				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_1").texture);
 				
 			}
+			if(deathTimer > deathPressTime)
+			{
+				GetComponent<DeathManager>().Death();
+
+				GetComponent<FreezePlayerPowerUp>().closeToBoat= false;
+				GetComponent<FreezePlayerPowerUp>().DeathFreezeTime();
+				deathTimer = 0;
+				Destroy(respawnCounter);
+			}
 
 			deathTimer += Time.deltaTime;
 		}
+
 
 		if (state.DPad.Down == ButtonState.Released)
 		{
