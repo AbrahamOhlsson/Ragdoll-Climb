@@ -20,7 +20,6 @@ public class pathBuilder : MonoBehaviour {
 
         maxBlock = FindObjectOfType<pathController>().maxBlock;
         currentBlock = FindObjectOfType<pathController>().currentBlock;
-
         startBoxZpos = FindObjectOfType<pathController>().startBox.transform.position.z;
        
 

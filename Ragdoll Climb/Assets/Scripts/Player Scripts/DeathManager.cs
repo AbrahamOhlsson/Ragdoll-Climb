@@ -32,8 +32,8 @@ public class DeathManager : MonoBehaviour
     // Transforms of the "Root_M" object of other players
     List<Transform> otherTrans = new List<Transform>();
 
-    Collider[] myColliders;
-    List<Collider> otherColliders = new List<Collider>();
+    public List<Collider> myColliders; // Collider[] myColliders;       // public for test
+    public List<Collider> otherColliders = new List<Collider>(); // public for test 
 
     Transform[] transforms;
     Vector3[] originPos;
@@ -41,16 +41,19 @@ public class DeathManager : MonoBehaviour
 
     Rigidbody[] rbs;
 
-    Renderer[] rends;
+    Renderer[] rends; // public för test
 
-    List<Material> originMats = new List<Material>();
+    [SerializeField]List<Material> originMats = new List<Material>();
     List<Material> transMats = new List<Material>();
 
     PlayerInfo playerInfo;
 
+    // LUDVIG FIX 
+    bool firstUpdate;
 
 	void Start ()
     {
+        firstUpdate = true;
         // Gets all the players   (even the disabled players)
         for (int i = 0; i < manager.players.Count; i++)
         {
@@ -66,7 +69,10 @@ public class DeathManager : MonoBehaviour
 
         rends = transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
-        myColliders = GetComponentsInChildren<Collider>();
+        foreach (Collider a in GetComponentsInChildren<Collider>())
+        {
+            myColliders.Add(a);
+        }
 
         startMasses = new float[rbs.Length];
 
@@ -88,6 +94,7 @@ public class DeathManager : MonoBehaviour
             startMasses[i] = rbs[i].mass;
         }
 
+
         // Gets stuff from the other players
         for (int i = 0; i < otherPlayers.Count; i++)
         {
@@ -96,16 +103,53 @@ public class DeathManager : MonoBehaviour
             for (int j = 0; j < colls.Length; j++)
             {
                 if (!colls[j].name.Contains("Wrist") && !colls[j].name.Contains("wrist"))
+                {
+                    //print(name + " s   del = " + colls[j].name + "     int =  "+ j);
                     otherColliders.Add(colls[j]);
+                }
             }
 
             otherTrans.Add(GetRoot(otherPlayers[i]));
         }
-	}
+    }
 	
 
 	void Update ()
     {
+        if (firstUpdate)
+        {
+
+            
+            for(int i = myColliders.Count-1; i > -1 ; i--)
+            {
+               
+                if(myColliders[i].name == "cloth" )
+                {
+                    myColliders.Remove(myColliders[i]);
+
+                }
+
+            }
+            
+
+            for (int i = otherColliders.Count - 1; i > -1; i--)
+            {
+                if (otherColliders[i].name == "cloth" || otherColliders[i] == null)
+                {
+                    otherColliders.Remove(otherColliders[i]);
+
+                }
+
+            }
+
+
+            firstUpdate = false;
+        }
+
+
+
+
+
         // The player has no collision with other players
 		if (!playerInfo.solid)
         {
@@ -254,13 +298,16 @@ public class DeathManager : MonoBehaviour
         GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 6);
 
         // Ignores collision between this player and the others
-        for (int i = 0; i < myColliders.Length; i++)
+        for (int i = 0; i < myColliders.Count; i++)
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
+                
                 if (!myColliders[i].name.Contains("Wrist") && !myColliders[i].name.Contains("wrist"))
                 {
-                    Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
+  
+                    Physics.IgnoreCollision(myColliders[i], otherColliders[j]);   // fel här 
+                   
                 }
             }
         }
@@ -335,7 +382,7 @@ public class DeathManager : MonoBehaviour
         }
 
         // The player will now have collision again with other players
-        for (int i = 0; i < myColliders.Length; i++)
+        for (int i = 0; i < myColliders.Count; i++)
         {
             for (int j = 0; j < otherColliders.Count; j++)
             {
