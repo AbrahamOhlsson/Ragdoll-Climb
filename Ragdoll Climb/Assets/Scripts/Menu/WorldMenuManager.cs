@@ -23,9 +23,9 @@ public class WorldMenuManager : MonoBehaviour
 	bool moving = false;
 
     // The path of the navigation of the menu
-    Stack<GameObject> groupPath = new Stack<GameObject>();
+    public Stack<GameObject> groupPath = new Stack<GameObject>();
 
-	GameObject lastGroup;
+	[SerializeField]GameObject lastGroup;
 
     PlayerIndex[] playerIndexes = new PlayerIndex[4];
     GamePadState[] states = new GamePadState[4];
@@ -48,11 +48,14 @@ public class WorldMenuManager : MonoBehaviour
         playerIndexes[1] = PlayerIndex.Two;
         playerIndexes[2] = PlayerIndex.Three;
         playerIndexes[3] = PlayerIndex.Four;
+
+        eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);    //  TEST !!!!!!!!!!
     }
 
 
     private void Update()
     {
+        
         // Checks input from all four controllers
         for (int i = 0; i < playerIndexes.Length; i++)
         {
@@ -63,19 +66,24 @@ public class WorldMenuManager : MonoBehaviour
             if (states[i].Buttons.B == ButtonState.Pressed && prevStates[i].Buttons.B == ButtonState.Released && groupPath.Peek() != mainGroup && !moving)
                 Back();
 
-			if (eventSystem.currentSelectedGameObject == null)
-			{
-				if (((states[i].DPad.Down == ButtonState.Pressed && prevStates[i].DPad.Down == ButtonState.Released) || (states[i].DPad.Up == ButtonState.Pressed && prevStates[i].DPad.Up == ButtonState.Released) || (states[i].DPad.Left == ButtonState.Pressed && prevStates[i].DPad.Left == ButtonState.Released) || (states[i].DPad.Right == ButtonState.Pressed && prevStates[i].DPad.Right == ButtonState.Released) || (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released) || (states[i].ThumbSticks.Left.Y > 0f || states[i].ThumbSticks.Left.Y < 0f && prevStates[i].ThumbSticks.Left.Y == 0f))&& (groupPath.Peek() != playerSelectGroup) )
-				{
-					eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
-				}
-			}
-		}
+            if (eventSystem.currentSelectedGameObject == null)
+            {
+                if (((states[i].DPad.Down == ButtonState.Pressed && prevStates[i].DPad.Down == ButtonState.Released) || (states[i].DPad.Up == ButtonState.Pressed && prevStates[i].DPad.Up == ButtonState.Released) || (states[i].DPad.Left == ButtonState.Pressed && prevStates[i].DPad.Left == ButtonState.Released) || (states[i].DPad.Right == ButtonState.Pressed && prevStates[i].DPad.Right == ButtonState.Released) || (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released) || (states[i].ThumbSticks.Left.Y > 0f || states[i].ThumbSticks.Left.Y < 0f && prevStates[i].ThumbSticks.Left.Y == 0f)) && (groupPath.Peek() != playerSelectGroup))
+                {
+                    eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+                }
+            }
+        }
 		
+        if(eventSystem.currentSelectedGameObject == null && moving == false && groupPath.Count == 1)
+        {
+            eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+
+        }
 
 		Vector3 camGoalPos = groupPath.Peek().transform.GetChild(0).transform.position;
 
-		mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, camGoalPos, cameraSpeed);
+		mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, camGoalPos, cameraSpeed);   // BÖR VARA DELTA TIME HÄR ########¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤%%%%%%%%%%%%%%%%%%%%%%%%%&
 		mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, groupPath.Peek().transform.GetChild(0).transform.rotation, cameraSpeed);
 
 		if (Vector3.Distance(mainCamera.transform.position, camGoalPos) <= 1f && moving)
@@ -85,7 +93,9 @@ public class WorldMenuManager : MonoBehaviour
 			//eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
 			moving = false;
 
-			if (groupPath.Peek() == playerSelectGroup)
+            
+
+            if (groupPath.Peek() == playerSelectGroup)
 				eventSystem.SetSelectedGameObject(null);
 
             eventSystem.SetSelectedGameObject(null); 
@@ -124,6 +134,9 @@ public class WorldMenuManager : MonoBehaviour
 		groupPath.Pop();
 		groupPath.Peek().SetActive(true);
         moving = true;
+
+        eventSystem.SetSelectedGameObject(null);// TEST!!!!!
+
 	}
 
 
