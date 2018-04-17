@@ -93,7 +93,7 @@ public class DeathManager : MonoBehaviour
         {
             startMasses[i] = rbs[i].mass;
         }
-       
+
 
         // Gets stuff from the other players
         for (int i = 0; i < otherPlayers.Count; i++)
@@ -111,36 +111,37 @@ public class DeathManager : MonoBehaviour
 
             otherTrans.Add(GetRoot(otherPlayers[i]));
         }
-	}
+    }
 	
 
 	void Update ()
     {
         if (firstUpdate)
         {
+
+            
             for(int i = myColliders.Count-1; i > -1 ; i--)
             {
                
                 if(myColliders[i].name == "cloth" )
                 {
-                    print("hittade en null");
                     myColliders.Remove(myColliders[i]);
 
                 }
 
             }
+            
 
             for (int i = otherColliders.Count - 1; i > -1; i--)
             {
-                print("i for loopen i firstupdate" + otherColliders.Count + "    " + otherColliders[i].name + "   I är = " +  i);
                 if (otherColliders[i].name == "cloth" || otherColliders[i] == null)
                 {
-                    print("hittade en null");
                     otherColliders.Remove(otherColliders[i]);
 
                 }
 
             }
+
 
             firstUpdate = false;
         }
