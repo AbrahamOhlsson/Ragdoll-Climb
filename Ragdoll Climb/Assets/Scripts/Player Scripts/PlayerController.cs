@@ -37,12 +37,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float armMassDecrease = 0.4f;
 
     [Header("Punching")]
-    [Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
-    [SerializeField] float punchPullBackForce = 500;
+    //[Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
+    //[SerializeField] float punchPullBackForce = 500;
     [Tooltip("The force that is applied to the arm to for punching.")]
     [SerializeField] float punchForce = 2000f;
-    [Tooltip("The time it takes for the punch force to be applied after the punch pull back force.")]
-    [SerializeField] float punchDelay = 0.1f;
+    //[Tooltip("The time it takes for the punch force to be applied after the punch pull back force.")]
+    //[SerializeField] float punchDelay = 0.1f;
     [Tooltip("The time it takes for the punch state to be reset after the punch force has been applied.")]
     [SerializeField] float punchStateResetDelay = 0.2f;
     [Tooltip("The percentage of stamina lost by a punch.")]
@@ -302,8 +302,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (!leftPunching)
-                    ArmControl(true);
+                ArmControl(true);
 
                 // Punch
                 if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching && leftCanClimb)
@@ -336,8 +335,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (!rightPunching)
-                    ArmControl(false);
+                ArmControl(false);
 
                 // Punch
                 if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching && rightCanClimb)
@@ -601,7 +599,7 @@ public class PlayerController : MonoBehaviour
 
 		if (state.DPad.Down == ButtonState.Released)
 		{
-            if (deathTimer != 0 )
+            if (deathTimer != 0)
 			{
 				//respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_3").texture);
 				deathTimer = 0;
@@ -832,9 +830,9 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
         // Pulls back arm before punch
-        hand.AddForce(-direction * punchPullBackForce);
+        //hand.AddForce(-direction * punchPullBackForce);
 
-        yield return new WaitForSeconds(punchDelay);
+        //yield return new WaitForSeconds(punchDelay);
         yield return new WaitForFixedUpdate();
         // Pushes hand out to punch
         hand.AddForce(direction * punchForce);
