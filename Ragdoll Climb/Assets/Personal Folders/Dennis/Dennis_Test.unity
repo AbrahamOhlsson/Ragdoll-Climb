@@ -372,7 +372,7 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
+  m_RepeatDelay: 0.2
   m_ForceModuleActive: 0
 --- !u!114 &102135856
 MonoBehaviour:
@@ -1975,9 +1975,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71374fefbb1f56042b7e81ad8835df44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reqVelocity: 5
-  throwDamage: 50
-  headDamage: 100
+  minVelocity: 5
+  maxVelocity: 10
+  headDmgMult: 2
 --- !u!1001 &693738335
 Prefab:
   m_ObjectHideFlags: 0
@@ -2450,7 +2450,7 @@ Prefab:
     - target: {fileID: 224316968449279012, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -73.45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224613146274236520, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -2470,7 +2470,7 @@ Prefab:
     - target: {fileID: 224613146274236520, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -269.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224496680090531138, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -2490,7 +2490,7 @@ Prefab:
     - target: {fileID: 224496680090531138, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -465.95
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224999117513024704, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -2510,7 +2510,7 @@ Prefab:
     - target: {fileID: 224999117513024704, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -662.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 223203072193792804, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -3943,9 +3943,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71374fefbb1f56042b7e81ad8835df44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reqVelocity: 5
-  throwDamage: 50
-  headDamage: 100
+  minVelocity: 5
+  maxVelocity: 30
+  headDmgMult: 2
 --- !u!1 &1432632396
 GameObject:
   m_ObjectHideFlags: 0
@@ -4364,7 +4364,7 @@ Prefab:
     - target: {fileID: 198476737228251722, guid: 20a7a22ee42e9bb4a98c1b51ac3c0d5c,
         type: 2}
       propertyPath: ShapeModule.m_Scale.x
-      value: 3
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 198828349629358056, guid: 20a7a22ee42e9bb4a98c1b51ac3c0d5c,
         type: 2}
@@ -4374,17 +4374,17 @@ Prefab:
     - target: {fileID: 198828349629358056, guid: 20a7a22ee42e9bb4a98c1b51ac3c0d5c,
         type: 2}
       propertyPath: ShapeModule.m_Scale.x
-      value: 3
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 198476737228251722, guid: 20a7a22ee42e9bb4a98c1b51ac3c0d5c,
         type: 2}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 15
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 198828349629358056, guid: 20a7a22ee42e9bb4a98c1b51ac3c0d5c,
         type: 2}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 150
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 198476737228251722, guid: 20a7a22ee42e9bb4a98c1b51ac3c0d5c,
         type: 2}

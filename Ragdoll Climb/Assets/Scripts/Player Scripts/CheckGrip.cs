@@ -25,8 +25,6 @@ public class CheckGrip : MonoBehaviour
     bool playingAnim = false;
 
     float failsafeTimer = 0;
-
-    float throwableStartZ = 0;
     
     Animator[] grabAnimators;
 
@@ -307,9 +305,8 @@ public class CheckGrip : MonoBehaviour
 
                 if (currentGripable.tag == "Throwable")
                 {
-                    throwableStartZ = currentGripable.position.z;
                     currentGripable.constraints = RigidbodyConstraints.None;
-                    currentGripable.GetComponent<DamageThrowable>().beingHold = true;
+                    currentGripable.GetComponent<DamageThrowable>().holdAmount++;
                     currentGripable.useGravity = false;
                 }
 
@@ -375,10 +372,16 @@ public class CheckGrip : MonoBehaviour
 
     private void ResetThrowable()
     {
-        currentGripping.transform.position = new Vector3(currentGripping.position.x, currentGripping.position.y, throwableStartZ);
-        currentGripping.constraints = RigidbodyConstraints.FreezePositionZ;
-        currentGripping.GetComponent<DamageThrowable>().beingHold = false;
-        currentGripping.useGravity = true;
+        DamageThrowable throwable = currentGripping.GetComponent<DamageThrowable>();
+
+        throwable.holdAmount--;
+
+        if (throwable.holdAmount <= 0)
+        {
+            currentGripping.transform.position = new Vector3(currentGripping.position.x, currentGripping.position.y, throwable.startZPos);
+            currentGripping.constraints = RigidbodyConstraints.FreezePositionZ;
+            currentGripping.useGravity = true;
+        }
     }
 
 

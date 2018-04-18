@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class DamageThrowable : MonoBehaviour
 {
-    internal bool beingHold = false;
+    internal int holdAmount = 0;
+    internal float startZPos;
 
-    [SerializeField] private float reqVelocity = 5f;
-	[SerializeField] private int throwDamage;
-	[SerializeField] private int headDamage;
+    [SerializeField] private float minVelocity = 5f;
+    [SerializeField] private float maxVelocity = 30f;
+	[SerializeField] private float headDmgMult = 2f;
+
+    private float throwDamage;
     
 	Rigidbody rb;
 
 
 	void Start ()
 	{
-		rb = GetComponent<Rigidbody>();
+        startZPos = transform.position.z;
+
+        rb = GetComponent<Rigidbody>();
 	}
     
 
     void OnCollisionEnter(Collision other)
     {
-        if(!beingHold && other.transform.tag == "Player" && rb.velocity.magnitude > reqVelocity)
+        if(holdAmount <= 0 && other.transform.tag == "Player" && rb.velocity.magnitude >= minVelocity)
 		{
-			if(other.transform.name.Contains("head") || other.transform.name.Contains("Head"))
-				other.transform.root.GetComponent<HealthManager>().Damage(headDamage);
-			else
-				other.transform.root.GetComponent<HealthManager>().Damage(throwDamage);
+            throwDamage = 100 * (rb.velocity.magnitude / maxVelocity);
+
+            if (other.transform.name.Contains("head") || other.transform.name.Contains("Head"))
+                throwDamage *= headDmgMult;
+
+			other.transform.root.GetComponent<HealthManager>().Damage(throwDamage);
 		}
     }
 }

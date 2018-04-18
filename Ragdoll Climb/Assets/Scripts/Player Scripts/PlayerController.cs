@@ -480,7 +480,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //A timer when that counts how long the player is using the right hand. Hold too long and a vibration starts. Keep holding and you will fall.
-        if (gripRight == true && !unlimitedStamina)
+        if (gripRight == true && !unlimitedStamina && checkGripRight.currentGripping.tag != "Throwable")
         {
             rightStaminaBar.gameObject.SetActive(true);
 
@@ -516,7 +516,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
-        if (gripLeft == true && !unlimitedStamina)
+        if (gripLeft == true && !unlimitedStamina && checkGripLeft.currentGripping.tag != "Throwable")
         {
             leftStaminaBar.gameObject.SetActive(true);
 
