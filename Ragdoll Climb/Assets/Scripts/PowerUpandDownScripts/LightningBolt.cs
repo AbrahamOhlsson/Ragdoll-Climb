@@ -99,8 +99,10 @@ public class LightningBolt : MonoBehaviour {
 	}
 
 
-	public void startLightning()
+	public void StartLightning()
 	{
-		StartCoroutine(LightningStrike());
+        StartCoroutine(LightningStrike());
+
+        transform.position = new Vector3(root.transform.position.x, root.transform.position.y + offset, root.transform.position.z - 0.5f);
 	}
 }
