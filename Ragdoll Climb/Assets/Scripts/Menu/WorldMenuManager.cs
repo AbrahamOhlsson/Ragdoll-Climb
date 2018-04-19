@@ -12,6 +12,7 @@ public class WorldMenuManager : MonoBehaviour
     [SerializeField] GameObject playerSelectGroup;
     [SerializeField] GameObject levelSelectGroup;
 	[SerializeField] GameObject howToPlayGroup;
+    [SerializeField] GameObject diffLengthGroup;
 	[SerializeField] GameObject optionsGroup;
     [SerializeField] GameObject creditsGroup;
 
@@ -39,6 +40,7 @@ public class WorldMenuManager : MonoBehaviour
         playerSelectGroup.SetActive(false);
         levelSelectGroup.SetActive(false);
 		howToPlayGroup.SetActive(false);
+        diffLengthGroup.SetActive(false);
         optionsGroup.SetActive(false);
         creditsGroup.SetActive(false);
 
@@ -55,7 +57,6 @@ public class WorldMenuManager : MonoBehaviour
 
     private void Update()
     {
-        
         // Checks input from all four controllers
         for (int i = 0; i < playerIndexes.Length; i++)
         {
@@ -77,7 +78,7 @@ public class WorldMenuManager : MonoBehaviour
 		
         if(eventSystem.currentSelectedGameObject == null && moving == false && groupPath.Count == 1)
         {
-            eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+            //eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
 
         }
 
@@ -90,15 +91,12 @@ public class WorldMenuManager : MonoBehaviour
 		{
 			lastGroup.SetActive(false);
 			eventSystem.enabled = true;
-			//eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
 			moving = false;
-
             
-
             if (groupPath.Peek() == playerSelectGroup)
 				eventSystem.SetSelectedGameObject(null);
-
-            eventSystem.SetSelectedGameObject(null); 
+            else
+			    eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Selectable>().gameObject);
         }
 
 		if (Input.GetKeyDown("b") && eventSystem.currentSelectedGameObject == null)
@@ -122,6 +120,8 @@ public class WorldMenuManager : MonoBehaviour
 
         if (group == playerSelectGroup)
             playerSelectGroup.GetComponent<Lobby>().ResetValues();
+        else if (group == diffLengthGroup)
+            diffLengthGroup.GetComponent<DiffLengthSelection>().ResetValues();
     }
 
 
@@ -136,13 +136,12 @@ public class WorldMenuManager : MonoBehaviour
         moving = true;
 
         eventSystem.SetSelectedGameObject(null);// TEST!!!!!
-
 	}
 
 
-    public void LoadLevel(string name)
+    public void LoadLevel()
     {
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(PlayerInfoSingleton.instance.selectedLevel);
     }
 
 
