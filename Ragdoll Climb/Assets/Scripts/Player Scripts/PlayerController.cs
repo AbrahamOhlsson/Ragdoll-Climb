@@ -116,10 +116,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Renderer leftStaminaBar;
     [SerializeField] Renderer rightStaminaBar;
 
-    [Header("Audio clips")]
+    [Header("Audio clips")] // ska nog tas bort  har en sound manger använd den 
     [SerializeField] AudioClip goodClimbSfx;
-    [SerializeField] AudioClip boostSfx;
+    [SerializeField] AudioClip boostSfx; //combo
     [SerializeField] AudioClip punchSwooshSfx;
+    // sound manager
+    soundManager soundManager;
+
+    // grunt Manager
+    PlayerGrunts gruntManager;
 
     internal bool leftPunching = false;
     internal bool rightPunching = false;
@@ -265,7 +270,11 @@ public class PlayerController : MonoBehaviour
 
 		wristStartRotLeft = leftHand.transform.localRotation;
 		wristStartRotRight = rightHand.transform.localRotation;
-	}
+
+        soundManager = FindObjectOfType<soundManager>();
+
+        gruntManager = transform.GetComponent<PlayerGrunts>();
+    }
 
 
     void Update()
@@ -365,7 +374,8 @@ public class PlayerController : MonoBehaviour
 
                         // Plays particle effect and sound effect indicating a good climb
                         leftGoodClimbEffect.Play();
-                        source.PlayOneShot(goodClimbSfx);
+                        //source.PlayOneShot(goodClimbSfx);
+                        soundManager.PlaySound("goodClimb");
 
                         // Activates boost if the player has performed the required amounts of good climbs
                         if (goodClimbs >= reqGoodClimbs)
@@ -381,6 +391,8 @@ public class PlayerController : MonoBehaviour
                     else
                         // The right hand cannot activate boost, this prevents exploiting the boost
                         rightBoostReady = false;
+
+                    gruntManager.PlayGrunt();
                 }
             }
             // If trigger is released
@@ -421,7 +433,8 @@ public class PlayerController : MonoBehaviour
 
                         // Plays particle effect and sound effect indicating a good climb
                         rightGoodClimbEffect.Play();
-                        source.PlayOneShot(goodClimbSfx);
+                        //source.PlayOneShot(goodClimbSfx);
+                        soundManager.PlaySound("goodClimb");
 
                         // Activates boost if the player has performed the required amounts of good climbs
                         if (goodClimbs >= reqGoodClimbs)
@@ -437,6 +450,8 @@ public class PlayerController : MonoBehaviour
                     else
                         // The left hand cannot activate boost, this prevents exploiting the boost
                         leftBoostReady = false;
+
+                    gruntManager.PlayGrunt();
                 }
             }
             // If trigger is released
@@ -826,7 +841,8 @@ public class PlayerController : MonoBehaviour
         }
 
         hand.GetComponent<TrailRenderer>().enabled = true;
-        source.PlayOneShot(punchSwooshSfx);
+        //source.PlayOneShot(punchSwooshSfx);
+        soundManager.PlaySound("punchSwoosh");
 
         yield return new WaitForFixedUpdate();
         // Pulls back arm before punch
@@ -862,7 +878,8 @@ public class PlayerController : MonoBehaviour
 
         boostTimer = 0f;
         boostEffect.Play();
-        source.PlayOneShot(boostSfx);
+        //  source.PlayOneShot(boostSfx);
+        soundManager.PlaySound("comboBoost");
         boostActive = true;
 
         return true;

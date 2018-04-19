@@ -24,7 +24,7 @@ public class DiffLengthSelection : MonoBehaviour
     public void UpdateDiffSlider()
     {
         diffText.text = diffNames[Mathf.RoundToInt(diffSlider.value)];
-        PlayerInfoSingleton.instance.levelifficulty = (PlayerInfoSingleton.Difficulties)Mathf.RoundToInt(diffSlider.value);
+        PlayerInfoSingleton.instance.levelDifficulty = (PlayerInfoSingleton.Difficulties)Mathf.RoundToInt(diffSlider.value);
     }
 
 

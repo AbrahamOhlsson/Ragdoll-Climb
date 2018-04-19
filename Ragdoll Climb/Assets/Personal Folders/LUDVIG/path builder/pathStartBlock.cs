@@ -15,7 +15,7 @@ public class pathStartBlock : MonoBehaviour {
 
 
     // Use this for initialization
-    void Awake()
+    void Start()
     {     /// Awake om man vill spawna dom dir
 
         maxBlock = FindObjectOfType<pathController>().maxBlock;
@@ -28,16 +28,16 @@ public class pathStartBlock : MonoBehaviour {
         {
             FindObjectOfType<pathController>().currentBlock++;
 
-            int listsize = FindObjectOfType<pathController>().bloakList.Count;
+            int listsize = FindObjectOfType<pathController>().blockList.Count;
             int randomNum = Random.Range(0, listsize);
-            GameObject randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+            GameObject randomObj = FindObjectOfType<pathController>().blockList[randomNum];
 
             if (randomObj == null)
             {
                 while (randomObj == null)
                 {
                     randomNum = Random.Range(0, listsize);
-                    randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                    randomObj = FindObjectOfType<pathController>().blockList[randomNum];
                 }
             }
 
@@ -53,7 +53,7 @@ public class pathStartBlock : MonoBehaviour {
 
             //}
 
-            FindObjectOfType<pathController>().bloakList.RemoveAt(randomNum);
+            FindObjectOfType<pathController>().blockList.RemoveAt(randomNum);
             Instantiate(randomObj, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
 
         }

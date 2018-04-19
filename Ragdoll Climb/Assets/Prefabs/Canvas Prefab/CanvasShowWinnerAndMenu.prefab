@@ -158,7 +158,6 @@ GameObject:
   - component: {fileID: 224344385367363116}
   - component: {fileID: 223607879024371608}
   - component: {fileID: 114634252319076622}
-  - component: {fileID: 114476784107585434}
   m_Layer: 5
   m_Name: CanvasShowWinnerAndMenu
   m_TagString: Untagged
@@ -697,22 +696,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114476784107585434
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1490918318736592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114593210990702298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -751,6 +734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7775c0574a2904b4cb2c81e91543801e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 0}
 --- !u!114 &114625687928255094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -872,7 +856,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 235.15
+  m_fontSize: 215.9
   m_fontSizeBase: 52.4
   m_fontWeight: 400
   m_enableAutoSizing: 1
