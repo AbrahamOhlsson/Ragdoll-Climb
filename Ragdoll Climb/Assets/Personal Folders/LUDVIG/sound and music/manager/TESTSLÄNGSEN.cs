@@ -17,7 +17,7 @@ public class TESTSLÄNGSEN : MonoBehaviour {
         {
             Debug.Log("UP");
 
-            FindObjectOfType<soundManager>().PlaySound("ice");
+            FindObjectOfType<soundManager>().PlaySound("applaus");
 
         }
 
