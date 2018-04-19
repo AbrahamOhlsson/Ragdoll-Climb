@@ -106,6 +106,7 @@ public class PauseMenuManager : MonoBehaviour
 			groupPath.Push(mainGroup);
 
 			eventSystem.SetSelectedGameObject(mainGroup.GetComponentInChildren<Button>().gameObject);
+            print(mainGroup.GetComponentInChildren<Button>().gameObject.name);
 
             paused = true;
             Time.timeScale = 0f;
@@ -119,8 +120,8 @@ public class PauseMenuManager : MonoBehaviour
     {
         groupPath.Peek().SetActive(false);
         groupPath.Push(group);
-        eventSystem.SetSelectedGameObject(group.GetComponentInChildren<Button>().gameObject);
         group.SetActive(true);
+        eventSystem.SetSelectedGameObject(group.GetComponentInChildren<Button>().gameObject);
     }
 
 
@@ -133,8 +134,8 @@ public class PauseMenuManager : MonoBehaviour
         else
         {
             groupPath.Pop().SetActive(false);
-            eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
             groupPath.Peek().SetActive(true);
+            eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
         }
     }
 
