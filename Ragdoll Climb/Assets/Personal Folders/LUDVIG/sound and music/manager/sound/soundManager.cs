@@ -42,6 +42,7 @@ public class soundManager : MonoBehaviour
             if (i.name == name)
             {
                 s = i;
+                s.pitch = 1;
                 s.source.Play();
             }
         }
@@ -53,6 +54,27 @@ public class soundManager : MonoBehaviour
         }
     }
 
+
+    public void PlaySoundRandPitch(string name)
+    {
+        Sound s = null;
+
+        foreach (Sound i in sounds)
+        {
+            if (i.name == name)
+            {
+                s = i;
+                s.pitch = Random.Range(0.9f,1.1f);
+                s.source.Play();
+            }
+        }
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound:" + name + " not found.");
+
+        }
+    }
 
 
 }
