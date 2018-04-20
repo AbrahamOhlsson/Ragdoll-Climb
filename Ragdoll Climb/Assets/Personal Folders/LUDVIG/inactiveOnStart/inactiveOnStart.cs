@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class inactiveOnStart : MonoBehaviour {
 
+    bool firstUpdate = false;
 	// Use this for initialization
+
 	void Start () {
-        gameObject.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+       gameObject.SetActive(false);
+       Destroy(this);
+
+    }
+
 }
