@@ -21,9 +21,10 @@ public class TeleportUp : MonoBehaviour
             if (child.tag != "Particle Effect")
             {
                 teleportList.Add(child.gameObject);
-                teleportPos = teleportList[Random.Range(0, teleportList.Count - 1)];
             }
         }
+
+        teleportPos = teleportList[Random.Range(0, teleportList.Count - 1)];
     }
 
 
