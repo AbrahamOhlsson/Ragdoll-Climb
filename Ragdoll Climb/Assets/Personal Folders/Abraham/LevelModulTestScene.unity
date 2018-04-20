@@ -51,7 +51,7 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 9
@@ -2183,6 +2183,20 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 349783821}
+--- !u!114 &1408429549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1408429534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grunts: []
+  GruntsList: []
+  gruntDelay: 0
 --- !u!1001 &1415551186
 Prefab:
   m_ObjectHideFlags: 0
@@ -2382,19 +2396,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6fe933c6ad5314599b11859c7e5cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBlock: 1
+  maxBlock: 5
   currentBlock: 1
   blockList: []
   EZbloakList:
-  - {fileID: 1454891566914214, guid: e949a5e8eb697a24ea3b524bca2ca52e, type: 2}
+  - {fileID: 1646596305364952, guid: 495c8e812dbe0cb4b8c1757d549369f3, type: 2}
+  - {fileID: 1246036041526862, guid: be193397d643d1d45858ac5f9d18aa6f, type: 2}
   NORMbloakList:
+  - {fileID: 1991309023054406, guid: 981c6a2c9c70e664b85ab4e65eee6090, type: 2}
   - {fileID: 1454891566914214, guid: e949a5e8eb697a24ea3b524bca2ca52e, type: 2}
   HARDbloakList:
-  - {fileID: 1454891566914214, guid: e949a5e8eb697a24ea3b524bca2ca52e, type: 2}
+  - {fileID: 1670710270189702, guid: 065f08f32a7afb64596ddd668244310d, type: 2}
+  - {fileID: 1527180861062888, guid: 2dd7e40e6d539ab48885e770ce978db7, type: 2}
   endBox: {fileID: 1663660393859050, guid: be7bd8db733e07c468e9faa1120bc13e, type: 2}
   startBox: {fileID: 1539456871}
   Difficulties: 2
-  Lengths: 2
+  Lengths: 5
 --- !u!23 &1561167246
 MeshRenderer:
   m_ObjectHideFlags: 0
