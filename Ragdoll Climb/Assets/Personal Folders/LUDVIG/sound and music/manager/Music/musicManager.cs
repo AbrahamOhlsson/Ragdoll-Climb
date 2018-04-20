@@ -27,7 +27,7 @@ public class musicManager : MonoBehaviour
 
     public Transform startBlockTransform;
     public Transform endBlockTransform;
-    public Transform cameraTransform;
+    public Transform bottomTransform;
 
 
     // Use this for initialization
@@ -99,9 +99,9 @@ public class musicManager : MonoBehaviour
                 endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
             }
 
-            if (cameraTransform == null)
+            if (bottomTransform == null)
             {
-                cameraTransform = GameObject.Find("Main Camera").transform;
+                bottomTransform = GameObject.Find("Bottom Object").transform;
             }
 
 
@@ -121,7 +121,7 @@ public class musicManager : MonoBehaviour
         }
 
 
-        if ( (cameraTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
+        if ( (bottomTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
         {
             partInt++;
 

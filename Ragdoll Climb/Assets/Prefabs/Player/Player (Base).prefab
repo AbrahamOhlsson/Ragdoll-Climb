@@ -195,6 +195,9 @@ MonoBehaviour:
   SkullAndCrossbones: {fileID: 1745337047547950, guid: da6a069ff24266c4f9d696a73accc6ef,
     type: 2}
   otherPlayers: []
+  myColliders: []
+  otherColliders: []
+  originMats: []
 --- !u!114 &114258412346434612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -264,9 +267,9 @@ MonoBehaviour:
   throwForce: 100
   stickyReleaseDelay: 1
   armMassDecrease: 0.3
-  punchPullBackForce: 500
+  punchPullBackForce: 0
   punchForce: 2000
-  punchDelay: 0.1
+  punchDelay: 0
   punchStateResetDelay: 0.2
   punchStaminaCost: 0.25
   boostMult: 1.5

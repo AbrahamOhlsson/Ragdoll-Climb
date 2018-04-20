@@ -37,12 +37,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float armMassDecrease = 0.4f;
 
     [Header("Punching")]
-    [Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
-    [SerializeField] float punchPullBackForce = 500;
+    //[Tooltip("The force that is applied to the arm to pull it back before the actual punch.")]
+    //[SerializeField] float punchPullBackForce = 500;
     [Tooltip("The force that is applied to the arm to for punching.")]
     [SerializeField] float punchForce = 2000f;
-    [Tooltip("The time it takes for the punch force to be applied after the punch pull back force.")]
-    [SerializeField] float punchDelay = 0.1f;
+    //[Tooltip("The time it takes for the punch force to be applied after the punch pull back force.")]
+    //[SerializeField] float punchDelay = 0.1f;
     [Tooltip("The time it takes for the punch state to be reset after the punch force has been applied.")]
     [SerializeField] float punchStateResetDelay = 0.2f;
     [Tooltip("The percentage of stamina lost by a punch.")]
@@ -116,10 +116,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Renderer leftStaminaBar;
     [SerializeField] Renderer rightStaminaBar;
 
-    [Header("Audio clips")]
+    [Header("Audio clips")] // ska nog tas bort  har en sound manger använd den 
     [SerializeField] AudioClip goodClimbSfx;
-    [SerializeField] AudioClip boostSfx;
+    [SerializeField] AudioClip boostSfx; //combo
     [SerializeField] AudioClip punchSwooshSfx;
+    // sound manager
+    soundManager soundManager;
+
+    // grunt Manager
+    PlayerGrunts gruntManager;
 
     internal bool leftPunching = false;
     internal bool rightPunching = false;
@@ -265,7 +270,11 @@ public class PlayerController : MonoBehaviour
 
 		wristStartRotLeft = leftHand.transform.localRotation;
 		wristStartRotRight = rightHand.transform.localRotation;
-	}
+
+        soundManager = FindObjectOfType<soundManager>();
+
+        gruntManager = transform.GetComponent<PlayerGrunts>();
+    }
 
 
     void Update()
@@ -302,8 +311,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (!leftPunching)
-                    ArmControl(true);
+                ArmControl(true);
 
                 // Punch
                 if (state.Buttons.LeftShoulder == ButtonState.Pressed && prevState.Buttons.LeftShoulder == ButtonState.Released && !leftPunching && leftCanClimb)
@@ -336,8 +344,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (!rightPunching)
-                    ArmControl(false);
+                ArmControl(false);
 
                 // Punch
                 if (state.Buttons.RightShoulder == ButtonState.Pressed && prevState.Buttons.RightShoulder == ButtonState.Released && !rightPunching && rightCanClimb)
@@ -367,7 +374,8 @@ public class PlayerController : MonoBehaviour
 
                         // Plays particle effect and sound effect indicating a good climb
                         leftGoodClimbEffect.Play();
-                        source.PlayOneShot(goodClimbSfx);
+                        //source.PlayOneShot(goodClimbSfx);
+                        soundManager.PlaySound("goodClimb");
 
                         // Activates boost if the player has performed the required amounts of good climbs
                         if (goodClimbs >= reqGoodClimbs)
@@ -383,6 +391,8 @@ public class PlayerController : MonoBehaviour
                     else
                         // The right hand cannot activate boost, this prevents exploiting the boost
                         rightBoostReady = false;
+
+                    gruntManager.PlayGrunt();
                 }
             }
             // If trigger is released
@@ -423,7 +433,8 @@ public class PlayerController : MonoBehaviour
 
                         // Plays particle effect and sound effect indicating a good climb
                         rightGoodClimbEffect.Play();
-                        source.PlayOneShot(goodClimbSfx);
+                        //source.PlayOneShot(goodClimbSfx);
+                        soundManager.PlaySound("goodClimb");
 
                         // Activates boost if the player has performed the required amounts of good climbs
                         if (goodClimbs >= reqGoodClimbs)
@@ -439,6 +450,8 @@ public class PlayerController : MonoBehaviour
                     else
                         // The left hand cannot activate boost, this prevents exploiting the boost
                         leftBoostReady = false;
+
+                    gruntManager.PlayGrunt();
                 }
             }
             // If trigger is released
@@ -480,7 +493,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //A timer when that counts how long the player is using the right hand. Hold too long and a vibration starts. Keep holding and you will fall.
-        if (gripRight == true && !unlimitedStamina)
+        if (gripRight == true && !unlimitedStamina && checkGripRight.currentGripping.tag != "Throwable")
         {
             rightStaminaBar.gameObject.SetActive(true);
 
@@ -516,7 +529,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //A timer when that counts how long the player is using the left hand. Hold too long and a vibration stars. Keep holding and you will fall.
-        if (gripLeft == true && !unlimitedStamina)
+        if (gripLeft == true && !unlimitedStamina && checkGripLeft.currentGripping.tag != "Throwable")
         {
             leftStaminaBar.gameObject.SetActive(true);
 
@@ -601,7 +614,7 @@ public class PlayerController : MonoBehaviour
 
 		if (state.DPad.Down == ButtonState.Released)
 		{
-            if (deathTimer != 0 )
+            if (deathTimer != 0)
 			{
 				//respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_3").texture);
 				deathTimer = 0;
@@ -828,13 +841,14 @@ public class PlayerController : MonoBehaviour
         }
 
         hand.GetComponent<TrailRenderer>().enabled = true;
-        source.PlayOneShot(punchSwooshSfx);
+        //source.PlayOneShot(punchSwooshSfx);
+        soundManager.PlaySound("punchSwoosh");
 
         yield return new WaitForFixedUpdate();
         // Pulls back arm before punch
-        hand.AddForce(-direction * punchPullBackForce);
+        //hand.AddForce(-direction * punchPullBackForce);
 
-        yield return new WaitForSeconds(punchDelay);
+        //yield return new WaitForSeconds(punchDelay);
         yield return new WaitForFixedUpdate();
         // Pushes hand out to punch
         hand.AddForce(direction * punchForce);
@@ -864,7 +878,8 @@ public class PlayerController : MonoBehaviour
 
         boostTimer = 0f;
         boostEffect.Play();
-        source.PlayOneShot(boostSfx);
+        //  source.PlayOneShot(boostSfx);
+        soundManager.PlaySound("comboBoost");
         boostActive = true;
 
         return true;

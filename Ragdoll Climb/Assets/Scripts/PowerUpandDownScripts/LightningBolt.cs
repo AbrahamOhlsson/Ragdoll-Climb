@@ -19,23 +19,25 @@ public class LightningBolt : MonoBehaviour {
 	Vector3 tinyScale = new Vector3(0,0,0);
 	Vector3 normalScale = new Vector3(1,1,1);
 
+    soundManager SoundManager;
 	void Start ()
 	{
-		
-		//lightningDuration = 0.05f;
-		//lightningWait	  = 3;
+		SoundManager = FindObjectOfType<soundManager>();
 
-		////Get children
-		//lightningBolt = gameObject.transform.GetChild(1).gameObject;
-		//blackCloud = gameObject.transform.GetChild(0).gameObject;
-		
-		////Set scale
-		//gameObject.transform.localScale = tinyScale;
-		//blackCloud.transform.localScale = tinyScale;
+        //lightningDuration = 0.05f;
+        //lightningWait	  = 3;
 
-		//startLightning();
+        ////Get children
+        //lightningBolt = gameObject.transform.GetChild(1).gameObject;
+        //blackCloud = gameObject.transform.GetChild(0).gameObject;
 
-	}
+        ////Set scale
+        //gameObject.transform.localScale = tinyScale;
+        //blackCloud.transform.localScale = tinyScale;
+
+        //startLightning();
+
+    }
 	
 
 	IEnumerator LightningStrike()
@@ -63,6 +65,8 @@ public class LightningBolt : MonoBehaviour {
 		scaleUp = false;
 
 		lightningBolt.SetActive(true);
+
+        SoundManager.PlaySound("lightningStrike");
 
 		yield return new WaitForSeconds(0.2f);   // w8 for the effect then stun 
 		// ######   Stun  the player 
@@ -99,8 +103,10 @@ public class LightningBolt : MonoBehaviour {
 	}
 
 
-	public void startLightning()
+	public void StartLightning()
 	{
-		StartCoroutine(LightningStrike());
+        StartCoroutine(LightningStrike());
+
+        transform.position = new Vector3(root.transform.position.x, root.transform.position.y + offset, root.transform.position.z - 0.5f);
 	}
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17261317, g: 0.20682544, b: 0.24733278, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2384,10 +2384,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxBlock: 2
   currentBlock: 1
-  bloakList:
-  - {fileID: 1924224624719278, guid: 554e7cefd043e1f4498c713f2a760052, type: 2}
+  blockList: []
+  EZbloakList: []
+  NORMbloakList: []
+  HARDbloakList: []
   endBox: {fileID: 1663660393859050, guid: be7bd8db733e07c468e9faa1120bc13e, type: 2}
   startBox: {fileID: 1539456871}
+  Difficulties: 0
+  Lengths: 2
 --- !u!23 &1561167246
 MeshRenderer:
   m_ObjectHideFlags: 0
