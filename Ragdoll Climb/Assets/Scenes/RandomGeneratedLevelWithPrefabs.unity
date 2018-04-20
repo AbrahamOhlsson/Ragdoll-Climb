@@ -636,8 +636,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 0.94899255, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 0.4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -645,7 +645,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.028
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -776,28 +776,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 54786d0e5dd20e142814caae300e4de6, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &614983207 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1527023105404188, guid: 9edfbb0d834642f47808498b8cc8ab09,
-    type: 2}
-  m_PrefabInternal: {fileID: 1220123140}
---- !u!114 &614983208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 614983207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d7d8bee7e7b40b4e95f0f6cbe97fe46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera1: {fileID: 614983211}
---- !u!20 &614983211 stripped
-Camera:
-  m_PrefabParentObject: {fileID: 20204459457113918, guid: 9edfbb0d834642f47808498b8cc8ab09,
-    type: 2}
-  m_PrefabInternal: {fileID: 1220123140}
 --- !u!1001 &634017766
 Prefab:
   m_ObjectHideFlags: 0
@@ -1890,7 +1868,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1490918318736592, guid: e5afb7de837148544aceb00b8bbff178,
     type: 2}
   m_PrefabInternal: {fileID: 202848135}
---- !u!114 &1102145068
+--- !u!114 &1102145067
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1898,7 +1876,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1102145063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 677119db9303e0e42a4386c60821d138, type: 3}
+  m_Script: {fileID: 11500000, guid: 94034a05689b90d4d93aeb0798e1b67a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1132772855 stripped
@@ -2420,29 +2398,18 @@ MonoBehaviour:
   currentBlock: 1
   blockList: []
   EZbloakList:
+  - {fileID: 1646596305364952, guid: 1cb610b0c92a77b489ac4fde9e1d8ac3, type: 2}
+  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
+  - {fileID: 1024651167319758, guid: 286b2f48cf5794649864411da8a8ae82, type: 2}
+  - {fileID: 1119097444247930, guid: 4b9f6a4541333dc46adf93d40e84bce7, type: 2}
+  - {fileID: 1644450788846788, guid: c034ff696a872484f9dd5e382f2f224f, type: 2}
+  - {fileID: 1246036041526862, guid: 62067d8129cfff74b974f0ca05ead846, type: 2}
   - {fileID: 1527180861062888, guid: c0897a1d88769f0458065269a82ad771, type: 2}
-  - {fileID: 1527180861062888, guid: c0897a1d88769f0458065269a82ad771, type: 2}
-  - {fileID: 1527180861062888, guid: c0897a1d88769f0458065269a82ad771, type: 2}
-  - {fileID: 1527180861062888, guid: c0897a1d88769f0458065269a82ad771, type: 2}
-  - {fileID: 1527180861062888, guid: c0897a1d88769f0458065269a82ad771, type: 2}
-  - {fileID: 1527180861062888, guid: c0897a1d88769f0458065269a82ad771, type: 2}
-  - {fileID: 1527180861062888, guid: c0897a1d88769f0458065269a82ad771, type: 2}
+  - {fileID: 1454891566914214, guid: 6b8d2c19c2758a34d85dcb8c04536fa2, type: 2}
   NORMbloakList:
-  - {fileID: 1492862286922874, guid: 3112550a27084c04db6abfda0b18cc9b, type: 2}
-  - {fileID: 1492862286922874, guid: 3112550a27084c04db6abfda0b18cc9b, type: 2}
-  - {fileID: 1492862286922874, guid: 3112550a27084c04db6abfda0b18cc9b, type: 2}
-  - {fileID: 1492862286922874, guid: 3112550a27084c04db6abfda0b18cc9b, type: 2}
-  - {fileID: 1492862286922874, guid: 3112550a27084c04db6abfda0b18cc9b, type: 2}
-  - {fileID: 1492862286922874, guid: 3112550a27084c04db6abfda0b18cc9b, type: 2}
-  - {fileID: 1492862286922874, guid: 3112550a27084c04db6abfda0b18cc9b, type: 2}
+  - {fileID: 1215839580936596, guid: fa62e897bf3c23c4ebd1cd8d85ea5348, type: 2}
   HARDbloakList:
-  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
-  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
-  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
-  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
-  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
-  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
-  - {fileID: 1991309023054406, guid: 0316ffcdff52f904e83480f347b55b9e, type: 2}
+  - {fileID: 1670710270189702, guid: 32a421d2f78d3184091b793322146ab5, type: 2}
   endBox: {fileID: 1663660393859050, guid: be7bd8db733e07c468e9faa1120bc13e, type: 2}
   startBox: {fileID: 1539456871}
   Difficulties: 0
@@ -2934,6 +2901,71 @@ MonoBehaviour:
   physics: 0
   offset: {x: 0, y: 0, z: 0}
   target: {fileID: 1642515599}
+--- !u!1 &1928748728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1928748729}
+  - component: {fileID: 1928748730}
+  m_Layer: 0
+  m_Name: Spotlight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1928748729
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1928748728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1642515599}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &1928748730
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1928748728}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 32.98
+  m_SpotAngle: 37
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!4 &1942483102 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4707740695881700, guid: 59a5fefdbd35e7442a5b1fa57fbca8ab,
