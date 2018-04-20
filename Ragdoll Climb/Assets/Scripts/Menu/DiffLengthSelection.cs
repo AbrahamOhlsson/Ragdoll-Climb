@@ -10,6 +10,8 @@ public class DiffLengthSelection : MonoBehaviour
     [SerializeField] Slider lengthSlider;
     [SerializeField] Text diffText;
     [SerializeField] Text lengthText;
+    [SerializeField] Image diffImage;
+    [SerializeField] Sprite[] diffSprites;
     [SerializeField] GameObject[] blocks;
     [SerializeField] GameObject[] characterImages;
     //[SerializeField] Sprite[] characterSprites;
@@ -42,6 +44,7 @@ public class DiffLengthSelection : MonoBehaviour
     public void UpdateDiffSlider()
     {
         diffText.text = diffNames[Mathf.RoundToInt(diffSlider.value)];
+        diffImage.sprite = diffSprites[Mathf.RoundToInt(diffSlider.value)];
         singleton.levelDifficulty = (PlayerInfoSingleton.Difficulties)Mathf.RoundToInt(diffSlider.value);
     }
 
