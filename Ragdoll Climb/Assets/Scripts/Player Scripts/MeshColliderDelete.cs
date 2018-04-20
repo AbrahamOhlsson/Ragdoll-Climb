@@ -25,7 +25,6 @@ public class MeshColliderDelete : MonoBehaviour
                     Destroy(meshColls[i]);
                 }
 
-                print(" i  " + transform.root.name + " mesh destroy ");
                 Destroy(this);
             }
         }
