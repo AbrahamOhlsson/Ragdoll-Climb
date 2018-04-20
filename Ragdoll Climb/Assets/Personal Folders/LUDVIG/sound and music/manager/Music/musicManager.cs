@@ -101,7 +101,7 @@ public class musicManager : MonoBehaviour
 
             if (bottomTransform == null)
             {
-                bottomTransform = GameObject.Find("Bottom Object (1)").transform;
+                bottomTransform = GameObject.Find("Bottom Object").transform;
             }
 
 
