@@ -76,7 +76,7 @@ public class ElectrocutePlayer : MonoBehaviour
 
                 LightningBolt lightningCloud = playerRoot_mList[i].transform.root.GetComponentInChildren<LightningBolt>(true);
                 lightningCloud.gameObject.SetActive(true);
-                lightningCloud.startLightning();
+                lightningCloud.StartLightning();
 
                 
                 //players[i].transform.Find("Main/DeformationSystem/LightningCloud").gameObject.SetActive(true);

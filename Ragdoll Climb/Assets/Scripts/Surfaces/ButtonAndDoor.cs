@@ -11,9 +11,10 @@ public class ButtonAndDoor : MonoBehaviour {
     private GameObject player;
 
     List<Vector3> doorDestinations = new List<Vector3>();
+    List<Vector3> reversedDoorDestinations = new List<Vector3>();
 
-    [SerializeField]  public List<Transform> doorList;
-  
+    [SerializeField] public List<Transform> doorList;
+
 
     float sinkSpeed;
     float lerpTime = 1;
@@ -21,7 +22,11 @@ public class ButtonAndDoor : MonoBehaviour {
     bool pressed;
     bool cantBePressed;
 
+    enum closeDoor{openDoor, closeDoor};
+    [SerializeField] closeDoor doorEnum;
+
     private Color Activated;
+    Renderer rend;
 
     // Use this for initialization
     void Start ()
@@ -29,12 +34,13 @@ public class ButtonAndDoor : MonoBehaviour {
         pressed = false;
         cantBePressed = false;
         //getDoorChildren();
+        rend = button.GetComponent<Renderer>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Renderer rend = button.GetComponent<Renderer>();
+        
   
         if (pressed == true)
         {
@@ -49,16 +55,25 @@ public class ButtonAndDoor : MonoBehaviour {
 
             //The button lerp
             button.transform.position = Vector3.Lerp(transform.position, buttonStop.position, sinkSpeed * 1.02f);
-           
+
             ////Makes the button green.
-            button.gameObject.GetComponent<Renderer>().material.color = Color.green; //Normal color
-            button.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green); //Emission color
-            
+            //button.gameObject.GetComponent<Renderer>().material.color = Color.green; //Normal color
+            //button.gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.green); //Emission color
+            rend.material.color = Color.green; //Normal color
+            rend.material.SetColor("_EmissionColor", Color.green); //Emission color
+
 
             //Lerps the doors
             for (int i = 0; i < doorList.Count; i++)
             {
-                doorList[i].transform.position = Vector3.Lerp(doorList[i].transform.position, doorDestinations[i], sinkSpeed);
+                if (doorEnum == closeDoor.openDoor)
+                {
+                    doorList[i].transform.position = Vector3.Lerp(doorList[i].transform.position, doorDestinations[i], sinkSpeed);
+                }
+                else if(doorEnum == closeDoor.closeDoor)
+                {
+                    doorList[i].transform.position = Vector3.Lerp(doorList[i].transform.position, reversedDoorDestinations[i], sinkSpeed);
+                }
             }
         }
     }
@@ -67,7 +82,6 @@ public class ButtonAndDoor : MonoBehaviour {
     {
         foreach (Transform childs in transform)
         {
-           
             if (childs.tag == "Door")
             {
                 doorList.Add(childs.transform);
@@ -78,6 +92,7 @@ public class ButtonAndDoor : MonoBehaviour {
         {
             doorDestinations.Add(new Vector3(doorList[i].transform.position.x, doorList[i].transform.position.y, doorList[i].transform.position.z + 1f));
 
+            reversedDoorDestinations.Add(new Vector3(doorList[i].transform.position.x, doorList[i].transform.position.y, doorList[i].transform.position.z - 1f));
             //moves the door
             //childs.transform.position = Vector3.Lerp(childs.transform.position, doorDestination, sinkSpeed);
         }
@@ -89,15 +104,12 @@ public class ButtonAndDoor : MonoBehaviour {
 
         if (cantBePressed == false)
         {
-            
-
             if (player.tag == "Player")
             {
                 cantBePressed = true;
                 pressed = true;
                 getDoorChildren();
             }
-            
         }
     }
 }

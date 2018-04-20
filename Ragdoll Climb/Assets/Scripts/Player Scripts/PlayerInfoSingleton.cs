@@ -36,4 +36,11 @@ public class PlayerInfoSingleton : MonoBehaviour
     public List<PlayerIndex> playerIndexes;
     public Color[] colors = new Color[4];
     public int[] characterIndex = new int[4];
+    public string selectedLevel = "RandomGeneratedLevelWithPrefabs";
+    public enum Difficulties { VeryEasy, Easy, Medium, Hard, VeryHard, Mix }
+    public enum Lengths { Short = 1,  Medium, Long, Humongous, Gigantic }
+    public Difficulties levelDifficulty = Difficulties.Mix;
+    public Lengths levelLength = Lengths.Medium;
+
+   
 }

@@ -5,21 +5,33 @@ using UnityEngine;
 public class MeshColliderDelete : MonoBehaviour
 {
 	MeshCollider[] meshColls;
-    
+    public float updateTIME;
+
+    private void Start()
+    {
+        updateTIME = 0;
+    }
 
     private void Update()
     {
-        meshColls = GetComponents<MeshCollider>();
-
-        if (meshColls.Length > 0)
+        if ( updateTIME> 1)
         {
-            for (int i = 0; i < meshColls.Length; i++)
-            {
-                Destroy(meshColls[i]);
-            }
+            meshColls = GetComponents<MeshCollider>();
 
-            Destroy(this);
+            if (meshColls.Length > 0)
+            {
+                for (int i = 0; i < meshColls.Length; i++)
+                {
+                    Destroy(meshColls[i]);
+                }
+
+                print(" i  " + transform.root.name + " mesh destroy ");
+                Destroy(this);
+            }
         }
+
+        updateTIME += 1*Time.deltaTime;
+
     }
 
 }

@@ -16,11 +16,10 @@ public class pathBuilder : MonoBehaviour {
     
 
     // Use this for initialization
-    void Awake  () {     /// Awake om man vill spawna dom dir
+    void Start  () {     /// Awake om man vill spawna dom dir
 
         maxBlock = FindObjectOfType<pathController>().maxBlock;
         currentBlock = FindObjectOfType<pathController>().currentBlock;
-
         startBoxZpos = FindObjectOfType<pathController>().startBox.transform.position.z;
        
 
@@ -52,16 +51,16 @@ public class pathBuilder : MonoBehaviour {
             {
                 FindObjectOfType<pathController>().currentBlock++;
 
-                int listsize = FindObjectOfType<pathController>().bloakList.Count;
+                int listsize = FindObjectOfType<pathController>().blockList.Count;
                 int randomNum = Random.Range(0, listsize);
-                GameObject randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                GameObject randomObj = FindObjectOfType<pathController>().blockList[randomNum];
 
                 if (randomObj == null)
                 {
                     while (randomObj == null)
                     {
                         randomNum = Random.Range(0, listsize);
-                        randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                        randomObj = FindObjectOfType<pathController>().blockList[randomNum];
                     }
                 }
 
@@ -77,7 +76,7 @@ public class pathBuilder : MonoBehaviour {
 
                 //}
 
-                FindObjectOfType<pathController>().bloakList.RemoveAt(randomNum);
+                FindObjectOfType<pathController>().blockList.RemoveAt(randomNum);
                 Instantiate(randomObj, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
 
             }
@@ -87,7 +86,7 @@ public class pathBuilder : MonoBehaviour {
 
                 FindObjectOfType<pathController>().currentBlock++;
 
-                int listsize = FindObjectOfType<pathController>().bloakList.Count;
+                int listsize = FindObjectOfType<pathController>().blockList.Count;
 
 
                 Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
@@ -103,16 +102,16 @@ public class pathBuilder : MonoBehaviour {
             {
                 FindObjectOfType<pathController>().currentBlock++;
 
-                int listsize = FindObjectOfType<pathController>().bloakList.Count;
+                int listsize = FindObjectOfType<pathController>().blockList.Count;
                 int randomNum = Random.Range(0, listsize);
-                GameObject randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                GameObject randomObj = FindObjectOfType<pathController>().blockList[randomNum];
 
                 if (randomObj == null)
                 {
                     while (randomObj == null)
                     {
                         randomNum = Random.Range(0, listsize);
-                        randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                        randomObj = FindObjectOfType<pathController>().blockList[randomNum];
                     }
                 }
 
@@ -128,7 +127,7 @@ public class pathBuilder : MonoBehaviour {
 
                 //}
 
-                FindObjectOfType<pathController>().bloakList.RemoveAt(randomNum);
+                FindObjectOfType<pathController>().blockList.RemoveAt(randomNum);
                 Instantiate(randomObj, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
 
             }
@@ -138,7 +137,7 @@ public class pathBuilder : MonoBehaviour {
 
                 FindObjectOfType<pathController>().currentBlock++;
 
-                int listsize = FindObjectOfType<pathController>().bloakList.Count;
+                int listsize = FindObjectOfType<pathController>().blockList.Count;
 
                 Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
 
@@ -153,16 +152,16 @@ public class pathBuilder : MonoBehaviour {
             {
                 FindObjectOfType<pathController>().currentBlock++;
 
-                int listsize = FindObjectOfType<pathController>().bloakList.Count;
+                int listsize = FindObjectOfType<pathController>().blockList.Count;
                 int randomNum = Random.Range(0, listsize);
-                GameObject randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                GameObject randomObj = FindObjectOfType<pathController>().blockList[randomNum];
 
                 if (randomObj == null)
                 {
                     while (randomObj == null)
                     {
                         randomNum = Random.Range(0, listsize);
-                        randomObj = FindObjectOfType<pathController>().bloakList[randomNum];
+                        randomObj = FindObjectOfType<pathController>().blockList[randomNum];
                     }
                 }
 
@@ -178,7 +177,7 @@ public class pathBuilder : MonoBehaviour {
 
                 //}
 
-                FindObjectOfType<pathController>().bloakList.RemoveAt(randomNum);
+                FindObjectOfType<pathController>().blockList.RemoveAt(randomNum);
                 Instantiate(randomObj, new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
 
             }
@@ -188,7 +187,7 @@ public class pathBuilder : MonoBehaviour {
 
                 FindObjectOfType<pathController>().currentBlock++;
 
-                int listsize = FindObjectOfType<pathController>().bloakList.Count;
+                int listsize = FindObjectOfType<pathController>().blockList.Count;
 
                 Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
 
