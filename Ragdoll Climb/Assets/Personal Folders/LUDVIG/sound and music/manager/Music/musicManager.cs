@@ -7,7 +7,8 @@ public class musicManager : MonoBehaviour
 {
     bool firstUpdate;
     int partInt;
-    float distansToGoal; 
+    float distansToGoal;
+    [Range(0.1f,1f)] public float songVolume;
     [Space]
     [SerializeField]
     Sound[] songs;
@@ -111,7 +112,7 @@ public class musicManager : MonoBehaviour
             }
 
             song1.clip = songs[0].clip;
-            song1.volume = 0.6f; //  songs[0].volume;    sett the start volume too fix a bug 
+            song1.volume = songVolume; //  songs[0].volume;    sett the start volume too fix a bug 
             song1.pitch = 1f;  // songs[0].pitch;
             song1.Play();
 
@@ -140,7 +141,7 @@ public class musicManager : MonoBehaviour
         if (partInt % 2 == 1)
         {
             song1.clip = songs[partInt-1].clip;
-            song1.volume = songs[partInt-1].volume;
+            song1.volume = songVolume;
             song1.pitch = songs[partInt-1].pitch;
 
             song1.time = song1.clip.length * (song2.time / song2.clip.length);
@@ -155,7 +156,7 @@ public class musicManager : MonoBehaviour
         else
         {
             song2.clip = songs[partInt-1].clip;
-            song2.volume = songs[partInt-1].volume;
+            song2.volume = songVolume;
             song2.pitch = songs[partInt-1].pitch;
 
             song2.time = song2.clip.length * (song1.time/song1.clip.length) ;
