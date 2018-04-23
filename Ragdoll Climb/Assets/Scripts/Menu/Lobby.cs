@@ -165,7 +165,7 @@ public class Lobby : MonoBehaviour
                             break;
                         }
                         // If the last player is ready and more than two has joined
-                        else if (playersReady[i] && j == playerIndexes.Count - 1 && playerIndexes.Count >= 2)
+                        else if (playersReady[i] && j == playerIndexes.Count - 1 && playerIndexes.Count >= 1)
                         {
                             // Since we got to the last player and he was ready, the check never got aborted which measn the otehrs were ready too
                             allReady = true;

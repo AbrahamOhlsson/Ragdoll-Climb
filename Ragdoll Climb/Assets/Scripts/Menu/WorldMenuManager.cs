@@ -19,6 +19,8 @@ public class WorldMenuManager : MonoBehaviour
 	[SerializeField] float cameraSpeed = 0.5f;
 	[SerializeField] GameObject mainCamera;
 
+    [SerializeField] LevelLoader levelLoader;
+
 	[SerializeField] EventSystem eventSystem;
 
 	bool moving = false;
@@ -141,7 +143,7 @@ public class WorldMenuManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene(PlayerInfoSingleton.instance.selectedLevel);
+        levelLoader.LoadLevelAsync(PlayerInfoSingleton.instance.selectedLevel);
     }
 
 
