@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class pathController : MonoBehaviour {
 
-    public int maxBlock;
-    [Space]
-    [HideInInspector]
-    public int currentBlock = 1;
+    [HideInInspector] public int currentBlock = 1;
+    [HideInInspector] public List<GameObject> blockList;
+    [HideInInspector] public int maxBlock;
+    
 
-  
-
-    public List<GameObject> blockList;
-    [Space]
-    [Header("gör inget ATM")]
-    [SerializeField] List<GameObject> EZbloakList;
-    [SerializeField] List<GameObject> NORMbloakList;
-    [SerializeField] List<GameObject> HARDbloakList;
+    [SerializeField] List<GameObject> easyBloakList;
+    [SerializeField] List<GameObject> normBloakList;
+    [SerializeField] List<GameObject> hardBloakList;
    
     [Space]
     public GameObject endBox;
@@ -39,80 +34,95 @@ public class pathController : MonoBehaviour {
         if (Lengths == PlayerInfoSingleton.Lengths.Short)
         {
             maxBlock = 2; // ska vara 2 
-
         }
+
 
         else if (Lengths == PlayerInfoSingleton.Lengths.Medium)
         {
             maxBlock = 3;
-
         }
+
 
         else if (Lengths == PlayerInfoSingleton.Lengths.Long)
         {
             maxBlock = 4;
-
         }
+
 
         else if (Lengths == PlayerInfoSingleton.Lengths.Humongous)
         {
             maxBlock = 5;
-
         }
+
 
         else if (Lengths == PlayerInfoSingleton.Lengths.Gigantic)
         {
             maxBlock = 6;
-
         }
+
 
         // Difficultie  ################################
         if (Difficulties == PlayerInfoSingleton.Difficulties.VeryEasy)
         {
-            blockList = EZbloakList;
+            blockList = easyBloakList;
         }
+
 
         else if (Difficulties == PlayerInfoSingleton.Difficulties.Easy)
         {
-            blockList = EZbloakList;
+            blockList = easyBloakList;
+
+            foreach (GameObject i in normBloakList)
+            {
+                blockList.Add(i);
+
+            }
         }
+
 
         else if (Difficulties == PlayerInfoSingleton.Difficulties.Medium)
         {
-            blockList = NORMbloakList;
+            blockList = normBloakList;
         }
+
 
         else if (Difficulties == PlayerInfoSingleton.Difficulties.Hard)
         {
-            blockList = HARDbloakList;
+            blockList = hardBloakList;
+
+            foreach (GameObject i in normBloakList)
+            {
+                blockList.Add(i);
+
+            }
         }
+
 
         else if (Difficulties == PlayerInfoSingleton.Difficulties.VeryHard)
         {
-            blockList = HARDbloakList;
+            blockList = hardBloakList;
         }
+
 
         else if (Difficulties == PlayerInfoSingleton.Difficulties.Mix)
         {
-            blockList = EZbloakList;
+            blockList = easyBloakList;
 
-            foreach(GameObject i in NORMbloakList)
+            foreach(GameObject i in normBloakList)
             {
                 blockList.Add(i);
 
             }
 
-            foreach (GameObject i in HARDbloakList)
+            foreach (GameObject i in hardBloakList)
             {
                 blockList.Add(i);
 
             }
         }
-
 
 
     }
 
-    
 
 }
