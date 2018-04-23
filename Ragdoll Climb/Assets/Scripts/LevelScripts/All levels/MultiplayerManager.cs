@@ -51,7 +51,6 @@ public class MultiplayerManager : MonoBehaviour
         // If we aren't in debug mode (we came to this level from the menu)
         if (!singleton.debug && !started)
         {
-            
             // Resets players so they can't move
             for (int i = 0; i < players.Count; i++)
             {
