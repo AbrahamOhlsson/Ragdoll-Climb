@@ -2240,18 +2240,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6fe933c6ad5314599b11859c7e5cc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxBlock: 1
   currentBlock: 1
   blockList: []
-  EZbloakList:
-  - {fileID: 1736947200443370, guid: 495c8e812dbe0cb4b8c1757d549369f3, type: 2}
-  - {fileID: 1478634479548834, guid: 981c6a2c9c70e664b85ab4e65eee6090, type: 2}
-  NORMbloakList:
-  - {fileID: 1736947200443370, guid: 495c8e812dbe0cb4b8c1757d549369f3, type: 2}
-  - {fileID: 1478634479548834, guid: 981c6a2c9c70e664b85ab4e65eee6090, type: 2}
-  HARDbloakList:
-  - {fileID: 1736947200443370, guid: 495c8e812dbe0cb4b8c1757d549369f3, type: 2}
-  - {fileID: 1478634479548834, guid: 981c6a2c9c70e664b85ab4e65eee6090, type: 2}
+  maxBlock: 1
+  easyBloakList: []
+  normBloakList: []
+  hardBloakList: []
   endBox: {fileID: 1663660393859050, guid: be7bd8db733e07c468e9faa1120bc13e, type: 2}
   startBox: {fileID: 1539456871}
   Difficulties: 0
@@ -3617,7 +3611,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1736947200443370, guid: 495c8e812dbe0cb4b8c1757d549369f3, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 495c8e812dbe0cb4b8c1757d549369f3, type: 2}
