@@ -10,6 +10,7 @@ public class WorldMenuManager : MonoBehaviour
 {
     [SerializeField] GameObject mainGroup;
     [SerializeField] GameObject playerSelectGroup;
+    [SerializeField] GameObject singlePlayerSelectGroup;
     [SerializeField] GameObject levelSelectGroup;
 	[SerializeField] GameObject howToPlayGroup;
     [SerializeField] GameObject diffLengthGroup;
@@ -41,7 +42,8 @@ public class WorldMenuManager : MonoBehaviour
         mainGroup.SetActive(true);
         playerSelectGroup.SetActive(false);
         levelSelectGroup.SetActive(false);
-		howToPlayGroup.SetActive(false);
+        singlePlayerSelectGroup.SetActive(false);
+        howToPlayGroup.SetActive(false);
         diffLengthGroup.SetActive(false);
         optionsGroup.SetActive(false);
         creditsGroup.SetActive(false);
@@ -52,6 +54,8 @@ public class WorldMenuManager : MonoBehaviour
         playerIndexes[1] = PlayerIndex.Two;
         playerIndexes[2] = PlayerIndex.Three;
         playerIndexes[3] = PlayerIndex.Four;
+
+        PlayerInfoSingleton.instance.Load();
 
         eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);    //  TEST !!!!!!!!!!
     }
@@ -69,9 +73,9 @@ public class WorldMenuManager : MonoBehaviour
             if (states[i].Buttons.B == ButtonState.Pressed && prevStates[i].Buttons.B == ButtonState.Released && groupPath.Peek() != mainGroup && !moving)
                 Back();
 
-            if (eventSystem.currentSelectedGameObject == null)
+            if (eventSystem.currentSelectedGameObject == null && groupPath.Peek() != playerSelectGroup && groupPath.Peek() != singlePlayerSelectGroup)
             {
-                if (((states[i].DPad.Down == ButtonState.Pressed && prevStates[i].DPad.Down == ButtonState.Released) || (states[i].DPad.Up == ButtonState.Pressed && prevStates[i].DPad.Up == ButtonState.Released) || (states[i].DPad.Left == ButtonState.Pressed && prevStates[i].DPad.Left == ButtonState.Released) || (states[i].DPad.Right == ButtonState.Pressed && prevStates[i].DPad.Right == ButtonState.Released) || (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released) || (states[i].ThumbSticks.Left.Y > 0f || states[i].ThumbSticks.Left.Y < 0f && prevStates[i].ThumbSticks.Left.Y == 0f)) && (groupPath.Peek() != playerSelectGroup))
+                if (((states[i].DPad.Down == ButtonState.Pressed && prevStates[i].DPad.Down == ButtonState.Released) || (states[i].DPad.Up == ButtonState.Pressed && prevStates[i].DPad.Up == ButtonState.Released) || (states[i].DPad.Left == ButtonState.Pressed && prevStates[i].DPad.Left == ButtonState.Released) || (states[i].DPad.Right == ButtonState.Pressed && prevStates[i].DPad.Right == ButtonState.Released) || (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released) || (states[i].ThumbSticks.Left.Y > 0f || states[i].ThumbSticks.Left.Y < 0f && prevStates[i].ThumbSticks.Left.Y == 0f)))
                 {
                     eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
                 }
@@ -95,7 +99,7 @@ public class WorldMenuManager : MonoBehaviour
 			eventSystem.enabled = true;
 			moving = false;
             
-            if (groupPath.Peek() == playerSelectGroup)
+            if (groupPath.Peek() == playerSelectGroup || groupPath.Peek() == singlePlayerSelectGroup)
 				eventSystem.SetSelectedGameObject(null);
             else
 			    eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Selectable>().gameObject);
