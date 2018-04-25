@@ -7,11 +7,18 @@ public class Icicle : MonoBehaviour
     [SerializeField] float growthSpeed = 0.1f;
     [SerializeField] GameObject icicleShatterEffect;
 
+    internal bool instantiated = false;
+
     bool growing = true;
+    bool firstColl = false;
 
     float targetScale;
     float minScale = 0;
     float scale;
+
+    GameObject ignoredObj;
+
+    Transform bottomObj;
 
     Vector3 startPos;
     Vector3 particleOffset = new Vector3(0f, -1f, 0f);
@@ -32,6 +39,8 @@ public class Icicle : MonoBehaviour
         soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
 
         rb = GetComponent<Rigidbody>();
+
+        bottomObj = GameObject.FindGameObjectWithTag("BottomObj").transform;
     }
 	
 	void Update ()
@@ -48,11 +57,20 @@ public class Icicle : MonoBehaviour
                 growing = false;
             }
         }
+
+        if (transform.position.y <= bottomObj.position.y)
+            Destroy(gameObject);
 	}
 
     private void OnCollisionEnter(Collision other)
     {
-        if (!growing)
+        if (!firstColl)
+        {
+            ignoredObj = other.gameObject;
+            firstColl = true;
+        }
+
+        if (!growing && other.gameObject != ignoredObj)
         {
             if (other.gameObject.tag == "Player")
             {
@@ -62,13 +80,18 @@ public class Icicle : MonoBehaviour
             Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
             soundManager.PlaySound("icicleShatter");
 
-            scale = minScale;
-            transform.localScale = new Vector3(minScale, minScale, minScale);
-            transform.position = startPos;
-            rb.velocity = Vector3.zero;
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            growing = true;
+            if (instantiated)
+                Destroy(gameObject);
+            else
+            {
+                scale = minScale;
+                transform.localScale = new Vector3(minScale, minScale, minScale);
+                transform.position = startPos;
+                rb.velocity = Vector3.zero;
+                rb.isKinematic = true;
+                rb.useGravity = false;
+                growing = true;
+            }
         }
     }
 }
