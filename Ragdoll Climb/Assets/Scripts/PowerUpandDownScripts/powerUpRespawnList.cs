@@ -15,6 +15,8 @@ public class powerUpRespawnList : MonoBehaviour {
 
     public List<GameObject> goodPowerUpList;
 
+    public GameObject contdownText;
+
 
     private GameObject player;
     [Range(0, 10)] [Tooltip("Cooldown per second")] public float cooldown;
@@ -31,7 +33,8 @@ public class powerUpRespawnList : MonoBehaviour {
     private float floatSpeed = 1f;
     Vector3 posOffset = new Vector3();
     Vector3 tempPos = new Vector3();
-
+    private GameObject TEXT;
+    
     void Start()
     {
         posOffset = transform.position;
@@ -73,9 +76,10 @@ public class powerUpRespawnList : MonoBehaviour {
 
         if (touched == true)
         {
+            TEXT.GetComponent<TextMesh>().text = Mathf.FloorToInt(cooldownTime).ToString();
+            TEXT.transform.position = transform.position; 
             cooldownTime -= Time.deltaTime * 1;
 
-            int textint = Mathf.RoundToInt(cooldownTime); // TEST  ###################################################################################################
             
 
             if (cooldownTime <= 0)
@@ -85,6 +89,7 @@ public class powerUpRespawnList : MonoBehaviour {
                 Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], posOffset, transform.rotation);
                 touched = false;
                 cooldownTime = cooldown;
+                Destroy(TEXT);
             }
         }
 
@@ -100,6 +105,7 @@ public class powerUpRespawnList : MonoBehaviour {
             player = other.transform.gameObject;
             if (player.tag == "Player")
             {
+                TEXT = Instantiate(contdownText);
                 Debug.Log("collision!");
                 touched = true;
             }
