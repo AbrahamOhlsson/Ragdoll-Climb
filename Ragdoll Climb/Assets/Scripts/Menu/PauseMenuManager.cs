@@ -107,7 +107,6 @@ public class PauseMenuManager : MonoBehaviour
 			groupPath.Push(mainGroup);
 
 			eventSystem.SetSelectedGameObject(mainGroup.GetComponentInChildren<Button>().gameObject);
-            print(mainGroup.GetComponentInChildren<Button>().gameObject.name);
 
             paused = true;
             Time.timeScale = 0f;
