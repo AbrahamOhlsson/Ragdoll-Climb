@@ -74,6 +74,10 @@ public class powerUpRespawnList : MonoBehaviour {
         if (touched == true)
         {
             cooldownTime -= Time.deltaTime * 1;
+
+            int textint = Mathf.RoundToInt(cooldownTime); // TEST  ###################################################################################################
+            
+
             if (cooldownTime <= 0)
             {
                 Debug.Log("Touched = true");

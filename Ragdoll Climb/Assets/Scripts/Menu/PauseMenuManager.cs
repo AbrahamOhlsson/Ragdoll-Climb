@@ -12,6 +12,7 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] GameObject howToPlayGroup;
     [SerializeField] GameObject optionsGroup;
     [SerializeField] GameObject quitGroup;
+    [SerializeField] LevelLoader loadingScreen;
 
     [SerializeField] EventSystem eventSystem;
 
@@ -143,7 +144,11 @@ public class PauseMenuManager : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Ice Menu");
+
+        if (loadingScreen == null)
+            SceneManager.LoadScene("Ice Menu");
+        else
+            loadingScreen.LoadLevelAsync("Ice Menu");
     }
 
 
