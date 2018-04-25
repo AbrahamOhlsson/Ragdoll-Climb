@@ -29,8 +29,8 @@ public class LevelLoader : MonoBehaviour
 
     private void Start()
     {
+        // Reset stuff
         canvas = GetComponent<Canvas>();
-        
         progressBar.fillAmount = 0;
         progressText.text = "0%";
     }
@@ -38,6 +38,7 @@ public class LevelLoader : MonoBehaviour
 
     private void Update()
     {
+        // Delays start of animations to make them flow
         for (int i = 0; i < animDelays.Length; i++)
         {
             if (animTimer >= animDelays[i])
@@ -61,19 +62,26 @@ public class LevelLoader : MonoBehaviour
     }
 
 
+    // Loads level asyncroniously and manages loading sreen
     IEnumerator LoadAsync(string levelName)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         operation = SceneManager.LoadSceneAsync(levelName);
 
+        // 
         while(!operation.isDone)
         {
+            // Progress goes from 0 to 1, instead of 0 to 0.9
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
+            // Sets precentage text
             progressText.text = Mathf.RoundToInt(progress * 100f) + "%";
+
+            // Fills progress bar 
             progressBar.fillAmount = progress;
 
+            // Randomizes a new pun after some time
             if (punTimer >= punSwitchTime)
                 RandomizePun();
             else
@@ -84,6 +92,7 @@ public class LevelLoader : MonoBehaviour
     }
 
 
+    // Gets a new pun and sets it to the text
     private void RandomizePun()
     {
         int index = Random.Range(0, puns.Length);
