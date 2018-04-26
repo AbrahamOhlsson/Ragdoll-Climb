@@ -25,7 +25,7 @@ public class BreakingSurface : MonoBehaviour
 
         foreach (BreakingPart part in parts)
         {
-            Instantiate(breakingParticleSystems, part.transform);
+            Instantiate(breakingParticleSystems, part.transform).transform.position = part.GetComponent<Renderer>().bounds.center;
         }
 
         particleSystems = GetComponentsInChildren<ParticleSystem>();
