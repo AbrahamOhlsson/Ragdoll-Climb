@@ -26,22 +26,43 @@ public class BreakingPart : MonoBehaviour
     {
         rb.isKinematic = false;
 
-        float rndX = Random.Range(-10f, 10f);
+        float rndForceX = Random.Range(-10f, 10f);
 
-        rb.AddForce(rndX, 0f, -force);
+        float rndTorqueX = Random.Range(-50, 50);
+        float rndTorqueY = Random.Range(-50, 50);
+        float rndTorqueZ = Random.Range(-50, 50);
+
+        rb.AddForce(rndForceX, 0f, -force);
+        rb.AddTorque(rndTorqueX, rndTorqueY, rndTorqueZ);
 
         falling = true;
 
-        StartCoroutine(Fall());
+        //StartCoroutine(Fall());
+    }
+
+
+    private void Update()
+    {
+        if (scale > 0 && falling)
+        {
+            scale -= shrinkSpeed * Time.deltaTime;
+            transform.localScale = new Vector3(scale, scale, scale);
+
+            if (scale <= 0)
+            {
+                transform.parent.GetComponent<BreakingSurface>().ReleaseHands();
+                Destroy(gameObject);
+            }
+        }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (falling && other.tag == "Player")
-        {
-            other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
-        }
+        //if (falling && other.tag == "Player")
+        //{
+        //    other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
+        //}
     }
 
 
@@ -53,7 +74,10 @@ public class BreakingPart : MonoBehaviour
             transform.localScale = new Vector3(scale, scale, scale);
 
             if (scale <= 0)
+            {
+                transform.parent.GetComponent<BreakingSurface>().ReleaseHands();
                 Destroy(gameObject);
+            }
 
             yield return null;
         }

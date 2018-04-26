@@ -29,7 +29,7 @@ public class Icicle : MonoBehaviour
 
 	void Start ()
     {
-        startPos = transform.position;
+        startPos = transform.localPosition;
 
         targetScale = transform.localScale.x;
         transform.localScale = new Vector3(minScale, minScale, minScale);
@@ -60,6 +60,8 @@ public class Icicle : MonoBehaviour
         if (transform.position.y <= bottomObj.position.y)
             Destroy(gameObject);
 	}
+    
+
 
     private void OnCollisionEnter(Collision other)
     {
@@ -84,7 +86,7 @@ public class Icicle : MonoBehaviour
             {
                 scale = minScale;
                 transform.localScale = new Vector3(minScale, minScale, minScale);
-                transform.position = startPos;
+                transform.localPosition = startPos;
                 rb.velocity = Vector3.zero;
                 rb.isKinematic = true;
                 rb.useGravity = false;
