@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Icicle : MonoBehaviour
 {
-    [SerializeField] float growthSpeed = 0.1f;
+    public float growthSpeed = 0.1f;
     [SerializeField] GameObject icicleShatterEffect;
 
     internal bool instantiated = false;
@@ -15,9 +15,7 @@ public class Icicle : MonoBehaviour
     float targetScale;
     float minScale = 0;
     float scale;
-
-    GameObject ignoredObj;
-
+    
     Transform bottomObj;
 
     Vector3 startPos;
@@ -66,11 +64,10 @@ public class Icicle : MonoBehaviour
     {
         if (!firstColl)
         {
-            ignoredObj = other.gameObject;
+            Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
             firstColl = true;
         }
-
-        if (!growing && other.gameObject != ignoredObj)
+        else if (!growing)
         {
             if (other.gameObject.tag == "Player")
             {
