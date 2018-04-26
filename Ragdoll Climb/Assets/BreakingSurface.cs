@@ -6,17 +6,35 @@ public class BreakingSurface : MonoBehaviour
 {
     [SerializeField] float breakTime = 5f;
     [SerializeField] float pushOutForce = 100f;
+    [SerializeField] GameObject breakingParticleSystems;
 
     bool isBreaking = false;
 
     List<CheckGrip> grabbingHands = new List<CheckGrip>();
 
+    ParticleSystem[] particleSystems;
+
     BreakingPart[] parts;
 
     soundManager soundManager;
 
-	
-	public void AddGrabbingHand(CheckGrip hand)
+
+    private void Start()
+    {
+        parts = GetComponentsInChildren<BreakingPart>();
+
+        foreach (BreakingPart part in parts)
+        {
+            Instantiate(breakingParticleSystems, part.transform).transform.position = part.GetComponent<Renderer>().bounds.center;
+        }
+
+        particleSystems = GetComponentsInChildren<ParticleSystem>();
+
+        //soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
+    }
+
+
+    public void AddGrabbingHand(CheckGrip hand)
     {
         grabbingHands.Add(hand);
 
@@ -24,10 +42,6 @@ public class BreakingSurface : MonoBehaviour
             StartCoroutine(BreakApart());
 
         isBreaking = true;
-
-        parts = GetComponentsInChildren<BreakingPart>();
-
-        //soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
     }
 
 
@@ -37,26 +51,41 @@ public class BreakingSurface : MonoBehaviour
     }
 
 
-    IEnumerator BreakApart()
+    public void ReleaseHands()
     {
         CheckGrip[] handArray = new CheckGrip[grabbingHands.Count];
         handArray = grabbingHands.ToArray();
 
         foreach (CheckGrip hand in handArray)
         {
-            hand.transform.root.GetComponent<VibrationManager>().VibrateTimed(0.5f, 0.1f, 9);
+            hand.transform.root.GetComponent<PlayerController>().ReleaseGrip(hand.leftHand, false);
         }
+    }
 
+
+    private void PlayPartSystems()
+    {
+        foreach(ParticleSystem system in particleSystems)
+        {
+            system.Play();
+        }
+    }
+
+
+    IEnumerator BreakApart()
+    {
         //soundManager.PlaySoundRandPitch("crack");
+        PlayPartSystems();
 
         yield return new WaitForSeconds(breakTime / 2);
 
-        foreach (CheckGrip hand in handArray)
+        foreach (CheckGrip hand in grabbingHands)
         {
             hand.transform.root.GetComponent<VibrationManager>().VibrateTimed(0.5f, 0.1f, 9);
         }
 
         //soundManager.PlaySoundRandPitch("crack");
+        PlayPartSystems();
 
         yield return new WaitForSeconds(breakTime / 2);
 
@@ -64,13 +93,11 @@ public class BreakingSurface : MonoBehaviour
         {
             part.Break(pushOutForce);
 
-            foreach (CheckGrip hand in handArray)
-            {
-                hand.controller.ReleaseGrip(hand.leftHand, false);
-            }
+            ReleaseHands();
         }
 
         //soundManager.PlaySoundRandPitch("break");
+        PlayPartSystems();
 
         yield return null;
     }
