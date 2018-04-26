@@ -15,6 +15,8 @@ public class CheckGrip : MonoBehaviour
     // The rigidbody that will be gripped
     internal Rigidbody currentGripable;
 
+    internal PlayerController controller;
+
     [SerializeField] float breakForce = 3000f;
 
     [SerializeField] float failsafeCheckInterval = 0.2f;
@@ -32,7 +34,6 @@ public class CheckGrip : MonoBehaviour
 
     Rigidbody tempRb = new Rigidbody();
     
-    PlayerController controller;
 
 
     void Start ()
@@ -74,7 +75,7 @@ public class CheckGrip : MonoBehaviour
             controller.ReleaseGrip(leftHand, false);
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking")
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
         }
@@ -88,7 +89,7 @@ public class CheckGrip : MonoBehaviour
             nearBottomObj = false;
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
             DetermineObjectToGrab();
@@ -107,7 +108,7 @@ public class CheckGrip : MonoBehaviour
         {
             //Debug.LogWarning("TIME TO CHECK");
 
-            if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky")
+            if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking")
             {
                 grabablesInReach.Add(other.GetComponent<Rigidbody>());
             }
@@ -125,6 +126,7 @@ public class CheckGrip : MonoBehaviour
         Rigidbody lastOther = new Rigidbody();
         Rigidbody lastSticky = new Rigidbody();
         Rigidbody lastElectric = new Rigidbody();
+        Rigidbody lastBreaking = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
         
         bool foundThrowable = false;
@@ -132,6 +134,7 @@ public class CheckGrip : MonoBehaviour
         bool foundSlippery = false;
         bool foundSticky = false;
         bool foundElectric = false;
+        bool foundBreaking = false;
         bool foundWall = false;
 
         // If there is any grabables
@@ -147,13 +150,19 @@ public class CheckGrip : MonoBehaviour
                     lastWall = grabablesInReach[i];
                     foundWall = true;
                 }
+                // If a breakable wall is found
+                else if (tag == "Breaking")
+                {
+                    lastBreaking = grabablesInReach[i];
+                    foundBreaking = true;
+                }
                 // If a sticky wall was found
-                if(tag == "Sticky")
+                else if(tag == "Sticky")
                 {
                     lastSticky = grabablesInReach[i];
                     foundSticky = true;
                 }
-                // If Electric is found
+                // If an electric is found
                 else if (tag == "Electric")
                 {
                     lastElectric = grabablesInReach[i];
@@ -164,7 +173,7 @@ public class CheckGrip : MonoBehaviour
                 {
                     foundSlippery = true;
                 }
-                // If a non-special object is found is found
+                // If a non-special object or player is found is found
                 else if (tag == "Grabable" || tag == "Player")
                 {
                     lastOther = grabablesInReach[i];
@@ -212,6 +221,13 @@ public class CheckGrip : MonoBehaviour
                 if (currentGripping == tempRb)
                     StopAnim();
             }
+            else if (foundBreaking)
+            {
+                currentGripable = lastBreaking;
+
+                if (currentGripping == tempRb)
+                    StopAnim();
+            }
             else if (foundWall)
             {
                 currentGripable = lastWall;
@@ -222,7 +238,7 @@ public class CheckGrip : MonoBehaviour
             
 
             // You cant grip anything if the bottom object is in reach.
-            // This prevent the player from holding while that object goes throught the player
+            // This prevents the player from holding while that object goes throught the player
             if (nearBottomObj)
                 canGrip = false;
             else
@@ -302,6 +318,8 @@ public class CheckGrip : MonoBehaviour
                 // If a player is grabbed, that player will know it
                 else if (currentGripable.tag == "Player")
                     currentGripable.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
+                else if (currentGripable.tag == "Breaking")
+                    currentGripable.transform.parent.GetComponent<BreakingSurface>().AddGrabbingHand(this);
 
                 if (currentGripable.tag == "Throwable")
                 {
@@ -346,6 +364,8 @@ public class CheckGrip : MonoBehaviour
                 currentGripping.GetComponent<Rigidbody>().isKinematic = true;
             else if (currentGripping.tag == "Throwable")
                 ResetThrowable();
+            else if (currentGripping.tag == "Breaking")
+                currentGripping.transform.parent.GetComponent<BreakingSurface>().RemoveGrabbingHand(this);
         }
 
         currentGripping = tempRb;

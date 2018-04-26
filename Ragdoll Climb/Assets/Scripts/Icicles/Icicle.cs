@@ -5,6 +5,7 @@ using UnityEngine;
 public class Icicle : MonoBehaviour
 {
     public float growthSpeed = 0.1f;
+    [SerializeField] float stunTime = 2f;
     [SerializeField] GameObject icicleShatterEffect;
 
     internal bool instantiated = false;
@@ -71,7 +72,7 @@ public class Icicle : MonoBehaviour
         {
             if (other.gameObject.tag == "Player")
             {
-                other.transform.root.GetComponent<HealthManager>().Damage(100f);
+                other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
             }
 
             Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
