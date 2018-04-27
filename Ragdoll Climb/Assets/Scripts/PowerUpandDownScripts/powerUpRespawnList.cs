@@ -34,29 +34,18 @@ public class powerUpRespawnList : MonoBehaviour {
     Vector3 posOffset = new Vector3();
     Vector3 tempPos = new Vector3();
     private GameObject TEXT;
-    
+    bool firstSpawn;
+    int cdInt;
+    int startInt;
+
     void Start()
     {
         posOffset = transform.position;
-        int startInt = Random.Range(0, 2);
+        startInt = Random.Range(0, 2);
         cooldownTime = cooldown;
+        firstSpawn = true;
 
-        if (startInt == 0)
-        {
-
-            Instantiate(firstPowerUpList[Random.Range(0,firstPowerUpList.Count)], posOffset, transform.rotation); // Spawns the powerUp, one time
-            touched = false;
-
-
-        }
-        if (startInt == 1)
-        {
-            Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], posOffset, transform.rotation); // Spawns the powerUp, one time
-            touched = false;
-
-
-
-        }
+        cdInt = 0;
 
     }
 
@@ -65,6 +54,33 @@ public class powerUpRespawnList : MonoBehaviour {
     //  Activates spawn
     private void Update()
     {
+        if(cdInt == 10 && firstSpawn)
+        {
+            if (startInt == 0)
+            {
+
+                Instantiate(firstPowerUpList[Random.Range(0, firstPowerUpList.Count)], posOffset, transform.rotation); // Spawns the powerUp, one time
+                touched = false;
+
+
+            }
+            if (startInt == 1)
+            {
+                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], posOffset, transform.rotation); // Spawns the powerUp, one time
+                touched = false;
+
+
+
+            }
+            firstSpawn = false;
+            print(cdInt + "nu skapas skiten ");
+
+        }
+
+        if (firstSpawn){
+            cdInt++;
+        }
+
         // Rotate
         transform.Rotate(new Vector3(0f, Time.deltaTime * rotateSpeed, 0f), Space.World);
 
