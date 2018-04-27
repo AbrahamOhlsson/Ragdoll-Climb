@@ -12,6 +12,7 @@ public class WorldMenuManager : MonoBehaviour
     [SerializeField] GameObject playerSelectGroup;
     [SerializeField] GameObject singlePlayerSelectGroup;
     [SerializeField] GameObject levelSelectGroup;
+    [SerializeField] GameObject spLevelSelectGroup;
 	[SerializeField] GameObject howToPlayGroup;
     [SerializeField] GameObject diffLengthGroup;
 	[SerializeField] GameObject optionsGroup;
@@ -35,6 +36,8 @@ public class WorldMenuManager : MonoBehaviour
     GamePadState[] states = new GamePadState[4];
     GamePadState[] prevStates = new GamePadState[4];
 
+    PlayerInfoSingleton singleton;
+
 
     private void Start ()
     {
@@ -42,6 +45,7 @@ public class WorldMenuManager : MonoBehaviour
         mainGroup.SetActive(true);
         playerSelectGroup.SetActive(false);
         levelSelectGroup.SetActive(false);
+        spLevelSelectGroup.SetActive(false);
         singlePlayerSelectGroup.SetActive(false);
         howToPlayGroup.SetActive(false);
         diffLengthGroup.SetActive(false);
@@ -55,7 +59,9 @@ public class WorldMenuManager : MonoBehaviour
         playerIndexes[2] = PlayerIndex.Three;
         playerIndexes[3] = PlayerIndex.Four;
 
-        PlayerInfoSingleton.instance.Load();
+        singleton = PlayerInfoSingleton.instance;
+        
+        singleton.Load();
 
         eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);    //  TEST !!!!!!!!!!
     }
@@ -147,7 +153,7 @@ public class WorldMenuManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        levelLoader.LoadLevelAsync(PlayerInfoSingleton.instance.selectedLevel);
+        levelLoader.LoadLevelAsync(singleton.selectedLevel);
     }
 
 
