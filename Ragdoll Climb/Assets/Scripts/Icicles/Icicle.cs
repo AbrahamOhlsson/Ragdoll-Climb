@@ -75,10 +75,13 @@ public class Icicle : MonoBehaviour
             if (other.gameObject.tag == "Player")
             {
                 other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
+                FindObjectOfType<soundManager>().PlaySound("icicle"); // sound on player hit
+
             }
 
             Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
-            soundManager.PlaySound("icicleShatter");
+            // FindObjectOfType<soundManager>().PlaySound("icicle");  // sound  on a hit
+
 
             if (instantiated)
                 Destroy(gameObject);
@@ -92,6 +95,9 @@ public class Icicle : MonoBehaviour
                 rb.useGravity = false;
                 growing = true;
             }
+
+
+
         }
     }
 }
