@@ -338,6 +338,7 @@ public class CheckGrip : MonoBehaviour
             {
                 transform.root.GetComponent<PlayerStun>().Stun(1);
                 transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
+                transform.root.GetComponent<playerSound>().PlaySound("spark");
             }
             
             StopAnim();

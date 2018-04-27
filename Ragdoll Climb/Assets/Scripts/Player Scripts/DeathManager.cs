@@ -51,7 +51,28 @@ public class DeathManager : MonoBehaviour
     // LUDVIG FIX 
     bool firstUpdate;
 
-	void Start ()
+    // death Grunts
+    public Sound[] deathGrunts;
+    [HideInInspector] public List<AudioSource> GruntsList;
+
+    void Awake()
+    {
+        foreach (Sound i in deathGrunts)
+        {
+            i.source = gameObject.AddComponent<AudioSource>();
+            i.source.clip = i.clip;
+
+            i.source.volume = i.volume;
+            i.source.pitch = i.pitch;
+            i.source.playOnAwake = false;
+
+            GruntsList.Add(i.source);
+        }
+
+    }
+
+
+    void Start ()
     {
         firstUpdate = true;
         // Gets all the players   (even the disabled players)
@@ -306,7 +327,7 @@ public class DeathManager : MonoBehaviour
                 if (!myColliders[i].name.Contains("Wrist") && !myColliders[i].name.Contains("wrist"))
                 {
   
-                    Physics.IgnoreCollision(myColliders[i], otherColliders[j]);   // fel här 
+                    Physics.IgnoreCollision(myColliders[i], otherColliders[j]);    
                    
                 }
             }
@@ -364,6 +385,8 @@ public class DeathManager : MonoBehaviour
         }
 
         ChangeMass(ghostMassMult);
+
+        playDeathGrunt();
     }
 
 
@@ -393,4 +416,17 @@ public class DeathManager : MonoBehaviour
 
         ResetMass();
     }
+
+
+
+    public void playDeathGrunt()
+    {
+
+            int i = Random.Range(0, GruntsList.Count);
+            GruntsList[i].pitch = Random.Range(0.9f, 1.1f);
+            GruntsList[i].Play();
+            
+    }
+
+
 }

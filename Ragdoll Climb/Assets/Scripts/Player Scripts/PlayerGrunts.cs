@@ -56,7 +56,7 @@ public class PlayerGrunts : MonoBehaviour {
     {
         if (canGrunt)
         {
-            int i = Random.Range(0, Grunts.Length);
+            int i = Random.Range(0, GruntsList.Count);
             GruntsList[i].pitch = Random.Range(0.9f, 1.1f);
             GruntsList[i].Play();
             cdTime = gruntDelay;
