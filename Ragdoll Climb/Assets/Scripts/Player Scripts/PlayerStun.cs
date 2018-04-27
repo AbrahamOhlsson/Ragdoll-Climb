@@ -55,6 +55,8 @@ public class PlayerStun : MonoBehaviour
             GetComponent<PlayerController>().ReleaseGrip(false, false);
 
             GetComponent<VibrationManager>().VibrateSmoothTimed(1f, stunTime / 2, Mathf.Infinity, 3f, 15);
+
+            transform.root.GetComponent<playerSound>().PlaySound("stunGrunt");
         }
     }
 

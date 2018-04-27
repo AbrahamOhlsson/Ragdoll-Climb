@@ -19,7 +19,7 @@ public class RocketInTheButt : MonoBehaviour {
 
     // LUDVIG TEST
    bool firstTime = true;
-   public  List<GameObject> LudvigTestList;
+   //public  List<GameObject> LudvigTestList;
 
     // Update is called once per frame
     private void FixedUpdate()
@@ -29,7 +29,7 @@ public class RocketInTheButt : MonoBehaviour {
 
             if (firstTime)
             {
-                // SKA BARA KÖRA EN GÅNG FFS    ¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤¤
+                
                 foreach (Transform child in transform.root.transform)
                 {
 
@@ -37,7 +37,7 @@ public class RocketInTheButt : MonoBehaviour {
                     if (child.gameObject.name == "Character Parts (Sir Climb)(Clone)")
                     {
                         print("it's Character Parts (Sir Climb)(Clone)");
-                        //test = child.gameObject;
+                        
                         test = child.gameObject.transform.Find("Root_M/spine/chest/neck/head").gameObject;
                     }
 
@@ -48,10 +48,7 @@ public class RocketInTheButt : MonoBehaviour {
 
                     }
 
-                    //if (LudvigTestList.Count != 0)
-                    //{
-                    //    return; //break; 
-                    //}
+                    
                 }
 
                 rb = test.GetComponent<Rigidbody>(); // player.GetComponent<Rigidbody>();
@@ -79,6 +76,7 @@ public class RocketInTheButt : MonoBehaviour {
 
     public void startTheRocket()
     {
+        transform.root.GetComponent<playerSound>().PlaySound("rocketInTheButt");
         flyReady = true;
         print("The Rocket is online! " + player);
         //GetComponent<PlayerController>().ReleaseGrip(true, false);
