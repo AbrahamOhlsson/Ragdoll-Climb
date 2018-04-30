@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SP_LevelStats : MonoBehaviour
+[System.Serializable]
+
+public class SP_LevelStats 
 {
     public int starAmount = 0;
-    public float bestTime_flt = Mathf.Infinity;
+    public float bestTime_flt = 0;
     public string bestTime_str = "--:--:--";
 }

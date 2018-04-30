@@ -787,8 +787,7 @@ public class PlayerController : MonoBehaviour
     }
     
 
-    I
-        erator Punch(Rigidbody hand, Vector2 direction)
+    IEnumerator Punch(Rigidbody hand, Vector2 direction)
     {
         if (hand == leftHand)
         {
