@@ -422,6 +422,52 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e5afb7de837148544aceb00b8bbff178, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &218498762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 218498763}
+  - component: {fileID: 218498764}
+  m_Layer: 0
+  m_Name: Powerups BottomObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &218498763
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218498762}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 18.11, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &218498764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 218498762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a1179a4053e6342b69cbaec95f0e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 0
+  y: 1
+  z: 0
+  physics: 0
+  offset: {x: 0, y: 0, z: 0}
+  target: {fileID: 1942483102}
 --- !u!1001 &314518324
 Prefab:
   m_ObjectHideFlags: 0
@@ -2912,13 +2958,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4707740695881700, guid: 59a5fefdbd35e7442a5b1fa57fbca8ab, type: 2}
       propertyPath: m_RootOrder
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 114241731185095406, guid: 59a5fefdbd35e7442a5b1fa57fbca8ab,
         type: 2}
       propertyPath: powerupParent
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 218498763}
     - target: {fileID: 114507593890988406, guid: 59a5fefdbd35e7442a5b1fa57fbca8ab,
         type: 2}
       propertyPath: target
