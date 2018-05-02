@@ -16,7 +16,7 @@ public class PenguinScout : MonoBehaviour
     {
         if (penguin.state == Penguin.PenguinStates.Scout && other.tag == "Player")
         {
-            penguin.PrepareLaunch(other.transform);
+            penguin.PrepareLaunch(other.transform.root.GetComponent<PlayerInfo>().rootObj.transform);
         }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Penguin : MonoBehaviour
 {
-    internal enum PenguinStates { Spawned, Scout, GoToDoor, GoOut, Launch }
-    internal PenguinStates state = PenguinStates.Spawned;
+    public enum PenguinStates { Spawned, Scout, GoToDoor, GoOut, Launched }
+    public PenguinStates state = PenguinStates.Spawned;
 
     [SerializeField] float launchForce = 100f;
 
@@ -21,18 +21,28 @@ public class Penguin : MonoBehaviour
     float pointOffset = 0.3f;
     float rotOffset = 1f;
 
+    float launchAngleX;
+
     Vector3 currentRot;
+    Vector3 targetRot;
+
+    Vector3 spawnPos;
+    Quaternion spawnRot;
 
     Transform playerTarget;
 
 
     void Start()
     {
+        body.eulerAngles = TargetFaceRotation(scoutPoint);
+
         currentRot = body.eulerAngles;
+
+        spawnPos = body.position;
+        spawnRot = body.rotation;
     }
 
-
-
+    
     void Update()
     {
         switch (state)
@@ -41,7 +51,7 @@ public class Penguin : MonoBehaviour
                 MoveToPoint(scoutPoint, 1f);
                 if (CloseEnough(body.position, scoutPoint.position, pointOffset))
                 {
-                    Rotate(new Vector2(0, 0), 2f);
+                    Rotate(new Vector2(0.1f, 0.1f), 2f);
 
                     if (CloseEnough_Angle(body.eulerAngles, new Vector3(0, 0, -90), rotOffset))
                         state = PenguinStates.Scout;
@@ -57,7 +67,7 @@ public class Penguin : MonoBehaviour
                 {
                     Vector3 targetRot = TargetFaceRotation(doorPoint);
                     
-                    Rotate(targetRot, 3f);
+                    Rotate(targetRot, 4f);
 
                     if (CloseEnough_Angle(body.eulerAngles, targetRot, rotOffset))
                         rotatedTowards = true;
@@ -67,7 +77,7 @@ public class Penguin : MonoBehaviour
                     MoveToPoint(doorPoint, 1.5f);
                     if (CloseEnough(body.position, doorPoint.position, pointOffset))
                     {
-                        Rotate(new Vector2(0, 0), 3f);
+                        Rotate(new Vector2(0, 0), 4f);
 
                         if (CloseEnough_Angle(body.eulerAngles, new Vector3(0, 0, -90), rotOffset))
                         {
@@ -79,22 +89,28 @@ public class Penguin : MonoBehaviour
                 break;
 
             case PenguinStates.GoOut:
-                MoveToPoint(launchPoint, 1f);
+                MoveToPoint(launchPoint, 2f);
 
                 if (CloseEnough(body.position, launchPoint.position, pointOffset))
                 {
-                    Vector3 targetRot = TargetFaceRotation(playerTarget);
-                    Rotate(targetRot, 3f);
+                    targetRot = TargetFaceRotation(playerTarget);
+                    Rotate(targetRot, 4f);
 
                     if (CloseEnough_Angle(body.eulerAngles, targetRot, rotOffset))
-                        state = PenguinStates.Launch;
+                    {
+                        Vector3 dir = (playerTarget.position - body.position).normalized;
+                        body.GetComponent<Rigidbody>().isKinematic = false;
+                        body.GetComponent<Rigidbody>().AddForce(dir * launchForce);
+
+                        launchAngleX = CalculateLaunchAngle(playerTarget);
+
+                        state = PenguinStates.Launched;
+                    }
                 }
                 break;
 
-            case PenguinStates.Launch:
-                Vector3 dir = (playerTarget.position - body.position).normalized;
-                body.GetComponent<Rigidbody>().AddForce(dir * launchForce);
-                body.GetComponent<Rigidbody>().isKinematic = false;
+            case PenguinStates.Launched:
+                Rotate(new Vector2(launchAngleX, targetRot.y), 8f);
                 break;
         }
     }
@@ -108,9 +124,22 @@ public class Penguin : MonoBehaviour
     }
 
 
+    public void Respawn()
+    {
+        body.position = spawnPos;
+        body.rotation = spawnRot;
+        currentRot = body.eulerAngles;
+
+        rotatedTowards = false;
+        body.GetComponent<Rigidbody>().isKinematic = true;
+
+        state = PenguinStates.Spawned;
+    }
+
+
     Vector3 TargetFaceRotation(Transform target)
     {
-        if (target.position.x < 0)
+        if (target.position.x < body.position.x)
             return new Vector3(0f, 90f, -90);
         else
             return new Vector3(0f, -90f, -90);
@@ -121,14 +150,15 @@ public class Penguin : MonoBehaviour
         body.position = Vector3.Lerp(body.position, point.position, spd * Time.deltaTime);
     }
 
-    void RotateTowardsPoint(Transform target)
+    float CalculateLaunchAngle(Transform target)
     {
-        Vector3 targetDir = target.position - transform.position;
+        Vector2 dist = target.position - body.position;
+        float v = Mathf.Atan(dist.y / dist.x) * Mathf.Rad2Deg;
 
-        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, 1f * Time.deltaTime, 0.0f);
-
-        // Move our position a step closer to the target.
-        transform.rotation = Quaternion.LookRotation(newDir);
+        if (target.position.y > body.position.y)
+            return (90 - v) * -1;
+        else
+            return (90 + v) * -1;
     }
 
     void Rotate(Vector2 rot, float spd)
@@ -147,8 +177,6 @@ public class Penguin : MonoBehaviour
     }
     bool CloseEnough_Angle(Vector3 v1, Vector3 v2, float offset)
     {
-        print(Mathf.Abs(Mathf.DeltaAngle(v1.y, v2.y)));
-
         if (Mathf.Abs(Mathf.DeltaAngle(v1.y, v2.y)) <= offset)
             return true;
         else
