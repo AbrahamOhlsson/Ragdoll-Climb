@@ -39,6 +39,9 @@ public class Icicle : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+
         bottomObj = GameObject.FindGameObjectWithTag("BottomObj").transform;
     }
 	
@@ -68,6 +71,10 @@ public class Icicle : MonoBehaviour
         if (!firstColl)
         {
             Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
+
+            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+
             firstColl = true;
         }
         else if (!growing)
@@ -76,7 +83,6 @@ public class Icicle : MonoBehaviour
             {
                 other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
                 FindObjectOfType<soundManager>().PlaySound("icicle"); // sound on player hit
-
             }
 
             Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
@@ -95,9 +101,6 @@ public class Icicle : MonoBehaviour
                 rb.useGravity = false;
                 growing = true;
             }
-
-
-
         }
     }
 }
