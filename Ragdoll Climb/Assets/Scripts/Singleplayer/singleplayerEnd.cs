@@ -28,10 +28,10 @@ public class singleplayerEnd : MonoBehaviour {
                 PlayerInfoSingleton.instance.levelStats_ice[0].starAmount = Player.GetComponent<singleplayerInfo>().stars;
             }
 
-            if (Player.GetComponent<singleplayerInfo>().playtime > personalBestTime)
+            if (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime < personalBestTime)
             {
-                FindObjectOfType<PlayerInfoSingleton>().levelStats_ice[0].bestTime_flt = Player.GetComponent<singleplayerInfo>().playtime;
-                FindObjectOfType<PlayerInfoSingleton>().levelStats_ice[0].bestTime_str = Player.GetComponent<singleplayerInfo>().playtime.ToString();
+                FindObjectOfType<PlayerInfoSingleton>().levelStats_ice[0].bestTime_flt = Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime;
+                FindObjectOfType<PlayerInfoSingleton>().levelStats_ice[0].bestTime_str = (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime).ToString();
             }
 
             //save data and end lvl
