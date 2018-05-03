@@ -17,9 +17,6 @@ public class PenguinHit : MonoBehaviour
     {
         if (penguinScript.state == Penguin.PenguinStates.Launched)
         {
-            if (other.transform.tag == "Player")
-                other.transform.root.GetComponent<PlayerStun>().Stun(2f);
-            
             penguinScript.Respawn();
         }
     }

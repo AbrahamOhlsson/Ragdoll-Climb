@@ -15,6 +15,8 @@ public class Penguin : MonoBehaviour
     [SerializeField] Transform doorPoint;
     [SerializeField] Transform launchPoint;
 
+    [SerializeField] GameObject explosion;
+
     bool rotatedTowards = false;
     bool targetToLeft = false;
 
@@ -31,6 +33,8 @@ public class Penguin : MonoBehaviour
 
     Transform playerTarget;
 
+    Animation animation;
+
 
     void Start()
     {
@@ -40,6 +44,9 @@ public class Penguin : MonoBehaviour
 
         spawnPos = body.position;
         spawnRot = body.rotation;
+
+        animation = GetComponent<Animation>();
+        animation.Play("walk");
     }
 
     
@@ -52,6 +59,8 @@ public class Penguin : MonoBehaviour
                 if (CloseEnough(body.position, scoutPoint.position, pointOffset))
                 {
                     Rotate(new Vector2(0.1f, 0.1f), 2f);
+
+                    animation.CrossFade("idle", 2f);
 
                     if (CloseEnough_Angle(body.eulerAngles, new Vector3(0, 0, -90), rotOffset))
                         state = PenguinStates.Scout;
@@ -104,6 +113,8 @@ public class Penguin : MonoBehaviour
 
                         launchAngleX = CalculateLaunchAngle(playerTarget);
 
+                        animation.Stop();
+
                         state = PenguinStates.Launched;
                     }
                 }
@@ -121,17 +132,23 @@ public class Penguin : MonoBehaviour
         state = PenguinStates.GoToDoor;
 
         playerTarget = _playerTarget;
+
+        animation.CrossFade("walk", 2f);
     }
 
 
     public void Respawn()
     {
+        Instantiate(explosion, body.position, Quaternion.identity);
+
         body.position = spawnPos;
         body.rotation = spawnRot;
         currentRot = body.eulerAngles;
 
         rotatedTowards = false;
         body.GetComponent<Rigidbody>().isKinematic = true;
+
+        animation.Play("walk");
 
         state = PenguinStates.Spawned;
     }
