@@ -52,14 +52,14 @@ public class powerUpRespawnList : MonoBehaviour
             if (startInt == 0)
             {
 
-                Instantiate(firstPowerUpList[Random.Range(0, firstPowerUpList.Count)], transform.position, transform.rotation); // Spawns the powerUp, one time
+                Instantiate(firstPowerUpList[Random.Range(0, firstPowerUpList.Count)], transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
                 touched = false;
 
 
             }
             if (startInt == 1)
             {
-                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation); // Spawns the powerUp, one time
+                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
                 touched = false;
 
 
@@ -95,7 +95,7 @@ public class powerUpRespawnList : MonoBehaviour
             {
                 Debug.Log("Touched = true");
                 
-                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation);
+                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation, transform.parent);
                 touched = false;
                 cooldownTime = cooldown;
                 Destroy(TEXT);
