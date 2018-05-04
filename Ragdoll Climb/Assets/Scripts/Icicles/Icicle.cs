@@ -5,7 +5,7 @@ using UnityEngine;
 public class Icicle : MonoBehaviour
 {
     public float growthSpeed = 0.1f;
-    [SerializeField] float stunTime = 2f;
+    public float stunTime = 2f;
     [SerializeField] GameObject icicleShatterEffect;
 
     internal bool instantiated = false;
@@ -39,6 +39,9 @@ public class Icicle : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
+        rb.isKinematic = false;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
+
         bottomObj = GameObject.FindGameObjectWithTag("BottomObj").transform;
     }
 	
@@ -67,8 +70,14 @@ public class Icicle : MonoBehaviour
     {
         if (!firstColl)
         {
-            Physics.IgnoreCollision(GetComponent<Collider>(), other.gameObject.GetComponent<Collider>());
+            Physics.IgnoreCollision(GetComponent<Collider>(), other.collider.gameObject.GetComponent<Collider>());
+
+            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+
             firstColl = true;
+
+            print("Igmore coll: " + other.gameObject.name);
         }
         else if (!growing)
         {
@@ -76,12 +85,12 @@ public class Icicle : MonoBehaviour
             {
                 other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
                 FindObjectOfType<soundManager>().PlaySound("icicle"); // sound on player hit
-
             }
 
             Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
             // FindObjectOfType<soundManager>().PlaySound("icicle");  // sound  on a hit
 
+            print("Collision: " + other.gameObject.name);
 
             if (instantiated)
                 Destroy(gameObject);
@@ -95,9 +104,6 @@ public class Icicle : MonoBehaviour
                 rb.useGravity = false;
                 growing = true;
             }
-
-
-
         }
     }
 }

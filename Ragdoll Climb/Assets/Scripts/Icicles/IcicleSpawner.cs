@@ -10,6 +10,8 @@ public class IcicleSpawner : MonoBehaviour
     float timer = 0;
 
     float growthSpd = 0;
+
+    float stunTime = 2;
     
     Transform bottomObj;
 
@@ -20,6 +22,7 @@ public class IcicleSpawner : MonoBehaviour
     {
         scale = transform.GetChild(0).localScale;
         growthSpd = GetComponentInChildren<Icicle>().growthSpeed;
+        stunTime = GetComponentInChildren<Icicle>().stunTime;
 
         transform.GetChild(0).GetComponent<Icicle>().instantiated = true;
 
@@ -35,6 +38,7 @@ public class IcicleSpawner : MonoBehaviour
             inst.transform.localScale = scale;
             inst.GetComponent<Icicle>().instantiated = true;
             inst.GetComponent<Icicle>().growthSpeed = growthSpd;
+            inst.GetComponent<Icicle>().stunTime = stunTime;
 
             timer = 0;
         }

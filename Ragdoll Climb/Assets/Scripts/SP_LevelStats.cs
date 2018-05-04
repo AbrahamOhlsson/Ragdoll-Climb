@@ -7,6 +7,6 @@ using UnityEngine;
 public class SP_LevelStats 
 {
     public int starAmount = 0;
-    public float bestTime_flt = 0;
+    public float bestTime_flt = 10000;
     public string bestTime_str = "--:--:--";
 }
