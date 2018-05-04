@@ -33,7 +33,7 @@ public class RespawnPowerUp : MonoBehaviour {
     {
         posOffset = transform.position;
         Debug.Log(powerUp.transform.position);
-        Instantiate(powerUp, posOffset, transform.rotation); // Spawns the powerUp, one time
+        Instantiate(powerUp, posOffset, transform.rotation, transform.parent); // Spawns the powerUp, one time
         touched = false;
     }
 
@@ -88,7 +88,7 @@ public class RespawnPowerUp : MonoBehaviour {
 
         Debug.Log("SPAWNS");
         Debug.Log(powerUp);
-        Instantiate(powerUp, posOffset, transform.rotation);
+        Instantiate(powerUp, posOffset, transform.rotation, transform.parent);
     }
 
 }

@@ -33,8 +33,8 @@ public class TeleportRandom : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if (other.tag == "BottomObj")
-            Destroy(gameObject);
+        //else if (other.tag == "BottomObj")
+        //    Destroy(gameObject);
     }
 
     void GetTeleportPosition()

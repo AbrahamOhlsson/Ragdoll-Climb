@@ -34,6 +34,8 @@ public class singleplayerEnd : MonoBehaviour {
                 FindObjectOfType<PlayerInfoSingleton>().levelStats_ice[0].bestTime_str = (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime).ToString();
             }
 
+            Cursor.visible = true;
+
             //save data and end lvl
             PlayerInfoSingleton.instance.Save();
             SceneManager.LoadScene("Ice Menu");

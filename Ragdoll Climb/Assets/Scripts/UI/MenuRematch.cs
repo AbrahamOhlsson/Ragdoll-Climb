@@ -51,6 +51,7 @@ public class MenuRematch : MonoBehaviour
 
     public void QuitGame()
     {
+        Cursor.visible = true;
         SceneManager.LoadScene("Ice Menu");
     }
 }
