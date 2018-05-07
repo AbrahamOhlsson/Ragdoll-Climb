@@ -362,7 +362,8 @@ public class PlayerController : MonoBehaviour
                     gripLeft = true;
 
                     vibrator.VibrateTimed(0.3f, 0f, justGrabbed, 2);
-
+                    gruntManager.PlayGrunt();
+                    
                     // Gets distance from the other hand
                     float handDist = leftHand.position.y - rightHand.position.y;
 
@@ -391,8 +392,6 @@ public class PlayerController : MonoBehaviour
                     else
                         // The right hand cannot activate boost, this prevents exploiting the boost
                         rightBoostReady = false;
-
-                    gruntManager.PlayGrunt();
                 }
             }
             // If trigger is released

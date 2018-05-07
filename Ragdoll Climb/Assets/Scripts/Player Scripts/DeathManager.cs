@@ -15,7 +15,7 @@ public class DeathManager : MonoBehaviour
     [SerializeField] MultiplayerManager manager;
 	[SerializeField] GameObject SkullAndCrossbones;
 
-    //bool solid = true;
+    bool diedRecently = false;
 
     // Layer mask for 14 that prevents ignorance of that layer when using this mask in overlapping sphere
     int layerMask = 1 << 14;
@@ -139,17 +139,12 @@ public class DeathManager : MonoBehaviour
     {
         if (firstUpdate)
         {
-
-            
             for(int i = myColliders.Count-1; i > -1 ; i--)
             {
-               
                 if(myColliders[i].name == "cloth" )
                 {
                     myColliders.Remove(myColliders[i]);
-
                 }
-
             }
             
 
@@ -160,17 +155,11 @@ public class DeathManager : MonoBehaviour
                     otherColliders.Remove(otherColliders[i]);
 
                 }
-
             }
-
 
             firstUpdate = false;
         }
-
-
-
-
-
+        
         // The player has no collision with other players
 		if (!playerInfo.solid)
         {
@@ -229,6 +218,8 @@ public class DeathManager : MonoBehaviour
             }
 
             ghostTimer += Time.deltaTime;
+
+            diedRecently = false;
         }
 
         // Death if below the bottom object
@@ -305,88 +296,93 @@ public class DeathManager : MonoBehaviour
     // Kills the player
     public void Death()
     {
-		//Spawn visual feedback
-		Instantiate(SkullAndCrossbones, rootTrans.position, Quaternion.Euler(90, -180, 0));
-
-		playerInfo.solid = false;
-        ghostTimer = 0f;
-
-        // Disconnects all potential players that are grabbing this one
-        GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
-
-        GetComponent<PlayerStun>().UnStun();
-        GetComponent<PlayerPowerups>().ResetPlayerMass();
-        GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 6);
-
-        // Ignores collision between this player and the others
-        for (int i = 0; i < myColliders.Count; i++)
+        if (!diedRecently)
         {
-            for (int j = 0; j < otherColliders.Count; j++)
+            //Spawn visual feedback
+            Instantiate(SkullAndCrossbones, rootTrans.position, Quaternion.Euler(90, -180, 0));
+
+            diedRecently = true;
+
+            playerInfo.solid = false;
+            ghostTimer = 0f;
+
+            // Disconnects all potential players that are grabbing this one
+            GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
+
+            GetComponent<PlayerStun>().UnStun();
+            GetComponent<PlayerPowerups>().ResetPlayerMass();
+            GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 6);
+
+            // Ignores collision between this player and the others
+            for (int i = 0; i < myColliders.Count; i++)
             {
-                
-                if (!myColliders[i].name.Contains("Wrist") && !myColliders[i].name.Contains("wrist"))
+                for (int j = 0; j < otherColliders.Count; j++)
                 {
-  
-                    Physics.IgnoreCollision(myColliders[i], otherColliders[j]);    
-                   
+
+                    if (!myColliders[i].name.Contains("Wrist") && !myColliders[i].name.Contains("wrist"))
+                    {
+
+                        Physics.IgnoreCollision(myColliders[i], otherColliders[j]);
+
+                    }
                 }
             }
-        }
 
-        // Gets all spawnpoints within a radius
-        Collider[] spawnPoints = Physics.OverlapSphere(rootTrans.position, spawnPointSearchRad, layerMask, QueryTriggerInteraction.Collide);
+            // Gets all spawnpoints within a radius
+            Collider[] spawnPoints = Physics.OverlapSphere(rootTrans.position, spawnPointSearchRad, layerMask, QueryTriggerInteraction.Collide);
 
-        // Will be used to store the minimum distance to any spawn point
-        float minDist = Mathf.Infinity;
+            // Will be used to store the minimum distance to any spawn point
+            float minDist = Mathf.Infinity;
 
-        // Position to spawn at
-        Vector3 spawnPos = Vector3.zero;
+            // Position to spawn at
+            Vector3 spawnPos = Vector3.zero;
 
-        // Goes through all found spawn points
-        for (int i = 0; i < spawnPoints.Length; i++)
-        {
-            // Gets the distance between the player and a spawn point
-            float dist = Vector3.Distance(rootTrans.position, spawnPoints[i].transform.position);
-
-            // If this distance is lesser that the previously minimum one
-            if (dist < minDist)
+            // Goes through all found spawn points
+            for (int i = 0; i < spawnPoints.Length; i++)
             {
-                minDist = dist;
-                spawnPos = new Vector3(spawnPoints[i].transform.position.x, spawnPoints[i].transform.position.y, rootTrans.position.z);
+                // Gets the distance between the player and a spawn point
+                float dist = Vector3.Distance(rootTrans.position, spawnPoints[i].transform.position);
+
+                // If this distance is lesser that the previously minimum one
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    spawnPos = new Vector3(spawnPoints[i].transform.position.x, spawnPoints[i].transform.position.y, rootTrans.position.z);
+                }
             }
-        }
 
-        // Resets velocity
-        for (int i = 0; i < rbs.Length; i++)
-        {
-            rbs[i].velocity = Vector3.zero;
-        }
-
-        // If a spawn point was found
-        if (spawnPos != Vector3.zero)
-        {
-            // Teleports the player
-            rootTrans.transform.position = spawnPos;
-
-            for (int i = 0; i < transforms.Length; i++)
+            // Resets velocity
+            for (int i = 0; i < rbs.Length; i++)
             {
-                if (transforms[i].name != "Root_M")
-                    transforms[i].localPosition = originPos[i];
-                else
-                    transforms[i].localPosition = new Vector3(transforms[i].localPosition.x, transforms[i].localPosition.y, originPos[i].z);
-
-                transforms[i].localRotation = originRot[i];
+                rbs[i].velocity = Vector3.zero;
             }
-        }
-        else
-        {
-            Debug.LogError("No spawn points were found!");
-            manager.GetComponent<DebugText>().AddText("ERROR!!! No spawn points were found!");
-        }
 
-        ChangeMass(ghostMassMult);
+            // If a spawn point was found
+            if (spawnPos != Vector3.zero)
+            {
+                // Teleports the player
+                rootTrans.transform.position = spawnPos;
 
-        playDeathGrunt();
+                for (int i = 0; i < transforms.Length; i++)
+                {
+                    if (transforms[i].name != "Root_M")
+                        transforms[i].localPosition = originPos[i];
+                    else
+                        transforms[i].localPosition = new Vector3(transforms[i].localPosition.x, transforms[i].localPosition.y, originPos[i].z);
+
+                    transforms[i].localRotation = originRot[i];
+                }
+            }
+            else
+            {
+                Debug.LogError("No spawn points were found!");
+                manager.GetComponent<DebugText>().AddText("ERROR!!! No spawn points were found!");
+            }
+
+            ChangeMass(ghostMassMult);
+
+            playDeathGrunt();
+        }
     }
 
 
