@@ -20,12 +20,15 @@ public class PlayerController : MonoBehaviour
     [Tooltip("How fast the pull force will reach it's value set above.")]
     [Range(0f, 1f)]
     [SerializeField] float pullForceGainSpeed = 0.3f;
-    [Tooltip("Swing force in X-axis")]
+    [Tooltip("Swing force in X-axis when grabbing with only one hand")]
     [Range(0f, 500f)]
-    [SerializeField] float swingForceX = 85f;
+    [SerializeField] float swingForceX_single = 150f;
+    [Tooltip("Swing force in X-axis when grabbing with both hands")]
+    [Range(0f, 500f)]
+    [SerializeField] float swingForceX_double = 200f;
     [Tooltip("Swing force in Y-axis. This always pushes down when swinging.")]
     [Range(0f, 300f)]
-    [SerializeField] float swingForceY = 30f;
+    [SerializeField] float swingForceY = 35;
     [Tooltip("Force that will be applied to a throwable object after it is released.")]
     [Range(0f, 2000f)]
     [SerializeField] float throwForce = 500f;
@@ -157,6 +160,7 @@ public class PlayerController : MonoBehaviour
 
     float currentPullForceLeft = 0;
     float currentPullForceRight = 0;
+    float currentSwingForce = 0;
 
     // How long the hands have gripped
     float leftGripTimer = 0f;
@@ -631,6 +635,27 @@ public class PlayerController : MonoBehaviour
             leftHand.AddForce(pushDirLeft * pushForce);
             rightHand.AddForce(pushDirRight * pushForce);
 
+            // Add pull force for torso
+            head.AddForce(0f, pullDirLeft.y * currentPullForceLeft, 0f);
+            head.AddForce(0f, pullDirRight.y * currentPullForceRight, 0f);
+
+            // Swinging
+            if (gripRight && gripLeft)
+                currentSwingForce = swingForceX_double / 2;
+            else
+                currentSwingForce = swingForceX_single;
+
+            leftFoot.AddForce(pullDirLeft.x * currentSwingForce, -Mathf.Abs(pullDirLeft.x) * swingForceY, 0f);
+            leftFoot.AddForce(pullDirRight.x * currentSwingForce, -Mathf.Abs(pullDirRight.x) * swingForceY, 0f);
+            rightFoot.AddForce(pullDirLeft.x * currentSwingForce, -Mathf.Abs(pullDirLeft.x) * swingForceY, 0f);
+            rightFoot.AddForce(pullDirRight.x * currentSwingForce, -Mathf.Abs(pullDirRight.x) * swingForceY, 0f);
+
+            // Adds equal pull force of grabbed object but in opposite direction
+            if (checkGripLeft.currentGripping != null && gripLeft)
+                checkGripLeft.currentGripping.AddForce(0f, -pullDirLeft.y * currentPullForceLeft, 0f);
+            if (checkGripRight.currentGripping != null && gripRight)
+                checkGripRight.currentGripping.AddForce(0f, -pullDirRight.y * currentPullForceRight, 0f);
+
             float totalMassLoss = 0;
 
             // If the left hand is being moved
@@ -684,41 +709,6 @@ public class PlayerController : MonoBehaviour
             root.mass = playerInfo.targetMasses[bodyParts.IndexOf(root)] + totalMassLoss / 3;
             spine.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
             head.mass = playerInfo.targetMasses[bodyParts.IndexOf(spine)] + totalMassLoss / 3;
-
-            // Add pull force for torso
-            //head.AddForce(pullDirLeft * currentPullForceLeft);
-            //head.AddForce(pullDirRight * currentPullForceRight);
-            head.AddForce(0f, pullDirLeft.y * currentPullForceLeft, 0f);
-            head.AddForce(0f, pullDirRight.y * currentPullForceRight, 0f);
-
-            //leftHand.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft * 1000f);
-            //rightHand.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight * 1000f);
-
-            //leftShoulder.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft);
-            //rightShoulder.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight);
-
-            //root.AddForce(pullDirLeft.x * currentPullForceLeft, 0f, 0f);
-            //root.AddForce(pullDirRight.x * currentPullForceRight, 0f, 0f);
-
-            //root.AddTorque(0f, 0f, pullDirLeft.x * currentPullForceLeft / 4);
-            //root.AddTorque(0f, 0f, pullDirRight.x * currentPullForceRight / 4);
-
-            // THIS IS PRETTY ALRIGHT
-            leftFoot.AddForce(pullDirLeft.x * swingForceX, -Mathf.Abs(pullDirLeft.x) * swingForceY, 0f);
-            leftFoot.AddForce(pullDirRight.x * swingForceX, -Mathf.Abs(pullDirRight.x) * swingForceY, 0f);
-            rightFoot.AddForce(pullDirLeft.x * swingForceX, -Mathf.Abs(pullDirLeft.x) * swingForceY, 0f);
-            rightFoot.AddForce(pullDirRight.x * swingForceX, -Mathf.Abs(pullDirRight.x) * swingForceY, 0f);
-
-            // Adds equal pull force of grabbed object but in opposite direction
-            if (checkGripLeft.currentGripping != null && gripLeft)
-                checkGripLeft.currentGripping.AddForce(0f, -pullDirLeft.y * currentPullForceLeft, 0f);
-            if (checkGripRight.currentGripping != null && gripRight)
-                checkGripRight.currentGripping.AddForce(0f, -pullDirRight.y * currentPullForceRight, 0f);
-
-            //leftShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
-            //rightShoulder.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
-            //leftElbow.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
-            //rightElbow.transform.localRotation = Quaternion.Euler(0f, leftShoulder.transform.localRotation.eulerAngles.y, 0f);
         }
 
         // Stableizes z position
@@ -916,9 +906,7 @@ public class PlayerController : MonoBehaviour
                 checkGripRight.Disconnect();
 
             rightGripTimer = 0f;
-
             currentPullForceRight = 0f;
-
             gripRight = false;
         }
     }
