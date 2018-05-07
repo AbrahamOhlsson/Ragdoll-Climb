@@ -352,7 +352,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Left grip controls
-            if ((state.Triggers.Left >= 0.8f /*|| state.Buttons.LeftShoulder == ButtonState.Pressed*/) && (prevState.Triggers.Left < 0.8f /*&& prevState.Buttons.LeftShoulder == ButtonState.Released*/))
+            if (state.Triggers.Left >= 0.8f /*&& prevState.Triggers.Left < 0.8f*/ && !gripLeft)
             {
                 StopCoroutine(releaseGripDelayedLeft);
 
@@ -396,7 +396,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if ((state.Triggers.Left == 0/* && state.Buttons.LeftShoulder == ButtonState.Released*/) && (prevState.Triggers.Left > 0 /*|| prevState.Buttons.LeftShoulder == ButtonState.Pressed*/) && gripLeft)
+            else if (state.Triggers.Left == 0/* && prevState.Triggers.Left > 0*/ && gripLeft)
             {
                 if (checkGripLeft.currentGripping.tag == "Throwable")
                     ReleaseGrip(true, true);
@@ -411,7 +411,7 @@ public class PlayerController : MonoBehaviour
                 leftVibrationAmount = 0;
             }
             // Right grip controls
-            if ((state.Triggers.Right >= 0.8f/* || state.Buttons.RightShoulder == ButtonState.Pressed*/) && (prevState.Triggers.Right < 0.8f/* && prevState.Buttons.RightShoulder == ButtonState.Released*/))
+            if (state.Triggers.Right >= 0.8f /*&& prevState.Triggers.Right < 0.8f*/ && !gripRight)
             {
                 StopCoroutine(releaseGripDelayedRight);
 
@@ -455,7 +455,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // If trigger is released
-            else if ((state.Triggers.Right == 0/* && state.Buttons.RightShoulder == ButtonState.Released*/) && (prevState.Triggers.Right > 0/* || prevState.Buttons.RightShoulder == ButtonState.Pressed*/) && gripRight)
+            else if (state.Triggers.Right == 0 /*&& (prevState.Triggers.Right > 0*/ && gripRight)
             {
                 if (checkGripRight.currentGripping.tag == "Throwable")
                     ReleaseGrip(false, true);

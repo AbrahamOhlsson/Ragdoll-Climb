@@ -6,17 +6,21 @@ public class Icicle : MonoBehaviour
 {
     public float growthSpeed = 0.1f;
     public float stunTime = 2f;
+    public float autoDestroyTime = 2f;
     [SerializeField] GameObject icicleShatterEffect;
 
     internal bool instantiated = false;
 
-    bool growing = true;
+    enum States { Growing, Falling, Shrinking }
+    States state = States.Growing;
     bool firstColl = false;
 
     float targetScale;
     float minScale = 0;
     float scale;
-    
+
+    float autoDestroyTimer;
+
     Transform bottomObj;
 
     Vector3 startPos;
@@ -47,23 +51,57 @@ public class Icicle : MonoBehaviour
 	
 	void Update ()
     {
-		if (growing)
+        switch(state)
         {
-            scale += growthSpeed * Time.deltaTime;
-            transform.localScale = new Vector3(scale, scale, scale);
+            case States.Growing:
+                scale += growthSpeed * Time.deltaTime;
+                transform.localScale = new Vector3(scale, scale, scale);
 
-            if (scale >= targetScale)
-            {
-                rb.isKinematic = false;
-                rb.useGravity = true;
-                growing = false;
-            }
+                if (scale >= targetScale)
+                {
+                    rb.isKinematic = false;
+                    rb.useGravity = true;
+                    state = States.Falling;
+                }
+                break;
+
+            case States.Falling:
+                if (autoDestroyTimer >= autoDestroyTime)
+                    state = States.Shrinking;
+
+                autoDestroyTimer += Time.deltaTime;
+                break;
+
+            case States.Shrinking:
+                scale -= 2 * Time.deltaTime;
+                transform.localScale = new Vector3(scale, scale, scale);
+
+                if (scale <= 0)
+                    DestroyIcicle();
+                break;
         }
-
+        
         if (transform.position.y <= bottomObj.position.y)
             Destroy(gameObject);
 	}
     
+
+    private void DestroyIcicle()
+    {
+        if (instantiated)
+            Destroy(gameObject);
+        else
+        {
+            scale = minScale;
+            transform.localScale = new Vector3(minScale, minScale, minScale);
+            transform.localPosition = startPos;
+            rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            state = States.Growing;
+            autoDestroyTimer = 0;
+        }
+    }
 
 
     private void OnCollisionEnter(Collision other)
@@ -76,10 +114,8 @@ public class Icicle : MonoBehaviour
             rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
 
             firstColl = true;
-
-            print("Igmore coll: " + other.gameObject.name);
         }
-        else if (!growing)
+        else if (state == States.Falling)
         {
             if (other.gameObject.tag == "Player")
             {
@@ -90,20 +126,7 @@ public class Icicle : MonoBehaviour
             Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
             // FindObjectOfType<soundManager>().PlaySound("icicle");  // sound  on a hit
 
-            print("Collision: " + other.gameObject.name);
-
-            if (instantiated)
-                Destroy(gameObject);
-            else
-            {
-                scale = minScale;
-                transform.localScale = new Vector3(minScale, minScale, minScale);
-                transform.localPosition = startPos;
-                rb.velocity = Vector3.zero;
-                rb.isKinematic = true;
-                rb.useGravity = false;
-                growing = true;
-            }
+            DestroyIcicle();
         }
     }
 }
