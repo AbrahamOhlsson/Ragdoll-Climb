@@ -2,28 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class powerUpRespawnList : MonoBehaviour {
-
-
+public class powerUpRespawnList : MonoBehaviour
+{
     /// <summary>
     /// ***THIS SCRIPT IS FOR FLOATING POWER-UPS LIKE (Anvil Down, Feather Up)
     /// </summary>
-
-
-
+    
     public List<GameObject> firstPowerUpList;
 
     public List<GameObject> goodPowerUpList;
 
     public GameObject contdownText;
-
-
+    
     private GameObject player;
     [Range(0, 10)] [Tooltip("Cooldown per second")] public float cooldown;
     private bool touched;
     float cooldownTime;
-
-
+    
     //floating 
     [SerializeField]
     private float rotateSpeed = 15.0f;
@@ -34,42 +29,56 @@ public class powerUpRespawnList : MonoBehaviour {
     Vector3 posOffset = new Vector3();
     Vector3 tempPos = new Vector3();
     private GameObject TEXT;
-    
+    bool firstSpawn;
+    int cdInt;
+    int startInt;
+
     void Start()
     {
         posOffset = transform.position;
-        int startInt = Random.Range(0, 2);
+        startInt = Random.Range(0, 2);
         cooldownTime = cooldown;
+        firstSpawn = true;
 
-        if (startInt == 0)
-        {
-
-            Instantiate(firstPowerUpList[Random.Range(0,firstPowerUpList.Count)], posOffset, transform.rotation); // Spawns the powerUp, one time
-            touched = false;
-
-
-        }
-        if (startInt == 1)
-        {
-            Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], posOffset, transform.rotation); // Spawns the powerUp, one time
-            touched = false;
-
-
-
-        }
+        cdInt = 0;
 
     }
-
-
 
     //  Activates spawn
     private void Update()
     {
+        if(cdInt == 10 && firstSpawn)
+        {
+            if (startInt == 0)
+            {
+
+                Instantiate(firstPowerUpList[Random.Range(0, firstPowerUpList.Count)], transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
+                touched = false;
+
+
+            }
+            if (startInt == 1)
+            {
+                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
+                touched = false;
+
+
+
+            }
+            firstSpawn = false;
+            print(cdInt + "nu skapas skiten ");
+
+        }
+
+        if (firstSpawn){
+            cdInt++;
+        }
+
         // Rotate
         transform.Rotate(new Vector3(0f, Time.deltaTime * rotateSpeed, 0f), Space.World);
 
         // Float up/down with a Sin()
-        tempPos = posOffset;
+        tempPos = transform.position;
         tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * floatSpeed) * floatLength;
 
         transform.position = tempPos;
@@ -86,7 +95,7 @@ public class powerUpRespawnList : MonoBehaviour {
             {
                 Debug.Log("Touched = true");
                 
-                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], posOffset, transform.rotation);
+                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation, transform.parent);
                 touched = false;
                 cooldownTime = cooldown;
                 Destroy(TEXT);
@@ -97,7 +106,7 @@ public class powerUpRespawnList : MonoBehaviour {
 
     }
 
-    //  Resets Spawn trigger
+    // Resets Spawn trigger
     private void OnTriggerEnter(Collider other)
     {
         if (touched == false)
@@ -111,6 +120,4 @@ public class powerUpRespawnList : MonoBehaviour {
             }
         }
     }
-
-
 }

@@ -92,12 +92,12 @@ public class musicManager : MonoBehaviour
         {
             if (startBlockTransform == null)                                                         // from here  (see below)
             {
-                startBlockTransform = GameObject.Find("StartModul").transform;
+                startBlockTransform = GameObject.Find("StartModule").transform;
             }
 
             if (endBlockTransform == null)
             {
-                endBlockTransform = GameObject.Find("EndModul(Clone)").transform;
+                endBlockTransform = GameObject.Find("EndModule(Clone)").transform;
             }
 
             if (bottomTransform == null)
