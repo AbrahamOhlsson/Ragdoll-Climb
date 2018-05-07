@@ -23,6 +23,8 @@ public class Penguin : MonoBehaviour
     float pointOffset = 0.3f;
     float rotOffset = 1f;
 
+    float launchTimer = 0f;
+    float launchDelay = 1.5f;
     float launchAngleX;
 
     Vector3 currentRot;
@@ -102,21 +104,23 @@ public class Penguin : MonoBehaviour
 
                 if (CloseEnough(body.position, launchPoint.position, pointOffset))
                 {
+                    animation.Stop();
+
                     targetRot = TargetFaceRotation(playerTarget);
                     Rotate(targetRot, 4f);
 
-                    if (CloseEnough_Angle(body.eulerAngles, targetRot, rotOffset))
+                    if (launchTimer >= launchDelay)
                     {
                         Vector3 dir = (playerTarget.position - body.position).normalized;
                         body.GetComponent<Rigidbody>().isKinematic = false;
                         body.GetComponent<Rigidbody>().AddForce(dir * launchForce);
 
                         launchAngleX = CalculateLaunchAngle(playerTarget);
-
-                        animation.Stop();
-
+                        
                         state = PenguinStates.Launched;
                     }
+
+                    launchTimer += Time.deltaTime;
                 }
                 break;
 
@@ -145,6 +149,8 @@ public class Penguin : MonoBehaviour
         body.rotation = spawnRot;
         currentRot = body.eulerAngles;
 
+        launchTimer = 0;
+
         rotatedTowards = false;
         body.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -171,11 +177,12 @@ public class Penguin : MonoBehaviour
     {
         Vector2 dist = target.position - body.position;
         float v = Mathf.Atan(dist.y / dist.x) * Mathf.Rad2Deg;
+        v = -Mathf.Abs(v);
 
         if (target.position.y > body.position.y)
-            return (90 - v) * -1;
+            return (-90 - v);
         else
-            return (90 + v) * -1;
+            return (-90 + v);
     }
 
     void Rotate(Vector2 rot, float spd)
