@@ -453,7 +453,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 0c2917e013d25d64e8993ba48e6f1f5a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 21500c00a1226224491c0664fde8f41d, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -8026,8 +8026,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -328.8, y: 164}
-  m_SizeDelta: {x: 300, y: 30}
+  m_AnchoredPosition: {x: -328.8, y: 137.8}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &614035046
 MonoBehaviour:
@@ -8061,7 +8061,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LT/LB | Left hand grab
+  m_Text: 'LT | Left hand grab
+
+    LB | Left hand punch
+
+'
 --- !u!222 &614035047
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10348,8 +10352,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 864753238}
   m_LocalRotation: {x: -0.6780119, y: 0.0000000149011585, z: -0, w: 0.735051}
-  m_LocalPosition: {x: -35, y: -1.9159, z: 8.9987}
-  m_LocalScale: {x: 27.251314, y: 0.5288692, z: 4.599139}
+  m_LocalPosition: {x: -35, y: 21.2, z: 10.9}
+  m_LocalScale: {x: 27.251314, y: 0.5288692, z: 6.2127814}
   m_Children: []
   m_Father: {fileID: 614035045}
   m_RootOrder: 0
@@ -13412,7 +13416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1179894618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21066,8 +21070,8 @@ Transform:
   m_GameObject: {fileID: 1575035167}
   m_LocalRotation: {x: -0.6780119, y: 0.0000000149011585, z: -0.0000000149011585,
     w: 0.735051}
-  m_LocalPosition: {x: -22, y: -1.9847, z: 9.0012}
-  m_LocalScale: {x: 27.251192, y: 0.5291496, z: 4.5989847}
+  m_LocalPosition: {x: -22, y: 20.5, z: 11.3}
+  m_LocalScale: {x: 27.251192, y: 0.5291496, z: 6.3120685}
   m_Children: []
   m_Father: {fileID: 2080908216}
   m_RootOrder: 0
@@ -24510,8 +24514,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2080908215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1.0019617, z: 1}
   m_Children:
   - {fileID: 1575035168}
   m_Father: {fileID: 43489782}
@@ -24519,8 +24523,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 406.1, y: 163.99997}
-  m_SizeDelta: {x: 300, y: 30}
+  m_AnchoredPosition: {x: 402.85416, y: 137.1}
+  m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2080908217
 MonoBehaviour:
@@ -24554,8 +24558,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'RT/RB | Right hand grab
+  m_Text: 'RT | Right hand grab
 
+    RB | Right hand punch
 
 '
 --- !u!222 &2080908218
