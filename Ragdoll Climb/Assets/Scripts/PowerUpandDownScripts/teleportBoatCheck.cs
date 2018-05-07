@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class teleportBoatCheck : MonoBehaviour {
+public class teleportBoatCheck : MonoBehaviour
+{
 
     public GameObject bottomObj;
 
     // Use this for initialization
     void Start ()
     {
-		bottomObj = GameObject.Find("bottom");
-		
+		bottomObj = GameObject.Find("Bottom Object");
 	}
+
+
 }
