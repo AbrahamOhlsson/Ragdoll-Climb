@@ -13,14 +13,9 @@ public class MenuRematch : MonoBehaviour
 	GamePadState[] states = new GamePadState[4];
 	GamePadState[] prevStates = new GamePadState[4];
 
+    [SerializeField] LevelLoader loadingScreen;
 	[SerializeField] EventSystem eventSystem;
-
-	public void PlayGame()
-    {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
-    }
+    
 
 	void Start()
 	{
@@ -49,9 +44,24 @@ public class MenuRematch : MonoBehaviour
 		}
 	}
 
+    public void PlayGame()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Scene scene = SceneManager.GetActiveScene();
+
+        if (loadingScreen != null)
+            loadingScreen.LoadLevelAsync(scene.name);
+        else
+            SceneManager.LoadScene(scene.name);
+    }
+
     public void QuitGame()
     {
         Cursor.visible = true;
-        SceneManager.LoadScene("Ice Menu");
+
+        if (loadingScreen != null)
+            loadingScreen.LoadLevelAsync("Ice Menu");
+        else
+            SceneManager.LoadScene("Ice Menu");
     }
 }

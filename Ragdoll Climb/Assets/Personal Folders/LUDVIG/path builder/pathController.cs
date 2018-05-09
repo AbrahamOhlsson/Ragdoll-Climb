@@ -19,56 +19,56 @@ public class pathController : MonoBehaviour {
     public GameObject startBox;
 
     // dificulty
-    public PlayerInfoSingleton.Difficulties Difficulties;
-    public PlayerInfoSingleton.Lengths Lengths;
+    public Singleton.Difficulties Difficulties;
+    public Singleton.Lengths Lengths;
 
 
     // måste hända innan alla andra build script 
     private void Awake()
     {
-        Difficulties =  FindObjectOfType<PlayerInfoSingleton>().levelDifficulty;
-        Lengths = FindObjectOfType<PlayerInfoSingleton>().levelLength;
+        Difficulties =  FindObjectOfType<Singleton>().levelDifficulty;
+        Lengths = FindObjectOfType<Singleton>().levelLength;
 
 
         // LENGTH ####################################
-        if (Lengths == PlayerInfoSingleton.Lengths.Short)
+        if (Lengths == Singleton.Lengths.Short)
         {
             maxBlock = 2; // ska vara 2 
         }
 
 
-        else if (Lengths == PlayerInfoSingleton.Lengths.Medium)
+        else if (Lengths == Singleton.Lengths.Medium)
         {
             maxBlock = 3;
         }
 
 
-        else if (Lengths == PlayerInfoSingleton.Lengths.Long)
+        else if (Lengths == Singleton.Lengths.Long)
         {
             maxBlock = 4;
         }
 
 
-        else if (Lengths == PlayerInfoSingleton.Lengths.Humongous)
+        else if (Lengths == Singleton.Lengths.Humongous)
         {
             maxBlock = 5;
         }
 
 
-        else if (Lengths == PlayerInfoSingleton.Lengths.Gigantic)
+        else if (Lengths == Singleton.Lengths.Gigantic)
         {
             maxBlock = 6;
         }
 
 
         // Difficultie  ################################
-        if (Difficulties == PlayerInfoSingleton.Difficulties.VeryEasy)
+        if (Difficulties == Singleton.Difficulties.VeryEasy)
         {
             blockList = easyBloakList;
         }
 
 
-        else if (Difficulties == PlayerInfoSingleton.Difficulties.Easy)
+        else if (Difficulties == Singleton.Difficulties.Easy)
         {
             blockList = easyBloakList;
 
@@ -80,13 +80,13 @@ public class pathController : MonoBehaviour {
         }
 
 
-        else if (Difficulties == PlayerInfoSingleton.Difficulties.Medium)
+        else if (Difficulties == Singleton.Difficulties.Medium)
         {
             blockList = normBloakList;
         }
 
 
-        else if (Difficulties == PlayerInfoSingleton.Difficulties.Hard)
+        else if (Difficulties == Singleton.Difficulties.Hard)
         {
             blockList = hardBloakList;
 
@@ -98,13 +98,13 @@ public class pathController : MonoBehaviour {
         }
 
 
-        else if (Difficulties == PlayerInfoSingleton.Difficulties.VeryHard)
+        else if (Difficulties == Singleton.Difficulties.VeryHard)
         {
             blockList = hardBloakList;
         }
 
 
-        else if (Difficulties == PlayerInfoSingleton.Difficulties.Mix)
+        else if (Difficulties == Singleton.Difficulties.Mix)
         {
             blockList = easyBloakList;
 

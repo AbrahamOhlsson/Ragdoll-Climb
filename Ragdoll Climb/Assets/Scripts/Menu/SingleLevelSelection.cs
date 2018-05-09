@@ -10,12 +10,12 @@ public class SingleLevelSelection : MonoBehaviour
     [SerializeField] SP_LevelButton[] levelButtons_woods;
     [SerializeField] LevelLoader loader;
 
-    PlayerInfoSingleton singleton;
+    Singleton singleton;
 
 
 	void Start ()
     {
-        singleton = PlayerInfoSingleton.instance;
+        singleton = Singleton.instance;
 
         // If there is no save file yet
         if (!singleton.SavefileExists())
@@ -67,6 +67,7 @@ public class SingleLevelSelection : MonoBehaviour
         string levelName = "SP_level" + "_" + levelButtonScript.world + levelButtonScript.levelIndex;
 
         singleton.selectedLevel = levelName;
+        singleton.mode = Singleton.Modes.Single;
 
         loader.LoadLevelAsync(levelName);
     }

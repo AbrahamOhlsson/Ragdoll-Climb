@@ -18,12 +18,12 @@ public class DiffLengthSelection : MonoBehaviour
     [SerializeField] string[] diffNames;
     [SerializeField] string[] lengthNames;
 
-    PlayerInfoSingleton singleton;
+    Singleton singleton;
 
 
     private void Awake()
     {
-        singleton = PlayerInfoSingleton.instance;
+        singleton = Singleton.instance;
     }
 
 
@@ -45,7 +45,7 @@ public class DiffLengthSelection : MonoBehaviour
     {
         diffText.text = diffNames[Mathf.RoundToInt(diffSlider.value)];
         diffImage.sprite = diffSprites[Mathf.RoundToInt(diffSlider.value)];
-        singleton.levelDifficulty = (PlayerInfoSingleton.Difficulties)Mathf.RoundToInt(diffSlider.value);
+        singleton.levelDifficulty = (Singleton.Difficulties)Mathf.RoundToInt(diffSlider.value);
     }
 
 
@@ -58,7 +58,7 @@ public class DiffLengthSelection : MonoBehaviour
             blocks[i].gameObject.SetActive(i <= lengthSlider.value - 1);
         }
 
-        singleton.levelLength = (PlayerInfoSingleton.Lengths)Mathf.RoundToInt(lengthSlider.value);
+        singleton.levelLength = (Singleton.Lengths)Mathf.RoundToInt(lengthSlider.value);
     }
 
 

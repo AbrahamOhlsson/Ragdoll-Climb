@@ -22,12 +22,12 @@ public class MultiplayerManager : MonoBehaviour
     // States for four XInput game pads
     GamePadState[] states = new GamePadState[4];
 
-    PlayerInfoSingleton singleton;
+    Singleton singleton;
     
 
     void Awake()
     {
-        singleton = PlayerInfoSingleton.instance;
+        singleton = Singleton.instance;
 
         if (singleton.debug)
         {

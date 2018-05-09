@@ -43,9 +43,13 @@ public class Lobby : MonoBehaviour
     GamePadState[] states_nonSpec = new GamePadState[4];
     GamePadState[] prevStates_nonSpec = new GamePadState[4];
 
+    Singleton singleton;
+
 
     private void Awake()
     {
+        singleton = Singleton.instance;
+
         colorTaken = new bool[colors.Length];
 
         playerRenderers = new List<Renderer>[4];
@@ -54,6 +58,41 @@ public class Lobby : MonoBehaviour
         {
             playerRenderers[i] = new List<Renderer>(playerModels[i].GetComponentsInChildren<Renderer>());
             colorIndexAssigned[i] = 0;
+            print(playerModels[i].transform.childCount);
+        }
+
+        if (singleton.mode == Singleton.Modes.Multi)
+        {
+            ResetValues(false);
+
+            playerIndexes = singleton.playerIndexes;
+
+            for (int i = 0; i < playerIndexes.Count; i++)
+            {
+                colorIndexAssigned = singleton.colorindex;
+                colors[colorIndexAssigned[i]] = singleton.colors[i];
+                characterIndexAssigned[i] =  singleton.characterIndex[i];
+                colorTaken[colorIndexAssigned[i]] = true;
+
+                // Destroys last model
+                Destroy(playerModels[i].transform.GetChild(0).gameObject);
+                
+                // Instantiates new model
+                GameObject newModel = Instantiate(characterModels[characterIndexAssigned[i]], playerModels[i].transform);
+                
+                // Gets all the new meshes
+                playerRenderers[i] = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+
+                // Recolors new model
+                for (int j = 0; j < playerRenderers[i].Count; j++)
+                {
+                    playerRenderers[i][j].material.color = colors[colorIndexAssigned[i]];
+                }
+
+                playerModels[i].SetActive(true);
+                checkBoxes[i].SetActive(true);
+                joinTexts[i].SetActive(false);
+            }
         }
     }
 
@@ -291,18 +330,19 @@ public class Lobby : MonoBehaviour
         // Stores selected colors and characters of all players
         for (int i = 0; i < 4; i++)
         {
-            PlayerInfoSingleton.instance.colors[i] = colors[colorIndexAssigned[i]];
-            PlayerInfoSingleton.instance.characterIndex[i] = characterIndexAssigned[i];
+            singleton.colorindex = colorIndexAssigned;
+            singleton.colors[i] = colors[colorIndexAssigned[i]];
+            singleton.characterIndex[i] = characterIndexAssigned[i];
         }
 
         // Stores controller indexes for each player
-        PlayerInfoSingleton.instance.playerIndexes = playerIndexes;
+        singleton.playerIndexes = playerIndexes;
 
         // We are not in debug mode
-        PlayerInfoSingleton.instance.debug = false;
+        singleton.debug = false;
 
         // Stores amount of joined players
-		PlayerInfoSingleton.instance.playerAmount = playerIndexes.Count;
+        singleton.playerAmount = playerIndexes.Count;
 
         // Opens next menu group
 		menuManager.OpenMenuGroup(nextGroup);
@@ -319,7 +359,7 @@ public class Lobby : MonoBehaviour
 
     
     // Resets variables in case the lobby has been open before
-    public void ResetValues()
+    public void ResetValues(bool changeModel)
     {
         for (int i = 0; i < colorTaken.Length; i++)
         {
@@ -329,15 +369,18 @@ public class Lobby : MonoBehaviour
         // For every potential player
         for (int i = 0; i < 4; i++)
         {
-            // Destroys all models
-            Destroy(playerModels[i].transform.GetChild(0).gameObject);
+            if (changeModel)
+            {
+                // Destroys all models
+                Destroy(playerModels[i].transform.GetChild(0).gameObject);
 
-            // Spawns the first model in array
-            GameObject newModel = Instantiate(characterModels[0], playerModels[i].transform);
+                // Spawns the first model in array
+                GameObject newModel = Instantiate(characterModels[0], playerModels[i].transform);
 
-            // Gets all the new renderers
-            playerRenderers[i] = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
-
+                // Gets all the new renderers
+                playerRenderers[i] = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+            }
+            
             // Recolors all meshes white
             for (int j = 0; j < playerRenderers[i].Count; j++)
             {
