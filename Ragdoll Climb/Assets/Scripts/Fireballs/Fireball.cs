@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Fireball : MonoBehaviour {
 
+	[SerializeField]
 	GameObject PlayerCol;
 	[SerializeField]
 	private float stunTime;
 
 	private void OnParticleCollision(GameObject other)
-	{ 
+	{
+		print(other.name);
 
 			PlayerCol = other.transform.root.gameObject;
 
