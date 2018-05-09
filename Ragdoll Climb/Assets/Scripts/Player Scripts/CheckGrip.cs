@@ -90,6 +90,8 @@ public class CheckGrip : MonoBehaviour
                 fireTimer = 0;
                 controller.ReleaseGrip(leftHand, false);
                 fireParticle.Stop();
+                fireParticle.GetComponentInChildren<ParticleSystem>().Stop();
+                fireParticle.transform.GetChild(1).gameObject.SetActive(false);
             }
             else
             {
@@ -413,6 +415,8 @@ public class CheckGrip : MonoBehaviour
                     controller.ReleaseGrip(leftHand, false);
                     transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("'s hand is burning!");
                     fireParticle.Play();
+                    fireParticle.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+                    fireParticle.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
                 }
             }
             
