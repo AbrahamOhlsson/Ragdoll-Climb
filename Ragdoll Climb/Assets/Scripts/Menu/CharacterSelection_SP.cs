@@ -30,102 +30,84 @@ public class CharacterSelection_SP : MonoBehaviour
 
     List<Renderer> playerRenderers;
 
-    PlayerIndex playerIndex;
+    internal PlayerIndex playerIndex = PlayerIndex.One;
     GamePadState state;
     GamePadState prevState;
 
     GamePadState[] states_nonSpec = new GamePadState[4];
     GamePadState[] prevStates_nonSpec = new GamePadState[4];
 
+    Singleton singleton;
+
 
     private void Awake()
     {
+        singleton = Singleton.instance;
+
         playerRenderers = new List<Renderer>();
-        
         playerRenderers = new List<Renderer>(playerModel.GetComponentsInChildren<Renderer>());
         colorIndex = 0;
 
-        playerModel.SetActive(false);
-        continueButton.SetActive(false);
+        if (singleton.mode == Singleton.Modes.Single)
+        {
+            ResetValues(false);
+
+            playerIndex = singleton.playerIndexes[0];
+            colorIndex = singleton.colorindex[0];
+            characterIndex = singleton.characterIndex[0];
+
+            // Destroys last model
+            Destroy(playerModel.transform.GetChild(0).gameObject);
+
+            // Instantiates new model
+            GameObject newModel = Instantiate(characterModels[characterIndex], playerModel.transform);
+            
+            playerModel.SetActive(true);
+            joinText.SetActive(false);
+            continueButton.SetActive(true);
+            joined = true;
+        }
+
+        // Gets all the new meshes
+        playerRenderers = new List<Renderer>(playerModel.GetComponentsInChildren<Renderer>());
+
+        // Recolors new model
+        for (int i = 0; i < playerRenderers.Count; i++)
+        {
+            playerRenderers[i].material.color = colors[colorIndex];
+        }
     }
 
 
     void Update()
     {
-        for (int i = 0; i < states_nonSpec.Length; i++)
-        {
-            prevStates_nonSpec[i] = states_nonSpec[i];
-            states_nonSpec[i] = GamePad.GetState((PlayerIndex)i);
+        prevState = state;
+        state = GamePad.GetState(playerIndex);
 
-            // If an unjoined player presses Start
-            if (states_nonSpec[i].Buttons.Start == ButtonState.Pressed && !joined)
-            {
-                // Adds controller index to list of joined player indexes
-                playerIndex = (PlayerIndex)i;
-                
-                // Removes joun instructions
-                joinText.SetActive(false);
+        // Rotation of character
+        playerModel.transform.Rotate(new Vector3(0f, state.ThumbSticks.Right.X, 0f) * rotateSpeed * Time.deltaTime);
 
-                continueButton.SetActive(true);
+        // Switching of color and character
+        // Up on stick or D-pad
+        if ((state.ThumbSticks.Left.Y >= 0.3f && prevState.ThumbSticks.Left.Y < 0.3f) || (state.DPad.Up == ButtonState.Pressed && prevState.DPad.Up == ButtonState.Released))
+            SwitchColor(true);
 
-                // Recolors character meshes to the found available color
-                for (int j = 0; j < playerRenderers.Count; j++)
-                {
-                    playerRenderers[j].material.color = colors[colorIndex];
-                }
+        // Down on stick or D-pad
+        else if ((state.ThumbSticks.Left.Y <= -0.3f && prevState.ThumbSticks.Left.Y > -0.3f) || (state.DPad.Down == ButtonState.Pressed && prevState.DPad.Down == ButtonState.Released))
+            SwitchColor(false);
 
-                playerModel.SetActive(true);
+        // Right on stick or D-pad
+        else if ((state.ThumbSticks.Left.X >= 0.3f && prevState.ThumbSticks.Left.X < 0.3f) || (state.DPad.Right == ButtonState.Pressed && prevState.DPad.Right == ButtonState.Released))
+            SwitchCharacter(true);
 
-                joined = true;
-            }
-        }
-
-        // Input from joined controller
-        if (joined)
-        {
-            prevState = state;
-            state = GamePad.GetState(playerIndex);
-
-            // Rotation of character
-            playerModel.transform.Rotate(new Vector3(0f, state.ThumbSticks.Right.X, 0f) * rotateSpeed * Time.deltaTime);
-
-            // Switching of color and character
-            // Up on stick or D-pad
-            if ((state.ThumbSticks.Left.Y >= 0.3f && prevState.ThumbSticks.Left.Y < 0.3f) || (state.DPad.Up == ButtonState.Pressed && prevState.DPad.Up == ButtonState.Released))
-                SwitchColor(true);
-
-            // Down on stick or D-pad
-            else if ((state.ThumbSticks.Left.Y <= -0.3f && prevState.ThumbSticks.Left.Y > -0.3f) || (state.DPad.Down == ButtonState.Pressed && prevState.DPad.Down == ButtonState.Released))
-                SwitchColor(false);
-
-            // Right on stick or D-pad
-            else if ((state.ThumbSticks.Left.X >= 0.3f && prevState.ThumbSticks.Left.X < 0.3f) || (state.DPad.Right == ButtonState.Pressed && prevState.DPad.Right == ButtonState.Released))
-                SwitchCharacter(true);
-
-            // Left on stick or D-pad
-            else if ((state.ThumbSticks.Left.X <= -0.3f && prevState.ThumbSticks.Left.X > -0.3f) || (state.DPad.Left == ButtonState.Pressed && prevState.DPad.Left == ButtonState.Released))
-                SwitchCharacter(false);
+        // Left on stick or D-pad
+        else if ((state.ThumbSticks.Left.X <= -0.3f && prevState.ThumbSticks.Left.X > -0.3f) || (state.DPad.Left == ButtonState.Pressed && prevState.DPad.Left == ButtonState.Released))
+            SwitchCharacter(false);
 
 
-            // Continues if Start is pressed
-            if (state.Buttons.Start == ButtonState.Pressed && prevState.Buttons.Start == ButtonState.Released)
-                Continue();
-        }
-        else
-        {
-            // Blinks join texts
-            if (joinBlinkTimer >= joinBlinkInterval)
-            {
-                if (joinText.activeSelf)
-                    joinText.SetActive(false);
-                else
-                    joinText.SetActive(true);
-
-                joinBlinkTimer = 0;
-            }
-            else
-                joinBlinkTimer += Time.deltaTime;
-        }
+        // Continues if Start is pressed
+        if (state.Buttons.Start == ButtonState.Pressed && prevState.Buttons.Start == ButtonState.Released)
+            Continue();
     }
 
 
@@ -201,18 +183,19 @@ public class CharacterSelection_SP : MonoBehaviour
     public void Continue()
     {
         // Stores selected colors and characters of player
-        PlayerInfoSingleton.instance.colors[0] = colors[colorIndex];
-        PlayerInfoSingleton.instance.characterIndex[0] = characterIndex;
+        singleton.colorindex[0] = colorIndex;
+        singleton.colors[0] = colors[colorIndex];
+        singleton.characterIndex[0] = characterIndex;
 
         // Stores controller indexes for player
-        PlayerInfoSingleton.instance.playerIndexes = new List<PlayerIndex>();
-        PlayerInfoSingleton.instance.playerIndexes.Add(playerIndex);
+        singleton.playerIndexes = new List<PlayerIndex>();
+        singleton.playerIndexes.Add(playerIndex);
 
         // We are not in debug mode
-        PlayerInfoSingleton.instance.debug = false;
+        singleton.debug = false;
 
         // Stores amount of joined players
-        PlayerInfoSingleton.instance.playerAmount = 1;
+        singleton.playerAmount = 1;
 
         // Opens next menu group
         menuManager.OpenMenuGroup(nextGroup);
@@ -220,29 +203,29 @@ public class CharacterSelection_SP : MonoBehaviour
 
 
     // Resets variables in case the lobby has been open before
-    public void ResetValues()
+    public void ResetValues(bool changeModel)
     {
-        // Destroys all models
-        Destroy(playerModel.transform.GetChild(0).gameObject);
+        if (changeModel)
+        {
+            // Destroys all models
+            Destroy(playerModel.transform.GetChild(0).gameObject);
 
-        // Spawns the first model in array
-        GameObject newModel = Instantiate(characterModels[0], playerModel.transform);
+            // Spawns the first model in array
+            GameObject newModel = Instantiate(characterModels[0], playerModel.transform);
 
-        // Gets all the new renderers
-        playerRenderers = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+            // Gets all the new renderers
+            playerRenderers = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+        }
 
         // Recolors all meshes white
         for (int i = 0; i < playerRenderers.Count; i++)
         {
-            playerRenderers[i].material.color = Color.white;
+            playerRenderers[i].material.color = colors[0];
         }
 
         // Resets stuff for player
         characterIndex = 0;
-        playerModel.SetActive(false);
-        playerModel.transform.rotation = Quaternion.Euler(Vector3.zero);
-        joinText.SetActive(true);
-        joined = false;
+        playerModel.transform.localEulerAngles = Vector3.zero;
         
         eventSystem.SetSelectedGameObject(null);
     }

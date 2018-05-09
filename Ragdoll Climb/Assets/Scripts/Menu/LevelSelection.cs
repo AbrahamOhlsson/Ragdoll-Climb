@@ -11,7 +11,8 @@ public class LevelSelection : MonoBehaviour
 
     public void SelectLevel(string levelName)
     {
-        PlayerInfoSingleton.instance.selectedLevel = levelName;
+        Singleton.instance.selectedLevel = levelName;
+        Singleton.instance.mode = Singleton.Modes.Multi;
 
         if (levelName == "Tutorial")
             loader.LoadLevelAsync(levelName);

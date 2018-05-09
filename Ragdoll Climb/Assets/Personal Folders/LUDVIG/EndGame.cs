@@ -14,8 +14,8 @@ public class EndGame : MonoBehaviour
 
         if (Input.GetKeyDown("r"))
         {
-            if (PlayerInfoSingleton.instance.debug)
-                PlayerInfoSingleton.instance.playerAmount = 0;
+            if (Singleton.instance.debug)
+                Singleton.instance.playerAmount = 0;
 
             Scene thisScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(thisScene.buildIndex);

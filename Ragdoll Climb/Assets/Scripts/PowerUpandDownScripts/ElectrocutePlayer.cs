@@ -44,7 +44,7 @@ public class ElectrocutePlayer : MonoBehaviour
 
              
 
-                for (int j = 0; j < PlayerInfoSingleton.instance.playerAmount; j++)
+                for (int j = 0; j < Singleton.instance.playerAmount; j++)
                 {
                     if (playerRoot_mList[topPlayerNum].transform.position.y < playerRoot_mList[j].transform.position.y) 
                     {
@@ -55,7 +55,7 @@ public class ElectrocutePlayer : MonoBehaviour
                 }
 
 
-                for (int j = 0; j < PlayerInfoSingleton.instance.playerAmount; j++)
+                for (int j = 0; j < Singleton.instance.playerAmount; j++)
                 {
                     if (playerRoot_mList[bottomPlayerNum].transform.position.y > playerRoot_mList[j].transform.position.y)
                       {
@@ -72,7 +72,7 @@ public class ElectrocutePlayer : MonoBehaviour
                 playerRoot_mList.Add(topPlayer);     // increase the chance of the top player is hit
 
                
-                int i = Random.Range(0, PlayerInfoSingleton.instance.playerAmount);
+                int i = Random.Range(0, Singleton.instance.playerAmount);
 
                 LightningBolt lightningCloud = playerRoot_mList[i].transform.root.GetComponentInChildren<LightningBolt>(true);
                 lightningCloud.gameObject.SetActive(true);

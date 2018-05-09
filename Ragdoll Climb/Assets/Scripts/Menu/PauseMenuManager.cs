@@ -19,7 +19,7 @@ public class PauseMenuManager : MonoBehaviour
     bool paused = false;
 
     // The path of the navigation of the menu
-    Stack<GameObject> groupPath = new Stack<GameObject>();
+    Stack<MenuGroup> groupPath = new Stack<MenuGroup>();
 
     PlayerIndex[] playerIndexes = new PlayerIndex[4];
     GamePadState[] states = new GamePadState[4];
@@ -35,7 +35,8 @@ public class PauseMenuManager : MonoBehaviour
         quitGroup.SetActive(false);
         GetComponent<Canvas>().enabled = false;
 
-        groupPath.Push(mainGroup);
+        //MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Button>().gameObject);
+        //groupPath.Push(firstGroup);
 
         Cursor.visible = false;
 
@@ -66,7 +67,7 @@ public class PauseMenuManager : MonoBehaviour
                     // Highlights first found button if input is received fron a controller
                     if (((states[i].DPad.Down == ButtonState.Pressed && prevStates[i].DPad.Down == ButtonState.Released) || (states[i].DPad.Up == ButtonState.Pressed && prevStates[i].DPad.Up == ButtonState.Released) || (states[i].DPad.Left == ButtonState.Pressed && prevStates[i].DPad.Left == ButtonState.Released) || (states[i].DPad.Right == ButtonState.Pressed && prevStates[i].DPad.Right == ButtonState.Released) || (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released) || (states[i].ThumbSticks.Left.Y > 0f || states[i].ThumbSticks.Left.Y < 0f && prevStates[i].ThumbSticks.Left.Y == 0f)))
                     {
-                        eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+                        eventSystem.SetSelectedGameObject(groupPath.Peek().highlightedBtn);
                     }
                 }
             }
@@ -102,11 +103,11 @@ public class PauseMenuManager : MonoBehaviour
         }
         else
         {
+            MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Button>().gameObject);
+			groupPath.Push(firstGroup);
 			mainGroup.SetActive(true);
-
-			groupPath.Push(mainGroup);
-
-			eventSystem.SetSelectedGameObject(mainGroup.GetComponentInChildren<Button>().gameObject);
+            
+			eventSystem.SetSelectedGameObject(groupPath.Peek().highlightedBtn);
 
             paused = true;
             Time.timeScale = 0f;
@@ -118,24 +119,28 @@ public class PauseMenuManager : MonoBehaviour
 
     public void OpenMenuGroup(GameObject group)
     {
-        groupPath.Peek().SetActive(false);
-        groupPath.Push(group);
+        groupPath.Peek().highlightedBtn = eventSystem.currentSelectedGameObject;
+        groupPath.Peek().groupObj.SetActive(false);
+
+        MenuGroup newGroup = new MenuGroup(group, group.GetComponentInChildren<Button>().gameObject);
+        groupPath.Push(newGroup);
         group.SetActive(true);
-        eventSystem.SetSelectedGameObject(group.GetComponentInChildren<Button>().gameObject);
+
+        eventSystem.SetSelectedGameObject(newGroup.highlightedBtn);
     }
 
 
     public void Back()
     {
-        if (groupPath.Peek() == mainGroup)
+        if (groupPath.Peek().groupObj == mainGroup)
         {
             Pause();
         }
         else
         {
-            groupPath.Pop().SetActive(false);
-            groupPath.Peek().SetActive(true);
-            eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
+            groupPath.Pop().groupObj.SetActive(false);
+            groupPath.Peek().groupObj.SetActive(true);
+            eventSystem.SetSelectedGameObject(groupPath.Peek().highlightedBtn);
         }
     }
 
@@ -154,5 +159,18 @@ public class PauseMenuManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+
+    public class MenuGroup
+    {
+        public GameObject groupObj;
+        public GameObject highlightedBtn;
+
+        public MenuGroup(GameObject groupObj, GameObject highlightedBtn)
+        {
+            this.groupObj = groupObj;
+            this.highlightedBtn = highlightedBtn;
+        }
     }
 }
