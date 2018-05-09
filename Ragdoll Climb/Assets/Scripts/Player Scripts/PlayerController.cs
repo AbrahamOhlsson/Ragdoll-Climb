@@ -199,8 +199,8 @@ public class PlayerController : MonoBehaviour
 
 	GameObject respawnCounter;
 
-    CheckGrip checkGripLeft;
-    CheckGrip checkGripRight;
+    public CheckGrip checkGripLeft;
+    public CheckGrip checkGripRight;
 
     PlayerInfo playerInfo;
 
