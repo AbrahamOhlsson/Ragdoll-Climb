@@ -90,8 +90,8 @@ public class CheckGrip : MonoBehaviour
                 fireTimer = 0;
                 controller.ReleaseGrip(leftHand, false);
                 fireParticle.Stop();
-                fireParticle.GetComponentInChildren<ParticleSystem>().Stop();
-                fireParticle.transform.GetChild(1).gameObject.SetActive(false);
+                fireParticle.transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+                fireParticle.transform.GetChild(1).GetComponent<ParticleSystem>().Stop();
             }
             else
             {
@@ -410,14 +410,7 @@ public class CheckGrip : MonoBehaviour
                     transform.root.GetComponent<playerSound>().PlaySound("spark");
                 }
                 else if (currentGripable.tag == "LavaWall")
-                {
-                    onFire = true;
-                    controller.ReleaseGrip(leftHand, false);
-                    transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("'s hand is burning!");
-                    fireParticle.Play();
-                    fireParticle.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
-                    fireParticle.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
-                }
+                    BurnHand("'s hand is burning!");
             }
             
             StopAnim();
@@ -469,6 +462,19 @@ public class CheckGrip : MonoBehaviour
         StopAnim();
     }
 
+
+    public void BurnHand(string feedbackText)
+    {
+        if (!onFire)
+        {
+            onFire = true;
+            controller.ReleaseGrip(leftHand, false);
+            fireParticle.Play();
+            fireParticle.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+            fireParticle.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+            transform.root.GetComponent<PlayerInfo>().feedbackText.Activate(feedbackText);
+        }
+    }
 
     private void ResetThrowable()
     {

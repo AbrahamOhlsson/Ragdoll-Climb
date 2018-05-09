@@ -21,6 +21,9 @@ public class PlayerInfo : MonoBehaviour
     // The "Root_M" object of this player
     internal GameObject rootObj;
 
+    internal GameObject leftHand;
+    internal GameObject rightHand;
+
     // The masses of the rigidbodies from the very start
     internal List<float> standardMasses = new List<float>();
 
@@ -39,11 +42,15 @@ public class PlayerInfo : MonoBehaviour
 
         for (int i = 0; i < limbs.Length; i++)
         {
-			if (limbs[i].name == "Root_M")
-			{
-				feedbackText.playerTrans = limbs[i].transform;
-				rootObj = limbs[i].gameObject;
-			}
+            if (limbs[i].name == "Root_M")
+            {
+                feedbackText.playerTrans = limbs[i].transform;
+                rootObj = limbs[i].gameObject;
+            }
+            else if ((limbs[i].name.Contains("Wrist") || limbs[i].name.Contains("wrist")) && limbs[i].name.Contains("L"))
+                leftHand = limbs[i].gameObject;
+            else if ((limbs[i].name.Contains("Wrist") || limbs[i].name.Contains("wrist")) && limbs[i].name.Contains("R"))
+                rightHand = limbs[i].gameObject;
 
             standardMasses.Add(limbs[i].mass);
             targetMasses.Add(limbs[i].mass);

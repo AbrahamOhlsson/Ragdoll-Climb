@@ -1477,6 +1477,7 @@ GameObject:
   - component: {fileID: 4196872849351254}
   - component: {fileID: 198800515500932588}
   - component: {fileID: 199158763948734276}
+  - component: {fileID: 114729437462979290}
   m_Layer: 0
   m_Name: FlamesParticleEffect (1)
   m_TagString: Untagged
@@ -3284,6 +3285,7 @@ GameObject:
   - component: {fileID: 4788174291268704}
   - component: {fileID: 198884869340577276}
   - component: {fileID: 199580656519624996}
+  - component: {fileID: 114309650870196222}
   m_Layer: 0
   m_Name: FlamesParticleEffect
   m_TagString: Untagged
@@ -8578,6 +8580,20 @@ MonoBehaviour:
   failsafeCheckInterval: 0.2
   grabIndicators: {fileID: 4675456058289024}
   fireParticle: {fileID: 198800515500932588}
+--- !u!114 &114309650870196222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1804492125298048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92dc41a9daed9f4a9055ed15d4c790a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keepPosition: 0
+  keepRotation: 1
+  keepScale: 0
 --- !u!114 &114311381870248482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8727,6 +8743,20 @@ MonoBehaviour:
   colls:
   - {fileID: 136065498523485510}
   - {fileID: 136560376702419898}
+--- !u!114 &114729437462979290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1349799407768134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92dc41a9daed9f4a9055ed15d4c790a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keepPosition: 0
+  keepRotation: 1
+  keepScale: 0
 --- !u!114 &114789229568772254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13996,7 +14026,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.020974144, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -0.02097416, y: 0, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -14040,7 +14070,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.053117782, y: 0, z: -8.4469385e-18}
+  m_ConnectedAnchor: {x: -0.053117797, y: 0, z: -8.4469385e-18}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -14128,7 +14158,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.004853122, y: 0, z: 0.011383602}
+  m_ConnectedAnchor: {x: 0.0048531145, y: 0, z: 0.011383602}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -14216,7 +14246,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.004853122, y: 0, z: -0.011383602}
+  m_ConnectedAnchor: {x: 0.0048531145, y: 0, z: -0.011383602}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -14348,7 +14378,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.034776043, y: 0, z: 0.000000007450581}
+  m_ConnectedAnchor: {x: -0.034776043, y: 0, z: -0.000000007450581}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -14392,7 +14422,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.032105464, y: 0, z: 0.0000000037252903}
+  m_ConnectedAnchor: {x: -0.032105464, y: 0, z: -0.000000011175871}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -14480,7 +14510,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.04974125, y: 0, z: 0}
+  m_ConnectedAnchor: {x: -0.049741242, y: 0, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -14568,7 +14598,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.04974125, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0.049741242, y: 0, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -21324,7 +21354,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 743970477
+  randomSeed: -158655092
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -31392,7 +31422,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -540071809
+  randomSeed: -666797585
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -44575,7 +44605,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1550321076
+  randomSeed: -1102674232
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -47981,7 +48011,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1697403637
+  randomSeed: -215178740
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -51210,7 +51240,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 62227804
+  randomSeed: -1835953180
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -54577,7 +54607,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1748072927
+  randomSeed: -727298821
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -68027,7 +68057,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1540636871
+  randomSeed: -392446520
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -71256,7 +71286,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1191819584
+  randomSeed: 1002845534
   InitialModule:
     serializedVersion: 3
     enabled: 1
