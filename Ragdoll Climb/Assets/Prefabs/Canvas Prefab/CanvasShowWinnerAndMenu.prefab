@@ -158,13 +158,14 @@ GameObject:
   - component: {fileID: 224344385367363116}
   - component: {fileID: 223607879024371608}
   - component: {fileID: 114634252319076622}
+  - component: {fileID: 114811925209638756}
   m_Layer: 5
   m_Name: CanvasShowWinnerAndMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1637962945904496
 GameObject:
   m_ObjectHideFlags: 1
@@ -306,7 +307,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 311.05
+  m_fontSize: 185
   m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -351,7 +352,7 @@ MonoBehaviour:
     spaceCount: 2
     wordCount: 3
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 1
@@ -603,7 +604,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 161.8
+  m_fontSize: 97.4
   m_fontSizeBase: 54.6
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -734,6 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7775c0574a2904b4cb2c81e91543801e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 0}
   eventSystem: {fileID: 0}
 --- !u!114 &114625687928255094
 MonoBehaviour:
@@ -810,6 +812,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114811925209638756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1490918318736592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94034a05689b90d4d93aeb0798e1b67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114845203160355522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -856,7 +869,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 215.9
+  m_fontSize: 96.8
   m_fontSizeBase: 52.4
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -901,7 +914,7 @@ MonoBehaviour:
     spaceCount: 1
     wordCount: 2
     linkCount: 0
-    lineCount: 2
+    lineCount: 1
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 1

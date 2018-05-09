@@ -7,6 +7,7 @@ public class CheckGrip : MonoBehaviour
     public GameObject slipperyObj;
 
     public bool canGrip = true;
+    public bool onFire = false;
 
     public bool leftHand = true;
     
@@ -17,14 +18,26 @@ public class CheckGrip : MonoBehaviour
 
     internal PlayerController controller;
 
+    [SerializeField] float fireTime = 2f;
+    [SerializeField] float minFireForceInterval = 0.1f;
+    [SerializeField] float maxFireForceInterval = 0.5f;
+    [SerializeField] float minFireForce = 100f;
+    [SerializeField] float maxFireForce = 500f;
+
     [SerializeField] float breakForce = 3000f;
 
     [SerializeField] float failsafeCheckInterval = 0.2f;
 
     [SerializeField] Transform grabIndicators;
 
+    [SerializeField] ParticleSystem fireParticle;
+
     bool nearBottomObj = false;
     bool playingAnim = false;
+
+    float fireTimer = 0f;
+    float fireForceTimer;
+    float fireforceInterval;
 
     float failsafeTimer = 0;
     
@@ -32,10 +45,10 @@ public class CheckGrip : MonoBehaviour
 
     List<Rigidbody> grabablesInReach = new List<Rigidbody>();
 
+    Rigidbody rb;
     Rigidbody tempRb = new Rigidbody();
     
-
-
+    
     void Start ()
     {
         controller = transform.root.GetComponent<PlayerController>();
@@ -43,7 +56,8 @@ public class CheckGrip : MonoBehaviour
         //Finding the player
         grabAnimators = grabIndicators.GetComponentsInChildren<Animator>();
 
-        GetComponent<Rigidbody>().centerOfMass = Vector3.zero;
+        rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = Vector3.zero;
     }
 	
 
@@ -64,8 +78,44 @@ public class CheckGrip : MonoBehaviour
 
         failsafeTimer += Time.deltaTime;
 	}
-    
-    
+
+
+    private void FixedUpdate()
+    {
+        if (onFire)
+        {
+            if (fireTimer >= fireTime)
+            {
+                onFire = false;
+                fireTimer = 0;
+                controller.ReleaseGrip(leftHand, false);
+                fireParticle.Stop();
+            }
+            else
+            {
+                if (fireForceTimer >= fireforceInterval)
+                {
+                    float forceX = Random.Range(minFireForce, maxFireForce);
+                    float forceY = Random.Range(minFireForce, maxFireForce);
+
+                    if (Random.Range(0, 2) == 1)
+                        forceX *= -1;
+                    if (Random.Range(0, 2) == 1)
+                        forceY *= -1;
+
+                    rb.AddForce(new Vector2(forceX, forceY));
+
+                    fireForceTimer = 0;
+                    fireforceInterval = Random.Range(minFireForceInterval, maxFireForceInterval);
+                }
+
+                fireForceTimer += Time.deltaTime;
+                fireTimer += Time.deltaTime;
+            }
+        }
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "BottomObj")
@@ -75,7 +125,7 @@ public class CheckGrip : MonoBehaviour
             controller.ReleaseGrip(leftHand, false);
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall")
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
         }
@@ -89,7 +139,7 @@ public class CheckGrip : MonoBehaviour
             nearBottomObj = false;
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
             DetermineObjectToGrab();
@@ -108,7 +158,7 @@ public class CheckGrip : MonoBehaviour
         {
             //Debug.LogWarning("TIME TO CHECK");
 
-            if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking")
+            if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall")
             {
                 grabablesInReach.Add(other.GetComponent<Rigidbody>());
             }
@@ -126,6 +176,7 @@ public class CheckGrip : MonoBehaviour
         Rigidbody lastOther = new Rigidbody();
         Rigidbody lastSticky = new Rigidbody();
         Rigidbody lastElectric = new Rigidbody();
+        Rigidbody lastLava = new Rigidbody();
         Rigidbody lastBreaking = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
         
@@ -134,6 +185,7 @@ public class CheckGrip : MonoBehaviour
         bool foundSlippery = false;
         bool foundSticky = false;
         bool foundElectric = false;
+        bool foundLava = false;
         bool foundBreaking = false;
         bool foundWall = false;
 
@@ -167,6 +219,12 @@ public class CheckGrip : MonoBehaviour
                 {
                     lastElectric = grabablesInReach[i];
                     foundElectric = true;
+                }
+                // If lava is found
+                else if (tag == "LavaWall")
+                {
+                    lastLava = grabablesInReach[i];
+                    foundLava = true;
                 }
                 // If a slippery wall is found
                 else if (tag == "Slippery")
@@ -205,6 +263,13 @@ public class CheckGrip : MonoBehaviour
                 currentGripable = lastElectric;
 
                 if (lastElectric == tempRb)
+                    StopAnim();
+            }
+            else if (foundLava)
+            {
+                currentGripable = lastLava;
+
+                if (lastLava == tempRb)
                     StopAnim();
             }
             else if (foundSticky)
@@ -307,7 +372,7 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
-            if (currentGripable.tag != "Electric" && currentGripable != tempRb)
+            if (currentGripable.tag != "Electric" && currentGripable.tag != "LavaWall" && currentGripable != tempRb)
             {
                 // If a slippery wall was grabbed, the slippery child object will now move down
                 if (currentGripable.tag == "Slippery")
@@ -336,9 +401,19 @@ public class CheckGrip : MonoBehaviour
             }
             else
             {
-                transform.root.GetComponent<PlayerStun>().Stun(1);
-                transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
-                transform.root.GetComponent<playerSound>().PlaySound("spark");
+                if (currentGripable.tag == "Electric")
+                {
+                    transform.root.GetComponent<PlayerStun>().Stun(1);
+                    transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
+                    transform.root.GetComponent<playerSound>().PlaySound("spark");
+                }
+                else if (currentGripable.tag == "LavaWall")
+                {
+                    onFire = true;
+                    controller.ReleaseGrip(leftHand, false);
+                    transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("'s hand is burning!");
+                    fireParticle.Play();
+                }
             }
             
             StopAnim();
@@ -408,6 +483,9 @@ public class CheckGrip : MonoBehaviour
 
     public void RemoveFromGrabables(Rigidbody rb)
     {
-        grabablesInReach.Remove(rb);
+        if (grabablesInReach.Exists(x => x == rb))
+            grabablesInReach.Remove(rb);
+        else
+            Debug.Log("The rigidbody whose GameObject called " + rb.gameObject.name + " doesn't exist in the list grabablesInReach!");
     }
 }
