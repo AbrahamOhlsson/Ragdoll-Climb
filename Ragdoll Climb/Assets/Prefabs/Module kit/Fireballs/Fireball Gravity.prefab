@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4880001968416718}
   - component: {fileID: 198080006133249892}
+  - component: {fileID: 114466649218666336}
   - component: {fileID: 114957756101223600}
   - component: {fileID: 199582858013299242}
   - component: {fileID: 114323792332987262}
@@ -276,6 +277,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 0
+--- !u!114 &114466649218666336
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1059768570394120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9630e139b0c99e44cb17a2f757a3bf30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationMax: 0
+  randomTimer: 0
+  canRotate: 0
 --- !u!114 &114957756101223600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f1efed0d1d00bc45818a0124f2c0d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerCol: {fileID: 0}
   stunTime: 1.5
 --- !u!198 &198073844634079258
 ParticleSystem:
