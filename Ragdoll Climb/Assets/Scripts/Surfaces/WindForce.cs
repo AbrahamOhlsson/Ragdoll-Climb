@@ -24,7 +24,6 @@ public class WindForce : MonoBehaviour
             else
             {
                 rbs[i].AddForce(transform.forward * force);
-                print(rbs[i].transform.root.name + "HAHHAHAHAHAHAHA");
             }
         }
     }
@@ -38,7 +37,7 @@ public class WindForce : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-		if (other.GetComponent<Rigidbody>() && (other.tag == "Player" || other.tag == "Throwable") && !rbs.Exists(x => x == other.GetComponent<Rigidbody>()))
+		if (other.GetComponent<Rigidbody>() && (other.tag == "Player" || other.tag == "Throwable"))
 			rbs.Remove(other.GetComponent<Rigidbody>());
     }
 }
