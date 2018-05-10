@@ -62,6 +62,7 @@ public class Icicle : MonoBehaviour
                     rb.isKinematic = false;
                     rb.useGravity = true;
                     state = States.Falling;
+                    GetComponent<ParticleSystem>().Play();
                 }
                 break;
 
