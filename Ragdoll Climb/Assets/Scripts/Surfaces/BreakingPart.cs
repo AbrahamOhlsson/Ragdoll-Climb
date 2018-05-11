@@ -59,10 +59,10 @@ public class BreakingPart : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (falling && other.tag == "Player")
-        {
-            other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
-        }
+        //if (falling && other.tag == "Player")
+        //{
+        //    other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
+        //}
     }
 
 
