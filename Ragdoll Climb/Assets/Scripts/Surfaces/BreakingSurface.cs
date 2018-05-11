@@ -30,7 +30,7 @@ public class BreakingSurface : MonoBehaviour
 
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
-        //soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
+        soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
     }
 
 
@@ -75,7 +75,7 @@ public class BreakingSurface : MonoBehaviour
 
     IEnumerator BreakApart()
     {
-        //soundManager.PlaySoundRandPitch("crack");
+        soundManager.PlaySoundRandPitch("rockCrackNoHit");
         PlayPartSystems();
 
         foreach (BreakingPart part in parts)
@@ -86,6 +86,8 @@ public class BreakingSurface : MonoBehaviour
         }
 
         yield return new WaitForSeconds(breakTime / 2);
+
+        
 
         foreach (CheckGrip hand in grabbingHands)
         {
@@ -98,7 +100,7 @@ public class BreakingSurface : MonoBehaviour
             part.transform.RotateAround(part.GetComponent<Collider>().bounds.center, rotation, 5);
         }
 
-        //soundManager.PlaySoundRandPitch("crack");
+        soundManager.PlaySoundRandPitch("rockCrackNoHit");
         PlayPartSystems();
 
         yield return new WaitForSeconds(breakTime / 2);
@@ -110,7 +112,7 @@ public class BreakingSurface : MonoBehaviour
             ReleaseHands();
         }
 
-        //soundManager.PlaySoundRandPitch("break");
+        soundManager.PlaySoundRandPitch("rockCrackHit");
         PlayPartSystems();
 
         yield return null;

@@ -1414,7 +1414,7 @@ Prefab:
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4671174015493038, guid: f89f5f772075dd2438ed7fc90b3aa1c2, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1761,13 +1761,13 @@ Prefab:
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[7].name
-      value: icicle
+      value: rockCrackHit
       objectReference: {fileID: 0}
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[7].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
+      objectReference: {fileID: 8300000, guid: 1b63321d1f9ae4c4b8fd22077286efde, type: 3}
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[7].volume
@@ -1781,13 +1781,13 @@ Prefab:
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[8].name
-      value: lightningStrike
+      value: icicles
       objectReference: {fileID: 0}
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[8].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 27adb68213aab8948b55ed9f238ed13e, type: 3}
+      objectReference: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[8].volume
@@ -1801,13 +1801,13 @@ Prefab:
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[9].name
-      value: applaus
+      value: rockCrackNoHit
       objectReference: {fileID: 0}
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[9].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 32bbe4880d5c05948a1f11885d121b61, type: 3}
+      objectReference: {fileID: 8300000, guid: 5f7e7dd871dff2247a5fca2b8828ef5a, type: 3}
     - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
       propertyPath: sounds.Array.data[9].volume
@@ -2705,7 +2705,7 @@ MonoBehaviour:
   - {fileID: 1670710270189702, guid: 065f08f32a7afb64596ddd668244310d, type: 2}
   - {fileID: 1644450788846788, guid: 15f57fbc18e859d42ae7dd54967c8b1d, type: 2}
   - {fileID: 1478634479548834, guid: 981c6a2c9c70e664b85ab4e65eee6090, type: 2}
-  - {fileID: 1801465786824748, guid: 41326a0b2f91790408744d31278b0b56, type: 2}
+  - {fileID: 0}
   - {fileID: 1008779402814366, guid: c99e6a3ca32cbd24ab78146fdb26834d, type: 2}
   endBox: {fileID: 1663660393859050, guid: be7bd8db733e07c468e9faa1120bc13e, type: 2}
   startBox: {fileID: 1539456871}
@@ -3595,7 +3595,7 @@ Prefab:
     - target: {fileID: 224801046775240334, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -72.5
       objectReference: {fileID: 0}
     - target: {fileID: 224043935121204290, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -3615,7 +3615,7 @@ Prefab:
     - target: {fileID: 224043935121204290, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -268.75
       objectReference: {fileID: 0}
     - target: {fileID: 224246018465828576, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -3635,7 +3635,7 @@ Prefab:
     - target: {fileID: 224246018465828576, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -465
       objectReference: {fileID: 0}
     - target: {fileID: 224392627936571158, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -3655,7 +3655,7 @@ Prefab:
     - target: {fileID: 224392627936571158, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -661.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07edc6a48e13a6a4eb674e37d6511423, type: 2}
