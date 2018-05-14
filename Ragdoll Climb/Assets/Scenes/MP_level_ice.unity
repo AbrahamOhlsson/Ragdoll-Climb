@@ -2041,6 +2041,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 223640199920582310, guid: 608a21e8364a3ed41af56a9f1ff48e1a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 608a21e8364a3ed41af56a9f1ff48e1a, type: 2}
   m_IsPrefabParent: 0
@@ -2902,6 +2907,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4412944477958024, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
       propertyPath: m_LocalPosition.x
       value: -2.78
@@ -2967,6 +2977,81 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d45d5a88760422c45b2e0fe98ffb40a7, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 550edcba5c66367499ca8e071666a3db, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dfd380fbc405a304ab0ad534c9f01d6f, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 32c91598f5c5ef54da66d7b83c530044, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 09a867e804569f24fb97cc58988aff00, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].volume
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].pitch
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
@@ -5182,7 +5267,7 @@ Prefab:
     - target: {fileID: 224801046775240334, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -72.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224043935121204290, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -5202,7 +5287,7 @@ Prefab:
     - target: {fileID: 224043935121204290, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -268.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224246018465828576, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -5222,7 +5307,7 @@ Prefab:
     - target: {fileID: 224246018465828576, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224392627936571158, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -5242,7 +5327,7 @@ Prefab:
     - target: {fileID: 224392627936571158, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -661.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114520794139435742, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -7658,6 +7743,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4412944477958024, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 1.11
@@ -7718,6 +7808,81 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d45d5a88760422c45b2e0fe98ffb40a7, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 550edcba5c66367499ca8e071666a3db, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dfd380fbc405a304ab0ad534c9f01d6f, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 32c91598f5c5ef54da66d7b83c530044, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 09a867e804569f24fb97cc58988aff00, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].volume
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].pitch
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114439969164820220, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
@@ -12427,109 +12592,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1408429534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
---- !u!114 &1408429549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1408429534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Grunts:
-  - name: 
-    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
-    volume: 0.726
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
-    volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
-    volume: 0.701
-    pitch: 1
-    source: {fileID: 0}
-  GruntsList: []
-  gruntDelay: 0.4
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!4 &1409895420 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400008, guid: 54a9cf01843431742a3126013891032d, type: 2}
@@ -13372,30 +13442,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1444259009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1 &1475040984
 GameObject:
   m_ObjectHideFlags: 0
@@ -14389,6 +14443,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4412944477958024, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3.07
@@ -14449,6 +14508,81 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d45d5a88760422c45b2e0fe98ffb40a7, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 550edcba5c66367499ca8e071666a3db, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dfd380fbc405a304ab0ad534c9f01d6f, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 32c91598f5c5ef54da66d7b83c530044, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 09a867e804569f24fb97cc58988aff00, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].volume
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].pitch
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114439969164820220, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
@@ -14892,30 +15026,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1670426006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1001 &1677697353
 Prefab:
   m_ObjectHideFlags: 0
@@ -15438,6 +15556,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4412944477958024, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.824
@@ -15498,6 +15621,81 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: d45d5a88760422c45b2e0fe98ffb40a7, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 550edcba5c66367499ca8e071666a3db, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dfd380fbc405a304ab0ad534c9f01d6f, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 32c91598f5c5ef54da66d7b83c530044, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 09a867e804569f24fb97cc58988aff00, type: 3}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[3].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[1].pitch
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].volume
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[2].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: deathGrunts.Array.data[4].pitch
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114439969164820220, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
@@ -17189,30 +17387,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2067355080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1001 &2067531609
 Prefab:
   m_ObjectHideFlags: 0
