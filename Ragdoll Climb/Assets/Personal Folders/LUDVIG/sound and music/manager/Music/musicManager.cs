@@ -30,6 +30,12 @@ public class musicManager : MonoBehaviour
     public Transform endBlockTransform;
     public Transform bottomTransform;
 
+    [Space]
+    [Space]
+    [Space]
+
+    public bool isThisSinglePlayer;
+
 
     // Use this for initialization
     void Awake()
@@ -81,56 +87,65 @@ public class musicManager : MonoBehaviour
         //song1.pitch = 1f;  // songs[0].pitch;
         //song1.Play();
 
+        if (isThisSinglePlayer)
+        {
+            song1.clip = songs[0].clip;
+            song1.volume = songVolume; //  songs[0].volume;    sett the start volume too fix a bug 
+            song1.pitch = 1f;  // songs[0].pitch;
+            song1.Play();
+        }
        
     }
 
 
     void Update()
     {
-
-        if (firstUpdate)
+        if (!isThisSinglePlayer)
         {
-            if (startBlockTransform == null)                                                         // from here  (see below)
+
+            if (firstUpdate)
             {
-                startBlockTransform = GameObject.Find("StartModule").transform;
+                if (startBlockTransform == null)                                                         // from here  (see below)
+                {
+                    startBlockTransform = GameObject.Find("StartModule").transform;
+                }
+
+                if (endBlockTransform == null)
+                {
+                    endBlockTransform = GameObject.Find("EndModule(Clone)").transform;
+                }
+
+                if (bottomTransform == null)
+                {
+                    bottomTransform = GameObject.Find("Bottom Object").transform;
+                }
+
+
+                if (distansToGoal == 0f)
+                {
+                    distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
+                }
+
+                song1.clip = songs[0].clip;
+                song1.volume = songVolume; //  songs[0].volume;    sett the start volume too fix a bug 
+                song1.pitch = 1f;  // songs[0].pitch;
+                song1.Play();
+
+                firstUpdate = false;
+
+                // to here is probably unnecessary and should be removed  (test it)
             }
 
-            if (endBlockTransform == null)
+       
+            if ((bottomTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10) * partInt))
             {
-                endBlockTransform = GameObject.Find("EndModule(Clone)").transform;
+                partInt++;
+
+                //Player next song 
+                PlayNextSong();
+
             }
-
-            if (bottomTransform == null)
-            {
-                bottomTransform = GameObject.Find("Bottom Object").transform;
-            }
-
-
-            if (distansToGoal == 0f)
-            {
-                distansToGoal = endBlockTransform.position.y - startBlockTransform.position.y;
-            }
-
-            song1.clip = songs[0].clip;
-            song1.volume = songVolume; //  songs[0].volume;    sett the start volume too fix a bug 
-            song1.pitch = 1f;  // songs[0].pitch;
-            song1.Play();
-
-            firstUpdate = false;
-
-            // to here is probably unnecessary and should be removed  (test it)
-        }
-
-
-        if ( (bottomTransform.position.y - startBlockTransform.position.y) > ((distansToGoal / 10)*partInt) )
-        {
-            partInt++;
-
-            //Player next song 
-            PlayNextSong();
-            
-        } 
-        
+         }
 
     }
 
