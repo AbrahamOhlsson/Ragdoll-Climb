@@ -18,9 +18,9 @@ public class PlayerPowerups : MonoBehaviour
     ParticleSystem[] particleSystems;
     ///////////////////////////////////////
     ////// Teleport player
-    [SerializeField] Transform rightWrist;
-    [SerializeField] Transform leftWrist;
-    [SerializeField] GameObject m_Root;
+    Transform rightWrist;
+    Transform leftWrist;
+    GameObject m_Root;
 
     Quaternion leftWristStartRot;
     Quaternion rightWristStartRot;
@@ -86,6 +86,8 @@ public class PlayerPowerups : MonoBehaviour
     IEnumerator TheTeleporter()
     {
         GetComponent<PlayerController>().canMove = false;
+
+        GetComponent<GhostManager>().Ghost(1f);
 
         foreach (Rigidbody rigidKinematic in rigidbodies)
         {

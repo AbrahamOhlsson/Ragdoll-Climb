@@ -476,6 +476,7 @@ public class CheckGrip : MonoBehaviour
         }
     }
 
+
     private void ResetThrowable()
     {
         DamageThrowable throwable = currentGripping.GetComponent<DamageThrowable>();

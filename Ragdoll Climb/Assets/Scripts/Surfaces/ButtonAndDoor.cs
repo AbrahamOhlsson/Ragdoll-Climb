@@ -19,6 +19,7 @@ public class ButtonAndDoor : MonoBehaviour {
     float sinkSpeed;
     float lerpTime = 1;
     float currentLerpTime;
+    public float doorTravelLenght;
     bool pressed;
     bool cantBePressed;
 
@@ -90,9 +91,9 @@ public class ButtonAndDoor : MonoBehaviour {
 
         for (int i = 0; i < doorList.Count; i++)
         {
-            doorDestinations.Add(new Vector3(doorList[i].transform.position.x, doorList[i].transform.position.y, doorList[i].transform.position.z + 1f));
+            doorDestinations.Add(new Vector3(doorList[i].transform.position.x, doorList[i].transform.position.y, doorList[i].transform.position.z + doorTravelLenght));
 
-            reversedDoorDestinations.Add(new Vector3(doorList[i].transform.position.x, doorList[i].transform.position.y, doorList[i].transform.position.z - 1f));
+            reversedDoorDestinations.Add(new Vector3(doorList[i].transform.position.x, doorList[i].transform.position.y, doorList[i].transform.position.z - doorTravelLenght));
             //moves the door
             //childs.transform.position = Vector3.Lerp(childs.transform.position, doorDestination, sinkSpeed);
         }
