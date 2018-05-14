@@ -5,7 +5,7 @@ using UnityEngine;
 public class FreezePlayerPowerUp : MonoBehaviour
 {
     public Component[] Rigidbodies;
-    
+
     //////Getting the color for the sake of freeze
     Renderer[] renderers;
 
@@ -75,21 +75,23 @@ public class FreezePlayerPowerUp : MonoBehaviour
             }
 
         }
+
     }
 
 	IEnumerator freezeThePlayer()
 	{
 		GetComponent<PlayerInfo>().feedbackText.Activate("got frozen!");
-		if (closeToBoat)
-		{
-			freezeTime = 0.01f;
-		}
-		else if (!closeToBoat)
-		{
-			freezeTime = 3f;
+
+        if (closeToBoat)
+        {
+            freezeTime = 0f;
+        }
+        else if (!closeToBoat)
+        {
+            freezeTime = 3f;
             GetComponent<VibrationManager>().VibrateSmoothTimed(0.2f, 3f, 5f, 5f, 5);
         }
-        
+
         currentColor = defColor;
 
 		isFrozen = true;
