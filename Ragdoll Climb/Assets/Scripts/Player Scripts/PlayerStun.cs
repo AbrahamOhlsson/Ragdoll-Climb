@@ -7,8 +7,8 @@ public class PlayerStun : MonoBehaviour
     public bool isStunned;
     float timer;
 
-    public ParticleSystem stars;
-	public ParticleSystem starBurst;
+    ParticleSystem stars;
+	ParticleSystem starBurst;
 
 
     private void Start()

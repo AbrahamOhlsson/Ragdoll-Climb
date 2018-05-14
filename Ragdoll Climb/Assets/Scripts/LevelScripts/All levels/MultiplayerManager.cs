@@ -91,7 +91,7 @@ public class MultiplayerManager : MonoBehaviour
                 // Recolors the player's Feedback Text to match the player
                 players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = singleton.colors[i];
                 
-                players[i].GetComponent<DeathManager>().SetMats();
+                players[i].GetComponent<GhostManager>().SetMats();
             }
 
             if (!camActivated)
@@ -145,7 +145,7 @@ public class MultiplayerManager : MonoBehaviour
                     players[i].GetComponent<PlayerInfo>().color = playerColors[i];
                     players[i].GetComponent<PlayerInfo>().feedbackText.GetComponent<Text>().color = playerColors[i];
 
-                    players[i].GetComponent<DeathManager>().SetMats();
+                    players[i].GetComponent<GhostManager>().SetMats();
 
                     playerSpawned[i] = true;
 

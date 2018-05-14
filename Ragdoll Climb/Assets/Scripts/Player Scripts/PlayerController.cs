@@ -96,33 +96,33 @@ public class PlayerController : MonoBehaviour
 
 	[SerializeField] GameObject respawnCounterObj;
 
+    internal CheckGrip checkGripLeft;
+    internal CheckGrip checkGripRight;
+
     // Rigidbodies for bodyparts
-    [Header("Rigidbodies")]
-    [SerializeField] Rigidbody leftHand;
-    [SerializeField] Rigidbody rightHand;
-    [SerializeField] Rigidbody leftShoulder;
-    [SerializeField] Rigidbody rightShoulder;
-    [SerializeField] Rigidbody leftElbow;
-    [SerializeField] Rigidbody rightElbow;
-    [SerializeField] Rigidbody head;
-    [SerializeField] Rigidbody root;
-    [SerializeField] Rigidbody spine;
-    [SerializeField] Rigidbody leftFoot;
-    [SerializeField] Rigidbody rightFoot;
+    Rigidbody leftHand;
+    Rigidbody rightHand;
+    Rigidbody leftShoulder;
+    Rigidbody rightShoulder;
+    Rigidbody leftElbow;
+    Rigidbody rightElbow;
+    Rigidbody head;
+    Rigidbody root;
+    Rigidbody spine;
+    Rigidbody leftFoot;
+    Rigidbody rightFoot;
+    
+    ParticleSystem boostEffect;
+    ParticleSystem leftGoodClimbEffect;
+    ParticleSystem rightGoodClimbEffect;
+    
+    Renderer leftStaminaBar;
+    Renderer rightStaminaBar;
+    
+    AudioClip goodClimbSfx;
+    AudioClip boostSfx; //combo
+    AudioClip punchSwooshSfx;
 
-    [Header("Particle Systems")]
-    [SerializeField] ParticleSystem boostEffect;
-    [SerializeField] ParticleSystem leftGoodClimbEffect;
-    [SerializeField] ParticleSystem rightGoodClimbEffect;
-
-    [Header("Stamina bars")]
-    [SerializeField] Renderer leftStaminaBar;
-    [SerializeField] Renderer rightStaminaBar;
-
-    [Header("Audio clips")] // ska nog tas bort  har en sound manger använd den 
-    [SerializeField] AudioClip goodClimbSfx;
-    [SerializeField] AudioClip boostSfx; //combo
-    [SerializeField] AudioClip punchSwooshSfx;
     // sound manager
     soundManager soundManager;
 
@@ -148,6 +148,8 @@ public class PlayerController : MonoBehaviour
     //"Stamina bools". If set false, said hand wont be able to climb.
     bool rightCanClimb = true;
     bool leftCanClimb = true;
+
+    bool died = false;
     
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
@@ -198,10 +200,7 @@ public class PlayerController : MonoBehaviour
     GamePadState prevState;
 
 	GameObject respawnCounter;
-
-    public CheckGrip checkGripLeft;
-    public CheckGrip checkGripRight;
-
+    
     PlayerInfo playerInfo;
 
     VibrationManager vibrator;
@@ -214,9 +213,9 @@ public class PlayerController : MonoBehaviour
     IEnumerator releaseGripDelayedLeft;
 
     // Death ########
-    public  float deathTimer;
-	[SerializeField]
-	float deathPressTime;
+    float deathTimer;
+    [Space]
+	[SerializeField] float deathPressTime;
 
 	void Start()
     {
@@ -587,8 +586,8 @@ public class PlayerController : MonoBehaviour
         // Sets controller vibration
         vibrator.VibrationManual(leftVibrationAmount, rightVibrationAmount, 1);
 
-        // DPad DEATH     ###############################################################################################################
 
+        // DPad DEATH     ###############################################################################################################
         if (state.DPad.Down == ButtonState.Pressed)
 		{
 			if (prevState.DPad.Down == ButtonState.Released)
@@ -597,29 +596,26 @@ public class PlayerController : MonoBehaviour
 				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_3").texture);
 				//respawnCounter.transform.localScale = (new Vector3(0.1f, 0.1f, 0.1f));
 				respawnCounter.transform.parent = head.transform;
-
-				print(transform.localScale);
 			}
 
 			if(deathTimer >1 && deathTimer<1.1f && respawnCounter!=null)
 			{
 				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_2").texture);
-			
 			}
 
 			if (deathTimer > 2 && deathTimer < 2.1f && respawnCounter != null)
 			{
 				respawnCounter.GetComponent<Renderer>().material.SetTexture("_MainTex", Resources.Load<Sprite>("Sprites/respawn_1").texture);
-				
 			}
+
 			if(deathTimer > deathPressTime)
 			{
 				GetComponent<DeathManager>().Death();
-
 				GetComponent<FreezePlayerPowerUp>().closeToBoat= false;
 				GetComponent<FreezePlayerPowerUp>().DeathFreezeTime();
 				deathTimer = 0;
 				Destroy(respawnCounter);
+
 			}
 
 			deathTimer += Time.deltaTime;
@@ -634,7 +630,7 @@ public class PlayerController : MonoBehaviour
 				deathTimer = 0;
 				Destroy(respawnCounter);
 			}
-		}
+        }
 	}
 
 
