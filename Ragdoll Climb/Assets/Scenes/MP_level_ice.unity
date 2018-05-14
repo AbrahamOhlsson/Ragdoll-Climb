@@ -2041,6 +2041,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 223640199920582310, guid: 608a21e8364a3ed41af56a9f1ff48e1a,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 608a21e8364a3ed41af56a9f1ff48e1a, type: 2}
   m_IsPrefabParent: 0
@@ -12579,6 +12584,22 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 349783821}
+--- !u!114 &1408429535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1408429534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!4 &1409895420 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400008, guid: 54a9cf01843431742a3126013891032d, type: 2}
@@ -13334,6 +13355,101 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 1760374295}
+--- !u!114 &1444259010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1444259009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grunts:
+  - name: 
+    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
+    volume: 0.726
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
+    volume: 0.701
+    pitch: 1
+    source: {fileID: 0}
+  GruntsList: []
+  gruntDelay: 0.4
+--- !u!114 &1444259011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1444259009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1 &1475040984
 GameObject:
   m_ObjectHideFlags: 0
@@ -14823,6 +14939,101 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 1044338775}
+--- !u!114 &1670426007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1670426006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grunts:
+  - name: 
+    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
+    volume: 0.726
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
+    volume: 0.701
+    pitch: 1
+    source: {fileID: 0}
+  GruntsList: []
+  gruntDelay: 0.4
+--- !u!114 &1670426008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1670426006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1001 &1677697353
 Prefab:
   m_ObjectHideFlags: 0
@@ -17089,6 +17300,101 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 1601250476}
+--- !u!114 &2067355081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2067355080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Grunts:
+  - name: 
+    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
+    volume: 0.726
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
+    volume: 0.701
+    pitch: 1
+    source: {fileID: 0}
+  GruntsList: []
+  gruntDelay: 0.4
+--- !u!114 &2067355082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2067355080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1001 &2067531609
 Prefab:
   m_ObjectHideFlags: 0
