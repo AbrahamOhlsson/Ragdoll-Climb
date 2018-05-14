@@ -67,6 +67,8 @@ public class SingleLevelSelection : MonoBehaviour
         string levelName = "SP_level" + "_" + levelButtonScript.world + levelButtonScript.levelIndex;
 
         singleton.selectedLevel = levelName;
+        singleton.currSpLevelIndex = levelButtonScript.levelIndex - 1;
+        singleton.currSpWorld = levelButtonScript.world;
         singleton.mode = Singleton.Modes.Single;
 
         loader.LoadLevelAsync(levelName);

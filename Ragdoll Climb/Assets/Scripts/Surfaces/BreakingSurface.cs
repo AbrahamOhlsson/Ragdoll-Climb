@@ -59,6 +59,7 @@ public class BreakingSurface : MonoBehaviour
         foreach (CheckGrip hand in handArray)
         {
             hand.transform.root.GetComponent<PlayerController>().ReleaseGrip(hand.leftHand, false);
+            hand.transform.root.GetComponent<PlayerStun>().Stun(1f);
         }
     }
 

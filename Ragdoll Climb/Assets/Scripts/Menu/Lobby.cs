@@ -8,13 +8,24 @@ public class Lobby : MonoBehaviour
 {
     [SerializeField] float rotateSpeed = 1f;
     [SerializeField] float joinBlinkInterval = 0.5f;
+    [SerializeField] float uiColorSat = 0.2f;
 
     [SerializeField] GameObject continueButton;
     [SerializeField] GameObject nextGroup;
+
+    [SerializeField] string[] characterNames;
+
     [SerializeField] GameObject[] playerModels = new GameObject[4];
-    [SerializeField] GameObject[] checkBoxes = new GameObject[4];
+    //[SerializeField] GameObject[] checkBoxes = new GameObject[4];
     [SerializeField] GameObject[] checkMarkers = new GameObject[4];
     [SerializeField] GameObject[] joinTexts = new GameObject[4];
+    [SerializeField] GameObject[] instructions = new GameObject[4];
+
+    [SerializeField] Image[] joinedPlayerImg = new Image[4];
+    [SerializeField] Image[] playerSlotImg = new Image[4];
+    [SerializeField] Image[] readyBoxImg = new Image[4];
+
+    [SerializeField] Text[] nameTexts = new Text[4];
 
     [SerializeField] Color[] colors;
     [SerializeField] GameObject[] characterModels;
@@ -33,6 +44,8 @@ public class Lobby : MonoBehaviour
     int[] characterIndexAssigned = new int[4];
 
     float joinBlinkTimer = 0f;
+
+    Quaternion[] startRotations = new Quaternion[4];
 
     List<Renderer>[] playerRenderers;
 
@@ -59,6 +72,7 @@ public class Lobby : MonoBehaviour
             playerRenderers[i] = new List<Renderer>(playerModels[i].GetComponentsInChildren<Renderer>());
             colorIndexAssigned[i] = 0;
             print(playerModels[i].transform.childCount);
+            startRotations[i] = playerModels[i].transform.rotation;
         }
 
         if (singleton.mode == Singleton.Modes.Multi)
@@ -89,8 +103,15 @@ public class Lobby : MonoBehaviour
                     playerRenderers[i][j].material.color = colors[colorIndexAssigned[i]];
                 }
 
+                Color uiColor = AddHSV(colors[colorIndexAssigned[i]], 0f, uiColorSat - 1, 1f);
+                joinedPlayerImg[i].color = uiColor;
+                playerSlotImg[i].color = uiColor;
+                readyBoxImg[i].color = uiColor;
+
+                nameTexts[i].text = characterNames[characterIndexAssigned[i]];
+
                 playerModels[i].SetActive(true);
-                checkBoxes[i].SetActive(true);
+                //checkBoxes[i].SetActive(true);
                 joinTexts[i].SetActive(false);
             }
         }
@@ -117,7 +138,8 @@ public class Lobby : MonoBehaviour
 
                 // Swaps instructions
                 joinTexts[addedIndex].SetActive(false);
-                checkBoxes[addedIndex].SetActive(true);
+                //checkBoxes[addedIndex].SetActive(true);
+                instructions[addedIndex].SetActive(true);
 
                 int colorIndex = 0;
 
@@ -138,6 +160,11 @@ public class Lobby : MonoBehaviour
                 {
                     playerRenderers[addedIndex][j].material.color = colors[colorIndex];
                 }
+
+                Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
+                joinedPlayerImg[addedIndex].color = uiColor;
+                playerSlotImg[addedIndex].color = uiColor;
+                readyBoxImg[addedIndex].color = uiColor;
 
                 playerModels[addedIndex].SetActive(true);
             }
@@ -184,6 +211,7 @@ public class Lobby : MonoBehaviour
                 {
                     playersReady[i] = false;
                     checkMarkers[i].SetActive(false);
+                    instructions[i].SetActive(true);
 
                     // Everyone isn't ready anymore in case they were
                     allReady = false;
@@ -194,6 +222,7 @@ public class Lobby : MonoBehaviour
                 {
                     playersReady[i] = true;
                     checkMarkers[i].SetActive(true);
+                    instructions[i].SetActive(false);
 
                     // Checks if the other players are ready too
                     for (int j = 0; j < playerIndexes.Count; j++)
@@ -228,10 +257,10 @@ public class Lobby : MonoBehaviour
             {
                 if (i > playerIndexes.Count - 1)
                 {
-                    if (joinTexts[i].activeSelf)
-                        joinTexts[i].SetActive(false);
+                    if (joinTexts[i].transform.GetChild(0).gameObject.activeSelf)
+                        joinTexts[i].transform.GetChild(0).gameObject.SetActive(false);
                     else
-                        joinTexts[i].SetActive(true);
+                        joinTexts[i].transform.GetChild(0).gameObject.SetActive(true);
                 }
             }
 
@@ -278,6 +307,11 @@ public class Lobby : MonoBehaviour
             playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
         }
 
+        Color uiColor = AddHSV(colors[colorIndexAssigned[playerIndex]], 0f, uiColorSat - 1, 1f);
+        joinedPlayerImg[playerIndex].color = uiColor;
+        playerSlotImg[playerIndex].color = uiColor;
+        readyBoxImg[playerIndex].color = uiColor;
+
         // The new color is now taken and can't be assigned to other players
         colorTaken[colorIndexAssigned[playerIndex]] = true;
 
@@ -322,6 +356,20 @@ public class Lobby : MonoBehaviour
         {
             playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
         }
+
+        nameTexts[playerIndex].text = characterNames[characterIndexAssigned[playerIndex]];
+    }
+
+
+    private Color AddHSV(Color color, float h, float s, float v)
+    {
+        float _h, _s, _v;
+        Color.RGBToHSV(color, out _h, out _s, out _v);
+        _h = Mathf.Clamp(_h + h, 0f, 1f);
+        _s = Mathf.Clamp(_s + s, 0f, 1f);
+        if (_s > 0f)
+            _v = Mathf.Clamp(_v + v, 0f, 1f);
+        return Color.HSVToRGB(_h, _s, _v);
     }
 
 
@@ -351,6 +399,7 @@ public class Lobby : MonoBehaviour
 		for (int i = 0; i < 4; i++)
 		{
 			checkMarkers[i].SetActive(false);
+            instructions[i].SetActive(true);
 			playersReady[i] = false;
 		}
 		continueButton.SetActive(false);
@@ -387,14 +436,22 @@ public class Lobby : MonoBehaviour
                 playerRenderers[i][j].material.color = Color.white;
             }
 
+            joinedPlayerImg[i].color = Color.white;
+            playerSlotImg[i].color = Color.white;
+            readyBoxImg[i].color = Color.white;
+            
             // Resets stuff for player
             characterIndexAssigned[i] = 0;
             playerModels[i].SetActive(false);
-            playerModels[i].transform.rotation = Quaternion.Euler(Vector3.zero);
+            playerModels[i].transform.rotation = startRotations[i];
             checkMarkers[i].SetActive(false);
-            checkBoxes[i].SetActive(false);
+            //checkBoxes[i].SetActive(false);
             joinTexts[i].SetActive(true);
+            joinTexts[i].transform.GetChild(0).gameObject.SetActive(true);
+            instructions[i].SetActive(false);
             playersReady[i] = false;
+
+            nameTexts[i].text = characterNames[characterIndexAssigned[i]];
         }
 
         continueButton.SetActive(false);
