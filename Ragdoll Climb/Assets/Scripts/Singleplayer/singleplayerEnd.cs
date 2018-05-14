@@ -3,12 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class singleplayerEnd : MonoBehaviour {
-
-
+public class singleplayerEnd : MonoBehaviour
+{
     GameObject Player;
-    
-    
+
+    public List<SP_LevelStats> levelStats;
+
+    string world = "";
+    int levelIndex = 0;
+
+    Singleton singleton;
+
+
+    private void Awake()
+    {
+        singleton = Singleton.instance;
+
+        world = singleton.currSpWorld;
+        levelIndex = singleton.currSpLevelIndex;
+
+        if (world == "ice")
+            levelStats = singleton.levelStats_ice;
+        else if (world == "volcano")
+            levelStats = singleton.levelStats_volcano;
+        else if (world == "woods")
+            levelStats = singleton.levelStats_woods;
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -18,20 +38,21 @@ public class singleplayerEnd : MonoBehaviour {
         {
             Player.GetComponent<singleplayerInfo>().onEnd = true;
 
+            int personalBestStars = 0;
+            float personalBestTime = 0;
+            
+            personalBestStars = levelStats[levelIndex].starAmount;
+            personalBestTime = levelStats[levelIndex].bestTime_flt;
 
-            int personalBestStars = FindObjectOfType<Singleton>().levelStats_ice[0].starAmount;
-            float personalBestTime = FindObjectOfType<Singleton>().levelStats_ice[0].bestTime_flt;
-
-            print("end of lvl");
             if(Player.GetComponent<singleplayerInfo>().stars > personalBestStars)
             {
-                Singleton.instance.levelStats_ice[0].starAmount = Player.GetComponent<singleplayerInfo>().stars;
+                levelStats[singleton.currSpLevelIndex].starAmount = Player.GetComponent<singleplayerInfo>().stars;
             }
 
             if (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime < personalBestTime)
             {
-                FindObjectOfType<Singleton>().levelStats_ice[0].bestTime_flt = Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime;
-                FindObjectOfType<Singleton>().levelStats_ice[0].bestTime_str = (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime).ToString();
+                levelStats[levelIndex].bestTime_flt = Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime;
+                levelStats[levelIndex].bestTime_str = (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime).ToString();
             }
 
             Cursor.visible = true;

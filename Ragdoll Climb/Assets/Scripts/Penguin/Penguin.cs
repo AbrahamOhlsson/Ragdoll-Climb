@@ -11,6 +11,8 @@ public class Penguin : MonoBehaviour
 
     [SerializeField] Transform body;
 
+    [SerializeField] PenguinScout penguinView;
+
     [SerializeField] Transform scoutPoint;
     [SerializeField] Transform doorPoint;
     [SerializeField] Transform launchPoint;
@@ -65,7 +67,10 @@ public class Penguin : MonoBehaviour
                     animation.CrossFade("idle", 2f);
 
                     if (CloseEnough_Angle(body.eulerAngles, new Vector3(0, 0, -90), rotOffset))
+                    {
+                        penguinView.gameObject.SetActive(true);
                         state = PenguinStates.Scout;
+                    }
                 }
                 break;
 
@@ -153,6 +158,9 @@ public class Penguin : MonoBehaviour
 
         rotatedTowards = false;
         body.GetComponent<Rigidbody>().isKinematic = true;
+
+        penguinView.gameObject.SetActive(false);
+        penguinView.SetColor(new Vector3(1, 1, 0));
 
         animation.Play("walk");
 

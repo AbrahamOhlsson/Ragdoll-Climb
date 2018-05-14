@@ -30,7 +30,7 @@ public class BreakingSurface : MonoBehaviour
 
         particleSystems = GetComponentsInChildren<ParticleSystem>();
 
-        //soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
+        soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
     }
 
 
@@ -59,6 +59,7 @@ public class BreakingSurface : MonoBehaviour
         foreach (CheckGrip hand in handArray)
         {
             hand.transform.root.GetComponent<PlayerController>().ReleaseGrip(hand.leftHand, false);
+            hand.transform.root.GetComponent<PlayerStun>().Stun(1f);
         }
     }
 
@@ -74,17 +75,32 @@ public class BreakingSurface : MonoBehaviour
 
     IEnumerator BreakApart()
     {
-        //soundManager.PlaySoundRandPitch("crack");
+        soundManager.PlaySoundRandPitch("rockCrackNoHit");
         PlayPartSystems();
 
+        foreach (BreakingPart part in parts)
+        {
+            Vector3 rotation = new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+            part.transform.RotateAround(part.GetComponent<Collider>().bounds.center, rotation, 5);
+            Transform pivot = part.transform;
+        }
+
         yield return new WaitForSeconds(breakTime / 2);
+
+        
 
         foreach (CheckGrip hand in grabbingHands)
         {
             hand.transform.root.GetComponent<VibrationManager>().VibrateTimed(0.5f, 0.1f, 9);
         }
 
-        //soundManager.PlaySoundRandPitch("crack");
+        foreach (BreakingPart part in parts)
+        {
+            Vector3 rotation = new Vector3(Random.Range(-10f, 10f), Random.Range(-10f, 10f), Random.Range(-10f, 10f));
+            part.transform.RotateAround(part.GetComponent<Collider>().bounds.center, rotation, 5);
+        }
+
+        soundManager.PlaySoundRandPitch("rockCrackNoHit");
         PlayPartSystems();
 
         yield return new WaitForSeconds(breakTime / 2);
@@ -96,7 +112,7 @@ public class BreakingSurface : MonoBehaviour
             ReleaseHands();
         }
 
-        //soundManager.PlaySoundRandPitch("break");
+        soundManager.PlaySoundRandPitch("rockCrackHit");
         PlayPartSystems();
 
         yield return null;

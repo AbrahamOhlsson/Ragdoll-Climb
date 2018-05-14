@@ -76,4 +76,22 @@ public class PlayerStun : MonoBehaviour
         }
     }
 
+    public void miniStun(float stunTime)
+    {
+        //If the player is not stunned. Stun the player.
+        if (!isStunned)
+        {
+            //Add time to timer.
+            timer = stunTime;
+
+            isStunned = true;
+
+            //Remove player mobility.
+            GetComponent<PlayerController>().canMove = false;
+            GetComponent<PlayerController>().ReleaseGrip(true, false);
+            GetComponent<PlayerController>().ReleaseGrip(false, false);
+           
+        }
+    }
+
 }

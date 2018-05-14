@@ -22,15 +22,17 @@ public class WindForce : MonoBehaviour
                 rbs[i].AddForce(transform.forward * force * armForceMult);
             }
             else
+            {
                 rbs[i].AddForce(transform.forward * force);
+            }
         }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-		if (other.GetComponent<Rigidbody>() && (other.tag == "Player" || other.tag == "Throwable"))
-			rbs.Add(other.GetComponent<Rigidbody>());
+        if (other.GetComponent<Rigidbody>() && (other.tag == "Player" || other.tag == "Throwable") && !rbs.Exists(x => x == other.GetComponent<Rigidbody>()))
+            rbs.Add(other.GetComponent<Rigidbody>());
     }
 
     private void OnTriggerExit(Collider other)

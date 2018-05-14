@@ -57,20 +57,20 @@ public class WorldMenuManager : MonoBehaviour
         optionsGroup.SetActive(false);
         creditsGroup.SetActive(false);
 
-        MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Button>().gameObject);
+        MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Selectable>().gameObject);
         groupPath.Push(firstGroup);
 
         switch (singleton.mode)
         {
             case Singleton.Modes.Single:
-                MenuGroup group_spSelect = new MenuGroup(spSelectGroup, spSelectGroup.GetComponentInChildren<Button>().gameObject);
-                MenuGroup group_spLevel = new MenuGroup(spLevelSelectGroup, spLevelSelectGroup.GetComponentInChildren<Button>().gameObject);
+                MenuGroup group_spSelect = new MenuGroup(spSelectGroup, spSelectGroup.GetComponentInChildren<Selectable>().gameObject);
+                MenuGroup group_spLevel = new MenuGroup(spLevelSelectGroup, spLevelSelectGroup.GetComponentInChildren<Selectable>().gameObject);
                 groupPath.Push(group_spSelect);
                 groupPath.Push(group_spLevel);
                 break;
 
             case Singleton.Modes.Multi:
-                MenuGroup group_mpSelect = new MenuGroup(playerSelectGroup, playerSelectGroup.GetComponentInChildren<Button>().gameObject);
+                MenuGroup group_mpSelect = new MenuGroup(playerSelectGroup, playerSelectGroup.GetComponentInChildren<Selectable>().gameObject);
                 groupPath.Push(group_mpSelect);
                 break;
         }
@@ -112,9 +112,15 @@ public class WorldMenuManager : MonoBehaviour
             if (groupPath.Peek().groupObj == mainGroup && eventSystem.currentSelectedGameObject == spButton)
             {
                 if (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released)
+                {
                     spSelectGroup.GetComponent<CharacterSelection_SP>().playerIndex = playerIndexes[i];
+                    print("Index = " +playerIndexes[i]);
+                }
                 else if (Input.GetMouseButtonDown(0))
+                {
+                    print("Mouse");
                     spSelectGroup.GetComponent<CharacterSelection_SP>().playerIndex = PlayerIndex.One;
+                }
             }
         }
         
@@ -150,7 +156,7 @@ public class WorldMenuManager : MonoBehaviour
         eventSystem.enabled = false;
         lastGroup = groupPath.Peek().groupObj;
 
-        MenuGroup newGroup = new MenuGroup(group, group.GetComponentInChildren<Button>().gameObject);
+        MenuGroup newGroup = new MenuGroup(group, group.GetComponentInChildren<Selectable>().gameObject);
         groupPath.Push(newGroup);
         group.SetActive(true);
 
