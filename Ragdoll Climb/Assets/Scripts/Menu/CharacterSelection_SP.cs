@@ -8,19 +8,19 @@ public class CharacterSelection_SP : MonoBehaviour
 {
     [SerializeField] float rotateSpeed = 1f;
     [SerializeField] float joinBlinkInterval = 0.5f;
-    
+    [SerializeField] float uiColorSat = 0.2f;
+
     [SerializeField] GameObject nextGroup;
     [SerializeField] GameObject playerModel;
-    [SerializeField] GameObject joinText;
-    [SerializeField] GameObject continueButton;
+
+    [SerializeField] Image playerSlotImg;
+    [SerializeField] Image joinedPlayerImg;
 
     [SerializeField] Color[] colors;
     [SerializeField] GameObject[] characterModels;
-
-    [SerializeField] WorldMenuManager menuManager;
-
+    
     [SerializeField] EventSystem eventSystem;
-
+    
     bool joined = false;
 
     int colorIndex;
@@ -29,6 +29,8 @@ public class CharacterSelection_SP : MonoBehaviour
     float joinBlinkTimer = 0f;
 
     List<Renderer> playerRenderers;
+
+    WorldMenuManager menuManager;
 
     internal PlayerIndex playerIndex = PlayerIndex.One;
     GamePadState state;
@@ -44,8 +46,8 @@ public class CharacterSelection_SP : MonoBehaviour
     {
         singleton = Singleton.instance;
 
-        playerRenderers = new List<Renderer>();
-        playerRenderers = new List<Renderer>(playerModel.GetComponentsInChildren<Renderer>());
+        menuManager = transform.root.GetComponent<WorldMenuManager>();
+        
         colorIndex = 0;
 
         if (singleton.mode == Singleton.Modes.Single)
@@ -61,11 +63,6 @@ public class CharacterSelection_SP : MonoBehaviour
 
             // Instantiates new model
             GameObject newModel = Instantiate(characterModels[characterIndex], playerModel.transform);
-            
-            playerModel.SetActive(true);
-            joinText.SetActive(false);
-            continueButton.SetActive(true);
-            joined = true;
         }
 
         // Gets all the new meshes
@@ -76,6 +73,10 @@ public class CharacterSelection_SP : MonoBehaviour
         {
             playerRenderers[i].material.color = colors[colorIndex];
         }
+
+        Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
+        joinedPlayerImg.color = uiColor;
+        playerSlotImg.color = uiColor;
     }
 
 
@@ -103,8 +104,7 @@ public class CharacterSelection_SP : MonoBehaviour
         // Left on stick or D-pad
         else if ((state.ThumbSticks.Left.X <= -0.3f && prevState.ThumbSticks.Left.X > -0.3f) || (state.DPad.Left == ButtonState.Pressed && prevState.DPad.Left == ButtonState.Released))
             SwitchCharacter(false);
-
-
+        
         // Continues if Start is pressed
         if (state.Buttons.Start == ButtonState.Pressed && prevState.Buttons.Start == ButtonState.Released)
             Continue();
@@ -138,6 +138,10 @@ public class CharacterSelection_SP : MonoBehaviour
         {
             playerRenderers[i].material.color = colors[colorIndex];
         }
+
+        Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
+        joinedPlayerImg.color = uiColor;
+        playerSlotImg.color = uiColor;
     }
 
 
@@ -177,6 +181,18 @@ public class CharacterSelection_SP : MonoBehaviour
         {
             playerRenderers[i].material.color = colors[colorIndex];
         }
+    }
+
+
+    private Color AddHSV(Color color, float h, float s, float v)
+    {
+        float _h, _s, _v;
+        Color.RGBToHSV(color, out _h, out _s, out _v);
+        _h = Mathf.Clamp(_h + h, 0f, 1f);
+        _s = Mathf.Clamp(_s + s, 0f, 1f);
+        if (_s > 0f)
+            _v = Mathf.Clamp(_v + v, 0f, 1f);
+        return Color.HSVToRGB(_h, _s, _v);
     }
 
 
