@@ -34,6 +34,7 @@ GameObject:
   - component: {fileID: 114111148048884150}
   - component: {fileID: 114278167583445628}
   - component: {fileID: 114439969164820220}
+  - component: {fileID: 114101667043147630}
   m_Layer: 9
   m_Name: Player (Base)
   m_TagString: Player
@@ -150,6 +151,22 @@ MonoBehaviour:
   isFrozen: 0
   lerpTime: 3
   lerpedColor: {r: 0, g: 1, b: 1, a: 1}
+--- !u!114 &114101667043147630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877954664156126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 0}
 --- !u!114 &114111148048884150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,8 +190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStunned: 0
-  stars: {fileID: 0}
-  starBurst: {fileID: 0}
 --- !u!114 &114221057161359526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -186,20 +201,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f0db06db76d8c4aad7debe56481f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 3
   spawnPointSearchRad: 50
   ghostTime: 3
-  ghostMassMult: 0.8
   bottomObj: {fileID: 0}
   manager: {fileID: 0}
   SkullAndCrossbones: {fileID: 1745337047547950, guid: da6a069ff24266c4f9d696a73accc6ef,
     type: 2}
-  otherPlayers: []
-  myColliders: []
-  otherColliders: []
-  originMats: []
   deathGrunts: []
   GruntsList: []
 --- !u!114 &114258412346434612
@@ -401,26 +408,6 @@ MonoBehaviour:
   armTimeOut: 1.45
   respawnCounterObj: {fileID: 1951906122359666, guid: 13f1e34033b64aa44b555be5325b714e,
     type: 2}
-  leftHand: {fileID: 0}
-  rightHand: {fileID: 0}
-  leftShoulder: {fileID: 0}
-  rightShoulder: {fileID: 0}
-  leftElbow: {fileID: 0}
-  rightElbow: {fileID: 0}
-  head: {fileID: 0}
-  root: {fileID: 0}
-  spine: {fileID: 0}
-  leftFoot: {fileID: 0}
-  rightFoot: {fileID: 0}
-  boostEffect: {fileID: 0}
-  leftGoodClimbEffect: {fileID: 0}
-  rightGoodClimbEffect: {fileID: 0}
-  leftStaminaBar: {fileID: 0}
-  rightStaminaBar: {fileID: 0}
-  goodClimbSfx: {fileID: 8300000, guid: 90e08bb1ccd773942a2cf5ab0e609ca5, type: 3}
-  boostSfx: {fileID: 8300000, guid: b58bc786a6d78b2419c2638f83dc5fed, type: 3}
-  punchSwooshSfx: {fileID: 8300000, guid: 3fcc3f0408eebbe42b2199a57e13f6a2, type: 3}
-  deathTimer: 0
   deathPressTime: 3
 --- !u!114 &114806944757981130
 MonoBehaviour:
@@ -452,9 +439,6 @@ MonoBehaviour:
   MassDuration: 5
   AddMassParticle: {fileID: 0}
   LooseMassParticle: {fileID: 0}
-  rightWrist: {fileID: 0}
-  leftWrist: {fileID: 0}
-  m_Root: {fileID: 0}
 --- !u!114 &114971960478132084
 MonoBehaviour:
   m_ObjectHideFlags: 1

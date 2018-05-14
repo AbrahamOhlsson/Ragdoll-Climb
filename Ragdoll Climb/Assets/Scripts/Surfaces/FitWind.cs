@@ -16,7 +16,7 @@ public class FitWind : MonoBehaviour
     ParticleSystem.MainModule[] psMain;
     ParticleSystem.ShapeModule[] psShape;
     ParticleSystem.EmissionModule[] psEmission;
-    WindForce windForce;
+    //WindForce windForce;
 
 
     private void Start()
@@ -36,7 +36,7 @@ public class FitWind : MonoBehaviour
             psEmission[i] = particleSystems[i].emission;
         }
 
-        windForce = GetComponent<WindForce>();
+        //windForce = GetComponent<WindForce>();
     }
 
 

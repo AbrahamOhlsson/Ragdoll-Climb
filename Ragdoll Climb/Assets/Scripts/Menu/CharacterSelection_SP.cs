@@ -7,7 +7,6 @@ using XInputDotNetPure;
 public class CharacterSelection_SP : MonoBehaviour
 {
     [SerializeField] float rotateSpeed = 1f;
-    [SerializeField] float joinBlinkInterval = 0.5f;
     [SerializeField] float uiColorSat = 0.2f;
 
     [SerializeField] GameObject nextGroup;
@@ -21,12 +20,8 @@ public class CharacterSelection_SP : MonoBehaviour
     
     [SerializeField] EventSystem eventSystem;
     
-    bool joined = false;
-
     int colorIndex;
     int characterIndex;
-
-    float joinBlinkTimer = 0f;
 
     List<Renderer> playerRenderers;
 
@@ -35,9 +30,6 @@ public class CharacterSelection_SP : MonoBehaviour
     internal PlayerIndex playerIndex = PlayerIndex.One;
     GamePadState state;
     GamePadState prevState;
-
-    GamePadState[] states_nonSpec = new GamePadState[4];
-    GamePadState[] prevStates_nonSpec = new GamePadState[4];
 
     Singleton singleton;
 
@@ -62,7 +54,7 @@ public class CharacterSelection_SP : MonoBehaviour
             Destroy(playerModel.transform.GetChild(0).gameObject);
 
             // Instantiates new model
-            GameObject newModel = Instantiate(characterModels[characterIndex], playerModel.transform);
+            Instantiate(characterModels[characterIndex], playerModel.transform);
         }
 
         // Gets all the new meshes

@@ -114,11 +114,9 @@ public class WorldMenuManager : MonoBehaviour
                 if (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released)
                 {
                     spSelectGroup.GetComponent<CharacterSelection_SP>().playerIndex = playerIndexes[i];
-                    print("Index = " +playerIndexes[i]);
                 }
                 else if (Input.GetMouseButtonDown(0))
                 {
-                    print("Mouse");
                     spSelectGroup.GetComponent<CharacterSelection_SP>().playerIndex = PlayerIndex.One;
                 }
             }
