@@ -84,9 +84,7 @@ public class DeathManager : MonoBehaviour
             {
                 //Check distance between regidbodies and root_M
                 if (Vector3.Distance(i.transform.position, rootTrans.position) > 3)
-                {
                     Death();
-                }
             }
         }
     }

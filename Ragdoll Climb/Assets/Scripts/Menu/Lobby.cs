@@ -110,7 +110,7 @@ public class Lobby : MonoBehaviour
                 nameTexts[i].text = characterNames[characterIndexAssigned[i]];
 
                 playerModels[i].SetActive(true);
-                //checkBoxes[i].SetActive(true);
+                instructions[i].SetActive(true);
                 joinTexts[i].SetActive(false);
             }
         }
