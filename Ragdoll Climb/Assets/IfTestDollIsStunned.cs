@@ -1,0 +1,70 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class IfTestDollIsStunned : MonoBehaviour
+{
+    public bool isStunned;
+    float timer;
+
+    public ParticleSystem stars;
+    public ParticleSystem starBurst;
+
+
+    private void Start()
+    {
+        List<ParticleSystem> partSys = new List<ParticleSystem>();
+        partSys.AddRange(GetComponentsInChildren<ParticleSystem>());
+        starBurst = partSys.Find(x => x.name.Contains("BrightStars"));
+        stars = partSys.Find(x => x.name.Contains("Head"));
+    }
+
+
+    void Update()
+    {
+        //If the player activate the stun and start the timer.
+        if (isStunned)
+        {
+            timer -= Time.deltaTime;
+
+            //Remove stun effect from the player.
+            if (timer <= 0 && isStunned)
+            {
+                UnStun();
+            }
+        }
+    }
+
+    public void Stun(float stunTime)
+    {
+        //If the player is not stunned. Stun the player.
+        if (!isStunned)
+        {
+            //Add time to timer.
+            timer = stunTime;
+
+            //Start playing particle effect.
+            stars.Play();
+            starBurst.Play();
+
+            isStunned = true;
+
+            GetComponent<VibrationManager>().VibrateSmoothTimed(1f, stunTime / 2, Mathf.Infinity, 3f, 15);
+
+            transform.root.GetComponent<playerSound>().PlaySound("stunGrunt");
+        }
+    }
+
+    public void UnStun()
+    {
+        //If the stun time is 0 or less. Remove stun effect.
+        if (!GetComponent<FreezePlayerPowerUp>().isFrozen)
+        {
+            isStunned = false;
+            //Start playing particle effect.
+            stars.Stop();
+            starBurst.Stop();
+            //Give player back mobility.
+        }
+    }
+}

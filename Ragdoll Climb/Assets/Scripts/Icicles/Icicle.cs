@@ -121,7 +121,7 @@ public class Icicle : MonoBehaviour
             if (other.gameObject.tag == "Player")
             {
                 other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
-                FindObjectOfType<soundManager>().PlaySound("icicle"); // sound on player hit
+                soundManager.PlaySound("icicles"); // sound on player hit
             }
 
             Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
