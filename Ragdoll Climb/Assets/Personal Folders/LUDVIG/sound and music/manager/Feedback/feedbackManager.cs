@@ -40,10 +40,10 @@ public class feedbackManager : MonoBehaviour {
 
 
     /// <summary>
-    ///  "play a feedback sound "
+    ///  play a feedback sound 
     /// </summary>
-    /// <param name="name"> name of the sound </param>
-    /// <param name="player"> / Red = 1 / Blue = 2 / Green = 3 / Yellow = 4 / </param>
+    /// <param name="name"> The name of the sound you want to play  </param>
+    /// <param name="playerColler"> which player you're referencing </param>
     public void PlaySound(string name, feedbackSound.player playerColler)
     {
         feedbackSound s = null;  //varför en ny? (se if (s == null)  ;)  )

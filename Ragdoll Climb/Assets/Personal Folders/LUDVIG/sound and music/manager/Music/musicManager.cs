@@ -127,7 +127,7 @@ public class musicManager : MonoBehaviour
             partInt++;
 
             //Player next song 
-            PlayNextMusic();
+            PlayNextSong();
             
         } 
         
@@ -136,7 +136,7 @@ public class musicManager : MonoBehaviour
 
 
 
-    public void PlayNextMusic()
+    public void PlayNextSong()
     {
         if (partInt % 2 == 1)
         {
