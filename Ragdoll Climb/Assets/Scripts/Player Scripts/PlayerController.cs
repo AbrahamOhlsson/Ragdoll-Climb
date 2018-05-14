@@ -118,10 +118,6 @@ public class PlayerController : MonoBehaviour
     
     Renderer leftStaminaBar;
     Renderer rightStaminaBar;
-    
-    AudioClip goodClimbSfx;
-    AudioClip boostSfx; //combo
-    AudioClip punchSwooshSfx;
 
     // sound manager
     soundManager soundManager;
@@ -148,8 +144,6 @@ public class PlayerController : MonoBehaviour
     //"Stamina bools". If set false, said hand wont be able to climb.
     bool rightCanClimb = true;
     bool leftCanClimb = true;
-
-    bool died = false;
     
     // How many good climbs has been performed in a row
     int goodClimbs = 0;
@@ -206,9 +200,7 @@ public class PlayerController : MonoBehaviour
     VibrationManager vibrator;
 
     List<Rigidbody> bodyParts = new List<Rigidbody>();
-
-    AudioSource source;
-
+    
     IEnumerator releaseGripDelayedRight;
     IEnumerator releaseGripDelayedLeft;
 
@@ -257,9 +249,7 @@ public class PlayerController : MonoBehaviour
         playerInfo = GetComponent<PlayerInfo>();
 
         vibrator = GetComponent<VibrationManager>();
-
-        source = GetComponent<AudioSource>();
-
+        
         releaseGripDelayedLeft = ReleaseGripDelayed(true);
         releaseGripDelayedRight = ReleaseGripDelayed(false);
 
@@ -386,7 +376,6 @@ public class PlayerController : MonoBehaviour
 
                             // Plays particle effect and sound effect indicating a good climb
                             leftGoodClimbEffect.Play();
-                            //source.PlayOneShot(goodClimbSfx);
                             soundManager.PlaySound("goodClimb");
 
                             // Activates boost if the player has performed the required amounts of good climbs
@@ -447,7 +436,6 @@ public class PlayerController : MonoBehaviour
 
                             // Plays particle effect and sound effect indicating a good climb
                             rightGoodClimbEffect.Play();
-                            //source.PlayOneShot(goodClimbSfx);
                             soundManager.PlaySound("goodClimb");
 
                             // Activates boost if the player has performed the required amounts of good climbs
@@ -837,7 +825,7 @@ public class PlayerController : MonoBehaviour
         }
 
         hand.GetComponent<TrailRenderer>().enabled = true;
-        //source.PlayOneShot(punchSwooshSfx);
+        
         soundManager.PlaySound("punchSwoosh");
 
         yield return new WaitForFixedUpdate();
@@ -874,7 +862,7 @@ public class PlayerController : MonoBehaviour
 
         boostTimer = 0f;
         boostEffect.Play();
-        //  source.PlayOneShot(boostSfx);
+        
         soundManager.PlaySound("comboBoost");
         boostActive = true;
 

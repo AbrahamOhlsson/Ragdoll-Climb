@@ -37,7 +37,7 @@ public class Penguin : MonoBehaviour
 
     Transform playerTarget;
 
-    Animation animation;
+    Animation anim;
 
 
     void Start()
@@ -49,8 +49,8 @@ public class Penguin : MonoBehaviour
         spawnPos = body.position;
         spawnRot = body.rotation;
 
-        animation = GetComponent<Animation>();
-        animation.Play("walk");
+        anim = GetComponent<Animation>();
+        anim.Play("walk");
     }
 
     
@@ -64,7 +64,7 @@ public class Penguin : MonoBehaviour
                 {
                     Rotate(new Vector2(0.1f, 0.1f), 2f);
 
-                    animation.CrossFade("idle", 2f);
+                    anim.CrossFade("idle", 2f);
 
                     if (CloseEnough_Angle(body.eulerAngles, new Vector3(0, 0, -90), rotOffset))
                     {
@@ -109,7 +109,7 @@ public class Penguin : MonoBehaviour
 
                 if (CloseEnough(body.position, launchPoint.position, pointOffset))
                 {
-                    animation.Stop();
+                    anim.Stop();
 
                     targetRot = TargetFaceRotation(playerTarget);
                     Rotate(targetRot, 4f);
@@ -142,7 +142,7 @@ public class Penguin : MonoBehaviour
 
         playerTarget = _playerTarget;
 
-        animation.CrossFade("walk", 2f);
+        anim.CrossFade("walk", 2f);
     }
 
 
@@ -162,7 +162,7 @@ public class Penguin : MonoBehaviour
         penguinView.gameObject.SetActive(false);
         penguinView.SetColor(new Vector3(1, 1, 0));
 
-        animation.Play("walk");
+        anim.Play("walk");
 
         state = PenguinStates.Spawned;
     }

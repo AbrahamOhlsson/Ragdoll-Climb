@@ -54,6 +54,7 @@ public class Singleton : MonoBehaviour
     public List<SP_LevelStats> levelStats_ice = new List<SP_LevelStats>();
     public List<SP_LevelStats> levelStats_volcano = new List<SP_LevelStats>();
     public List<SP_LevelStats> levelStats_woods = new List<SP_LevelStats>();
+    public List<SP_LevelStats> levelStats_metal = new List<SP_LevelStats>();
 
 
     public void Save()
@@ -71,6 +72,7 @@ public class Singleton : MonoBehaviour
         data.levelStats_ice = levelStats_ice;
         data.levelStats_volcano = levelStats_volcano;
         data.levelStats_woods = levelStats_woods;
+        data.levelStats_metal = levelStats_metal;
 
         // Stores the data in the file
         bf.Serialize(file, data);
@@ -101,6 +103,7 @@ public class Singleton : MonoBehaviour
             levelStats_ice = data.levelStats_ice;
             levelStats_volcano = data.levelStats_volcano;
             levelStats_woods = data.levelStats_woods;
+            levelStats_metal = data.levelStats_metal;
         }
     }
 
@@ -117,6 +120,6 @@ public class Singleton : MonoBehaviour
         public List<SP_LevelStats> levelStats_ice = new List<SP_LevelStats>();
         public List<SP_LevelStats> levelStats_volcano = new List<SP_LevelStats>();
         public List<SP_LevelStats> levelStats_woods = new List<SP_LevelStats>();
-        public string test;
+        public List<SP_LevelStats> levelStats_metal = new List<SP_LevelStats>();
     }
 }

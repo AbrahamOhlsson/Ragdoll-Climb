@@ -6,7 +6,7 @@ public class BreakingPart : MonoBehaviour
 {
     [SerializeField] float shrinkSpeed = 0.1f;
 
-    float stunTime = 2f;
+    //float stunTime = 2f;
     float scale;
 
     bool falling = false;

@@ -23,9 +23,6 @@ public class LevelLoader : MonoBehaviour
 
     float animTimer = 0;
     
-    bool load = false;
-    bool doneOnce = false;
-
 
     private void Start()
     {
