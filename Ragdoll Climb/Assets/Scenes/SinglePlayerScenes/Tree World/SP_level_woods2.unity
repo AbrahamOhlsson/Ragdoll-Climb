@@ -162,8 +162,13 @@ Prefab:
         type: 2}
       propertyPath: bottomObj
       value: 
-      objectReference: {fileID: 763016216}
+      objectReference: {fileID: 1979652640}
     - target: {fileID: 114221057161359526, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: manager
+      value: 
+      objectReference: {fileID: 1413204879}
+    - target: {fileID: 114101667043147630, guid: dd7b93b249aee91408c4cf317fe9ef4e,
         type: 2}
       propertyPath: manager
       value: 
@@ -176,85 +181,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 349257040}
---- !u!114 &349257042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 349257041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Grunts:
-  - name: 
-    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
-    volume: 0.726
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
-    volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
-    volume: 0.701
-    pitch: 1
-    source: {fileID: 0}
-  GruntsList: []
-  gruntDelay: 0.4
 --- !u!114 &349257057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,11 +374,6 @@ CanvasRenderer:
 --- !u!1 &763016215 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1692886243769070, guid: e030edc2a4c650840aed6a8ccf9ab0cd,
-    type: 2}
-  m_PrefabInternal: {fileID: 927601449}
---- !u!4 &763016216 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4699844716465398, guid: e030edc2a4c650840aed6a8ccf9ab0cd,
     type: 2}
   m_PrefabInternal: {fileID: 927601449}
 --- !u!114 &763016217
@@ -1868,6 +1789,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1979652639
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1979652640}
+  m_Layer: 0
+  m_Name: BottomObj Temp
+  m_TagString: BottomObj
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979652640
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979652639}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.822744, y: -3.416695, z: 4.959055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2001878818
 Prefab:
