@@ -6,8 +6,6 @@ public class Fireball : MonoBehaviour {
 
 	[SerializeField]
 	GameObject PlayerCol;
-	[SerializeField]
-	private float stunTime;
 
 	private void OnParticleCollision(GameObject other)
 	{
@@ -19,12 +17,11 @@ public class Fireball : MonoBehaviour {
 			{
 				if (PlayerCol.GetComponent<PlayerInfo>().solid)
 				{
-					// get script and then change value of MassPercent
-					PlayerStun playerstun = PlayerCol.transform.root.gameObject.GetComponent<PlayerStun>();
-
-					//Run function
-					PlayerCol.transform.root.gameObject.GetComponent<PlayerStun>().Stun(stunTime);
-				}
+				//Run function
+				//PlayerCol.GetComponent<PlayerStun>().Stun(stunTime);
+				PlayerCol.GetComponent<PlayerInfo>().leftHand.GetComponent<CheckGrip>().BurnHand("got roasted by a dragon!");
+				PlayerCol.GetComponent<PlayerInfo>().rightHand.GetComponent<CheckGrip>().BurnHand("got roasted by a dragon!");
+			}
 			}
 	}
 }

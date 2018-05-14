@@ -56,12 +56,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: startHorn
-    clip: {fileID: 8300000, guid: 19f51fbe411cfb24f9d295466f28cc86, type: 3}
+    clip: {fileID: 8300000, guid: a108c8aaf1190094291a6e27a0b7805e, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: applaus
-    clip: {fileID: 8300000, guid: 32bbe4880d5c05948a1f11885d121b61, type: 3}
+    clip: {fileID: 8300000, guid: 8ca761dadedb427468a2d1a0dcd7baf4, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: comboBoost
+    clip: {fileID: 8300000, guid: b58bc786a6d78b2419c2638f83dc5fed, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: goodClimb
+    clip: {fileID: 8300000, guid: 90e08bb1ccd773942a2cf5ab0e609ca5, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: punchHit
+    clip: {fileID: 8300000, guid: efc03c81f28657346a1325fb2adf1cf0, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: punchSwoosh
+    clip: {fileID: 8300000, guid: 3fcc3f0408eebbe42b2199a57e13f6a2, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: lightningStrike
+    clip: {fileID: 8300000, guid: 27adb68213aab8948b55ed9f238ed13e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: rockCrackHit
+    clip: {fileID: 8300000, guid: 1b63321d1f9ae4c4b8fd22077286efde, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: icicles
+    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: rockCrackNoHit
+    clip: {fileID: 8300000, guid: 5f7e7dd871dff2247a5fca2b8828ef5a, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -100,61 +140,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3ff4ab0797f694ca3a90a44410da82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  songVolume: 0
+  songVolume: 0.9
   songs:
   - name: 
-    clip: {fileID: 8300000, guid: 9f730bbefff9d8640a11c31b5fffe4e5, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: 6ba42cf4fc02ea843b2817f2363bc236, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: 3a02c035e562b8f43b89e7ec14994697, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: 0bc88f18546f6c24e93a3d3eef905cb5, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: f65c4c5b822132f4cbb437a7671e5285, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: c2703af93d2be904293e6d2b4ea4ab8b, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: bccd2ab57a95c544481af9fb93cb0341, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: c062bf7d902fc3c45b2ef46510cfaca6, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: cdd06a1e730a8404389d531f2d443875, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: ea2201d21c0dae84bbe35697e72c05d5, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   - name: 
-    clip: {fileID: 8300000, guid: 97d2b818b6b8bed46b421fad259b9c6b, type: 3}
-    volume: 0.6
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: 
+    clip: {fileID: 8300000, guid: 92663d3655c170c44b65cc04257bc5b3, type: 3}
+    volume: 1
     pitch: 1
     source: {fileID: 0}
   song1: {fileID: 0}
@@ -162,3 +207,4 @@ MonoBehaviour:
   startBlockTransform: {fileID: 0}
   endBlockTransform: {fileID: 0}
   bottomTransform: {fileID: 0}
+  isThisSinglePlayer: 0
