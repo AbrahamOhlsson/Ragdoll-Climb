@@ -26,11 +26,11 @@ public class soundManager : MonoBehaviour
 
     }
 
-    void Start()
-    {
+    //void Start()
+    //{
         
 
-    }
+    //}
 
 
     public void PlaySound(string name)
