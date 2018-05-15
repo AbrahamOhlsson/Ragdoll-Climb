@@ -15,7 +15,12 @@ public class LevelSelection : MonoBehaviour
         Singleton.instance.mode = Singleton.Modes.Multi;
 
         if (levelName == "Tutorial")
-            loader.LoadLevelAsync(levelName);
+        {
+            if (Singleton.instance.playerAmount > 1)
+                loader.LoadLevelAsync(levelName);
+            else
+                loader.LoadLevelAsync("Single" + levelName);
+        }
         else
             manager.OpenMenuGroup(nextGroup);
     }
