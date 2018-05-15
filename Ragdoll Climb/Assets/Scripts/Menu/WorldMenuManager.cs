@@ -149,23 +149,7 @@ public class WorldMenuManager : MonoBehaviour
 
     public void OpenMenuGroup(GameObject group)
     {
-        groupPath.Peek().highlightedBtn = eventSystem.currentSelectedGameObject;
-        eventSystem.SetSelectedGameObject(null);
-        eventSystem.enabled = false;
-        lastGroup = groupPath.Peek().groupObj;
-
-        MenuGroup newGroup = new MenuGroup(group, group.GetComponentInChildren<Selectable>().gameObject);
-        groupPath.Push(newGroup);
-        group.SetActive(true);
-
-        moving = true;
-
-        if (group == playerSelectGroup)
-            playerSelectGroup.GetComponent<Lobby>().ResetValues(true);
-        else if (group == spSelectGroup)
-            spSelectGroup.GetComponent<CharacterSelection_SP>().ResetValues(true);
-        else if (group == diffLengthGroup)
-            diffLengthGroup.GetComponent<DiffLengthSelection>().ResetValues();
+        StartCoroutine(OpenMenuGroup_co(group));
     }
 
 
@@ -192,6 +176,30 @@ public class WorldMenuManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+
+    IEnumerator OpenMenuGroup_co(GameObject group)
+    {
+        yield return new WaitForEndOfFrame();
+
+        groupPath.Peek().highlightedBtn = eventSystem.currentSelectedGameObject;
+        eventSystem.SetSelectedGameObject(null);
+        eventSystem.enabled = false;
+        lastGroup = groupPath.Peek().groupObj;
+
+        MenuGroup newGroup = new MenuGroup(group, group.GetComponentInChildren<Selectable>().gameObject);
+        groupPath.Push(newGroup);
+        group.SetActive(true);
+
+        moving = true;
+
+        if (group == playerSelectGroup)
+            playerSelectGroup.GetComponent<Lobby>().ResetValues(true);
+        else if (group == spSelectGroup)
+            spSelectGroup.GetComponent<CharacterSelection_SP>().ResetValues(true);
+        else if (group == diffLengthGroup)
+            diffLengthGroup.GetComponent<DiffLengthSelection>().ResetValues();
     }
 
 
