@@ -11,7 +11,7 @@ public class DeathManager : MonoBehaviour
     [SerializeField] MultiplayerManager manager;
 	[SerializeField] GameObject SkullAndCrossbones;
 
-    bool diedRecently = false;
+    //bool diedRecently = false;
 
     // Layer mask for 14 that prevents ignorance of that layer when using this mask in overlapping sphere
     int layerMask = 1 << 14;
@@ -84,9 +84,7 @@ public class DeathManager : MonoBehaviour
             {
                 //Check distance between regidbodies and root_M
                 if (Vector3.Distance(i.transform.position, rootTrans.position) > 3)
-                {
                     Death();
-                }
             }
         }
     }
@@ -98,7 +96,7 @@ public class DeathManager : MonoBehaviour
         //Spawn visual feedback
         Instantiate(SkullAndCrossbones, rootTrans.position, Quaternion.Euler(90, -180, 0));
 
-        diedRecently = true;
+        //diedRecently = true;
             
         GetComponent<PlayerStun>().UnStun();
         GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 6);

@@ -7,8 +7,9 @@ using XInputDotNetPure;
 public class CharacterSelection_SP : MonoBehaviour
 {
     [SerializeField] float rotateSpeed = 1f;
-    [SerializeField] float joinBlinkInterval = 0.5f;
     [SerializeField] float uiColorSat = 0.2f;
+
+    [SerializeField] string[] characterNames;
 
     [SerializeField] GameObject nextGroup;
     [SerializeField] GameObject playerModel;
@@ -16,17 +17,15 @@ public class CharacterSelection_SP : MonoBehaviour
     [SerializeField] Image playerSlotImg;
     [SerializeField] Image joinedPlayerImg;
 
+    [SerializeField] Text nameText;
+
     [SerializeField] Color[] colors;
     [SerializeField] GameObject[] characterModels;
     
     [SerializeField] EventSystem eventSystem;
     
-    bool joined = false;
-
     int colorIndex;
     int characterIndex;
-
-    float joinBlinkTimer = 0f;
 
     List<Renderer> playerRenderers;
 
@@ -36,9 +35,6 @@ public class CharacterSelection_SP : MonoBehaviour
     GamePadState state;
     GamePadState prevState;
 
-    GamePadState[] states_nonSpec = new GamePadState[4];
-    GamePadState[] prevStates_nonSpec = new GamePadState[4];
-
     Singleton singleton;
 
 
@@ -47,7 +43,9 @@ public class CharacterSelection_SP : MonoBehaviour
         singleton = Singleton.instance;
 
         menuManager = transform.root.GetComponent<WorldMenuManager>();
-        
+
+        playerRenderers = new List<Renderer>(playerModel.GetComponentsInChildren<Renderer>());
+
         colorIndex = 0;
 
         if (singleton.mode == Singleton.Modes.Single)
@@ -62,11 +60,11 @@ public class CharacterSelection_SP : MonoBehaviour
             Destroy(playerModel.transform.GetChild(0).gameObject);
 
             // Instantiates new model
-            GameObject newModel = Instantiate(characterModels[characterIndex], playerModel.transform);
-        }
+            Instantiate(characterModels[characterIndex], playerModel.transform);
 
-        // Gets all the new meshes
-        playerRenderers = new List<Renderer>(playerModel.GetComponentsInChildren<Renderer>());
+            // Gets all the new meshes
+            playerRenderers = new List<Renderer>(playerModel.GetComponentsInChildren<Renderer>());
+        }
 
         // Recolors new model
         for (int i = 0; i < playerRenderers.Count; i++)
@@ -77,6 +75,9 @@ public class CharacterSelection_SP : MonoBehaviour
         Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
         joinedPlayerImg.color = uiColor;
         playerSlotImg.color = uiColor;
+
+
+        nameText.text = characterNames[characterIndex];
     }
 
 
@@ -181,6 +182,9 @@ public class CharacterSelection_SP : MonoBehaviour
         {
             playerRenderers[i].material.color = colors[colorIndex];
         }
+
+
+        nameText.text = characterNames[characterIndex];
     }
 
 
@@ -242,7 +246,9 @@ public class CharacterSelection_SP : MonoBehaviour
         // Resets stuff for player
         characterIndex = 0;
         playerModel.transform.localEulerAngles = Vector3.zero;
-        
+
+        nameText.text = characterNames[characterIndex];
+
         eventSystem.SetSelectedGameObject(null);
     }
 }

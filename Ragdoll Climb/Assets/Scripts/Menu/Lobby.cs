@@ -71,7 +71,6 @@ public class Lobby : MonoBehaviour
         {
             playerRenderers[i] = new List<Renderer>(playerModels[i].GetComponentsInChildren<Renderer>());
             colorIndexAssigned[i] = 0;
-            print(playerModels[i].transform.childCount);
             startRotations[i] = playerModels[i].transform.rotation;
         }
 
@@ -111,7 +110,7 @@ public class Lobby : MonoBehaviour
                 nameTexts[i].text = characterNames[characterIndexAssigned[i]];
 
                 playerModels[i].SetActive(true);
-                //checkBoxes[i].SetActive(true);
+                instructions[i].SetActive(true);
                 joinTexts[i].SetActive(false);
             }
         }

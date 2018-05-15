@@ -5,7 +5,6 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
     [SerializeField] float maxForce = 5000f;
-    [SerializeField] float distForMaxForce = 0.25f;
 
     [SerializeField] float maxDmg;
 

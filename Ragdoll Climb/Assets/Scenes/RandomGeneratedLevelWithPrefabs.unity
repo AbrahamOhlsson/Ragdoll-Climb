@@ -690,7 +690,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114101667043147630, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &394443505
@@ -1071,6 +1072,11 @@ Prefab:
     - target: {fileID: 224532001165450836, guid: 608a21e8364a3ed41af56a9f1ff48e1a,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 223640199920582310, guid: 608a21e8364a3ed41af56a9f1ff48e1a,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1909,7 +1915,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114101667043147630, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &1046765601 stripped
@@ -2263,7 +2270,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 349783821}
---- !u!114 &1408429549
+--- !u!114 &1408429535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2271,109 +2278,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1408429534}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grunts:
-  - name: 
-    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
-    volume: 0.726
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
-    volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
-    volume: 0.701
-    pitch: 1
-    source: {fileID: 0}
-  GruntsList: []
-  gruntDelay: 0.4
---- !u!114 &1408429550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1408429534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1001 &1415551186
 Prefab:
   m_ObjectHideFlags: 0
@@ -2528,7 +2440,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 1760374295}
---- !u!114 &1444259010
+--- !u!114 &1444259012
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2536,109 +2448,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1444259009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grunts:
-  - name: 
-    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
-    volume: 0.726
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
-    volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
-    volume: 0.701
-    pitch: 1
-    source: {fileID: 0}
-  GruntsList: []
-  gruntDelay: 0.4
---- !u!114 &1444259011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1444259009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!4 &1479871705 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4210445795874162, guid: 20a7a22ee42e9bb4a98c1b51ac3c0d5c,
@@ -2845,7 +2662,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114101667043147630, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1642515599 stripped
@@ -2858,7 +2676,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 1044338775}
---- !u!114 &1670426007
+--- !u!114 &1670426009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -2866,109 +2684,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1670426006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grunts:
-  - name: 
-    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
-    volume: 0.726
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
-    volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
-    volume: 0.701
-    pitch: 1
-    source: {fileID: 0}
-  GruntsList: []
-  gruntDelay: 0.4
---- !u!114 &1670426008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1670426006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!114 &1680583556 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114637232456788710, guid: 79007406e3038f64b8c9b1afa755107e,
@@ -3049,7 +2772,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114101667043147630, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1807692082
@@ -3595,7 +3319,7 @@ Prefab:
     - target: {fileID: 224801046775240334, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -72.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224043935121204290, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -3615,7 +3339,7 @@ Prefab:
     - target: {fileID: 224043935121204290, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -268.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224246018465828576, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -3635,7 +3359,7 @@ Prefab:
     - target: {fileID: 224246018465828576, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224392627936571158, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
@@ -3655,7 +3379,7 @@ Prefab:
     - target: {fileID: 224392627936571158, guid: 07edc6a48e13a6a4eb674e37d6511423,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -661.25
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 07edc6a48e13a6a4eb674e37d6511423, type: 2}
@@ -3665,7 +3389,7 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 1601250476}
---- !u!114 &2067355081
+--- !u!114 &2067355083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -3673,109 +3397,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2067355080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7c6d0b59288d2c45a3f0b61b04a0326, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grunts:
-  - name: 
-    clip: {fileID: 8300000, guid: 72222d5d88982aa42a4cda5af26b5aa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: de6c8eedef447b5418cb9aa5df224cb3, type: 3}
-    volume: 0.726
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 5415e791ef65973499a2771c3601d350, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 4713053e6957c6c4d83644c49207ab2c, type: 3}
-    volume: 0.5
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 093935dfd13110644af5c90e247988a5, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 9591541c0d0c0f34d8eeae909fbcaaa0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: c904ef53ee49e104f98736dd3cb42f33, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 1d25523295d05644ba03023444690863, type: 3}
-    volume: 0.6
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: a0e1858cdd78e974ea0de888ee682508, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: d88d14a19544d814da94bee3e2b9eee0, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 6acdd580e600d6048b76e8c23d105b9e, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: 11cdc4d9c10e53d4588d777c4caf5f69, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: 
-    clip: {fileID: 8300000, guid: fd9a40baf69dad244905ef8200cfb616, type: 3}
-    volume: 0.701
-    pitch: 1
-    source: {fileID: 0}
-  GruntsList: []
-  gruntDelay: 0.4
---- !u!114 &2067355082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2067355080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cd2b633076e3594caa44b23b28f6e29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: iceHit
-    clip: {fileID: 8300000, guid: 0c3e9596a48a19f4b8f5be91d2cb248d, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: rocketInTheButt
-    clip: {fileID: 8300000, guid: d0dce6991966dc24ab21397956c92afe, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: spark
-    clip: {fileID: 8300000, guid: 6da7c785df0cf154ebdffa72dc75eceb, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
-  - name: stunGrunt
-    clip: {fileID: 8300000, guid: 328d2bc8afaa3a24c99873d99809c0e1, type: 3}
-    volume: 1
-    pitch: 1
-    source: {fileID: 0}
+  blinkInterval: 0.25
+  transparency: 0.5
+  minPlayerDist: 2.5
+  ghostMassMult: 0.8
+  manager: {fileID: 2089801098}
 --- !u!1001 &2067531609
 Prefab:
   m_ObjectHideFlags: 0
