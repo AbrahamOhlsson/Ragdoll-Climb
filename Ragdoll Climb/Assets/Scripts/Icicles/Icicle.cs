@@ -7,6 +7,8 @@ public class Icicle : MonoBehaviour
     public float growthSpeed = 0.1f;
     public float stunTime = 2f;
     public float autoDestroyTime = 2f;
+    [SerializeField] float playerDistForGrowth = 15f;
+    [SerializeField] GameObject icicleDropEffect;
     [SerializeField] GameObject icicleShatterEffect;
 
     internal bool instantiated = false;
@@ -62,7 +64,9 @@ public class Icicle : MonoBehaviour
                     rb.isKinematic = false;
                     rb.useGravity = true;
                     state = States.Falling;
-                    GetComponent<ParticleSystem>().Play();
+
+                    Vector3 partSysPos = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+                    Instantiate(icicleDropEffect, partSysPos, Quaternion.identity);
                 }
                 break;
 
@@ -89,6 +93,8 @@ public class Icicle : MonoBehaviour
 
     private void DestroyIcicle()
     {
+        Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
+
         if (instantiated)
             Destroy(gameObject);
         else
@@ -124,10 +130,9 @@ public class Icicle : MonoBehaviour
                 soundManager.PlaySound("icicles"); // sound on player hit
             }
 
-            Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
-            // FindObjectOfType<soundManager>().PlaySound("icicle");  // sound  on a hit
-
             DestroyIcicle();
         }
+        else if (state == States.Shrinking)
+            DestroyIcicle();
     }
 }

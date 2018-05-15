@@ -75,8 +75,7 @@ public class CharacterSelection_SP : MonoBehaviour
         Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
         joinedPlayerImg.color = uiColor;
         playerSlotImg.color = uiColor;
-
-
+        
         nameText.text = characterNames[characterIndex];
     }
 
@@ -237,11 +236,17 @@ public class CharacterSelection_SP : MonoBehaviour
             playerRenderers = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
         }
 
+        colorIndex = 0;
+
         // Recolors all meshes white
         for (int i = 0; i < playerRenderers.Count; i++)
         {
-            playerRenderers[i].material.color = colors[0];
+            playerRenderers[i].material.color = colors[colorIndex];
         }
+
+        Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
+        joinedPlayerImg.color = uiColor;
+        playerSlotImg.color = uiColor;
 
         // Resets stuff for player
         characterIndex = 0;
