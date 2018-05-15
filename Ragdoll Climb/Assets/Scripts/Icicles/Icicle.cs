@@ -93,8 +93,6 @@ public class Icicle : MonoBehaviour
 
     private void DestroyIcicle()
     {
-        Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
-
         if (instantiated)
             Destroy(gameObject);
         else
@@ -129,10 +127,13 @@ public class Icicle : MonoBehaviour
                 other.transform.root.GetComponent<PlayerStun>().Stun(stunTime);
                 soundManager.PlaySound("icicles"); // sound on player hit
             }
-
+            Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
             DestroyIcicle();
         }
         else if (state == States.Shrinking)
+        {
+            Instantiate(icicleShatterEffect, transform.position + particleOffset, Quaternion.identity);
             DestroyIcicle();
+        }
     }
 }
