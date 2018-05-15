@@ -68,7 +68,7 @@ public class powerUpRespawnList : MonoBehaviour
 
             }
             firstSpawn = false;
-            print(cdInt + "nu skapas skiten ");
+            //print(cdInt + "nu skapas skiten ");
 
         }
 
