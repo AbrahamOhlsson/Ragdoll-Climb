@@ -51,7 +51,7 @@ public class FinishLine : MonoBehaviour
 
 
         rematchCanvas = GameObject.Find("CanvasShowWinnerAndMenu");
-        doItButton = GameObject.Find("DoItButton").GetComponent<Button>();
+        doItButton = GameObject.Find("Do It Button").GetComponent<Button>();
 
     }
 
@@ -88,9 +88,10 @@ public class FinishLine : MonoBehaviour
 
             gameOver = true;
             
-
             rematchCanvas.SetActive(true);
             doItButton.Select();
+
+            Time.timeScale = 0f;
         }
     }
 }

@@ -38,6 +38,12 @@ public class singleplayerEnd : MonoBehaviour
         {
             Player.GetComponent<singleplayerInfo>().onEnd = true;
 
+            float myTime = Player.GetComponent<singleplayerInfo>().playtime;
+
+            print("first my time = " + myTime);
+            myTime -=  myTime % 0.01f;
+            print("my time = " + myTime);
+
             int personalBestStars = 0;
             float personalBestTime = 0;
             
@@ -49,10 +55,10 @@ public class singleplayerEnd : MonoBehaviour
                 levelStats[singleton.currSpLevelIndex].starAmount = Player.GetComponent<singleplayerInfo>().stars;
             }
 
-            if (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime < personalBestTime)
+            if (Player.GetComponent<singleplayerInfo>().lvlTime - myTime < personalBestTime)
             {
-                levelStats[levelIndex].bestTime_flt = Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime;
-                levelStats[levelIndex].bestTime_str = (Player.GetComponent<singleplayerInfo>().lvlTime - Player.GetComponent<singleplayerInfo>().playtime).ToString();
+                levelStats[levelIndex].bestTime_flt = Player.GetComponent<singleplayerInfo>().lvlTime - myTime;
+                levelStats[levelIndex].bestTime_str = (Player.GetComponent<singleplayerInfo>().lvlTime - myTime).ToString();
             }
 
             Cursor.visible = true;

@@ -46,6 +46,8 @@ public class MenuRematch : MonoBehaviour
 
     public void PlayGame()
     {
+        Time.timeScale = 1f;
+
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Scene scene = SceneManager.GetActiveScene();
 
@@ -57,6 +59,8 @@ public class MenuRematch : MonoBehaviour
 
     public void QuitGame()
     {
+        Time.timeScale = 1f;
+
         Cursor.visible = true;
 
         if (loadingScreen != null)
