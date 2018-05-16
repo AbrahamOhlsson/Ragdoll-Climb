@@ -18,8 +18,10 @@ public class powerUpRespawnList : MonoBehaviour
     [Range(0, 10)] [Tooltip("Cooldown per second")] public float cooldown;
     private bool touched;
     float cooldownTime;
-    
+
     //floating 
+    [SerializeField]
+    bool moving;
     [SerializeField]
     private float rotateSpeed = 15.0f;
     [SerializeField]
@@ -66,7 +68,7 @@ public class powerUpRespawnList : MonoBehaviour
 
             }
             firstSpawn = false;
-            print(cdInt + "nu skapas skiten ");
+            //print(cdInt + "nu skapas skiten ");
 
         }
 
@@ -77,11 +79,14 @@ public class powerUpRespawnList : MonoBehaviour
         // Rotate
         transform.Rotate(new Vector3(0f, Time.deltaTime * rotateSpeed, 0f), Space.World);
 
-        // Float up/down with a Sin()
-        tempPos = transform.position;
-        tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * floatSpeed) * floatLength;
+        if (moving)
+        {
+            // Float up/down with a Sin()
+            tempPos = transform.position;
+            tempPos.y += Mathf.Sin(Time.fixedTime * Mathf.PI * floatSpeed) * floatLength;
 
-        transform.position = tempPos;
+            transform.position = tempPos;
+        }
 
         if (touched == true)
         {

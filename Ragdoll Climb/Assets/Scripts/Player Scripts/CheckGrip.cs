@@ -267,13 +267,6 @@ public class CheckGrip : MonoBehaviour
                 if (lastElectric == tempRb)
                     StopAnim();
             }
-            else if (foundLava)
-            {
-                currentGripable = lastLava;
-
-                if (lastLava == tempRb)
-                    StopAnim();
-            }
             else if (foundSticky)
             {
                 currentGripable = lastSticky;
@@ -302,7 +295,14 @@ public class CheckGrip : MonoBehaviour
                 if (currentGripping == tempRb)
                     StopAnim();
             }
-            
+            else if (foundLava)
+            {
+                currentGripable = lastLava;
+
+                if (lastLava == tempRb)
+                    StopAnim();
+            }
+
 
             // You cant grip anything if the bottom object is in reach.
             // This prevents the player from holding while that object goes throught the player
