@@ -157,7 +157,7 @@ public class musicManager : MonoBehaviour
         {
             song1.clip = songs[partInt-1].clip;
             song1.volume = songVolume;
-            song1.pitch = songs[partInt-1].pitch;
+            song1.pitch = 1 + ((partInt-1) * 0.01f);  //songs[partInt-1].pitch;
 
             song1.time = song1.clip.length * (song2.time / song2.clip.length);
 
@@ -172,7 +172,7 @@ public class musicManager : MonoBehaviour
         {
             song2.clip = songs[partInt-1].clip;
             song2.volume = songVolume;
-            song2.pitch = songs[partInt-1].pitch;
+            song2.pitch = 1 + ((partInt - 1) * 0.01f);  //songs[partInt-1].pitch;
 
             song2.time = song2.clip.length * (song1.time/song1.clip.length) ;
 
