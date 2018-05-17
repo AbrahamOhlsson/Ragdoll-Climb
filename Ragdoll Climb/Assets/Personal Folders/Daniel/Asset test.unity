@@ -13038,14 +13038,14 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 563922854
+  randomSeed: -1738921132
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.5
+      scalar: 1
       minScalar: 0.2
       maxCurve:
         serializedVersion: 2
@@ -13368,7 +13368,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 2
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -16527,7 +16527,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerCol: {fileID: 0}
-  stunTime: 0
 --- !u!198 &537753587
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -31255,12 +31254,12 @@ Prefab:
     - target: {fileID: 198185338225659248, guid: 59a5fefdbd35e7442a5b1fa57fbca8ab,
         type: 2}
       propertyPath: randomSeed
-      value: 413017405
+      value: 1223803477
       objectReference: {fileID: 0}
     - target: {fileID: 198939865687700380, guid: 59a5fefdbd35e7442a5b1fa57fbca8ab,
         type: 2}
       propertyPath: randomSeed
-      value: -1635290838
+      value: -630826997
       objectReference: {fileID: 0}
     - target: {fileID: 23164726870082280, guid: 59a5fefdbd35e7442a5b1fa57fbca8ab,
         type: 2}
@@ -56001,6 +56000,11 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.radiusThickness
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198372902605127524, guid: c0e6edd7ed102ac47add6d457b9caf8d,
+        type: 2}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1.0000
       objectReference: {fileID: 0}
     - target: {fileID: 198372902605127524, guid: c0e6edd7ed102ac47add6d457b9caf8d,
         type: 2}

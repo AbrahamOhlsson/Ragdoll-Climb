@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BreakingSurface : MonoBehaviour
 {
+	internal bool broken = false;
+
     [SerializeField] float breakTime = 5f;
     [SerializeField] float pushOutForce = 100f;
     [SerializeField] GameObject breakingParticleSystems;
@@ -114,6 +116,8 @@ public class BreakingSurface : MonoBehaviour
 
         soundManager.PlaySoundRandPitch("rockCrackHit");
         PlayPartSystems();
+
+		broken = true;
 
         yield return null;
     }
