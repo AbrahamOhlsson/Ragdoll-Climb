@@ -28,7 +28,7 @@ public class powerUpRespawnList : MonoBehaviour
     private float floatLength = 0.3f;
     [SerializeField]
     private float floatSpeed = 1f;
-    Vector3 posOffset = new Vector3();
+    Vector3 startPos = new Vector3();
     Vector3 tempPos = new Vector3();
     private GameObject TEXT;
     bool firstSpawn;
@@ -37,7 +37,7 @@ public class powerUpRespawnList : MonoBehaviour
 
     void Start()
     {
-        posOffset = transform.position;
+        startPos = transform.position;
         startInt = Random.Range(0, 2);
         cooldownTime = cooldown;
         firstSpawn = true;
@@ -53,22 +53,42 @@ public class powerUpRespawnList : MonoBehaviour
         {
             if (startInt == 0)
             {
+                print("first spawn first list count = " + firstPowerUpList.Count);
+                GameObject newObj = firstPowerUpList[Random.Range(0, firstPowerUpList.Count)];
+                if (newObj.GetComponent<LowerMass>() == null)
+                {
+                    moving = false;
+                }
+                else
+                {
+                    moving = true;
+                }
 
-                Instantiate(firstPowerUpList[Random.Range(0, firstPowerUpList.Count)], transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
+                Instantiate(newObj, transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
                 touched = false;
 
 
             }
             if (startInt == 1)
             {
-                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
-                touched = false;
+                print("first spawn good list count = " + goodPowerUpList.Count);
+                GameObject newObj = goodPowerUpList[Random.Range(0, goodPowerUpList.Count)];
+                if (newObj.GetComponent<LowerMass>() == null)
+                {
+                    moving = false;
+                }
+                else
+                {
+                    moving = true;
+                }
 
+                Instantiate(newObj, transform.position, transform.rotation, transform.parent); // Spawns the powerUp, one time
+                touched = false;
 
 
             }
             firstSpawn = false;
-            print(cdInt + "nu skapas skiten ");
+            //print(cdInt + "nu skapas skiten ");
 
         }
 
@@ -99,8 +119,18 @@ public class powerUpRespawnList : MonoBehaviour
             if (cooldownTime <= 0)
             {
                 Debug.Log("Touched = true");
-                
-                Instantiate(goodPowerUpList[Random.Range(0, goodPowerUpList.Count)], transform.position, transform.rotation, transform.parent);
+                GameObject newObj = goodPowerUpList[Random.Range(0, goodPowerUpList.Count)];
+                if (newObj.GetComponent<LowerMass>() == null)
+                {
+                    moving = false;
+                }
+                else
+                {
+                    moving = true;
+                }
+                transform.position = startPos;
+
+                Instantiate(newObj , transform.position, transform.rotation, transform.parent);
                 touched = false;
                 cooldownTime = cooldown;
                 Destroy(TEXT);

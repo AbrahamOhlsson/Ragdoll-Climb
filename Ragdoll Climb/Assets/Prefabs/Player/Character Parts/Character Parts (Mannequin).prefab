@@ -2323,6 +2323,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4079458096903858}
+  - component: {fileID: 114684028688776100}
   m_Layer: 0
   m_Name: Character Parts (Mannequin)
   m_TagString: Untagged
@@ -3433,7 +3434,6 @@ GameObject:
   - component: {fileID: 4642252026772664}
   - component: {fileID: 65246171027060744}
   - component: {fileID: 54265459656648252}
-  - component: {fileID: 114876943901194762}
   - component: {fileID: 114625417595932740}
   m_Layer: 9
   m_Name: Root_M
@@ -6656,7 +6656,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1816351200882250}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004124476, y: 1.3322676e-17, z: -8.4469385e-18}
+  m_LocalPosition: {x: -0.004124476, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4908763047901488}
@@ -7063,7 +7063,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1318020786799580}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.011592013, y: 0, z: 3.5527136e-17}
+  m_LocalPosition: {x: -0.011592013, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4658801502196560}
@@ -8716,6 +8716,17 @@ MonoBehaviour:
   touchingCrush: 0
   touchingBottom: 0
   impulse: 0
+--- !u!114 &114684028688776100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1555803818853866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22c65a5d1c843346846abd51c8467ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114693214800138998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8853,18 +8864,6 @@ MonoBehaviour:
   touchingCrush: 0
   touchingBottom: 0
   impulse: 0
---- !u!114 &114876943901194762
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1838360921248836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6345de1abbfbd744abde989d52332c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tooCloseToBottom: 0
 --- !u!114 &114883208556606990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -14114,7 +14113,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.034776043, y: 0, z: -0.000000022351742}
+  m_ConnectedAnchor: {x: 0.034776043, y: 0, z: -0.000000037252903}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -14158,7 +14157,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.004853107, y: 0, z: 0.011383605}
+  m_ConnectedAnchor: {x: 0.0048531145, y: 0, z: 0.011383602}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:
@@ -14202,7 +14201,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.03610845, y: 0, z: -0.022219324}
+  m_ConnectedAnchor: {x: -0.036108434, y: 0, z: -0.02221933}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -14246,7 +14245,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.004853107, y: 0, z: -0.011383605}
+  m_ConnectedAnchor: {x: 0.0048531145, y: 0, z: -0.011383602}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -14290,7 +14289,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.044512548, y: 0, z: 0.0000000027939677}
+  m_ConnectedAnchor: {x: -0.044512555, y: 0, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -14334,7 +14333,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.044512548, y: 0, z: -0.0000000027939677}
+  m_ConnectedAnchor: {x: 0.044512555, y: 0, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 1, z: 0}
   m_TwistLimitSpring:
@@ -14422,7 +14421,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.03210545, y: 0, z: -0.000000011175871}
+  m_ConnectedAnchor: {x: -0.032105464, y: 0, z: -0.000000011175871}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -14466,7 +14465,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: -1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.03610845, y: 0, z: 0.022219324}
+  m_ConnectedAnchor: {x: -0.036108434, y: 0, z: 0.02221933}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -14510,7 +14509,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.04974124, y: 0, z: 0.0000000027939677}
+  m_ConnectedAnchor: {x: -0.049741242, y: 0, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: -1}
   m_TwistLimitSpring:
@@ -14554,7 +14553,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.032105464, y: 0, z: -0.000000022351742}
+  m_ConnectedAnchor: {x: 0.032105464, y: 0, z: -0.000000037252903}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: -1, z: 0}
   m_TwistLimitSpring:
@@ -14598,7 +14597,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.04974124, y: 0, z: -0.0000000027939677}
+  m_ConnectedAnchor: {x: 0.049741242, y: 0, z: 0}
   serializedVersion: 2
   m_SwingAxis: {x: 0, y: 0, z: 1}
   m_TwistLimitSpring:

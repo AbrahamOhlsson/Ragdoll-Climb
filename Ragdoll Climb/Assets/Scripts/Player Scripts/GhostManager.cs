@@ -49,6 +49,8 @@ public class GhostManager : MonoBehaviour
 
         rends = transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
 
+        manager = GameObject.Find("GameManager").GetComponent<MultiplayerManager>();
+
         foreach (Collider coll in GetComponentsInChildren<Collider>())
         {
             if (!coll.name.Contains("wrist") && !coll.name.Contains("Wrist") && !coll.name.Contains("cloth"))
