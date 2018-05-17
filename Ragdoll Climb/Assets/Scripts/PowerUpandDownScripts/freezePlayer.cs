@@ -19,12 +19,11 @@ public class freezePlayer : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        
     }
 
 
     void TimeToFreeze()
     {
-        PlayerFreeze.GetComponent<FreezePlayerPowerUp>().FreezeTime();
+        PlayerFreeze.GetComponent<FreezePD>().StartFreeze(3f, false);
     }
 }

@@ -63,7 +63,7 @@ public class PlayerStun : MonoBehaviour
     public void UnStun()
     {
         //If the stun time is 0 or less. Remove stun effect.
-        if (!GetComponent<FreezePlayerPowerUp>().isFrozen)
+        if (!GetComponent<FreezePD>().isFrozen)
         {
             isStunned = false;
             //Start playing particle effect.
