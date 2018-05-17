@@ -8,8 +8,11 @@ using UnityEngine;
 public class soundManager : MonoBehaviour
 {
 
+    public AudioMixerGroup MyMixerGroup;
+    [Space]
+    [Space]
     public Sound[] sounds;
-    
+
 
     // Use this for initialization
     void Awake()
@@ -21,6 +24,7 @@ public class soundManager : MonoBehaviour
             i.source.clip = i.clip;
             i.source.volume = i.volume;
             i.source.pitch = i.pitch;
+            i.source.outputAudioMixerGroup = MyMixerGroup;
 
         }
 

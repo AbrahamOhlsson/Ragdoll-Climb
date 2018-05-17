@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 
 
@@ -10,10 +11,11 @@ public class musicManager : MonoBehaviour
     float distansToGoal;
     [Range(0.1f,1f)] public float songVolume;
     [Space]
+    public AudioMixerGroup MyMixerGroup;
+    [Space]
     [SerializeField]
     Sound[] songs;
 
-    [Space]
     [Space]
     [Space]
     [Space]
@@ -81,6 +83,9 @@ public class musicManager : MonoBehaviour
 
         song1.loop = true;
         song2.loop = true;
+
+        song1.outputAudioMixerGroup = MyMixerGroup;
+        song2.outputAudioMixerGroup = MyMixerGroup;
 
         //song1.clip = songs[0].clip;
         //song1.volume = 0.6f; //  songs[0].volume;    sett the start volume too fix a bug 
