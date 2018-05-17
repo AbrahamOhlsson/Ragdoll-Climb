@@ -599,11 +599,9 @@ public class PlayerController : MonoBehaviour
 			if(deathTimer > deathPressTime)
 			{
 				GetComponent<DeathManager>().Death();
-				GetComponent<FreezePlayerPowerUp>().closeToBoat= false;
-				GetComponent<FreezePlayerPowerUp>().DeathFreezeTime();
+				GetComponent<FreezePD>().StartFreeze(1f, true);
 				deathTimer = 0;
 				Destroy(respawnCounter);
-
 			}
 
 			deathTimer += Time.deltaTime;
