@@ -39,9 +39,7 @@ public class Icicle : MonoBehaviour
 
         targetScale = transform.localScale.x;
         transform.localScale = new Vector3(minScale, minScale, minScale);
-        scale = transform.localScale.x;
-
-        soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
+		scale = transform.localScale.x;
 
         rb = GetComponent<Rigidbody>();
 
@@ -49,7 +47,9 @@ public class Icicle : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeAll;
 
         bottomObj = GameObject.FindGameObjectWithTag("BottomObj").transform;
-    }
+
+		soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
+	}
 	
 	void Update ()
     {

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PenguinScout : MonoBehaviour
 {
-    float minAlpha = 0.2f;
-    float maxAlpha = 0.4f;
+    float minAlpha = 0.4f;
+    float maxAlpha = 0.8f;
     float targetAlpha;
     float currAlpha;
     float speed = 5f;
