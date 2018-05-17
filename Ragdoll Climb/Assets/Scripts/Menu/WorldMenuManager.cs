@@ -155,6 +155,9 @@ public class WorldMenuManager : MonoBehaviour
 
     public void Back()
     {
+        if (groupPath.Peek().groupObj == optionsGroup)
+            optionsGroup.GetComponent<Options>().ResetOptions();
+
         //groupPath.Pop().SetActive(false);
         //eventSystem.SetSelectedGameObject(groupPath.Peek().GetComponentInChildren<Button>().gameObject);
         eventSystem.enabled = false;

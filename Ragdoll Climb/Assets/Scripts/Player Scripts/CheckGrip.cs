@@ -473,6 +473,7 @@ public class CheckGrip : MonoBehaviour
             fireParticle.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
             fireParticle.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
             transform.root.GetComponent<PlayerInfo>().feedbackText.Activate(feedbackText);
+            transform.root.GetComponent<VibrationManager>().VibrateTimed(0.8f, fireTime, 12);
         }
     }
 
