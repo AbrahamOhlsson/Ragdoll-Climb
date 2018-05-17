@@ -56,6 +56,14 @@ public class Singleton : MonoBehaviour
     public List<SP_LevelStats> levelStats_woods = new List<SP_LevelStats>();
     public List<SP_LevelStats> levelStats_metal = new List<SP_LevelStats>();
 
+    // OPTIONS
+    public bool fullscreen = true;
+    public int qualityIndex = 0;
+    public int resIndex = 0;
+    public float masterVol = 1f;
+    public float sfxVol = 1f;
+    public float musicVol = 1f;
+
 
     public void Save()
     {
@@ -108,9 +116,50 @@ public class Singleton : MonoBehaviour
     }
 
 
+    public void SaveOptions()
+    {
+        Options options = new Options
+        {
+            qualityIndex = qualityIndex,
+            resIndex = resIndex,
+            fullscreen = fullscreen,
+            masterVol = masterVol,
+            sfxVol = sfxVol,
+            musicVol = musicVol
+            
+        };
+
+        string jsonData = JsonUtility.ToJson(options, true);
+        File.WriteAllText(Application.dataPath + "/options.json", jsonData);
+    }
+
+
+    public void LoadOptions()
+    {
+        if (File.Exists(Application.dataPath + "/options.json"))
+        {
+            Options options = new Options();
+            options = JsonUtility.FromJson<Options>(File.ReadAllText(Application.dataPath + "/options.json"));
+
+            qualityIndex = options.qualityIndex;
+            resIndex = options.resIndex;
+            fullscreen = options.fullscreen;
+            masterVol = options.masterVol;
+            sfxVol = options.sfxVol;
+            musicVol = options.musicVol;
+        }
+    }
+
+
     public bool SavefileExists()
     {
         return File.Exists(Application.dataPath + "/savefile.dat");
+    }
+
+
+    public bool OptionsFileExists()
+    {
+        return File.Exists(Application.dataPath + "/options.json");
     }
 
 
@@ -121,5 +170,17 @@ public class Singleton : MonoBehaviour
         public List<SP_LevelStats> levelStats_volcano = new List<SP_LevelStats>();
         public List<SP_LevelStats> levelStats_woods = new List<SP_LevelStats>();
         public List<SP_LevelStats> levelStats_metal = new List<SP_LevelStats>();
+    }
+
+
+    [System.Serializable]
+    struct Options
+    {
+        public bool fullscreen;
+        public int qualityIndex;
+        public int resIndex;
+        public float masterVol;
+        public float sfxVol;
+        public float musicVol;
     }
 }

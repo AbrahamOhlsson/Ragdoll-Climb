@@ -1,0 +1,183 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using XInputDotNetPure;
+
+public class Options : MonoBehaviour
+{
+    [SerializeField] Dropdown qualityDropdown;
+    [SerializeField] Dropdown resDropdown;
+    [SerializeField] Toggle fullScrToggle;
+    [SerializeField] Slider masterSlider;
+    [SerializeField] Slider sfxSlider;
+    [SerializeField] Slider musicSlider;
+    [SerializeField] Button saveButton;
+    
+    List<Resolution> resolutions = new List<Resolution>();
+
+    Singleton singleton;
+
+    GamePadState[] states = new GamePadState[4];
+
+
+    void Awake ()
+    {
+        singleton = Singleton.instance;
+
+        Resolution res1 = new Resolution();
+        res1.width = 1920;
+        res1.height = 1080;
+        res1.refreshRate = 60;
+
+        Resolution res2 = new Resolution();
+        res2.width = 1600;
+        res2.height = 900;
+        res2.refreshRate = 60;
+
+        Resolution res3 = new Resolution();
+        res3.width = 1366;
+        res3.height = 768;
+        res3.refreshRate = 60;
+
+        Resolution res4 = new Resolution();
+        res4.width = 1280;
+        res4.height = 720;
+        res4.refreshRate = 60;
+
+        resolutions.Add(res1);
+        resolutions.Add(res2);
+        resolutions.Add(res3);
+        resolutions.Add(res4);
+
+        List<Dropdown.OptionData> resData = new List<Dropdown.OptionData>();
+
+        foreach (Resolution res in resolutions)
+        {
+            Dropdown.OptionData data = new Dropdown.OptionData(res.width + " x " + res.height);
+            resData.Add(data);
+        }
+
+        resDropdown.AddOptions(resData);
+
+        singleton.LoadOptions();
+        ResetOptions();
+        SaveOptions();
+
+        saveButton.gameObject.SetActive(false);
+	}
+
+
+    void Update ()
+    {
+        // Gets states for all game pads
+        for (int i = 0; i < states.Length; i++)
+        {
+            states[i] = GamePad.GetState((PlayerIndex)i);
+
+            if (saveButton.gameObject.activeSelf && states[i].Buttons.Y == ButtonState.Pressed)
+            {
+                SaveOptions();
+            }
+        }
+    }
+
+
+    public void SaveOptions()
+    {
+        singleton.qualityIndex = qualityDropdown.value;
+        singleton.resIndex = resDropdown.value;
+        singleton.fullscreen = fullScrToggle.isOn;
+        singleton.masterVol = masterSlider.value;
+        singleton.sfxVol = sfxSlider.value;
+        singleton.musicVol = musicSlider.value;
+
+        singleton.SaveOptions();
+
+        saveButton.gameObject.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(GetComponentInChildren<Selectable>().gameObject);
+    }
+
+
+    public void ChangeQuality()
+    {
+        QualitySettings.SetQualityLevel(qualityDropdown.value, true);
+
+        saveButton.gameObject.SetActive(true);
+    }
+
+
+    public void ChangeResolution()
+    {
+        Resolution res = resolutions[resDropdown.value];
+        Screen.SetResolution(res.width, res.height, fullScrToggle.isOn);
+
+        saveButton.gameObject.SetActive(true);
+    }
+
+
+    public void ChangeFullScreen()
+    {
+        Screen.fullScreen = fullScrToggle.isOn;
+
+        saveButton.gameObject.SetActive(true);
+    }
+
+
+    public void ChangeMaster()
+    {
+        // CODE FOR SETTING MASTER BUS VOLUME
+
+        saveButton.gameObject.SetActive(true);
+    }
+
+
+    public void ChangeSfx()
+    {
+        // CODE FOR SETTING SFX BUS VOLUME
+
+        saveButton.gameObject.SetActive(true);
+    }
+
+
+    public void ChangeMusic()
+    {
+        // CODE FOR SETTING MUSIC BUS VOLUME
+
+        saveButton.gameObject.SetActive(true);
+    }
+
+
+    public void ResetOptions()
+    {
+        if (singleton.OptionsFileExists())
+        {
+            Screen.SetResolution(resolutions[singleton.resIndex].width, resolutions[singleton.resIndex].height, singleton.fullscreen);
+            QualitySettings.SetQualityLevel(qualityDropdown.value, true);
+            // CODE FOR SETTING BUS VOLUME
+
+            int index = resolutions.FindIndex(x => x.height == resolutions[singleton.resIndex].height && x.width == resolutions[singleton.resIndex].width);
+            resDropdown.value = index;
+            qualityDropdown.value = singleton.qualityIndex;
+            fullScrToggle.isOn = singleton.fullscreen;
+            masterSlider.value = singleton.masterVol;
+            sfxSlider.value = singleton.sfxVol;
+            musicSlider.value = singleton.musicVol;
+
+            resDropdown.RefreshShownValue();
+            qualityDropdown.RefreshShownValue();
+        }
+        else
+        {
+            int index = resolutions.FindIndex(x => x.height == Screen.currentResolution.height && x.width == Screen.currentResolution.width);
+            resDropdown.value = index;
+            qualityDropdown.value = QualitySettings.GetQualityLevel();
+            fullScrToggle.isOn = Screen.fullScreen;
+
+            qualityDropdown.RefreshShownValue();
+            resDropdown.RefreshShownValue();
+        }
+    }
+}

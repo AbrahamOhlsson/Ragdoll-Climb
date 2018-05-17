@@ -99,7 +99,7 @@ public class DeathManager : MonoBehaviour
         //diedRecently = true;
             
         GetComponent<PlayerStun>().UnStun();
-        GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 6);
+        GetComponent<VibrationManager>().VibrateTimed(1f, 1f, 20);
             
         // Gets all spawnpoints within a radius
         Collider[] spawnPoints = Physics.OverlapSphere(rootTrans.position, spawnPointSearchRad, layerMask, QueryTriggerInteraction.Collide);
