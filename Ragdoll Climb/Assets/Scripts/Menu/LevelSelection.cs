@@ -21,6 +21,8 @@ public class LevelSelection : MonoBehaviour
             else
                 loader.LoadLevelAsync("Single" + levelName);
         }
+        else if (levelName == "Showoff Scene")
+            loader.LoadLevelAsync(levelName);
         else
             manager.OpenMenuGroup(nextGroup);
     }
