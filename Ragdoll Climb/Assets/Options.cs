@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using XInputDotNetPure;
 
 public class Options : MonoBehaviour
 {
+    public AudioMixerGroup master;
+    public AudioMixerGroup sfx;
+    public AudioMixerGroup music;
+
+    [SerializeField] Transform optionsGroup;
     [SerializeField] Dropdown qualityDropdown;
     [SerializeField] Dropdown resDropdown;
     [SerializeField] Toggle fullScrToggle;
@@ -14,12 +20,11 @@ public class Options : MonoBehaviour
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Button saveButton;
-    [SerializeField] audioMixerController mixer;
 
     float volumeValue = 40f;
     
     List<Resolution> resolutions = new List<Resolution>();
-
+    
     Singleton singleton;
 
     GamePadState[] states = new GamePadState[4];
@@ -28,7 +33,7 @@ public class Options : MonoBehaviour
     void Start ()
     {
         singleton = Singleton.instance;
-
+        
         Resolution res1 = new Resolution();
         res1.width = 1920;
         res1.height = 1080;
@@ -100,7 +105,7 @@ public class Options : MonoBehaviour
 
         saveButton.gameObject.SetActive(false);
 
-        EventSystem.current.SetSelectedGameObject(GetComponentInChildren<Selectable>().gameObject);
+        EventSystem.current.SetSelectedGameObject(optionsGroup.GetComponentInChildren<Selectable>().gameObject);
     }
 
 
@@ -131,7 +136,7 @@ public class Options : MonoBehaviour
 
     public void ChangeMaster()
     {
-        mixer.SFX.audioMixer.SetFloat("MasterVolume", masterSlider.value * volumeValue - volumeValue);
+        master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(masterSlider.value));
 
         saveButton.gameObject.SetActive(true);
     }
@@ -139,7 +144,7 @@ public class Options : MonoBehaviour
 
     public void ChangeSfx()
     {
-        mixer.SFX.audioMixer.SetFloat("SFXVolume", sfxSlider.value * volumeValue - volumeValue);
+        sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(sfxSlider.value));
 
         saveButton.gameObject.SetActive(true);
     }
@@ -147,7 +152,7 @@ public class Options : MonoBehaviour
 
     public void ChangeMusic()
     {
-        mixer.SFX.audioMixer.SetFloat("MusicVolume", musicSlider.value * volumeValue - volumeValue);
+        music.audioMixer.SetFloat("MusicVolume", CalculateMixerVol(musicSlider.value));
 
         saveButton.gameObject.SetActive(true);
     }
@@ -159,9 +164,9 @@ public class Options : MonoBehaviour
         {
             Screen.SetResolution(resolutions[singleton.resIndex].width, resolutions[singleton.resIndex].height, singleton.fullscreen);
             QualitySettings.SetQualityLevel(qualityDropdown.value, true);
-            mixer.SFX.audioMixer.SetFloat("MasterVolume", singleton.masterVol * volumeValue - volumeValue);
-            mixer.SFX.audioMixer.SetFloat("SFXVolume", singleton.sfxVol * volumeValue - volumeValue);
-            mixer.SFX.audioMixer.SetFloat("MusicVolume", singleton.musicVol * volumeValue - volumeValue);
+            master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(singleton.masterVol));
+            sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(singleton.sfxVol));
+            music.audioMixer.SetFloat("MusicVolume", CalculateMixerVol(singleton.musicVol));
 
             int index = resolutions.FindIndex(x => x.height == resolutions[singleton.resIndex].height && x.width == resolutions[singleton.resIndex].width);
             resDropdown.value = index;
@@ -180,12 +185,21 @@ public class Options : MonoBehaviour
             resDropdown.value = index;
             qualityDropdown.value = QualitySettings.GetQualityLevel();
             fullScrToggle.isOn = Screen.fullScreen;
-            mixer.SFX.audioMixer.SetFloat("MasterVolume", masterSlider.value * volumeValue - volumeValue);
-            mixer.SFX.audioMixer.SetFloat("SFXVolume", sfxSlider.value * volumeValue - volumeValue);
-            mixer.SFX.audioMixer.SetFloat("MusicVolume", musicSlider.value * volumeValue - volumeValue);
+            master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(masterSlider.value));
+            sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(sfxSlider.value));
+            music.audioMixer.SetFloat("MusicVolume", CalculateMixerVol(musicSlider.value));
 
             qualityDropdown.RefreshShownValue();
             resDropdown.RefreshShownValue();
         }
+    }
+
+
+    float CalculateMixerVol(float value)
+    {
+        if (value == 0f)
+            return -80f;
+        else
+            return value * volumeValue - volumeValue;
     }
 }

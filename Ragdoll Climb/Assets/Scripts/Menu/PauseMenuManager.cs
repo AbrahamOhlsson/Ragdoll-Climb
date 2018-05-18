@@ -103,7 +103,7 @@ public class PauseMenuManager : MonoBehaviour
         }
         else
         {
-            MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Button>().gameObject);
+            MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Selectable>().gameObject);
 			groupPath.Push(firstGroup);
 			mainGroup.SetActive(true);
             
@@ -122,7 +122,7 @@ public class PauseMenuManager : MonoBehaviour
         groupPath.Peek().highlightedBtn = eventSystem.currentSelectedGameObject;
         groupPath.Peek().groupObj.SetActive(false);
 
-        MenuGroup newGroup = new MenuGroup(group, group.GetComponentInChildren<Button>().gameObject);
+        MenuGroup newGroup = new MenuGroup(group, group.GetComponentInChildren<Selectable>().gameObject);
         groupPath.Push(newGroup);
         group.SetActive(true);
 
@@ -132,6 +132,9 @@ public class PauseMenuManager : MonoBehaviour
 
     public void Back()
     {
+        if (groupPath.Peek().groupObj == optionsGroup)
+            GetComponent<Options>().ResetOptions();
+
         if (groupPath.Peek().groupObj == mainGroup)
         {
             Pause();
