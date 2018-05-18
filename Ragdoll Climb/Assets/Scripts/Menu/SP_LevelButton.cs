@@ -11,7 +11,6 @@ public class SP_LevelButton : MonoBehaviour
 
     [SerializeField] Image[] starImages;
     [SerializeField] Text levelIndexText;
-    [SerializeField] Text bestTimeText;
 	
     public void SetButtonValues(int _starAmount, int _levelIndex, string _bestTime)
     {
@@ -22,6 +21,5 @@ public class SP_LevelButton : MonoBehaviour
             starImages[i].color = new Color(starImages[i].color.r, starImages[i].color.g, starImages[i].color.b, 1);
 
         levelIndexText.text = levelIndex.ToString();
-        bestTimeText.text = "BEST TIME: " + _bestTime;
     }
 }
