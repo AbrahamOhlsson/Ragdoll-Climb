@@ -88,8 +88,11 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().blockList.Count;
 
+                GameObject endblock = FindObjectOfType<pathController>().endBox;
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
+                Instantiate(endblock, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
+                
+                endblock.name = "End Module";
 
             }
         }
@@ -138,8 +141,12 @@ public class pathBuilder : MonoBehaviour {
                 FindObjectOfType<pathController>().currentBlock++;
 
                 int listsize = FindObjectOfType<pathController>().blockList.Count;
+                GameObject endblock = FindObjectOfType<pathController>().endBox;
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
+                Instantiate(endblock, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
+
+                endblock.name = "End Module";
+
 
             }
         }
