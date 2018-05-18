@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class playerSound : MonoBehaviour {
 
+    public AudioMixerGroup MyMixerGroup;
+    [Space]
     public Sound[] sounds;
 
 
@@ -18,6 +21,7 @@ public class playerSound : MonoBehaviour {
             i.source.volume = i.volume;
             i.source.pitch = i.pitch;
             i.source.playOnAwake = false;
+            i.source.outputAudioMixerGroup = MyMixerGroup;
         }
 
     }
