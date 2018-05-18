@@ -14,6 +14,9 @@ public class Options : MonoBehaviour
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Button saveButton;
+    [SerializeField] audioMixerController mixer;
+
+    float volumeValue = 40f;
     
     List<Resolution> resolutions = new List<Resolution>();
 
@@ -22,7 +25,7 @@ public class Options : MonoBehaviour
     GamePadState[] states = new GamePadState[4];
 
 
-    void Awake ()
+    void Start ()
     {
         singleton = Singleton.instance;
 
@@ -128,7 +131,7 @@ public class Options : MonoBehaviour
 
     public void ChangeMaster()
     {
-        // CODE FOR SETTING MASTER BUS VOLUME
+        mixer.SFX.audioMixer.SetFloat("MasterVolume", masterSlider.value * volumeValue - volumeValue);
 
         saveButton.gameObject.SetActive(true);
     }
@@ -136,7 +139,7 @@ public class Options : MonoBehaviour
 
     public void ChangeSfx()
     {
-        // CODE FOR SETTING SFX BUS VOLUME
+        mixer.SFX.audioMixer.SetFloat("SFXVolume", sfxSlider.value * volumeValue - volumeValue);
 
         saveButton.gameObject.SetActive(true);
     }
@@ -144,7 +147,7 @@ public class Options : MonoBehaviour
 
     public void ChangeMusic()
     {
-        // CODE FOR SETTING MUSIC BUS VOLUME
+        mixer.SFX.audioMixer.SetFloat("MusicVolume", musicSlider.value * volumeValue - volumeValue);
 
         saveButton.gameObject.SetActive(true);
     }
@@ -156,7 +159,9 @@ public class Options : MonoBehaviour
         {
             Screen.SetResolution(resolutions[singleton.resIndex].width, resolutions[singleton.resIndex].height, singleton.fullscreen);
             QualitySettings.SetQualityLevel(qualityDropdown.value, true);
-            // CODE FOR SETTING BUS VOLUME
+            mixer.SFX.audioMixer.SetFloat("MasterVolume", singleton.masterVol * volumeValue - volumeValue);
+            mixer.SFX.audioMixer.SetFloat("SFXVolume", singleton.sfxVol * volumeValue - volumeValue);
+            mixer.SFX.audioMixer.SetFloat("MusicVolume", singleton.musicVol * volumeValue - volumeValue);
 
             int index = resolutions.FindIndex(x => x.height == resolutions[singleton.resIndex].height && x.width == resolutions[singleton.resIndex].width);
             resDropdown.value = index;
@@ -175,6 +180,9 @@ public class Options : MonoBehaviour
             resDropdown.value = index;
             qualityDropdown.value = QualitySettings.GetQualityLevel();
             fullScrToggle.isOn = Screen.fullScreen;
+            mixer.SFX.audioMixer.SetFloat("MasterVolume", masterSlider.value * volumeValue - volumeValue);
+            mixer.SFX.audioMixer.SetFloat("SFXVolume", sfxSlider.value * volumeValue - volumeValue);
+            mixer.SFX.audioMixer.SetFloat("MusicVolume", musicSlider.value * volumeValue - volumeValue);
 
             qualityDropdown.RefreshShownValue();
             resDropdown.RefreshShownValue();
