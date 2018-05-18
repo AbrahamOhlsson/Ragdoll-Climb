@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using XInputDotNetPure;
 
 public class Options : MonoBehaviour
 {
+    public AudioMixerGroup master;
+    public AudioMixerGroup sfx;
+    public AudioMixerGroup music;
+
+    [SerializeField] Transform optionsGroup;
     [SerializeField] Dropdown qualityDropdown;
     [SerializeField] Dropdown resDropdown;
     [SerializeField] Toggle fullScrToggle;
@@ -14,18 +20,20 @@ public class Options : MonoBehaviour
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider musicSlider;
     [SerializeField] Button saveButton;
+
+    float volumeValue = 40f;
     
     List<Resolution> resolutions = new List<Resolution>();
-
+    
     Singleton singleton;
 
     GamePadState[] states = new GamePadState[4];
 
 
-    void Awake ()
+    void Start ()
     {
         singleton = Singleton.instance;
-
+        
         Resolution res1 = new Resolution();
         res1.width = 1920;
         res1.height = 1080;
@@ -97,7 +105,7 @@ public class Options : MonoBehaviour
 
         saveButton.gameObject.SetActive(false);
 
-        EventSystem.current.SetSelectedGameObject(GetComponentInChildren<Selectable>().gameObject);
+        EventSystem.current.SetSelectedGameObject(optionsGroup.GetComponentInChildren<Selectable>().gameObject);
     }
 
 
@@ -128,7 +136,7 @@ public class Options : MonoBehaviour
 
     public void ChangeMaster()
     {
-        // CODE FOR SETTING MASTER BUS VOLUME
+        master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(masterSlider.value));
 
         saveButton.gameObject.SetActive(true);
     }
@@ -136,7 +144,7 @@ public class Options : MonoBehaviour
 
     public void ChangeSfx()
     {
-        // CODE FOR SETTING SFX BUS VOLUME
+        sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(sfxSlider.value));
 
         saveButton.gameObject.SetActive(true);
     }
@@ -144,7 +152,7 @@ public class Options : MonoBehaviour
 
     public void ChangeMusic()
     {
-        // CODE FOR SETTING MUSIC BUS VOLUME
+        music.audioMixer.SetFloat("MusicVolume", CalculateMixerVol(musicSlider.value));
 
         saveButton.gameObject.SetActive(true);
     }
@@ -156,7 +164,9 @@ public class Options : MonoBehaviour
         {
             Screen.SetResolution(resolutions[singleton.resIndex].width, resolutions[singleton.resIndex].height, singleton.fullscreen);
             QualitySettings.SetQualityLevel(qualityDropdown.value, true);
-            // CODE FOR SETTING BUS VOLUME
+            master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(singleton.masterVol));
+            sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(singleton.sfxVol));
+            music.audioMixer.SetFloat("MusicVolume", CalculateMixerVol(singleton.musicVol));
 
             int index = resolutions.FindIndex(x => x.height == resolutions[singleton.resIndex].height && x.width == resolutions[singleton.resIndex].width);
             resDropdown.value = index;
@@ -175,9 +185,21 @@ public class Options : MonoBehaviour
             resDropdown.value = index;
             qualityDropdown.value = QualitySettings.GetQualityLevel();
             fullScrToggle.isOn = Screen.fullScreen;
+            master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(masterSlider.value));
+            sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(sfxSlider.value));
+            music.audioMixer.SetFloat("MusicVolume", CalculateMixerVol(musicSlider.value));
 
             qualityDropdown.RefreshShownValue();
             resDropdown.RefreshShownValue();
         }
+    }
+
+
+    float CalculateMixerVol(float value)
+    {
+        if (value == 0f)
+            return -80f;
+        else
+            return value * volumeValue - volumeValue;
     }
 }
