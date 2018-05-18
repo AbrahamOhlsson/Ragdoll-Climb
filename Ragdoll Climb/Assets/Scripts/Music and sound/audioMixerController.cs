@@ -22,6 +22,8 @@ public class audioMixerController : MonoBehaviour {
 	void Update () {
 
         SFX.audioMixer.SetFloat("SFXVolume", -5f);
+
+       // SFX.mu
         //  print(getMixerValue(SFX.audioMixer, "SFXVolume"));
 	}
 

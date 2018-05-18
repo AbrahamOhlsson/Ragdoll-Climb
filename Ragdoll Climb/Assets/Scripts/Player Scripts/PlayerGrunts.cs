@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerGrunts : MonoBehaviour {
 
+    public AudioMixerGroup MyMixerGroup;
     [SerializeField] Sound[] Grunts;
     [HideInInspector] public List <AudioSource> GruntsList;
 
     [SerializeField] float gruntDelay;
     float cdTime;
     bool canGrunt;
+   
 
     // Use this for initialization
     void Awake()
@@ -22,6 +25,7 @@ public class PlayerGrunts : MonoBehaviour {
             i.source.volume = i.volume;
             i.source.pitch = i.pitch;
             i.source.playOnAwake = false;
+            i.source.outputAudioMixerGroup = MyMixerGroup;
 
             GruntsList.Add(i.source);
         }
