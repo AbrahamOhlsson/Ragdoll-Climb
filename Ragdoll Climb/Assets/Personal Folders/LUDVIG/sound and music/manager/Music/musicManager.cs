@@ -117,7 +117,7 @@ public class musicManager : MonoBehaviour
 
                 if (endBlockTransform == null)
                 {
-                    endBlockTransform = GameObject.Find("EndModule(Clone)").transform;
+                    endBlockTransform = GameObject.Find("End Module").transform;
                 }
 
                 if (bottomTransform == null)
