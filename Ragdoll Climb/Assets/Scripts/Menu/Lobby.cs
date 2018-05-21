@@ -34,6 +34,8 @@ public class Lobby : MonoBehaviour
 
     [SerializeField] EventSystem eventSystem;
 
+    bool canControl = true;
+
     bool allReady = false;
 
     bool[] colorTaken;
@@ -83,8 +85,7 @@ public class Lobby : MonoBehaviour
             for (int i = 0; i < playerIndexes.Count; i++)
             {
                 colorIndexAssigned = singleton.colorindex;
-                colors[colorIndexAssigned[i]] = singleton.colors[i];
-                characterIndexAssigned[i] =  singleton.characterIndex[i];
+                characterIndexAssigned[i] = singleton.characterIndex[i];
                 colorTaken[colorIndexAssigned[i]] = true;
 
                 // Destroys last model
@@ -119,155 +120,157 @@ public class Lobby : MonoBehaviour
 	
     void Update ()
     {
-		for (int i = 0; i < states_nonSpec.Length; i++)
+        if (canControl)
         {
-            prevStates_nonSpec[i] = states_nonSpec[i];
-            states_nonSpec[i] = GamePad.GetState((PlayerIndex)i);
-
-            // If an unjoined player presses Start
-            if (states_nonSpec[i].Buttons.Start == ButtonState.Pressed && !playerIndexes.Contains((PlayerIndex)i))
+            for (int i = 0; i < states_nonSpec.Length; i++)
             {
-                // Adds controller index to list of joined player indexes
-                playerIndexes.Add((PlayerIndex)i);
-                int addedIndex = playerIndexes.Count - 1;
+                prevStates_nonSpec[i] = states_nonSpec[i];
+                states_nonSpec[i] = GamePad.GetState((PlayerIndex)i);
 
-                // In case players were ready when a new joined
-                allReady = false;
-                continueButton.SetActive(false);
-
-                // Swaps instructions
-                joinTexts[addedIndex].SetActive(false);
-                //checkBoxes[addedIndex].SetActive(true);
-                instructions[addedIndex].SetActive(true);
-
-                int colorIndex = 0;
-
-                // Searches for an available color
-                for (int j = 0; j < colorTaken.Length; j++)
+                // If an unjoined player presses Start
+                if (states_nonSpec[i].Buttons.Start == ButtonState.Pressed && !playerIndexes.Contains((PlayerIndex)i))
                 {
-                    if (!colorTaken[j])
-                    {
-                        colorIndex = j;
-                        colorIndexAssigned[addedIndex] = j;
-                        colorTaken[j] = true;
-                        break;
-                    }
-                }
-                
-                // Recolors character meshes to the found available color
-                for (int j = 0; j < playerRenderers[addedIndex].Count; j++)
-                {
-                    playerRenderers[addedIndex][j].material.color = colors[colorIndex];
-                }
+                    // Adds controller index to list of joined player indexes
+                    playerIndexes.Add((PlayerIndex)i);
+                    int addedIndex = playerIndexes.Count - 1;
 
-                Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
-                joinedPlayerImg[addedIndex].color = uiColor;
-                playerSlotImg[addedIndex].color = uiColor;
-                readyBoxImg[addedIndex].color = uiColor;
-
-                playerModels[addedIndex].SetActive(true);
-            }
-        }
-
-        // Input from joines players
-        for (int i = 0; i < playerIndexes.Count; i++)
-        {
-            prevState[i] = state[i];
-            state[i] = GamePad.GetState(playerIndexes[i]);
-
-            // Rotation of character
-            playerModels[i].transform.Rotate(new Vector3(0f, state[i].ThumbSticks.Right.X, 0f) * rotateSpeed * Time.deltaTime);
-
-            // Switching of color and character
-            if (!playersReady[i])
-            {
-                // Up on stick or D-pad
-                if ((state[i].ThumbSticks.Left.Y >= 0.3f && prevState[i].ThumbSticks.Left.Y < 0.3f) || (state[i].DPad.Up == ButtonState.Pressed && prevState[i].DPad.Up == ButtonState.Released))
-                {
-                    SwitchColor(i, true);
-                }
-                // Down on stick or D-pad
-                else if ((state[i].ThumbSticks.Left.Y <= -0.3f && prevState[i].ThumbSticks.Left.Y > -0.3f) || (state[i].DPad.Down == ButtonState.Pressed && prevState[i].DPad.Down == ButtonState.Released))
-                {
-                    SwitchColor(i, false);
-                }
-                // Right on stick or D-pad
-                else if ((state[i].ThumbSticks.Left.X >= 0.3f && prevState[i].ThumbSticks.Left.X < 0.3f) || (state[i].DPad.Right == ButtonState.Pressed && prevState[i].DPad.Right == ButtonState.Released))
-                {
-                    SwitchCharacter(i, true);
-                }
-                // Left on stick or D-pad
-                else if ((state[i].ThumbSticks.Left.X <= -0.3f && prevState[i].ThumbSticks.Left.X > -0.3f) || (state[i].DPad.Left == ButtonState.Pressed && prevState[i].DPad.Left == ButtonState.Released))
-                {
-                    SwitchCharacter(i, false);
-                }
-            }
-            
-            if (state[i].Buttons.A == ButtonState.Pressed && prevState[i].Buttons.A == ButtonState.Released)
-            {
-                // Unreadies player
-                if (playersReady[i])
-                {
-                    playersReady[i] = false;
-                    checkMarkers[i].SetActive(false);
-                    instructions[i].SetActive(true);
-
-                    // Everyone isn't ready anymore in case they were
+                    // In case players were ready when a new joined
                     allReady = false;
                     continueButton.SetActive(false);
-                }
-                // Readies player
-                else
-                {
-                    playersReady[i] = true;
-                    checkMarkers[i].SetActive(true);
-                    instructions[i].SetActive(false);
 
-                    // Checks if the other players are ready too
-                    for (int j = 0; j < playerIndexes.Count; j++)
+                    // Swaps instructions
+                    joinTexts[addedIndex].SetActive(false);
+                    //checkBoxes[addedIndex].SetActive(true);
+                    instructions[addedIndex].SetActive(true);
+
+                    int colorIndex = 0;
+
+                    // Searches for an available color
+                    for (int j = 0; j < colorTaken.Length; j++)
                     {
-                        // Someone wasn't ready, abort check
-                        if (!playersReady[j])
+                        if (!colorTaken[j])
                         {
+                            colorIndex = j;
+                            colorIndexAssigned[addedIndex] = j;
+                            colorTaken[j] = true;
                             break;
                         }
-                        // If the last player is ready and more than two has joined
-                        else if (playersReady[i] && j == playerIndexes.Count - 1 && playerIndexes.Count >= 1)
+                    }
+
+                    // Recolors character meshes to the found available color
+                    for (int j = 0; j < playerRenderers[addedIndex].Count; j++)
+                    {
+                        playerRenderers[addedIndex][j].material.color = colors[colorIndex];
+                    }
+
+                    Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
+                    joinedPlayerImg[addedIndex].color = uiColor;
+                    playerSlotImg[addedIndex].color = uiColor;
+                    readyBoxImg[addedIndex].color = uiColor;
+
+                    playerModels[addedIndex].SetActive(true);
+                }
+            }
+
+            // Input from joines players
+            for (int i = 0; i < playerIndexes.Count; i++)
+            {
+                prevState[i] = state[i];
+                state[i] = GamePad.GetState(playerIndexes[i]);
+
+                // Rotation of character
+                playerModels[i].transform.Rotate(new Vector3(0f, state[i].ThumbSticks.Right.X, 0f) * rotateSpeed * Time.deltaTime);
+
+                // Switching of color and character
+                if (!playersReady[i])
+                {
+                    // Up on stick or D-pad
+                    if ((state[i].ThumbSticks.Left.Y >= 0.3f && prevState[i].ThumbSticks.Left.Y < 0.3f) || (state[i].DPad.Up == ButtonState.Pressed && prevState[i].DPad.Up == ButtonState.Released))
+                    {
+                        SwitchColor(i, true);
+                    }
+                    // Down on stick or D-pad
+                    else if ((state[i].ThumbSticks.Left.Y <= -0.3f && prevState[i].ThumbSticks.Left.Y > -0.3f) || (state[i].DPad.Down == ButtonState.Pressed && prevState[i].DPad.Down == ButtonState.Released))
+                    {
+                        SwitchColor(i, false);
+                    }
+                    // Right on stick or D-pad
+                    else if ((state[i].ThumbSticks.Left.X >= 0.3f && prevState[i].ThumbSticks.Left.X < 0.3f) || (state[i].DPad.Right == ButtonState.Pressed && prevState[i].DPad.Right == ButtonState.Released))
+                    {
+                        SwitchCharacter(i, true);
+                    }
+                    // Left on stick or D-pad
+                    else if ((state[i].ThumbSticks.Left.X <= -0.3f && prevState[i].ThumbSticks.Left.X > -0.3f) || (state[i].DPad.Left == ButtonState.Pressed && prevState[i].DPad.Left == ButtonState.Released))
+                    {
+                        SwitchCharacter(i, false);
+                    }
+                }
+
+                if (state[i].Buttons.A == ButtonState.Pressed && prevState[i].Buttons.A == ButtonState.Released)
+                {
+                    // Unreadies player
+                    if (playersReady[i])
+                    {
+                        playersReady[i] = false;
+                        checkMarkers[i].SetActive(false);
+                        instructions[i].SetActive(true);
+
+                        // Everyone isn't ready anymore in case they were
+                        allReady = false;
+                        continueButton.SetActive(false);
+                    }
+                    // Readies player
+                    else
+                    {
+                        playersReady[i] = true;
+                        checkMarkers[i].SetActive(true);
+                        instructions[i].SetActive(false);
+
+                        // Checks if the other players are ready too
+                        for (int j = 0; j < playerIndexes.Count; j++)
                         {
-                            // Since we got to the last player and he was ready, the check never got aborted which measn the otehrs were ready too
-                            allReady = true;
-                            continueButton.SetActive(true);
+                            // Someone wasn't ready, abort check
+                            if (!playersReady[j])
+                            {
+                                break;
+                            }
+                            // If the last player is ready and more than two has joined
+                            else if (playersReady[i] && j == playerIndexes.Count - 1 && playerIndexes.Count >= 1)
+                            {
+                                // Since we got to the last player and he was ready, the check never got aborted which measn the otehrs were ready too
+                                allReady = true;
+                                continueButton.SetActive(true);
+                            }
                         }
                     }
                 }
-            }
 
-            // Continues if any player presses Start when all are ready
-            if (state[i].Buttons.Start == ButtonState.Pressed && prevState[i].Buttons.Start == ButtonState.Released && allReady)
-            {
-                Continue();
-            }
-        }
-
-        // Blinks join texts
-        if (joinBlinkTimer >= joinBlinkInterval)
-        {
-            for (int i = 0; i < joinTexts.Length; i++)
-            {
-                if (i > playerIndexes.Count - 1)
+                // Continues if any player presses Start when all are ready
+                if (state[i].Buttons.Start == ButtonState.Pressed && prevState[i].Buttons.Start == ButtonState.Released && allReady)
                 {
-                    if (joinTexts[i].transform.GetChild(0).gameObject.activeSelf)
-                        joinTexts[i].transform.GetChild(0).gameObject.SetActive(false);
-                    else
-                        joinTexts[i].transform.GetChild(0).gameObject.SetActive(true);
+                    Continue();
                 }
             }
 
-            joinBlinkTimer = 0;
-        }
-        else
-            joinBlinkTimer += Time.deltaTime;
+            // Blinks join texts
+            if (joinBlinkTimer >= joinBlinkInterval)
+            {
+                for (int i = 0; i < joinTexts.Length; i++)
+                {
+                    if (i > playerIndexes.Count - 1)
+                    {
+                        if (joinTexts[i].transform.GetChild(0).gameObject.activeSelf)
+                            joinTexts[i].transform.GetChild(0).gameObject.SetActive(false);
+                        else
+                            joinTexts[i].transform.GetChild(0).gameObject.SetActive(true);
+                    }
+                }
 
+                joinBlinkTimer = 0;
+            }
+            else
+                joinBlinkTimer += Time.deltaTime;
+        }
 	}
 
 
@@ -377,7 +380,7 @@ public class Lobby : MonoBehaviour
         // Stores selected colors and characters of all players
         for (int i = 0; i < 4; i++)
         {
-            singleton.colorindex = colorIndexAssigned;
+            singleton.colorindex[i] = colorIndexAssigned[i];
             singleton.colors[i] = colors[colorIndexAssigned[i]];
             singleton.characterIndex[i] = characterIndexAssigned[i];
         }
@@ -403,6 +406,8 @@ public class Lobby : MonoBehaviour
 		}
 		continueButton.SetActive(false);
 		allReady = false;
+
+        canControl = false;
 	}
 
     
@@ -458,5 +463,10 @@ public class Lobby : MonoBehaviour
         allReady = false;
 
         eventSystem.SetSelectedGameObject(null);
+    }
+
+    private void OnEnable()
+    {
+        canControl = true;
     }
 }
