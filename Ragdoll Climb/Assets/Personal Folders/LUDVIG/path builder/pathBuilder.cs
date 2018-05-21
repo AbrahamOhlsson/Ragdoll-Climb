@@ -88,9 +88,12 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().blockList.Count;
 
+                GameObject endblock = FindObjectOfType<pathController>().endBox;
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
-
+                GameObject endblockTEST = Instantiate(endblock, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
+                print(endblockTEST.name);
+                endblockTEST.name = "End Module";
+                print(endblockTEST.name);
             }
         }
 
@@ -138,8 +141,12 @@ public class pathBuilder : MonoBehaviour {
                 FindObjectOfType<pathController>().currentBlock++;
 
                 int listsize = FindObjectOfType<pathController>().blockList.Count;
+                GameObject endblock = FindObjectOfType<pathController>().endBox;
 
-                Instantiate(FindObjectOfType<pathController>().endBox, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
+                GameObject endblockTEST = Instantiate(endblock, new Vector3(((transform.position.x - (transform.localScale.x / 2)) + 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
+                print(endblockTEST.name);
+                endblockTEST.name = "End Module";
+                print(endblockTEST.name);
 
             }
         }
@@ -189,9 +196,10 @@ public class pathBuilder : MonoBehaviour {
 
                 int listsize = FindObjectOfType<pathController>().blockList.Count;
 				GameObject endblock = FindObjectOfType<pathController>().endBox;
-				endblock = Instantiate(endblock, new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation); 
-
-				endblock.name = "End Module";
+                GameObject endblockTEST = Instantiate(endblock, new Vector3(((transform.position.x + (transform.localScale.x / 2)) - 5), transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
+                print(endblockTEST.name);
+                endblockTEST.name = "End Module";
+                print(endblockTEST.name);
 
             }
         }
