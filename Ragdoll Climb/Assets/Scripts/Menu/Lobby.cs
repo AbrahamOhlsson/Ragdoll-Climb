@@ -395,7 +395,7 @@ public class Lobby : MonoBehaviour
 		menuManager.OpenMenuGroup(nextGroup);
 
         // Resets the ready values in case the players would return from next menu group
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < playerIndexes.Count; i++)
 		{
 			checkMarkers[i].SetActive(false);
             instructions[i].SetActive(true);
