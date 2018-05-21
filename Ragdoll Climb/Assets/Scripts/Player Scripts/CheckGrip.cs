@@ -127,7 +127,7 @@ public class CheckGrip : MonoBehaviour
             controller.ReleaseGrip(leftHand, false);
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall" || other.tag == "LavaRock")
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
         }
@@ -141,7 +141,7 @@ public class CheckGrip : MonoBehaviour
             nearBottomObj = false;
         }
 
-        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall")
+        if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall" || other.tag == "LavaRock")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
             DetermineObjectToGrab();
@@ -180,6 +180,7 @@ public class CheckGrip : MonoBehaviour
         Rigidbody lastElectric = new Rigidbody();
         Rigidbody lastLava = new Rigidbody();
         Rigidbody lastBreaking = new Rigidbody();
+        Rigidbody lastLavaRock = new Rigidbody();
         Rigidbody lastWall = new Rigidbody();
         
         bool foundThrowable = false;
@@ -189,6 +190,7 @@ public class CheckGrip : MonoBehaviour
         bool foundElectric = false;
         bool foundLava = false;
         bool foundBreaking = false;
+        bool foundLavaRock = false;
         bool foundWall = false;
 
         // If there is any grabables
@@ -245,6 +247,11 @@ public class CheckGrip : MonoBehaviour
                     lastThrowable = grabablesInReach[i];
                     foundThrowable = true;
                 }
+                else if (tag == "LavaRock")
+                {
+                    lastLavaRock = grabablesInReach[i];
+                    foundLavaRock = true;
+                }
                
             }
 
@@ -295,11 +302,16 @@ public class CheckGrip : MonoBehaviour
                 if (currentGripping == tempRb)
                     StopAnim();
             }
+            else if (foundLavaRock)
+            {
+                currentGripable = lastLavaRock;
+                PlayGrabableAnim();
+            }
             else if (foundLava)
             {
                 currentGripable = lastLava;
 
-                if (lastLava == tempRb)
+                if (currentGripping == tempRb)
                     StopAnim();
             }
 
@@ -498,6 +510,6 @@ public class CheckGrip : MonoBehaviour
         if (grabablesInReach.Exists(x => x == rb))
             grabablesInReach.Remove(rb);
         else
-            Debug.Log("The rigidbody whose GameObject called " + rb.gameObject.name + " doesn't exist in the list grabablesInReach!");
+            Debug.LogWarning("The rigidbody whose GameObject called " + rb.gameObject.name + " doesn't exist in the list grabablesInReach!");
     }
 }
