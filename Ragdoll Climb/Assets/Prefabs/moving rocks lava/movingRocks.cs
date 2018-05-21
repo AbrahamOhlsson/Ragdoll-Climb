@@ -29,7 +29,7 @@ public class movingRocks : MonoBehaviour {
 
         if (transform.position.y > botomObj.transform.position.y)
         {
-            transform.tag = "Grabable";
+            transform.tag = "LavaRock";
             loseGrip = false;
         }
 
