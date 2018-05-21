@@ -35,9 +35,7 @@ public class GorillaThrow : MonoBehaviour
 	void Start ()
     {
         smoke = GetComponent<ParticleSystem>();
-        stars = GetComponentInChildren<ParticleSystem>();
-
-        lerpPos = new Vector3(smoke.transform.position.x - smoke.shape.position.y, smoke.transform.position.y + smoke.shape.position.z, 0f);
+        stars = GetComponentInChildren<ParticleSystem>(); 
 	}
 
 	// Update is called once per frame
@@ -104,6 +102,8 @@ public class GorillaThrow : MonoBehaviour
         //Get the player referens.
         if (other.gameObject.CompareTag("Player") && !playerCollision && !inactive)
         {
+            lerpPos = new Vector3(smoke.transform.position.x - smoke.shape.position.y, smoke.transform.position.y + smoke.shape.position.z, 0f);
+
             bodyParts = other.transform.root.GetComponentsInChildren<Rigidbody>();
             smoke.Play();
             stars.Play();
