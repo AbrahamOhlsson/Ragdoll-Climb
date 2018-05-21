@@ -23,13 +23,11 @@ public class movingRocks : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        print(tag);
-
         transform.position = transform.position + ((-Vector3.up * fallSpeed) * Time.deltaTime);
 
         if (transform.position.y > botomObj.transform.position.y)
         {
-            transform.tag = "Grabable";
+            transform.tag = "LavaRock";
             loseGrip = false;
         }
 
