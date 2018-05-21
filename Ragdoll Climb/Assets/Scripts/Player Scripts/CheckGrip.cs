@@ -131,6 +131,12 @@ public class CheckGrip : MonoBehaviour
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
         }
+
+        if (currentGripping != tempRb && currentGripping.tag == "LavaRock" && other.tag == "Wall")
+        {
+            controller.ReleaseGrip(leftHand, false);
+            DetermineObjectToGrab();
+        }
     }
 
 
@@ -150,6 +156,7 @@ public class CheckGrip : MonoBehaviour
         if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
         {
             controller.ReleaseGrip(leftHand, false);
+            DetermineObjectToGrab();
         }
     }
     
@@ -160,7 +167,7 @@ public class CheckGrip : MonoBehaviour
         {
             //Debug.LogWarning("TIME TO CHECK");
 
-            if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall")
+            if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall" || other.tag == "LavaRock")
             {
                 grabablesInReach.Add(other.GetComponent<Rigidbody>());
             }
@@ -386,6 +393,9 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
+            foreach (Rigidbody rb in grabablesInReach)
+                if (rb.tag == "Wall") print(currentGripable);
+
             if (currentGripable.tag != "Electric" && currentGripable.tag != "LavaWall" && currentGripable != tempRb)
             {
                 // If a slippery wall was grabbed, the slippery child object will now move down

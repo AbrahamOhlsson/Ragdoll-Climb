@@ -91,9 +91,7 @@ public class pathBuilder : MonoBehaviour {
                 GameObject endblock = FindObjectOfType<pathController>().endBox;
 
                 GameObject endblockTEST = Instantiate(endblock, new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), startBoxZpos), transform.rotation);
-                print(endblockTEST.name);
                 endblockTEST.name = "End Module";
-                print(endblockTEST.name);
             }
         }
 

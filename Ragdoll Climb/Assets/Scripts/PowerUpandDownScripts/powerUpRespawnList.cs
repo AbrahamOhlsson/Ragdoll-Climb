@@ -53,7 +53,6 @@ public class powerUpRespawnList : MonoBehaviour
         {
             if (startInt == 0)
             {
-                print("first spawn first list count = " + firstPowerUpList.Count);
                 GameObject newObj = firstPowerUpList[Random.Range(0, firstPowerUpList.Count)];
                 if (newObj.GetComponent<LowerMass>() == null)
                 {
@@ -71,7 +70,6 @@ public class powerUpRespawnList : MonoBehaviour
             }
             if (startInt == 1)
             {
-                print("first spawn good list count = " + goodPowerUpList.Count);
                 GameObject newObj = goodPowerUpList[Random.Range(0, goodPowerUpList.Count)];
                 if (newObj.GetComponent<LowerMass>() == null)
                 {
@@ -118,7 +116,6 @@ public class powerUpRespawnList : MonoBehaviour
 
             if (cooldownTime <= 0)
             {
-                Debug.Log("Touched = true");
                 GameObject newObj = goodPowerUpList[Random.Range(0, goodPowerUpList.Count)];
                 if (newObj.GetComponent<LowerMass>() == null)
                 {
@@ -150,7 +147,6 @@ public class powerUpRespawnList : MonoBehaviour
             if (player.tag == "Player")
             {
                 TEXT = Instantiate(contdownText);
-                Debug.Log("collision!");
                 touched = true;
             }
         }
