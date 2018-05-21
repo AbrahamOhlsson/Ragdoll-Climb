@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114346585920679698}
   - component: {fileID: 23416820209948970}
   - component: {fileID: 54531984473266128}
-  - component: {fileID: 65738451568871920}
   - component: {fileID: 114778733949149422}
   m_Layer: 0
   m_Name: Nail
@@ -101,18 +100,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!65 &65738451568871920
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1608108715298916}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.151746, y: 8.0001, z: 3.5955164}
-  m_Center: {x: -1, y: -2.0000505, z: 0}
 --- !u!114 &114346585920679698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,7 +113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ropeRb: {fileID: 0}
   breakingSurface: {fileID: 0}
-  nailForce: -3
 --- !u!114 &114778733949149422
 MonoBehaviour:
   m_ObjectHideFlags: 1
