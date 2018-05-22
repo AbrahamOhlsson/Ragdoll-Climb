@@ -94,6 +94,15 @@ public class SingleLevelSelection : MonoBehaviour
         singleton.currSpWorld = levelButtonScript.world;
         singleton.mode = Singleton.Modes.Single;
 
+        if (singleton.currSpWorld == "woods")
+            singleton.currLevelStats = singleton.levelStats_woods[singleton.currSpLevelIndex];
+        else if (singleton.currSpWorld == "ice")
+            singleton.currLevelStats = singleton.levelStats_ice[singleton.currSpLevelIndex];
+        else if (singleton.currSpWorld == "lava")
+            singleton.currLevelStats = singleton.levelStats_volcano[singleton.currSpLevelIndex];
+        else if (singleton.currSpWorld == "metal")
+            singleton.currLevelStats = singleton.levelStats_metal[singleton.currSpLevelIndex];
+
         loader.LoadLevelAsync(levelName);
     }
 }

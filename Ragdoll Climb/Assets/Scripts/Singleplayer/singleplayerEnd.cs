@@ -12,6 +12,8 @@ public class singleplayerEnd : MonoBehaviour
     string world = "";
     int levelIndex = 0;
 
+    SP_ResultsMenu resultsMenu;
+
     Singleton singleton;
 
 
@@ -19,15 +21,19 @@ public class singleplayerEnd : MonoBehaviour
     {
         singleton = Singleton.instance;
 
+        resultsMenu = GameObject.Find("SP Results Canvas").GetComponent<SP_ResultsMenu>();
+
         world = singleton.currSpWorld;
         levelIndex = singleton.currSpLevelIndex;
 
         if (world == "ice")
             levelStats = singleton.levelStats_ice;
-        else if (world == "volcano")
+        else if (world == "lava")
             levelStats = singleton.levelStats_volcano;
         else if (world == "woods")
             levelStats = singleton.levelStats_woods;
+        else if (world == "metal")
+            levelStats = singleton.levelStats_metal;
     }
 
     void OnTriggerEnter(Collider other)
@@ -55,17 +61,20 @@ public class singleplayerEnd : MonoBehaviour
                 levelStats[singleton.currSpLevelIndex].starAmount = Player.GetComponent<singleplayerInfo>().stars;
             }
 
-            if (Player.GetComponent<singleplayerInfo>().lvlTime - myTime < personalBestTime)
+            if (Player.GetComponent<singleplayerInfo>().playtime < personalBestTime)
             {
-                levelStats[levelIndex].bestTime_flt = Player.GetComponent<singleplayerInfo>().lvlTime - myTime;
-                levelStats[levelIndex].bestTime_str = (Player.GetComponent<singleplayerInfo>().lvlTime - myTime).ToString();
+                levelStats[levelIndex].bestTime_flt = Player.GetComponent<singleplayerInfo>().playtime;
+                levelStats[levelIndex].bestTime_str = (Player.GetComponent<singleplayerInfo>().playtime).ToString();
             }
 
             Cursor.visible = true;
 
             //save data and end lvl
-            Singleton.instance.Save();
-            SceneManager.LoadScene("Ice Menu");
+            singleton.Save();
+            //SceneManager.LoadScene("Ice Menu");
+            resultsMenu.Activate(Player.GetComponent<singleplayerInfo>());
+
+            Player.SetActive(false);
         }
     }
 }

@@ -51,6 +51,7 @@ public class Singleton : MonoBehaviour
     // Singleplayer
     public int currSpLevelIndex = 0;
     public string currSpWorld = "NULL";
+    public SP_LevelStats currLevelStats;
     public List<SP_LevelStats> levelStats_ice = new List<SP_LevelStats>();
     public List<SP_LevelStats> levelStats_volcano = new List<SP_LevelStats>();
     public List<SP_LevelStats> levelStats_woods = new List<SP_LevelStats>();
