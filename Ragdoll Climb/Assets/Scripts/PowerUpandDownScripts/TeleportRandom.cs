@@ -7,25 +7,27 @@ public class TeleportRandom : MonoBehaviour
     GameObject PlayerTP;
     public GameObject particleSys;
 
-    Vector3 teleportPos = Vector3.zero;
+   Vector3 teleportPos = Vector3.zero;
     
     [SerializeField]
     float sphereRadius;
 
     int layerMask = 1 << 20;
+    Collider[] teleportPoints;
 
     private void Start()
     {
-        Collider[] teleportPoints = Physics.OverlapSphere(transform.position, sphereRadius, layerMask, QueryTriggerInteraction.Collide);
+        teleportPoints = Physics.OverlapSphere(transform.position, sphereRadius, layerMask, QueryTriggerInteraction.Collide);
 
-        print(teleportPoints.Length);
-        teleportPos = teleportPoints[Random.Range(0, teleportPoints.Length)].transform.position;
+        //print(teleportPoints.Length);
+        //teleportPos = teleportPoints[Random.Range(0, teleportPoints.Length)].transform.position;
     }
 
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
+            
             if (other.transform.root.GetComponent<PlayerInfo>().solid)
             {
                 PlayerTP = other.transform.root.gameObject;
@@ -39,6 +41,8 @@ public class TeleportRandom : MonoBehaviour
 
     void GetTeleportPosition()
     {
+        teleportPos = teleportPoints[Random.Range(0, teleportPoints.Length)].transform.position;
+
         if (teleportPos != Vector3.zero)
         {
             PlayerTP.GetComponent<PlayerPowerups>().StartTeleport(teleportPos);
