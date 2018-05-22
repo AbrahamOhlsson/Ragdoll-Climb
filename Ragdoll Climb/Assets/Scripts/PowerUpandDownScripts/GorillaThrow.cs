@@ -118,7 +118,7 @@ public class GorillaThrow : MonoBehaviour
             //Looking for the bodypart "Spine1_M" and then set its posision.
             for (int i = 0; i < bodyParts.Length; i++)
             {
-                if (bodyParts[i].name == "Spine1_M")
+                if (bodyParts[i].name == "Spine1_M" || bodyParts[i].name == "spine")
                 {
                     playerForce = bodyParts[i];
                     lerpPos.z = playerForce.position.z;
@@ -133,6 +133,7 @@ public class GorillaThrow : MonoBehaviour
 
             if (name.Contains("Gorilla"))
             {
+                //
                 playerForce.transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("is being wrecked by a gorilla!");
             }
             else if (name.Contains("Cement"))
