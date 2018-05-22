@@ -73,6 +73,7 @@ public class PlayerPowerups : MonoBehaviour
 
         //Rigidbodies = GetComponentsInChildren<Rigidbody>();
 
+        
         GetComponent<PlayerController>().ReleaseGrip(true, false);
         GetComponent<PlayerController>().ReleaseGrip(false, false);
         GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();
