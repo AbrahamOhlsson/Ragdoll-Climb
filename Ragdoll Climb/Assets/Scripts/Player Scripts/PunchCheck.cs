@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PunchCheck : MonoBehaviour
 {
@@ -31,12 +32,20 @@ public class PunchCheck : MonoBehaviour
 
     AudioSource source;
 
+    public AudioMixerGroup myMixGroup;
 
-	void Start ()
+    public AudioMixer mixer;
+     
+   
+    void Start ()
     {
-        // Gets references
+       // mixer = Resources.Load("TEST") as AudioMixer;
+       
         controller = transform.root.GetComponent<PlayerController>();
         source = transform.root.GetComponent<AudioSource>();
+        //print(mixer.name + " test namn");
+        //source.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
+        
     }
 
 

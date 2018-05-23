@@ -12,7 +12,6 @@ public class PauseMenuManager : MonoBehaviour
     [SerializeField] GameObject howToPlayGroup;
     [SerializeField] GameObject optionsGroup;
     [SerializeField] GameObject quitGroup;
-    [SerializeField] LevelLoader loadingScreen;
 
     [SerializeField] EventSystem eventSystem;
 
@@ -20,6 +19,8 @@ public class PauseMenuManager : MonoBehaviour
 
     // The path of the navigation of the menu
     Stack<MenuGroup> groupPath = new Stack<MenuGroup>();
+
+    LevelLoader loadingScreen;
 
     PlayerIndex[] playerIndexes = new PlayerIndex[4];
     GamePadState[] states = new GamePadState[4];
@@ -44,6 +45,8 @@ public class PauseMenuManager : MonoBehaviour
         playerIndexes[1] = PlayerIndex.Two;
         playerIndexes[2] = PlayerIndex.Three;
         playerIndexes[3] = PlayerIndex.Four;
+
+        loadingScreen = GameObject.Find("Loading Screen Canvas").GetComponent<LevelLoader>();
     }
 
 

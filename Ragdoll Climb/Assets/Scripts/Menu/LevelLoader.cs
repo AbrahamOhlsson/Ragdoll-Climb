@@ -62,6 +62,8 @@ public class LevelLoader : MonoBehaviour
     // Loads level asyncroniously and manages loading sreen
     IEnumerator LoadAsync(string levelName)
     {
+        Time.timeScale = 1f;
+
         yield return new WaitForSeconds(0.2f);
 
         operation = SceneManager.LoadSceneAsync(levelName);

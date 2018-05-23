@@ -24,7 +24,7 @@ public class powerUpRespawnList : MonoBehaviour
     bool moving;
     [SerializeField]
     private float rotateSpeed = 15.0f;
-    [SerializeField]
+    //[SerializeField]
     private float floatLength = 0.3f;
     [SerializeField]
     private float floatSpeed = 1f;
@@ -41,6 +41,8 @@ public class powerUpRespawnList : MonoBehaviour
         startInt = Random.Range(0, 2);
         cooldownTime = cooldown;
         firstSpawn = true;
+
+        floatLength = 0;
 
         cdInt = 0;
 
