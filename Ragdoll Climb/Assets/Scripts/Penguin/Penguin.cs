@@ -121,7 +121,10 @@ public class Penguin : MonoBehaviour
                         body.GetComponent<Rigidbody>().AddForce(dir * launchForce);
 
                         launchAngleX = CalculateLaunchAngle(playerTarget);
-                        
+
+                        // Deactivates crosshair
+                        playerTarget.GetChild(1).gameObject.SetActive(false);
+
                         state = PenguinStates.Launched;
                     }
 
@@ -141,6 +144,8 @@ public class Penguin : MonoBehaviour
         state = PenguinStates.GoToDoor;
 
         playerTarget = _playerTarget;
+        // Activates crosshair
+        playerTarget.GetChild(1).gameObject.SetActive(true);
 
         anim.CrossFade("walk", 2f);
     }
