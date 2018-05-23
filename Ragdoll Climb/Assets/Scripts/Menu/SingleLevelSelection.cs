@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SingleLevelSelection : MonoBehaviour
 {
@@ -9,19 +10,23 @@ public class SingleLevelSelection : MonoBehaviour
     [SerializeField] Transform levelBtnGroup_volcano;
     [SerializeField] Transform levelBtnGroup_woods;
     [SerializeField] Transform levelBtnGroup_metal;
+    [Space]
+    [SerializeField] Text levelNameTxt;
+    [SerializeField] Text bestTimeTxt;
+    [Space]
+    [SerializeField] LevelLoader loader;
 
     SP_LevelButton[] levelButtons_ice;
     SP_LevelButton[] levelButtons_volcano;
     SP_LevelButton[] levelButtons_woods;
     SP_LevelButton[] levelButtons_metal;
 
-    [Space]
-    [SerializeField] LevelLoader loader;
+    bool mouseOverBtn = false;
 
     Singleton singleton;
 
 
-	void Start ()
+	void Awake ()
     {
         singleton = Singleton.instance;
 
@@ -49,6 +54,8 @@ public class SingleLevelSelection : MonoBehaviour
             for (int i = 0; i < levelButtons_metal.Length; i++)
                 singleton.levelStats_metal.Add(new SP_LevelStats());
         }
+        else
+            singleton.Load();
 
         // Adds further level stats objects in lists if there are fewer of them than buttons
         if (singleton.levelStats_ice.Count < levelButtons_ice.Length)
@@ -58,7 +65,7 @@ public class SingleLevelSelection : MonoBehaviour
         }
         if (singleton.levelStats_volcano.Count < levelButtons_volcano.Length)
         {
-            for (int i = singleton.levelStats_ice.Count; i < levelButtons_volcano.Length; i++)
+            for (int i = singleton.levelStats_volcano.Count; i < levelButtons_volcano.Length; i++)
                 singleton.levelStats_volcano.Add(new SP_LevelStats());
         }
         if (singleton.levelStats_woods.Count < levelButtons_woods.Length)
@@ -74,15 +81,24 @@ public class SingleLevelSelection : MonoBehaviour
         
         // Sets button number, star amount and best time to be displayed
         for (int i = 0; i < levelButtons_ice.Length; i++)
-            levelButtons_ice[i].SetButtonValues(singleton.levelStats_ice[i].starAmount, i + 1, singleton.levelStats_ice[i].bestTime_str);
+            levelButtons_ice[i].SetButtonValues(singleton.levelStats_ice[i].starAmount, i + 1, singleton.levelStats_ice[i].bestTime_flt);
         for (int i = 0; i < levelButtons_volcano.Length; i++)
-            levelButtons_volcano[i].SetButtonValues(singleton.levelStats_volcano[i].starAmount, i + 1, singleton.levelStats_volcano[i].bestTime_str);
+            levelButtons_volcano[i].SetButtonValues(singleton.levelStats_volcano[i].starAmount, i + 1, singleton.levelStats_volcano[i].bestTime_flt);
         for (int i = 0; i < levelButtons_woods.Length; i++)
-            levelButtons_woods[i].SetButtonValues(singleton.levelStats_woods[i].starAmount, i + 1, singleton.levelStats_woods[i].bestTime_str);
+            levelButtons_woods[i].SetButtonValues(singleton.levelStats_woods[i].starAmount, i + 1, singleton.levelStats_woods[i].bestTime_flt);
         for (int i = 0; i < levelButtons_metal.Length; i++)
-            levelButtons_metal[i].SetButtonValues(singleton.levelStats_metal[i].starAmount, i + 1, singleton.levelStats_metal[i].bestTime_str);
+            levelButtons_metal[i].SetButtonValues(singleton.levelStats_metal[i].starAmount, i + 1, singleton.levelStats_metal[i].bestTime_flt);
     }
-    
+
+
+    private void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject.GetComponent<SP_LevelButton>())
+        {
+            UpdateLevelInfo(EventSystem.current.currentSelectedGameObject.GetComponent<SP_LevelButton>(), false);
+        }
+    }
+
 
     public void SelectSinglePlayerLevel(SP_LevelButton levelButtonScript)
     {
@@ -104,5 +120,32 @@ public class SingleLevelSelection : MonoBehaviour
             singleton.currLevelStats = singleton.levelStats_metal[singleton.currSpLevelIndex];
 
         loader.LoadLevelAsync(levelName);
+    }
+    
+
+    public void UpdateLevelInfo(SP_LevelButton spButton, bool mouse)
+    {
+        if (!mouseOverBtn)
+        {
+            string levelName = spButton.world + " " + spButton.levelIndex;
+            levelNameTxt.text = levelName.ToUpper();
+
+            if (spButton.bestTime == Mathf.Infinity)
+                bestTimeTxt.text = "No Best Time Yet";
+            else
+                bestTimeTxt.text = "Best Time: " + spButton.bestTime + " sec";
+
+            if (mouse)
+                mouseOverBtn = true;
+        }
+    }
+
+
+    public void ResetLevelInfo()
+    {
+        mouseOverBtn = false;
+
+        levelNameTxt.text = "";
+        bestTimeTxt.text = "";
     }
 }

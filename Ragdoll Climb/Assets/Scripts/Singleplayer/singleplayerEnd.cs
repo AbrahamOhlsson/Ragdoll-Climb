@@ -45,10 +45,8 @@ public class singleplayerEnd : MonoBehaviour
             Player.GetComponent<singleplayerInfo>().onEnd = true;
 
             float myTime = Player.GetComponent<singleplayerInfo>().playtime;
-
-            print("first my time = " + myTime);
+            
             myTime -=  myTime % 0.01f;
-            print("my time = " + myTime);
 
             int personalBestStars = 0;
             float personalBestTime = 0;
@@ -63,7 +61,7 @@ public class singleplayerEnd : MonoBehaviour
 
             if (Player.GetComponent<singleplayerInfo>().playtime < personalBestTime)
             {
-                levelStats[levelIndex].bestTime_flt = Player.GetComponent<singleplayerInfo>().playtime;
+                levelStats[levelIndex].bestTime_flt = (float)System.Math.Round(Player.GetComponent<singleplayerInfo>().playtime, 2);
                 levelStats[levelIndex].bestTime_str = (Player.GetComponent<singleplayerInfo>().playtime).ToString();
             }
 

@@ -32,8 +32,7 @@ public class SP_ResultsMenu : MonoBehaviour
         loader = GameObject.Find("Loading Screen Canvas").GetComponent<LevelLoader>();
 
         string levelName = singleton.currSpWorld + " " + (singleton.currSpLevelIndex + 1);
-        levelName = levelName.ToUpper();
-        levelNameText.text = levelName;
+        levelNameText.text = levelName.ToUpper();
 
         if (singleton.currLevelStats.bestTime_flt == Mathf.Infinity)
         {
@@ -79,6 +78,16 @@ public class SP_ResultsMenu : MonoBehaviour
         string levelName = "SP_level_" + singleton.currSpWorld + (singleton.currSpLevelIndex + 2);
         singleton.selectedLevel = levelName;
         singleton.currSpLevelIndex++;
+
+        if (singleton.currSpWorld == "woods")
+            singleton.currLevelStats = singleton.levelStats_woods[singleton.currSpLevelIndex];
+        else if (singleton.currSpWorld == "ice")
+            singleton.currLevelStats = singleton.levelStats_ice[singleton.currSpLevelIndex];
+        else if (singleton.currSpWorld == "lava")
+            singleton.currLevelStats = singleton.levelStats_volcano[singleton.currSpLevelIndex];
+        else if (singleton.currSpWorld == "metal")
+            singleton.currLevelStats = singleton.levelStats_metal[singleton.currSpLevelIndex];
+
         loader.LoadLevelAsync(levelName);
     }
 
