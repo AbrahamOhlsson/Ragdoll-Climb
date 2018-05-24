@@ -51,7 +51,7 @@ public class PenguinScout : MonoBehaviour
     {
         if (penguin.state == Penguin.PenguinStates.Scout && other.tag == "Player")
         {
-            penguin.PrepareLaunch(other.transform.root.GetComponent<PlayerInfo>().rootObj.transform);
+            penguin.PrepareLaunch(other.transform.root.GetComponent<PlayerInfo>().spine.transform);
 
             mat.color = new Color(1, 0, 0, currAlpha);
         }

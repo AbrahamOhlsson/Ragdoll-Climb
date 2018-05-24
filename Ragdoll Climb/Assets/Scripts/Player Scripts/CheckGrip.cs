@@ -393,9 +393,6 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
-            foreach (Rigidbody rb in grabablesInReach)
-                if (rb.tag == "Wall") print(currentGripable);
-
             if (currentGripable.tag != "Electric" && currentGripable.tag != "LavaWall" && currentGripable != tempRb)
             {
                 // If a slippery wall was grabbed, the slippery child object will now move down

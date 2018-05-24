@@ -20,7 +20,7 @@ public class PlayerInfo : MonoBehaviour
 
     // The "Root_M" object of this player
     internal GameObject rootObj;
-
+    internal GameObject spine;
     internal GameObject leftHand;
     internal GameObject rightHand;
 
@@ -51,6 +51,8 @@ public class PlayerInfo : MonoBehaviour
                 leftHand = limbs[i].gameObject;
             else if ((limbs[i].name.Contains("Wrist") || limbs[i].name.Contains("wrist")) && limbs[i].name.Contains("R"))
                 rightHand = limbs[i].gameObject;
+            else if (limbs[i].name.Contains("Spine") || limbs[i].name.Contains("spine"))
+                spine = limbs[i].gameObject;
 
             standardMasses.Add(limbs[i].mass);
             targetMasses.Add(limbs[i].mass);

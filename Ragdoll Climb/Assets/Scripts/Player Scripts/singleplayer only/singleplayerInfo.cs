@@ -5,20 +5,16 @@ using UnityEngine.UI;
 
 public class singleplayerInfo : MonoBehaviour {
 
-    public int stars;
-    public float playtime;
-    public float lvlTime;
-    public bool onEnd;
+    public int stars = 0;
+    public float playtime = 0f;
+    public bool onEnd = false;
 
     public Text TimerText;
    
 
 	// Use this for initialization
-	void Start () {
-        stars = 0;
-        playtime = lvlTime; // ska vara time från singletonen 
-        onEnd = false;
-       // testSlängSEn = GameObject.Find("Timer");
+	void Start ()
+    {
         TimerText = GameObject.Find("Debug Canvas/Timer").GetComponent<Text>();
 	}
 	
@@ -31,18 +27,9 @@ public class singleplayerInfo : MonoBehaviour {
             TimerText.text = "Time : " + playtime.ToString();
 
 
-        if (!onEnd && playtime>0)
+        if (!onEnd)
         {
-            playtime = playtime - Time.deltaTime;
+            playtime += Time.deltaTime;
         }
-
-
-        if(playtime <= 0)
-        {
-            //gameover and restart(probobly)
-            print(" no more time ");
-
-        }
-
 	}
 }
