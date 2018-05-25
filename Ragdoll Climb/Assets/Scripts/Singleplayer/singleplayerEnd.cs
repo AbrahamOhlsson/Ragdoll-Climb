@@ -56,7 +56,7 @@ public class singleplayerEnd : MonoBehaviour
 
             if(Player.GetComponent<singleplayerInfo>().stars > personalBestStars)
             {
-                levelStats[singleton.currSpLevelIndex].starAmount = Player.GetComponent<singleplayerInfo>().stars;
+                levelStats[levelIndex].starAmount = Player.GetComponent<singleplayerInfo>().stars;
             }
 
             if (Player.GetComponent<singleplayerInfo>().playtime < personalBestTime)
@@ -64,6 +64,8 @@ public class singleplayerEnd : MonoBehaviour
                 levelStats[levelIndex].bestTime_flt = (float)System.Math.Round(Player.GetComponent<singleplayerInfo>().playtime, 2);
                 levelStats[levelIndex].bestTime_str = (Player.GetComponent<singleplayerInfo>().playtime).ToString();
             }
+
+            levelStats[levelIndex].completed = true;
 
             Cursor.visible = true;
 

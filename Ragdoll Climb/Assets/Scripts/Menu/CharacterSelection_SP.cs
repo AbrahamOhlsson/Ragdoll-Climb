@@ -23,6 +23,8 @@ public class CharacterSelection_SP : MonoBehaviour
     [SerializeField] GameObject[] characterModels;
     
     [SerializeField] EventSystem eventSystem;
+
+    internal bool canSwitchCharacter = false;
     
     int colorIndex;
     int characterIndex;
@@ -148,42 +150,45 @@ public class CharacterSelection_SP : MonoBehaviour
     // Switch character model
     private void SwitchCharacter(bool next)
     {
-        // Selects next character in array, if right was pressed
-        if (next)
+        if (canSwitchCharacter)
         {
-            characterIndex++;
+            // Selects next character in array, if right was pressed
+            if (next)
+            {
+                characterIndex++;
 
-            // Loops back index to 0 if index is beyond length of array
-            if (characterIndex >= characterModels.Length)
-                characterIndex = 0;
+                // Loops back index to 0 if index is beyond length of array
+                if (characterIndex >= characterModels.Length)
+                    characterIndex = 0;
+            }
+            // Selects previous character in array, if left was pressed
+            else
+            {
+                characterIndex--;
+
+                // Loops to end of array if index was less than 0
+                if (characterIndex < 0)
+                    characterIndex = characterModels.Length - 1;
+            }
+
+            // Destroys last model
+            Destroy(playerModel.transform.GetChild(0).gameObject);
+
+            // Instantiates new model
+            GameObject newModel = Instantiate(characterModels[characterIndex], playerModel.transform);
+
+            // Gets all the new meshes
+            playerRenderers = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+
+            // Recolors new model
+            for (int i = 0; i < playerRenderers.Count; i++)
+            {
+                playerRenderers[i].material.color = colors[colorIndex];
+            }
+
+
+            nameText.text = characterNames[characterIndex];
         }
-        // Selects previous character in array, if left was pressed
-        else
-        {
-            characterIndex--;
-
-            // Loops to end of array if index was less than 0
-            if (characterIndex < 0)
-                characterIndex = characterModels.Length - 1;
-        }
-
-        // Destroys last model
-        Destroy(playerModel.transform.GetChild(0).gameObject);
-
-        // Instantiates new model
-        GameObject newModel = Instantiate(characterModels[characterIndex], playerModel.transform);
-
-        // Gets all the new meshes
-        playerRenderers = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
-
-        // Recolors new model
-        for (int i = 0; i < playerRenderers.Count; i++)
-        {
-            playerRenderers[i].material.color = colors[colorIndex];
-        }
-
-
-        nameText.text = characterNames[characterIndex];
     }
 
 
