@@ -22,7 +22,8 @@ public class SP_LevelButton : MonoBehaviour
 
         // Makes as many stars fully visible as the amount gotten
         for (int i = 0; i < _starAmount; i++)
-            starImages[i].color = new Color(starImages[i].color.r, starImages[i].color.g, starImages[i].color.b, 1);
+            starImages[i].gameObject.SetActive(true);
+            //starImages[i].color = new Color(starImages[i].color.r, starImages[i].color.g, starImages[i].color.b, 1);
 
         levelIndexText.text = levelIndex.ToString();
     }
