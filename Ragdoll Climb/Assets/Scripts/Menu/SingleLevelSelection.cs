@@ -30,10 +30,10 @@ public class SingleLevelSelection : MonoBehaviour
     {
         singleton = Singleton.instance;
 
-        levelButtons_ice = levelBtnGroup_ice.GetComponentsInChildren<SP_LevelButton>();
-        levelButtons_volcano = levelBtnGroup_volcano.GetComponentsInChildren<SP_LevelButton>();
-        levelButtons_woods = levelBtnGroup_woods.GetComponentsInChildren<SP_LevelButton>();
-        levelButtons_metal = levelBtnGroup_metal.GetComponentsInChildren<SP_LevelButton>();
+        levelButtons_ice = levelBtnGroup_ice.GetComponentsInChildren<SP_LevelButton>(true);
+        levelButtons_volcano = levelBtnGroup_volcano.GetComponentsInChildren<SP_LevelButton>(true);
+        levelButtons_woods = levelBtnGroup_woods.GetComponentsInChildren<SP_LevelButton>(true);
+        levelButtons_metal = levelBtnGroup_metal.GetComponentsInChildren<SP_LevelButton>(true);
 
         // If there is no save file yet
         if (!singleton.SavefileExists())
@@ -88,6 +88,63 @@ public class SingleLevelSelection : MonoBehaviour
             levelButtons_woods[i].SetButtonValues(singleton.levelStats_woods[i].starAmount, i + 1, singleton.levelStats_woods[i].bestTime_flt);
         for (int i = 0; i < levelButtons_metal.Length; i++)
             levelButtons_metal[i].SetButtonValues(singleton.levelStats_metal[i].starAmount, i + 1, singleton.levelStats_metal[i].bestTime_flt);
+
+        bool iceCompleted = false;
+        bool volcanoCompleted = false;
+        bool metalCompleted = false;
+
+        for (int i = 0; i < singleton.levelStats_woods.Count; i++)
+        {
+            if (singleton.levelStats_woods[i].completed)
+            {
+                if (i < singleton.levelStats_woods.Count - 1)
+                    levelButtons_woods[i + 1].gameObject.SetActive(true);
+                else
+                {
+                    levelButtons_ice[0].gameObject.SetActive(true);
+                    levelButtons_metal[0].gameObject.SetActive(true);
+                    levelButtons_volcano[0].gameObject.SetActive(true);
+                }
+            }
+            else
+                break;
+        }
+        for (int i = 0; i < singleton.levelStats_ice.Count; i++)
+        {
+            if (singleton.levelStats_ice[i].completed)
+            {
+                if (i < singleton.levelStats_ice.Count - 1)
+                    levelButtons_ice[i + 1].gameObject.SetActive(true);
+                else
+                    iceCompleted = true;
+            }
+            else
+                break;
+        }
+        for (int i = 0; i < singleton.levelStats_volcano.Count; i++)
+        {
+            if (singleton.levelStats_volcano[i].completed)
+            {
+                if (i < singleton.levelStats_volcano.Count - 1)
+                    levelButtons_volcano[i + 1].gameObject.SetActive(true);
+                else
+                    volcanoCompleted = true;
+            }
+            else
+                break;
+        }
+        for (int i = 0; i < singleton.levelStats_metal.Count; i++)
+        {
+            if (singleton.levelStats_metal[i].completed)
+            {
+                if (i < singleton.levelStats_metal.Count - 1)
+                    levelButtons_metal[i + 1].gameObject.SetActive(true);
+                else
+                    metalCompleted = true;
+            }
+            else
+                break;
+        }
     }
 
 

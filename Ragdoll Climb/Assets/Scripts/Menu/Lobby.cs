@@ -34,6 +34,8 @@ public class Lobby : MonoBehaviour
 
     [SerializeField] EventSystem eventSystem;
 
+    internal bool canSwitchCharacter = false;
+
     bool canControl = true;
 
     bool allReady = false;
@@ -325,41 +327,44 @@ public class Lobby : MonoBehaviour
     // Switch character model
     private void SwitchCharacter(int playerIndex, bool next)
     {
-        // Selects next character in array, if right was pressed
-        if (next)
+        if (canSwitchCharacter)
         {
-            characterIndexAssigned[playerIndex]++;
+            // Selects next character in array, if right was pressed
+            if (next)
+            {
+                characterIndexAssigned[playerIndex]++;
 
-            // Loops back index to 0 if index is beyond length of array
-            if (characterIndexAssigned[playerIndex] >= characterModels.Length)
-                characterIndexAssigned[playerIndex] = 0;
+                // Loops back index to 0 if index is beyond length of array
+                if (characterIndexAssigned[playerIndex] >= characterModels.Length)
+                    characterIndexAssigned[playerIndex] = 0;
+            }
+            // Selects previous character in array, if left was pressed
+            else
+            {
+                characterIndexAssigned[playerIndex]--;
+
+                // Loops to end of array if index was less than 0
+                if (characterIndexAssigned[playerIndex] < 0)
+                    characterIndexAssigned[playerIndex] = characterModels.Length - 1;
+            }
+
+            // Destroys last model
+            Destroy(playerModels[playerIndex].transform.GetChild(0).gameObject);
+
+            // Instantiates new model
+            GameObject newModel = Instantiate(characterModels[characterIndexAssigned[playerIndex]], playerModels[playerIndex].transform);
+
+            // Gets all the new meshes
+            playerRenderers[playerIndex] = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
+
+            // Recolors new model
+            for (int i = 0; i < playerRenderers[playerIndex].Count; i++)
+            {
+                playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
+            }
+
+            nameTexts[playerIndex].text = characterNames[characterIndexAssigned[playerIndex]];
         }
-        // Selects previous character in array, if left was pressed
-        else
-        {
-            characterIndexAssigned[playerIndex]--;
-
-            // Loops to end of array if index was less than 0
-            if (characterIndexAssigned[playerIndex] < 0)
-                characterIndexAssigned[playerIndex] = characterModels.Length - 1;
-        }
-
-        // Destroys last model
-        Destroy(playerModels[playerIndex].transform.GetChild(0).gameObject);
-
-        // Instantiates new model
-        GameObject newModel = Instantiate(characterModels[characterIndexAssigned[playerIndex]], playerModels[playerIndex].transform);
-
-        // Gets all the new meshes
-        playerRenderers[playerIndex] = new List<Renderer>(newModel.GetComponentsInChildren<Renderer>());
-
-        // Recolors new model
-        for (int i = 0; i < playerRenderers[playerIndex].Count; i++)
-        {
-            playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
-        }
-
-        nameTexts[playerIndex].text = characterNames[characterIndexAssigned[playerIndex]];
     }
 
 

@@ -40,6 +40,7 @@ public class WorldMenuManager : MonoBehaviour
 
     Singleton singleton;
 
+    //[SerializeField] soundManager SoundManager;
 
     private void Start()
     {
@@ -100,7 +101,16 @@ public class WorldMenuManager : MonoBehaviour
             // If B is pressed and the current menu group isn't the main one
             if (states[i].Buttons.B == ButtonState.Pressed && prevStates[i].Buttons.B == ButtonState.Released && groupPath.Peek().groupObj != mainGroup && !moving)
                 Back();
-             
+
+
+            //// If A is pressed play a sound 
+            //if (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released && !moving)
+            //{
+            //    SoundManager.PlaySoundRandPitch("goodClimb");
+            //    print("sound test !!!!!!!!!!!!!");
+            //}
+
+
             if (eventSystem.currentSelectedGameObject == null && groupPath.Peek().groupObj != playerSelectGroup && groupPath.Peek().groupObj != spSelectGroup)
             {
                 if (((states[i].DPad.Down == ButtonState.Pressed && prevStates[i].DPad.Down == ButtonState.Released) || (states[i].DPad.Up == ButtonState.Pressed && prevStates[i].DPad.Up == ButtonState.Released) || (states[i].DPad.Left == ButtonState.Pressed && prevStates[i].DPad.Left == ButtonState.Released) || (states[i].DPad.Right == ButtonState.Pressed && prevStates[i].DPad.Right == ButtonState.Released) || (states[i].Buttons.A == ButtonState.Pressed && prevStates[i].Buttons.A == ButtonState.Released) || (states[i].ThumbSticks.Left.Y > 0f || states[i].ThumbSticks.Left.Y < 0f && prevStates[i].ThumbSticks.Left.Y == 0f)))
