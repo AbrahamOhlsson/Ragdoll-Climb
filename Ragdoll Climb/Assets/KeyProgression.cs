@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KeyProgression : MonoBehaviour
 {
+    [SerializeField] Text keyAmountText;
+
     [SerializeField] Lobby lobby;
     [SerializeField] CharacterSelection_SP characterSelection;
 
@@ -30,6 +33,8 @@ public class KeyProgression : MonoBehaviour
             lobby.canSwitchCharacter = true;
             characterSelection.canSwitchCharacter = true;
         }
+
+        keyAmountText.text = keyAmount + " / 99";
     }
 	
 
