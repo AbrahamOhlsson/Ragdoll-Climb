@@ -34,9 +34,6 @@ GameObject:
   - component: {fileID: 114111148048884150}
   - component: {fileID: 114278167583445628}
   - component: {fileID: 114439969164820220}
-  - component: {fileID: 114189918971802732}
-  - component: {fileID: 114487389103834352}
-  - component: {fileID: 114736273141928978}
   - component: {fileID: 114209773140741486}
   m_Layer: 9
   m_Name: Player (Base)
@@ -161,22 +158,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStunned: 0
---- !u!114 &114189918971802732
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1877954664156126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 2.5
-  ghostMassMult: 0.8
-  manager: {fileID: 0}
 --- !u!114 &114209773140741486
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -387,22 +368,6 @@ MonoBehaviour:
     source: {fileID: 0}
   GruntsList: []
   gruntDelay: 0.4
---- !u!114 &114487389103834352
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1877954664156126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 2.5
-  ghostMassMult: 0.8
-  manager: {fileID: 0}
 --- !u!114 &114496810242065784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,22 +435,6 @@ MonoBehaviour:
   respawnCounterObj: {fileID: 1951906122359666, guid: 13f1e34033b64aa44b555be5325b714e,
     type: 2}
   deathPressTime: 3
---- !u!114 &114736273141928978
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1877954664156126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 2.5
-  ghostMassMult: 0.8
-  manager: {fileID: 0}
 --- !u!114 &114806944757981130
 MonoBehaviour:
   m_ObjectHideFlags: 1
