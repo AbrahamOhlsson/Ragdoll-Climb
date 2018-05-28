@@ -22,6 +22,7 @@ public class SP_ResultsMenu : MonoBehaviour
     float bestTime;
 
     LevelLoader loader;
+    PauseMenuManager pauseMenu;
 
     Singleton singleton;
 
@@ -30,6 +31,7 @@ public class SP_ResultsMenu : MonoBehaviour
     {
         singleton = Singleton.instance;
         loader = GameObject.Find("Loading Screen Canvas").GetComponent<LevelLoader>();
+        pauseMenu = GameObject.Find("Pause Menu").GetComponent<PauseMenuManager>();
 
         string levelName = singleton.currSpWorld + " " + (singleton.currSpLevelIndex + 1);
         levelNameText.text = levelName.ToUpper();
@@ -46,11 +48,16 @@ public class SP_ResultsMenu : MonoBehaviour
 
         if ((singleton.currSpWorld == "woods" && singleton.currSpLevelIndex == 2) || singleton.currSpLevelIndex == 9)
             nextLvlButton.SetActive(false);
+
+        gameObject.SetActive(false);
     }
     
 
     public void Activate(singleplayerInfo info)
     {
+        gameObject.SetActive(true);
+        pauseMenu.canPause = false;
+
         Time.timeScale = 0;
 
         if (info.playtime < bestTime)
