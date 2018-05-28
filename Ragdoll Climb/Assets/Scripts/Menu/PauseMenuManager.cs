@@ -8,6 +8,8 @@ using XInputDotNetPure;
 
 public class PauseMenuManager : MonoBehaviour
 {
+    internal bool canPause = true;
+
     [SerializeField] GameObject mainGroup;
     [SerializeField] GameObject howToPlayGroup;
     [SerializeField] GameObject optionsGroup;
@@ -88,34 +90,37 @@ public class PauseMenuManager : MonoBehaviour
 
     public void Pause()
     {
-        if (paused)
+        if (canPause)
         {
-			mainGroup.SetActive(false);
-			howToPlayGroup.SetActive(false);
-			optionsGroup.SetActive(false);
-			quitGroup.SetActive(false);
+            if (paused)
+            {
+                mainGroup.SetActive(false);
+                howToPlayGroup.SetActive(false);
+                optionsGroup.SetActive(false);
+                quitGroup.SetActive(false);
 
-			groupPath.Clear();
+                groupPath.Clear();
 
-			eventSystem.SetSelectedGameObject(null);
+                eventSystem.SetSelectedGameObject(null);
 
-			paused = false;
-            Time.timeScale = 1f;
-            GetComponent<Canvas>().enabled = false;
-            Cursor.visible = false;
-        }
-        else
-        {
-            MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Selectable>().gameObject);
-			groupPath.Push(firstGroup);
-			mainGroup.SetActive(true);
-            
-			eventSystem.SetSelectedGameObject(groupPath.Peek().highlightedBtn);
+                paused = false;
+                Time.timeScale = 1f;
+                GetComponent<Canvas>().enabled = false;
+                Cursor.visible = false;
+            }
+            else
+            {
+                MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Selectable>().gameObject);
+                groupPath.Push(firstGroup);
+                mainGroup.SetActive(true);
 
-            paused = true;
-            Time.timeScale = 0f;
-            GetComponent<Canvas>().enabled = true;
-            Cursor.visible = true;
+                eventSystem.SetSelectedGameObject(groupPath.Peek().highlightedBtn);
+
+                paused = true;
+                Time.timeScale = 0f;
+                GetComponent<Canvas>().enabled = true;
+                Cursor.visible = true;
+            }
         }
     }
 
@@ -159,6 +164,12 @@ public class PauseMenuManager : MonoBehaviour
             SceneManager.LoadScene("Ice Menu");
         else
             loadingScreen.LoadLevelAsync("Ice Menu");
+    }
+
+
+    public void RestartLevel()
+    {
+        loadingScreen.LoadLevelAsync(SceneManager.GetActiveScene().name);
     }
 
 
