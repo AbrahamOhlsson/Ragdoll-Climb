@@ -61,6 +61,8 @@ public class MultiplayerManager : MonoBehaviour
             for (int i = 0; i < singleton.playerAmount; i++)
             {
                 players[i].SetActive(true);
+                players[i].GetComponent<PlayerInfo>().rootObj.GetComponent<Rigidbody>().isKinematic = true;
+                players[i].GetComponent<PlayerInfo>().spine.GetComponent<Rigidbody>().isKinematic = true;
 
                 // Gets renderers of the player
                 Renderer[] renderers = players[i].transform.GetChild(0).GetChild(0).GetComponentsInChildren<Renderer>();
@@ -168,6 +170,12 @@ public class MultiplayerManager : MonoBehaviour
         {
             //players[i].GetComponent<PlayerController>().enabled = true;
             players[i].GetComponent<PlayerController>().canMove = true;
+
+            players[i].GetComponent<PlayerInfo>().rootObj.GetComponent<Rigidbody>().isKinematic = false;
+            players[i].GetComponent<PlayerInfo>().spine.GetComponent<Rigidbody>().isKinematic = false;
         }
+
+        if (singleton.mode == Singleton.Modes.Single)
+            players[0].GetComponent<singleplayerInfo>().started = true;
     }
 }
