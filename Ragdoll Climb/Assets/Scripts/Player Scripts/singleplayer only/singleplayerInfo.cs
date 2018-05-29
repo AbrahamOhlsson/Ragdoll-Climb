@@ -22,13 +22,11 @@ public class singleplayerInfo : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-
         if (playtime.ToString().Length>4)
             TimerText.text = "Time : " + playtime.ToString().Remove(4);
         else
             TimerText.text = "Time : " + playtime.ToString();
-
-
+        
         if (!onEnd && started)
         {
             playtime += Time.deltaTime;
