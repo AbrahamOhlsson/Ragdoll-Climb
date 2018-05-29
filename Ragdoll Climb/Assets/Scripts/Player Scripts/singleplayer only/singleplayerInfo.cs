@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class singleplayerInfo : MonoBehaviour {
 
-    public int stars = 0;
-    public float playtime = 0f;
-    public bool onEnd = false;
+    internal int stars = 0;
+    internal float playtime = 0f;
+    internal bool onEnd = false;
+    internal bool started = false;
 
     public Text TimerText;
    
@@ -19,7 +20,8 @@ public class singleplayerInfo : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 
         if (playtime.ToString().Length>4)
             TimerText.text = "Time : " + playtime.ToString().Remove(4);
@@ -27,7 +29,7 @@ public class singleplayerInfo : MonoBehaviour {
             TimerText.text = "Time : " + playtime.ToString();
 
 
-        if (!onEnd)
+        if (!onEnd && started)
         {
             playtime += Time.deltaTime;
         }
