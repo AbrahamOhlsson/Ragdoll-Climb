@@ -15,11 +15,14 @@ public class Lobby : MonoBehaviour
 
     [SerializeField] string[] characterNames;
 
+    [SerializeField] GameObject lockedCharacter;
+
     [SerializeField] GameObject[] playerModels = new GameObject[4];
     //[SerializeField] GameObject[] checkBoxes = new GameObject[4];
     [SerializeField] GameObject[] checkMarkers = new GameObject[4];
     [SerializeField] GameObject[] joinTexts = new GameObject[4];
     [SerializeField] GameObject[] instructions = new GameObject[4];
+    [SerializeField] GameObject[] readyInstructions = new GameObject[4];
 
     [SerializeField] Image[] joinedPlayerImg = new Image[4];
     [SerializeField] Image[] playerSlotImg = new Image[4];
@@ -224,24 +227,29 @@ public class Lobby : MonoBehaviour
                     // Readies player
                     else
                     {
-                        playersReady[i] = true;
-                        checkMarkers[i].SetActive(true);
-                        instructions[i].SetActive(false);
-
-                        // Checks if the other players are ready too
-                        for (int j = 0; j < playerIndexes.Count; j++)
+                        if (characterIndexAssigned[i] == 1 && !canSwitchCharacter)
+                        {}
+                        else
                         {
-                            // Someone wasn't ready, abort check
-                            if (!playersReady[j])
+                            playersReady[i] = true;
+                            checkMarkers[i].SetActive(true);
+                            instructions[i].SetActive(false);
+
+                            // Checks if the other players are ready too
+                            for (int j = 0; j < playerIndexes.Count; j++)
                             {
-                                break;
-                            }
-                            // If the last player is ready and more than two has joined
-                            else if (playersReady[i] && j == playerIndexes.Count - 1 && playerIndexes.Count >= 1)
-                            {
-                                // Since we got to the last player and he was ready, the check never got aborted which measn the otehrs were ready too
-                                allReady = true;
-                                continueButton.SetActive(true);
+                                // Someone wasn't ready, abort check
+                                if (!playersReady[j])
+                                {
+                                    break;
+                                }
+                                // If the last player is ready and more than two has joined
+                                else if (playersReady[i] && j == playerIndexes.Count - 1 && playerIndexes.Count >= 1)
+                                {
+                                    // Since we got to the last player and he was ready, the check never got aborted which measn the otehrs were ready too
+                                    allReady = true;
+                                    continueButton.SetActive(true);
+                                }
                             }
                         }
                     }
@@ -327,30 +335,41 @@ public class Lobby : MonoBehaviour
     // Switch character model
     private void SwitchCharacter(int playerIndex, bool next)
     {
-        if (canSwitchCharacter)
+        // Selects next character in array, if right was pressed
+        if (next)
         {
-            // Selects next character in array, if right was pressed
-            if (next)
-            {
-                characterIndexAssigned[playerIndex]++;
+            characterIndexAssigned[playerIndex]++;
 
-                // Loops back index to 0 if index is beyond length of array
-                if (characterIndexAssigned[playerIndex] >= characterModels.Length)
-                    characterIndexAssigned[playerIndex] = 0;
-            }
-            // Selects previous character in array, if left was pressed
-            else
-            {
-                characterIndexAssigned[playerIndex]--;
+            // Loops back index to 0 if index is beyond length of array
+            if (characterIndexAssigned[playerIndex] >= characterModels.Length)
+                characterIndexAssigned[playerIndex] = 0;
+        }
+        // Selects previous character in array, if left was pressed
+        else
+        {
+            characterIndexAssigned[playerIndex]--;
 
-                // Loops to end of array if index was less than 0
-                if (characterIndexAssigned[playerIndex] < 0)
-                    characterIndexAssigned[playerIndex] = characterModels.Length - 1;
-            }
+            // Loops to end of array if index was less than 0
+            if (characterIndexAssigned[playerIndex] < 0)
+                characterIndexAssigned[playerIndex] = characterModels.Length - 1;
+        }
+        
+        // Destroys last model
+        Destroy(playerModels[playerIndex].transform.GetChild(0).gameObject);
 
-            // Destroys last model
-            Destroy(playerModels[playerIndex].transform.GetChild(0).gameObject);
+        MaskableGraphic[] graphics = readyInstructions[playerIndex].GetComponentsInChildren<MaskableGraphic>();
 
+        if (!canSwitchCharacter && characterIndexAssigned[playerIndex] == 1)
+        {
+            GameObject newModel = Instantiate(lockedCharacter, playerModels[playerIndex].transform);
+
+            nameTexts[playerIndex].text = "LOCKED";
+            
+            foreach (MaskableGraphic graphic in graphics)
+                graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, 0.5f);
+        }
+        else
+        {
             // Instantiates new model
             GameObject newModel = Instantiate(characterModels[characterIndexAssigned[playerIndex]], playerModels[playerIndex].transform);
 
@@ -364,6 +383,9 @@ public class Lobby : MonoBehaviour
             }
 
             nameTexts[playerIndex].text = characterNames[characterIndexAssigned[playerIndex]];
+
+            foreach (MaskableGraphic graphic in graphics)
+                graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, 1f);
         }
     }
 
