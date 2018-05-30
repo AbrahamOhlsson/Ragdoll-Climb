@@ -64,8 +64,8 @@ public class MenuRematch : MonoBehaviour
         Cursor.visible = true;
 
         if (loadingScreen != null)
-            loadingScreen.LoadLevelAsync("Ice Menu");
+            loadingScreen.LoadLevelAsync("Castle Menu");
         else
-            SceneManager.LoadScene("Ice Menu");
+            SceneManager.LoadScene("Castle Menu");
     }
 }

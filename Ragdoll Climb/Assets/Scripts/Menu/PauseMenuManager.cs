@@ -159,11 +159,7 @@ public class PauseMenuManager : MonoBehaviour
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
-
-        if (loadingScreen == null)
-            SceneManager.LoadScene("Ice Menu");
-        else
-            loadingScreen.LoadLevelAsync("Ice Menu");
+        loadingScreen.LoadLevelAsync("Castle Menu");
     }
 
 
