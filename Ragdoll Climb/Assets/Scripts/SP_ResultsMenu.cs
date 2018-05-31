@@ -109,6 +109,6 @@ public class SP_ResultsMenu : MonoBehaviour
     public void SelectLevel()
     {
         Time.timeScale = 1f;
-        loader.LoadLevelAsync("Ice Menu");
+        loader.LoadLevelAsync("Castle Menu");
     }
 }

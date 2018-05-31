@@ -71,7 +71,6 @@ public class singleplayerEnd : MonoBehaviour
 
             //save data and end lvl
             singleton.Save();
-            //SceneManager.LoadScene("Ice Menu");
             resultsMenu.Activate(Player.GetComponent<singleplayerInfo>());
 
             Player.SetActive(false);

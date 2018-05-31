@@ -44,7 +44,7 @@ public class CheckGrip : MonoBehaviour
     Animator[] grabAnimators;
 
     List<Rigidbody> grabablesInReach = new List<Rigidbody>();
-
+    
     Rigidbody rb;
     Rigidbody tempRb = new Rigidbody();
     
@@ -400,6 +400,9 @@ public class CheckGrip : MonoBehaviour
                 {
                     currentGripable.GetComponent<Rigidbody>().isKinematic = false;
                     currentGripable.transform.localPosition = Vector3.zero;
+
+                    int squeakIndex = Random.Range(1, 4);
+                    transform.root.GetComponent<playerSound>().PlaySoundRandPitch("IceSqueak" + squeakIndex);
                 }
                 // If a player is grabbed, that player will know it
                 else if (currentGripable.tag == "Player")
@@ -429,7 +432,10 @@ public class CheckGrip : MonoBehaviour
                     transform.root.GetComponent<playerSound>().PlaySound("spark");
                 }
                 else if (currentGripable.tag == "LavaWall")
+                {
+                    transform.root.GetComponent<playerSound>().PlaySound("LavaTouch");
                     BurnHand("'s hand is burning!");
+                }
             }
             
             StopAnim();

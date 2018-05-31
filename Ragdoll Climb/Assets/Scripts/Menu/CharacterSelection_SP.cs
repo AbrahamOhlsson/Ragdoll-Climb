@@ -21,7 +21,9 @@ public class CharacterSelection_SP : MonoBehaviour
 
     [SerializeField] Color[] colors;
     [SerializeField] GameObject[] characterModels;
-    
+
+    [SerializeField] GameObject lockedCharacter;
+
     [SerializeField] EventSystem eventSystem;
 
     internal bool canSwitchCharacter = false;
@@ -150,30 +152,35 @@ public class CharacterSelection_SP : MonoBehaviour
     // Switch character model
     private void SwitchCharacter(bool next)
     {
-        if (canSwitchCharacter)
+        // Selects next character in array, if right was pressed
+        if (next)
         {
-            // Selects next character in array, if right was pressed
-            if (next)
-            {
-                characterIndex++;
+            characterIndex++;
 
-                // Loops back index to 0 if index is beyond length of array
-                if (characterIndex >= characterModels.Length)
-                    characterIndex = 0;
-            }
-            // Selects previous character in array, if left was pressed
-            else
-            {
-                characterIndex--;
+            // Loops back index to 0 if index is beyond length of array
+            if (characterIndex >= characterModels.Length)
+                characterIndex = 0;
+        }
+        // Selects previous character in array, if left was pressed
+        else
+        {
+            characterIndex--;
 
-                // Loops to end of array if index was less than 0
-                if (characterIndex < 0)
-                    characterIndex = characterModels.Length - 1;
-            }
+            // Loops to end of array if index was less than 0
+            if (characterIndex < 0)
+                characterIndex = characterModels.Length - 1;
+        }
 
-            // Destroys last model
-            Destroy(playerModel.transform.GetChild(0).gameObject);
+        // Destroys last model
+        Destroy(playerModel.transform.GetChild(0).gameObject);
 
+        if (!canSwitchCharacter && characterIndex == 1)
+        {
+            GameObject newModel = Instantiate(lockedCharacter, playerModel.transform);
+            nameText.text = "LOCKED";
+        }
+        else
+        {
             // Instantiates new model
             GameObject newModel = Instantiate(characterModels[characterIndex], playerModel.transform);
 
@@ -185,7 +192,6 @@ public class CharacterSelection_SP : MonoBehaviour
             {
                 playerRenderers[i].material.color = colors[colorIndex];
             }
-
 
             nameText.text = characterNames[characterIndex];
         }
