@@ -70,10 +70,7 @@ public class PlayerPowerups : MonoBehaviour
     public void StartTeleport(Vector3 newPos)
     {
         GetComponent<PlayerInfo>().feedbackText.Activate("got teleported!");
-
-        //Rigidbodies = GetComponentsInChildren<Rigidbody>();
-
-        
+        GetComponent<playerSound>().PlaySoundRandPitch("Teleport");
         GetComponent<PlayerController>().ReleaseGrip(true, false);
         GetComponent<PlayerController>().ReleaseGrip(false, false);
         GetComponent<PlayerInfo>().DisconnectGrabbingPlayers();

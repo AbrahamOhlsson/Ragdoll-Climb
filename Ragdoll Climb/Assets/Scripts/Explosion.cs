@@ -22,6 +22,8 @@ public class Explosion : MonoBehaviour
         radius = coll.radius;
 
         coll.radius = 0;
+
+        GameObject.Find("music and sound").GetComponent<soundManager>().PlaySoundRandPitch("Explosion");
     }
 
 

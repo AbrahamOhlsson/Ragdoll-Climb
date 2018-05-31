@@ -9,9 +9,7 @@ public class freezePlayer : MonoBehaviour
 
     private void Start()
     {
-
         soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
-    
     }
 
     void OnTriggerEnter(Collider other)
