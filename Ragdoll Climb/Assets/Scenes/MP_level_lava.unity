@@ -8729,78 +8729,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[0].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[1].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[2].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[3].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[4].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[5].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[6].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[7].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[8].source
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: sounds.Array.data[9].source
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 114729029357823040, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
         type: 2}
-      propertyPath: song1
-      value: 
+      propertyPath: isThisSinglePlayer
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114729029357823040, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: song2
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114386443048885184, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: MyMixerGroup
-      value: 
-      objectReference: {fileID: 243762199759767850, guid: 6827cbf9c27752e4cbf85fe28cf3e9e7,
-        type: 2}
-    - target: {fileID: 114729029357823040, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-        type: 2}
-      propertyPath: MyMixerGroup
-      value: 
-      objectReference: {fileID: 243188950750249764, guid: 6827cbf9c27752e4cbf85fe28cf3e9e7,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f89f5f772075dd2438ed7fc90b3aa1c2, type: 2}
   m_IsPrefabParent: 0
@@ -11554,22 +11487,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1877954664156126, guid: dd7b93b249aee91408c4cf317fe9ef4e,
     type: 2}
   m_PrefabInternal: {fileID: 349783821}
---- !u!114 &1408429535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1408429534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 2.5
-  ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!1001 &1414043511
 Prefab:
   m_ObjectHideFlags: 0
@@ -12369,22 +12286,6 @@ MonoBehaviour:
     source: {fileID: 0}
   GruntsList: []
   gruntDelay: 0.4
---- !u!114 &1444259011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1444259009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 2.5
-  ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!4 &1454331798 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400008, guid: 272f6ea372a7343499b5aa612014761f, type: 2}
@@ -14158,22 +14059,6 @@ MonoBehaviour:
     source: {fileID: 0}
   GruntsList: []
   gruntDelay: 0.4
---- !u!114 &1670426008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1670426006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 2.5
-  ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!114 &1680583556 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114637232456788710, guid: 79007406e3038f64b8c9b1afa755107e,
@@ -16216,25 +16101,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: d2db22038a6f9804598cd46453cc7cb8, type: 2}
   m_PrefabInternal: {fileID: 1414043511}
---- !u!1 &1901346210 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1680754423933450, guid: f89f5f772075dd2438ed7fc90b3aa1c2,
-    type: 2}
-  m_PrefabInternal: {fileID: 993975626}
---- !u!114 &1901346211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1901346210}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 924c012b82b34d6418f8eeac52d602af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myAudioMixer: {fileID: 0}
-  SFX: {fileID: 0}
-  sourceTest: {fileID: 0}
 --- !u!1001 &1914754083
 Prefab:
   m_ObjectHideFlags: 0
@@ -17545,22 +17411,6 @@ MonoBehaviour:
     source: {fileID: 0}
   GruntsList: []
   gruntDelay: 0.4
---- !u!114 &2067355082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2067355080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5efea0ebf5ba84483e575630724a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blinkInterval: 0.25
-  transparency: 0.5
-  minPlayerDist: 2.5
-  ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!1001 &2067531609
 Prefab:
   m_ObjectHideFlags: 0

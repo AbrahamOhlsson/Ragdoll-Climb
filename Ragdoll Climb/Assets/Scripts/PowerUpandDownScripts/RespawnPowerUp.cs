@@ -32,7 +32,6 @@ public class RespawnPowerUp : MonoBehaviour {
     void Start()
     {
         posOffset = transform.position;
-        Debug.Log(powerUp.transform.position);
         Instantiate(powerUp, posOffset, transform.rotation, transform.parent); // Spawns the powerUp, one time
         touched = false;
     }

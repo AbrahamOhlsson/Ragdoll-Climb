@@ -113,9 +113,7 @@ public class powerUpRespawnList : MonoBehaviour
             TEXT.GetComponent<TextMesh>().text = Mathf.FloorToInt(cooldownTime).ToString();
             TEXT.transform.position = transform.position; 
             cooldownTime -= Time.deltaTime * 1;
-
             
-
             if (cooldownTime <= 0)
             {
                 GameObject newObj = goodPowerUpList[Random.Range(0, goodPowerUpList.Count)];

@@ -10,7 +10,7 @@ public class singleplayerInfo : MonoBehaviour {
     internal bool onEnd = false;
     internal bool started = false;
 
-    public Text TimerText;
+    internal Text TimerText;
    
 
 	// Use this for initialization

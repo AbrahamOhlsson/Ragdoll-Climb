@@ -9,7 +9,7 @@ public class GhostManager : MonoBehaviour
     [SerializeField] float minPlayerDist = 2.5f;
     [SerializeField] float ghostMassMult = 0.8f;
 
-    [SerializeField] MultiplayerManager manager;
+    MultiplayerManager manager;
 
     List<Material> originMats = new List<Material>();
     List<Material> transMats = new List<Material>();
