@@ -385,9 +385,11 @@ GameObject:
   - component: {fileID: 4308557900917512}
   - component: {fileID: 33765542608012562}
   - component: {fileID: 23301587834678988}
-  m_Layer: 0
+  - component: {fileID: 64679902188120316}
+  - component: {fileID: 54892620708317434}
+  m_Layer: 16
   m_Name: pb_Mesh-497856
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3421,9 +3423,11 @@ GameObject:
   - component: {fileID: 4625888944776394}
   - component: {fileID: 33336984353655000}
   - component: {fileID: 23739832425160438}
-  m_Layer: 0
+  - component: {fileID: 64119032502642434}
+  - component: {fileID: 54136941484451592}
+  m_Layer: 16
   m_Name: pb_Mesh-557860
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4382,9 +4386,11 @@ GameObject:
   - component: {fileID: 4432193951125430}
   - component: {fileID: 33423252711914302}
   - component: {fileID: 23692998123421996}
-  m_Layer: 0
+  - component: {fileID: 64791493688437970}
+  - component: {fileID: 54167039276391992}
+  m_Layer: 16
   m_Name: pb_Mesh-534296
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10272,6 +10278,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!54 &54136941484451592
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1748508972664916}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54141408817428752
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -10362,6 +10383,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!54 &54167039276391992
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930776263719800}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54174081717620652
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -11652,6 +11688,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!54 &54892620708317434
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093566718468096}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!54 &54893023184901968
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -11832,6 +11883,48 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!64 &64119032502642434
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1748508972664916}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 6525612d3aad6ff42b2edd2517f8eafc, type: 2}
+--- !u!64 &64679902188120316
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093566718468096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 03df5a977dab7d848a6a78f0c89d86b8, type: 2}
+--- !u!64 &64791493688437970
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930776263719800}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 00268a933aaa0a745af378a2b969687b, type: 2}
 --- !u!64 &64843097830264672
 MeshCollider:
   m_ObjectHideFlags: 1
