@@ -19,9 +19,8 @@ public class starDestroy : MonoBehaviour {
         if (Player.tag == "Player"&& canGiveStar)
         {
             canGiveStar = false;
-            Player.transform.GetComponent<singleplayerInfo>().stars++;
+            Player.transform.GetComponent<singleplayerInfo>().AddKey();
             Destroy(gameObject);
-            
         }
     }
 }

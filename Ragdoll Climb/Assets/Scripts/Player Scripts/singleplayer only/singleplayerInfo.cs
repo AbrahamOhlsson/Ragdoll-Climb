@@ -11,13 +11,16 @@ public class singleplayerInfo : MonoBehaviour {
     internal bool started = false;
 
     internal Text TimerText;
+
+    Image[] keyImages;
    
 
 	// Use this for initialization
 	void Start ()
     {
         TimerText = GameObject.Find("Debug Canvas/Timer").GetComponent<Text>();
-	}
+        keyImages = GameObject.Find("Debug Canvas/Key Images").GetComponentsInChildren<Image>();
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -32,4 +35,11 @@ public class singleplayerInfo : MonoBehaviour {
             playtime += Time.deltaTime;
         }
 	}
+
+
+    public void AddKey()
+    {
+        stars++;
+        keyImages[stars - 1].color = Color.yellow;
+    }
 }
