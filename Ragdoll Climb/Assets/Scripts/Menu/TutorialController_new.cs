@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 using XInputDotNetPure;
 
 
@@ -27,7 +27,10 @@ public class TutorialController_new : MonoBehaviour
 
     private void Start()
     {
-        tutFilmObj.active = false;
+        tutFilmObj.SetActive(false);
+
+        if (transform.root.name.Contains("Pause"))
+            tutFilmObj.GetComponent<RawImage>().texture = tutFilmObj.GetComponent<VideoPlayer>().texture;
     }
 
     private void OnEnable()
@@ -79,12 +82,14 @@ public class TutorialController_new : MonoBehaviour
     {
         if (spriteNumb != 2)
         {
-            tutFilmObj.active = false;
+            tutFilmObj.SetActive(false);
+
         }
 
         else if (spriteNumb == 2)
         {
-            tutFilmObj.active = true;
+            tutFilmObj.SetActive(true);
+            tutFilmObj.GetComponent<RawImage>().texture = tutFilmObj.GetComponent<VideoPlayer>().texture;
         }
     }
 
