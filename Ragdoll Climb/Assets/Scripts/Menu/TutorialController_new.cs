@@ -16,7 +16,8 @@ public class TutorialController_new : MonoBehaviour
 
 	private int spriteNumb;
 
-	GameObject playerTutorial;
+    GameObject playerTutorial;
+    [SerializeField]GameObject tutFilmObj;
 
 
     void Awake ()
@@ -24,6 +25,10 @@ public class TutorialController_new : MonoBehaviour
 		playerTutorial = GameObject.Find("PlayerTutorial");
 	}
 
+    private void Start()
+    {
+        tutFilmObj.active = false;
+    }
 
     private void OnEnable()
     {
@@ -45,7 +50,7 @@ public class TutorialController_new : MonoBehaviour
             {
                 spriteNumb++;
 
-                if (spriteNumb > 3)
+                if (spriteNumb > 4)
                 {
                     spriteNumb = 1;
                 }
@@ -59,17 +64,33 @@ public class TutorialController_new : MonoBehaviour
 
                 if (spriteNumb <= 0)
                 {
-                    spriteNumb = 3;
+                    spriteNumb = 4;
                 }
 
                 ChangeImage();
             }
         }
+
 	}
 
-	void ChangeImage()
+    
+
+    private void LateUpdate()
+    {
+        if (spriteNumb != 2)
+        {
+            tutFilmObj.active = false;
+        }
+
+        else if (spriteNumb == 2)
+        {
+            tutFilmObj.active = true;
+        }
+    }
+
+    void ChangeImage()
 	{
 		playerTutorial.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprites/ragdollTutorial" + spriteNumb);
-        indexText.text = spriteNumb + " / 3";
+        indexText.text = spriteNumb + " / 4";
     }
 }
