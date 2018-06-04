@@ -12265,7 +12265,6 @@ MonoBehaviour:
   transparency: 0.5
   minPlayerDist: 2.5
   ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!4 &1409895420 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400008, guid: 54a9cf01843431742a3126013891032d, type: 2}
@@ -13116,7 +13115,6 @@ MonoBehaviour:
   transparency: 0.5
   minPlayerDist: 2.5
   ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!1 &1475040984
 GameObject:
   m_ObjectHideFlags: 0
@@ -13590,9 +13588,12 @@ MonoBehaviour:
   currentBlock: 1
   blockList: []
   maxBlock: 2
-  easyBloakList: []
-  normBloakList: []
-  hardBloakList: []
+  easyBloakList:
+  - {fileID: 1626947160812540, guid: 940ac453ce466474d91b021eb1e13137, type: 2}
+  normBloakList:
+  - {fileID: 1626947160812540, guid: 940ac453ce466474d91b021eb1e13137, type: 2}
+  hardBloakList:
+  - {fileID: 1626947160812540, guid: 940ac453ce466474d91b021eb1e13137, type: 2}
   endBox: {fileID: 1383829521284642, guid: 64153a462a95742488d9a54ea3719307, type: 2}
   startBox: {fileID: 537865554}
   Difficulties: 0
@@ -14690,7 +14691,6 @@ MonoBehaviour:
   transparency: 0.5
   minPlayerDist: 2.5
   ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!1001 &1677697353
 Prefab:
   m_ObjectHideFlags: 0
@@ -17078,7 +17078,6 @@ MonoBehaviour:
   transparency: 0.5
   minPlayerDist: 2.5
   ghostMassMult: 0.8
-  manager: {fileID: 2089801098}
 --- !u!1001 &2067531609
 Prefab:
   m_ObjectHideFlags: 0

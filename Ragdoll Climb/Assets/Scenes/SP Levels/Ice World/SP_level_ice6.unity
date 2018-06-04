@@ -114,6 +114,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &213576158 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114008399232721976, guid: 79007406e3038f64b8c9b1afa755107e,
+    type: 2}
+  m_PrefabInternal: {fileID: 356182910}
+  m_Script: {fileID: 11500000, guid: ae0c058ad07f9eb4396fb6108ae6303a, type: 3}
 --- !u!1001 &356182910
 Prefab:
   m_ObjectHideFlags: 0
@@ -827,6 +833,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
+    - target: {fileID: 108826114903361168, guid: 1a3b886c4d41b754a8ef260ba1b41b07,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108963856229815008, guid: 1a3b886c4d41b754a8ef260ba1b41b07,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 108378677038870234, guid: 1a3b886c4d41b754a8ef260ba1b41b07,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1a3b886c4d41b754a8ef260ba1b41b07, type: 2}
   m_IsPrefabParent: 0
@@ -1068,7 +1089,7 @@ Prefab:
         type: 2}
       propertyPath: players.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1478997591}
     - target: {fileID: 114224605510272526, guid: 57083c3910d21bf46905df139ddcf55f,
         type: 2}
       propertyPath: players.Array.data[1]
@@ -1201,6 +1222,11 @@ Prefab:
       propertyPath: bottomObj
       value: 
       objectReference: {fileID: 1617297595}
+    - target: {fileID: 114806944757981130, guid: dd7b93b249aee91408c4cf317fe9ef4e,
+        type: 2}
+      propertyPath: feedbackText
+      value: 
+      objectReference: {fileID: 213576158}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dd7b93b249aee91408c4cf317fe9ef4e, type: 2}
   m_IsPrefabParent: 0

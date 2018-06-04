@@ -131,10 +131,10 @@ public class GorillaThrow : MonoBehaviour
             throwTimer = throwDelay;
             playerCollision = true;
 
-            if (name.Contains("Gorilla"))
+            if (name.Contains("Gorilla") || name.Contains("Yeti"))
             {
                 //
-                playerForce.transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("is being wrecked by a gorilla!");
+                playerForce.transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("is being wrecked by a yeti!");
             }
             else if (name.Contains("Cement"))
             {
