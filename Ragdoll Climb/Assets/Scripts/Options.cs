@@ -21,7 +21,7 @@ public class Options : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Button saveButton;
 
-    float volumeValue = 40f;
+    float volumeValue = 20f;
     
     List<Resolution> resolutions = new List<Resolution>();
     
