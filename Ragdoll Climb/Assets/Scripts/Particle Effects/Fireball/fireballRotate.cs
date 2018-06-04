@@ -14,20 +14,25 @@ public class fireballRotate : MonoBehaviour {
 
 	private void Start()
 	{
-		if (!canRotate) Destroy(this);
+        if (!canRotate) print("fire ball bool = "+ canRotate);
+
+        if (!canRotate) Destroy(this);
 	}
 
 	void Update ()
-	{
-		fireballTime = fireballTime + (1 * Time.deltaTime);
-
-		if(fireballTime >= randomTimer)
-		{
-			print("eld");
-			transform.rotation = Quaternion.Euler( Random.Range(0, rotationMax), 90, 0);
-			fireballTime = 0;
-		}
-	}
+    {
+        if (canRotate)
+        {
+            fireballTime = fireballTime + (1 * Time.deltaTime);
+            print("eld");
+            if (fireballTime >= randomTimer)
+            {
+                print("eld");
+                transform.rotation = Quaternion.Euler(Random.Range(0, rotationMax), 90, 0);
+                fireballTime = 0;
+            }
+        }
+    }
 
 	private void OnDrawGizmosSelected()
 	{
