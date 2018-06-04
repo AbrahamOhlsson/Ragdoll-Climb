@@ -359,8 +359,8 @@ public class PlayerController : MonoBehaviour
 
                     if (leftCanClimb == true && !gripLeft && checkGripLeft.canGrip)
                     {
-                        checkGripLeft.Connect();
                         gripLeft = true;
+                        checkGripLeft.Connect();
 
                         vibrator.VibrateTimed(0.3f, 0f, justGrabbed, 2);
                         gruntManager.PlayGrunt();
@@ -410,7 +410,7 @@ public class PlayerController : MonoBehaviour
                     leftVibrationAmount = 0;
                 }
             }
-            if (!checkGripRight.onFire)
+            if (!checkGripRight.onFire && canMove)
             {
                 // Right grip controls
                 if (state.Triggers.Right >= 0.8f /*&& prevState.Triggers.Right < 0.8f*/ && !gripRight)
@@ -419,8 +419,8 @@ public class PlayerController : MonoBehaviour
 
                     if (rightCanClimb == true && !gripRight && checkGripRight.canGrip)
                     {
-                        checkGripRight.Connect();
                         gripRight = true;
+                        checkGripRight.Connect();
 
                         vibrator.VibrateTimed(0f, 0.2f, justGrabbed, 2);
                         gruntManager.PlayGrunt();
@@ -870,13 +870,11 @@ public class PlayerController : MonoBehaviour
 
     public void ReleaseGrip(bool left, bool throwReleasedObj)
     {
-        if (left && gripLeft)
+        if (left && gripLeft && checkGripLeft != null)
         {
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
                 checkGripLeft.Disconnect(pushDirLeft, throwForce);
-            //else if (checkGripLeft.currentGripping.tag == "Sticky")
-            //    checkGripLeft.StartCoroutine(checkGripLeft.DisconnectDelayed(1f));
             else
                 checkGripLeft.Disconnect();
 
@@ -884,17 +882,11 @@ public class PlayerController : MonoBehaviour
             currentPullForceLeft = 0f;
             gripLeft = false;
         }
-        else if (gripRight)
+        else if (!left && gripRight && checkGripRight != null)
         {
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
                 checkGripRight.Disconnect(pushDirRight, throwForce);
-            //else if (checkGripRight.currentGripping.tag == "Sticky")
-            //{
-            //    checkGripRight.StartCoroutine(checkGripRight.DisconnectDelayed(1f));
-            //    print("Start Coroutine");
-            //}
-
             else
                 checkGripRight.Disconnect();
 
