@@ -10,9 +10,12 @@ public class FireWorkColour : MonoBehaviour {
 	private Color Fcolor;
 	Animator anim;
 
+    int sfxIndex = 1;
 	bool firstOnEnable = true;
 	Vector3 startPos;
 	Vector3 startScale;
+
+    soundManager soundManager;
 
 
 	void Start ()
@@ -22,12 +25,15 @@ public class FireWorkColour : MonoBehaviour {
 
 		startPos = transform.position;
 		startScale = transform.localScale;
-	}
+
+        soundManager = GameObject.Find("music and sound").GetComponent<soundManager>();
+
+    }
 
 
 	private void OnEnable()
 	{
-		if (!firstOnEnable)
+        if (!firstOnEnable)
 		{
 			if (Fcolours == null || Fcolours.Length < 2)
 			{
@@ -45,18 +51,22 @@ public class FireWorkColour : MonoBehaviour {
 
 	IEnumerator DelayAnim()
 	{
-		float delay = Random.Range(0.5f, 2f);
+        float delay = Random.Range(0.5f, 2f);
 
-		yield return new WaitForSeconds(delay);
+		yield return new WaitForSecondsRealtime(delay);
 
 		anim.Play("FireWorks");
 
-		yield return new WaitForSeconds(1f);
+        soundManager.PlaySoundRandPitch("Firework" + sfxIndex);
+
+        yield return new WaitForSecondsRealtime(1f);
 
 		RandomizeThings();
 
 		anim.Play("FireWorks");
-	}
+
+        soundManager.PlaySoundRandPitch("Firework" + sfxIndex);
+    }
 
 
 	private void RandomizeThings()
@@ -71,5 +81,7 @@ public class FireWorkColour : MonoBehaviour {
 		float randPosY = Random.Range(-50, 50);
 
 		transform.position = startPos + new Vector3(randPosX, randPosY, 0);
-	}
+
+        sfxIndex = Random.Range(1, 6);
+    }
 }
