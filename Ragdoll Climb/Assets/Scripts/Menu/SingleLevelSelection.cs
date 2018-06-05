@@ -16,14 +16,22 @@ public class SingleLevelSelection : MonoBehaviour
     [Space]
     [SerializeField] LevelLoader loader;
 
-    SP_LevelButton[] levelButtons_ice;
+	[SerializeField] Image lineLeft;
+	[SerializeField] Image lineRight;
+	[SerializeField] Image lineTop;
+
+	SP_LevelButton[] levelButtons_ice;
     SP_LevelButton[] levelButtons_volcano;
     SP_LevelButton[] levelButtons_woods;
     SP_LevelButton[] levelButtons_metal;
 
     bool mouseOverBtn = false;
 
-    Singleton singleton;
+	bool iceCompleted = false;
+	bool volcanoCompleted = false;
+	bool metalCompleted = false;
+
+	Singleton singleton;
 
 
 	void Awake ()
@@ -88,10 +96,7 @@ public class SingleLevelSelection : MonoBehaviour
             levelButtons_woods[i].SetButtonValues(singleton.levelStats_woods[i].starAmount, i + 1, singleton.levelStats_woods[i].bestTime_flt);
         for (int i = 0; i < levelButtons_metal.Length; i++)
             levelButtons_metal[i].SetButtonValues(singleton.levelStats_metal[i].starAmount, i + 1, singleton.levelStats_metal[i].bestTime_flt);
-
-        bool iceCompleted = false;
-        bool volcanoCompleted = false;
-        bool metalCompleted = false;
+		
 
         for (int i = 0; i < singleton.levelStats_woods.Count; i++)
         {
@@ -147,6 +152,29 @@ public class SingleLevelSelection : MonoBehaviour
         }
     }
 
+
+	public void CheckLevelsComplete()
+	{
+		//If all levels are completed
+		if (iceCompleted && metalCompleted && volcanoCompleted)
+		{
+			StartCoroutine(DrawLines());
+		}
+	}
+
+	//courotine to draw out lines on the map
+	IEnumerator DrawLines()
+	{
+		yield return new WaitForSeconds(1);
+
+		while (lineLeft.fillAmount < 1)
+		{
+			lineLeft.fillAmount  += 0.5f * Time.deltaTime;
+			lineRight.fillAmount += 0.5f * Time.deltaTime;
+			lineTop.fillAmount	 += 0.5f * Time.deltaTime;
+			yield return null;
+		}
+	}
 
     private void Update()
     {
