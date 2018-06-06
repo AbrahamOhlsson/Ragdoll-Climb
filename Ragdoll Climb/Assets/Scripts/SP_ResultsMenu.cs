@@ -68,10 +68,7 @@ public class SP_ResultsMenu : MonoBehaviour
 
         thisTimeText.text = (float)System.Math.Round(info.playtime, 2) + " sec";
 
-        for (int i = 0; i < info.stars; i++)
-        {
-            keys[i].color = Color.white;
-        }
+        StartCoroutine(KeyAnim(info.stars));
 
         GetComponent<Canvas>().enabled = true;
 
@@ -110,5 +107,21 @@ public class SP_ResultsMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         loader.LoadLevelAsync("Castle Menu");
+    }
+
+    IEnumerator KeyAnim(int keyAmount)
+    {
+        if (keyAmount >= 1)
+            keys[0].GetComponent<Animator>().Play("KeyGot");
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (keyAmount >= 2)
+            keys[1].GetComponent<Animator>().Play("KeyGot");
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (keyAmount >= 3)
+            keys[2].GetComponent<Animator>().Play("KeyGot");
     }
 }

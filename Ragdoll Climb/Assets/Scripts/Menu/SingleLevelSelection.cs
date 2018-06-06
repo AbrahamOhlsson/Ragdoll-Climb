@@ -15,15 +15,15 @@ public class SingleLevelSelection : MonoBehaviour
     [SerializeField] Text bestTimeTxt;
     [Space]
     [SerializeField] LevelLoader loader;
+    [Space]
+    [SerializeField] Lobby lobby;
+    [SerializeField] CharacterSelection_SP characterSelection;
 
-	[SerializeField] Image lineLeft;
-	[SerializeField] Image lineRight;
-	[SerializeField] Image lineTop;
-
-	SP_LevelButton[] levelButtons_ice;
+    SP_LevelButton[] levelButtons_ice;
     SP_LevelButton[] levelButtons_volcano;
     SP_LevelButton[] levelButtons_woods;
     SP_LevelButton[] levelButtons_metal;
+    [SerializeField] SP_LevelButton[] levelButtons_castle;
 
     bool mouseOverBtn = false;
 
@@ -96,8 +96,9 @@ public class SingleLevelSelection : MonoBehaviour
             levelButtons_woods[i].SetButtonValues(singleton.levelStats_woods[i].starAmount, i + 1, singleton.levelStats_woods[i].bestTime_flt);
         for (int i = 0; i < levelButtons_metal.Length; i++)
             levelButtons_metal[i].SetButtonValues(singleton.levelStats_metal[i].starAmount, i + 1, singleton.levelStats_metal[i].bestTime_flt);
-		
-
+        for (int i = 0; i < levelButtons_castle.Length; i++)
+            levelButtons_castle[i].SetButtonValues(singleton.levelStats_metal[i].starAmount, i + 1, singleton.levelStats_metal[i].bestTime_flt);
+        
         for (int i = 0; i < singleton.levelStats_woods.Count; i++)
         {
             if (singleton.levelStats_woods[i].completed)
@@ -150,31 +151,21 @@ public class SingleLevelSelection : MonoBehaviour
             else
                 break;
         }
+        for (int i = 0; i < singleton.levelStats_castle.Count; i++)
+        {
+            if (singleton.levelStats_castle[i].completed)
+            {
+                if (i == singleton.levelStats_castle.Count - 1)
+                {
+                    lobby.canSwitchCharacter = true;
+                    characterSelection.canSwitchCharacter = true;
+                }
+            }
+            else
+                break;
+        }
     }
-
-
-	public void CheckLevelsComplete()
-	{
-		//If all levels are completed
-		if (iceCompleted && metalCompleted && volcanoCompleted)
-		{
-			StartCoroutine(DrawLines());
-		}
-	}
-
-	//courotine to draw out lines on the map
-	IEnumerator DrawLines()
-	{
-		yield return new WaitForSeconds(1);
-
-		while (lineLeft.fillAmount < 1)
-		{
-			lineLeft.fillAmount  += 0.5f * Time.deltaTime;
-			lineRight.fillAmount += 0.5f * Time.deltaTime;
-			lineTop.fillAmount	 += 0.5f * Time.deltaTime;
-			yield return null;
-		}
-	}
+    
 
     private void Update()
     {
@@ -203,6 +194,8 @@ public class SingleLevelSelection : MonoBehaviour
             singleton.currLevelStats = singleton.levelStats_volcano[singleton.currSpLevelIndex];
         else if (singleton.currSpWorld == "metal")
             singleton.currLevelStats = singleton.levelStats_metal[singleton.currSpLevelIndex];
+        else if (singleton.currSpWorld == "castle")
+            singleton.currLevelStats = singleton.levelStats_castle[singleton.currSpLevelIndex];
 
         loader.LoadLevelAsync(levelName);
     }

@@ -68,7 +68,7 @@ public class WorldMenuManager : MonoBehaviour
                 MenuGroup group_spLevel = new MenuGroup(spLevelSelectGroup, spLevelSelectGroup.GetComponentInChildren<Selectable>().gameObject);
                 groupPath.Push(group_spSelect);
                 groupPath.Push(group_spLevel);
-				spLevelSelectGroup.GetComponent<SingleLevelSelection>().CheckLevelsComplete();
+				GetComponent<KeyProgression>().CheckLevelsComplete();
                 break;
 
             case Singleton.Modes.Multi:
@@ -215,7 +215,7 @@ public class WorldMenuManager : MonoBehaviour
         else if (group == diffLengthGroup)
             diffLengthGroup.GetComponent<DiffLengthSelection>().ResetValues();
 		else if (group == spLevelSelectGroup)
-			spLevelSelectGroup.GetComponent<SingleLevelSelection>().CheckLevelsComplete();
+			GetComponent<KeyProgression>().CheckLevelsComplete();
 	}
 
 

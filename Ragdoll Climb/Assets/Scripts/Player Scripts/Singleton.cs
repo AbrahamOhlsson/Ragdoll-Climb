@@ -49,6 +49,8 @@ public class Singleton : MonoBehaviour
     public Lengths levelLength = Lengths.Medium;
 
     // Singleplayer
+    public bool seenFinalLevelUnlock = false;
+    public bool seenCharacterUnlock = false;
     public int currSpLevelIndex = 0;
     public string currSpWorld = "NULL";
     public SP_LevelStats currLevelStats;
@@ -56,6 +58,7 @@ public class Singleton : MonoBehaviour
     public List<SP_LevelStats> levelStats_volcano = new List<SP_LevelStats>();
     public List<SP_LevelStats> levelStats_woods = new List<SP_LevelStats>();
     public List<SP_LevelStats> levelStats_metal = new List<SP_LevelStats>();
+    public List<SP_LevelStats> levelStats_castle = new List<SP_LevelStats>();
 
     // OPTIONS
     public bool fullscreen = true;
@@ -78,10 +81,13 @@ public class Singleton : MonoBehaviour
         Data data = new Data();
 
         // Assigns all variables in Data to its correspondants values in this singleton
+        data.seenFinalLevelUnlock = seenFinalLevelUnlock;
+        data.seenCharacterUnlock = seenCharacterUnlock;
         data.levelStats_ice = levelStats_ice;
         data.levelStats_volcano = levelStats_volcano;
         data.levelStats_woods = levelStats_woods;
         data.levelStats_metal = levelStats_metal;
+        data.levelStats_castle = levelStats_castle;
 
         // Stores the data in the file
         bf.Serialize(file, data);
@@ -109,10 +115,13 @@ public class Singleton : MonoBehaviour
             file.Close();
 
             // Assigns all variables to be saved/loaded in this singleton to its correspondant values in Data
+            seenFinalLevelUnlock = data.seenFinalLevelUnlock;
+            seenCharacterUnlock = data.seenCharacterUnlock;
             levelStats_ice = data.levelStats_ice;
             levelStats_volcano = data.levelStats_volcano;
             levelStats_woods = data.levelStats_woods;
             levelStats_metal = data.levelStats_metal;
+            levelStats_castle = data.levelStats_castle;
         }
     }
 
@@ -167,10 +176,13 @@ public class Singleton : MonoBehaviour
     [System.Serializable]
     class Data
     {
+        public bool seenFinalLevelUnlock = false;
+        public bool seenCharacterUnlock = false;
         public List<SP_LevelStats> levelStats_ice = new List<SP_LevelStats>();
         public List<SP_LevelStats> levelStats_volcano = new List<SP_LevelStats>();
         public List<SP_LevelStats> levelStats_woods = new List<SP_LevelStats>();
         public List<SP_LevelStats> levelStats_metal = new List<SP_LevelStats>();
+        public List<SP_LevelStats> levelStats_castle = new List<SP_LevelStats>();
     }
 
 

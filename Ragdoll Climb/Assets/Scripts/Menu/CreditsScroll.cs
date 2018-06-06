@@ -16,7 +16,7 @@ public class CreditsScroll : MonoBehaviour {
 	{
 		transform.Translate(new Vector3(0,scrollSpeed) * Time.deltaTime);
 
-		if (transform.localPosition.y >= 400)
+		if (transform.localPosition.y >= 700)
 		{
 			transform.localPosition = originPos;
 		}

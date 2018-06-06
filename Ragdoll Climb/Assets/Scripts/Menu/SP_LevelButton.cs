@@ -11,7 +11,6 @@ public class SP_LevelButton : MonoBehaviour
     internal float bestTime = Mathf.Infinity;
 
     [SerializeField] Image[] starImages;
-    [SerializeField] Text levelIndexText;
     [SerializeField] Color keyColor;
     [SerializeField] SingleLevelSelection levelSelection;
 	
@@ -26,8 +25,6 @@ public class SP_LevelButton : MonoBehaviour
             starImages[i].color = keyColor;
             //starImages[i].gameObject.SetActive(true);
             //starImages[i].color = new Color(starImages[i].color.r, starImages[i].color.g, starImages[i].color.b, 1);
-
-        levelIndexText.text = levelIndex.ToString();
     }
 
 

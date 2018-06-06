@@ -34,6 +34,8 @@ public class singleplayerEnd : MonoBehaviour
             levelStats = singleton.levelStats_woods;
         else if (world == "metal")
             levelStats = singleton.levelStats_metal;
+        else if (world == "castle")
+            levelStats = singleton.levelStats_castle;
     }
 
     void OnTriggerEnter(Collider other)
