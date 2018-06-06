@@ -49,7 +49,7 @@ public class PenguinScout : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (penguin.state == Penguin.PenguinStates.Scout && other.tag == "Player")
+        if (penguin.state == Penguin.PenguinStates.Scout && other.tag == "Player" && other.transform.root.GetComponent<PlayerInfo>().solid)
         {
             penguin.PrepareLaunch(other.transform.root.GetComponent<PlayerInfo>().spine.transform);
 

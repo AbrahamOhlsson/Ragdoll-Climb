@@ -52,8 +52,7 @@ public class CheckGrip : MonoBehaviour
     void Start ()
     {
         controller = transform.root.GetComponent<PlayerController>();
-
-        //Finding the player
+        
         grabAnimators = grabIndicators.GetComponentsInChildren<Animator>();
 
         rb = GetComponent<Rigidbody>();
@@ -65,10 +64,13 @@ public class CheckGrip : MonoBehaviour
     {
         DetermineObjectToGrab();
 
+        // If something is grabbed
         if (GetComponent<FixedJoint>())
         {
+            // If enough force is applied between the hand and the grabbed object OR if the grabbed object is null
             if (GetComponent<FixedJoint>().currentForce.magnitude >= breakForce || GetComponent<FixedJoint>().connectedBody == null)
             {
+                // Release grip
                 if (currentGripping.tag == "Throwable")
                     controller.ReleaseGrip(leftHand, true);
                 else
@@ -82,8 +84,10 @@ public class CheckGrip : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // If hand is burning
         if (onFire)
         {
+            // Resets fire state
             if (fireTimer >= fireTime)
             {
                 onFire = false;
@@ -97,9 +101,11 @@ public class CheckGrip : MonoBehaviour
             {
                 if (fireForceTimer >= fireforceInterval)
                 {
+                    // Randomizes direction and force
                     float forceX = Random.Range(minFireForce, maxFireForce);
                     float forceY = Random.Range(minFireForce, maxFireForce);
 
+                    // 50% chance to invert directions
                     if (Random.Range(0, 2) == 1)
                         forceX *= -1;
                     if (Random.Range(0, 2) == 1)
@@ -120,6 +126,7 @@ public class CheckGrip : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // Releases grip if bottom object is near. Prevents grabbing while going through the bottom object
         if (other.tag == "BottomObj")
         {
             nearBottomObj = true;
@@ -127,13 +134,17 @@ public class CheckGrip : MonoBehaviour
             controller.ReleaseGrip(leftHand, false);
         }
 
+        // Adds grabable object to grabable list
         if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall" || other.tag == "LavaRock")
         {
             grabablesInReach.Add(other.GetComponent<Rigidbody>());
+            DetermineObjectToGrab();
         }
 
+        // If a rock on flowing lava is being grabbed and the newly entered object is a normal wall
         if (currentGripping != tempRb && currentGripping.tag == "LavaRock" && other.tag == "Wall")
         {
+            // Releases grip so the hand doesn't follow rock behind the wall
             controller.ReleaseGrip(leftHand, false);
             DetermineObjectToGrab();
         }
@@ -147,14 +158,17 @@ public class CheckGrip : MonoBehaviour
             nearBottomObj = false;
         }
 
+        // Removes grabable from grabable list
         if (other.tag == "Player" || other.tag == "Grabable" || other.tag == "Slippery" || other.tag == "Wall" || other.tag == "Throwable" || other.tag == "Electric" || other.tag == "Sticky" || other.tag == "Breaking" || other.tag == "LavaWall" || other.tag == "LavaRock")
         {
             grabablesInReach.Remove(other.GetComponent<Rigidbody>());
             DetermineObjectToGrab();
         }
 
+        // If slippery wall is exited and if one is grabbed
         if (other.tag == "Slippery" && currentGripping != tempRb && currentGripping.tag == "Slippery")
         {
+            // Releases grip so you won't keep slipping
             controller.ReleaseGrip(leftHand, false);
             DetermineObjectToGrab();
         }
@@ -340,8 +354,10 @@ public class CheckGrip : MonoBehaviour
     }
 
 
+    // Animation fro indicating that something can be grabbed.
     private void PlayGrabableAnim()
     {
+        // If no animation is playing and nothing is grabbed
         if (!playingAnim && currentGripping == tempRb)
         {
             grabIndicators.gameObject.SetActive(true);
@@ -356,8 +372,10 @@ public class CheckGrip : MonoBehaviour
     }
 
 
+    // Animation for indicating that something is grabbed
     private void PlayGrabbingAnim()
     {
+        // If no animation is playing
         if (!playingAnim)
         {
             grabIndicators.gameObject.SetActive(true);
@@ -378,6 +396,7 @@ public class CheckGrip : MonoBehaviour
         {
             grabAnimators[i].StopPlayback();
 
+            // Resets transform
             grabAnimators[i].transform.localPosition = Vector3.zero;
             grabAnimators[i].transform.localEulerAngles = Vector3.zero;
 
@@ -393,6 +412,7 @@ public class CheckGrip : MonoBehaviour
     {
         if (canGrip)
         {
+            // If an grabable object that you actually can connect to is the current gripable object
             if (currentGripable.tag != "Electric" && currentGripable.tag != "LavaWall" && currentGripable != tempRb)
             {
                 // If a slippery wall was grabbed, the slippery child object will now move down
@@ -401,12 +421,14 @@ public class CheckGrip : MonoBehaviour
                     currentGripable.GetComponent<Rigidbody>().isKinematic = false;
                     currentGripable.transform.localPosition = Vector3.zero;
 
+                    // Randomized sound fro slipping
                     int squeakIndex = Random.Range(1, 4);
                     transform.root.GetComponent<playerSound>().PlaySoundRandPitch("IceSqueak" + squeakIndex);
                 }
                 // If a player is grabbed, that player will know it
                 else if (currentGripable.tag == "Player")
                     currentGripable.transform.root.GetComponent<PlayerInfo>().AddGrabbingPlayer(transform.root.gameObject);
+                // If a breakable wall is grabbed, it will start to break
                 else if (currentGripable.tag == "Breaking")
                     currentGripable.transform.parent.GetComponent<BreakingSurface>().AddGrabbingHand(this);
 
@@ -417,6 +439,7 @@ public class CheckGrip : MonoBehaviour
                     currentGripable.useGravity = false;
                 }
 
+                // Connects hand to grabable object with a fixed joind and sets some settings for it to make it more stable
                 gameObject.AddComponent<FixedJoint>().connectedBody = currentGripable;
                 gameObject.GetComponent<FixedJoint>().enableCollision = true;
                 gameObject.GetComponent<FixedJoint>().enablePreprocessing = false;
@@ -425,12 +448,14 @@ public class CheckGrip : MonoBehaviour
             }
             else
             {
+                // Electrifies player
                 if (currentGripable.tag == "Electric")
                 {
                     transform.root.GetComponent<PlayerStun>().Stun(1);
                     transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("got electrified!");
                     transform.root.GetComponent<playerSound>().PlaySound("spark");
                 }
+                // Burns players hand
                 else if (currentGripable.tag == "LavaWall")
                 {
                     transform.root.GetComponent<playerSound>().PlaySound("LavaTouch");
@@ -452,6 +477,7 @@ public class CheckGrip : MonoBehaviour
         //else
             Destroy(GetComponent<FixedJoint>());
 
+        // If something is grabbed
         if (currentGripping != tempRb)
         {
             // If a player was grabbed, that player will know it no longer is
@@ -462,6 +488,7 @@ public class CheckGrip : MonoBehaviour
                 currentGripping.GetComponent<Rigidbody>().isKinematic = true;
             else if (currentGripping.tag == "Throwable")
                 ResetThrowable();
+            // If a breakable wall was grabbed, that wall will know it no longer is
             else if (currentGripping.tag == "Breaking")
                 currentGripping.transform.parent.GetComponent<BreakingSurface>().RemoveGrabbingHand(this);
         }
@@ -517,7 +544,8 @@ public class CheckGrip : MonoBehaviour
         }
     }
 
-
+    
+    // Removes grabable from list if it already is in the list
     public void RemoveFromGrabables(Rigidbody rb)
     {
         if (grabablesInReach.Exists(x => x == rb))

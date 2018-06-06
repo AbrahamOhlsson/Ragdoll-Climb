@@ -70,8 +70,9 @@ public class LightningBolt : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.2f);   // w8 for the effect then stun 
 		// ######   Stun  the player 
-												
-		gameObject.transform.root.gameObject.GetComponent<PlayerStun>().Stun(5);
+		
+        if (gameObject.transform.root.GetComponent<PlayerInfo>().solid)
+		    gameObject.transform.root.GetComponent<PlayerStun>().Stun(3);
 
 		yield return new WaitForSeconds(1);
 		scaleDown = true;

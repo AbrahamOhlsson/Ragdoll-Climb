@@ -40,7 +40,7 @@ public class Explosion : MonoBehaviour
     {
         if (exploding && other.gameObject.GetComponent<Rigidbody>())
         {
-            if (other.tag == "Player")
+            if (other.tag == "Player" && other.transform.root.GetComponent<PlayerInfo>().solid)
                 other.transform.root.GetComponent<PlayerStun>().Stun(2.5f);
 
             Rigidbody rb = other.gameObject.GetComponent<Rigidbody>();

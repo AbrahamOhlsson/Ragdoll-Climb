@@ -45,10 +45,7 @@ public class KeyProgression : MonoBehaviour
     public void CheckLevelsComplete()
     {
         singleton = Singleton.instance;
-
-        print(singleton.name);
-        print(singleton.seenFinalLevelUnlock);
-
+        
         if (!singleton.seenFinalLevelUnlock)
         {
             lineLeft.fillAmount = 0;
@@ -60,7 +57,7 @@ public class KeyProgression : MonoBehaviour
             finalLevelButton.interactable = false;
             finalLevelButton.GetComponent<Image>().color = new Color(btnColor.r, btnColor.g, btnColor.b, 0);
 
-            //If all levels are completed
+            // If all keys are collected
             if (keyAmount == 99)
             {
                 StartCoroutine(DrawLines());

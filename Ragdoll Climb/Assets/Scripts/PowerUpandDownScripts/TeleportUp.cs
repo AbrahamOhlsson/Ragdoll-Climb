@@ -32,17 +32,13 @@ public class TeleportUp : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (other.transform.root.GetComponent<PlayerInfo>().solid)
-            {
-                PlayerTP = other.transform.root.gameObject;
-                //GetTeleportPosition();
-                PlayerTP.GetComponent<PlayerPowerups>().StartTeleport(teleportPos.transform.position);
-                Destroy(gameObject);
-            }
+            PlayerTP = other.transform.root.gameObject;
+            //GetTeleportPosition();
+            PlayerTP.GetComponent<PlayerPowerups>().StartTeleport(teleportPos.transform.position);
+            Destroy(gameObject);
         }
-        //else if (other.tag == "BottomObj")
-        //    Destroy(gameObject);
     }
+
 
     void GetTeleportPosition()
     {

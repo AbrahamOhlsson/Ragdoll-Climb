@@ -2,26 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireball : MonoBehaviour {
-
+public class Fireball : MonoBehaviour
+{
 	[SerializeField]
 	GameObject PlayerCol;
 
-	private void OnParticleCollision(GameObject other)
+    string feedbackMessage = "";
+
+    private void Awake()
+    {
+        if (gameObject.name.Contains("ball"))
+            feedbackMessage = "got hit by a fireball!";
+        else
+            feedbackMessage = "got roasted by a dragon!";
+    }
+
+    private void OnParticleCollision(GameObject other)
 	{
-		print(other.name);
+		PlayerCol = other.transform.root.gameObject;
 
-			PlayerCol = other.transform.root.gameObject;
-
-			if (PlayerCol.tag == "Player")
+		if (PlayerCol.tag == "Player")
+		{
+			if (PlayerCol.GetComponent<PlayerInfo>().solid)
 			{
-				if (PlayerCol.GetComponent<PlayerInfo>().solid)
-				{
-				//Run function
-				//PlayerCol.GetComponent<PlayerStun>().Stun(stunTime);
-				PlayerCol.GetComponent<PlayerInfo>().leftHand.GetComponent<CheckGrip>().BurnHand("got roasted by a dragon!");
-				PlayerCol.GetComponent<PlayerInfo>().rightHand.GetComponent<CheckGrip>().BurnHand("got roasted by a dragon!");
-			}
-			}
+		        //Run function
+		        //PlayerCol.GetComponent<PlayerStun>().Stun(stunTime);
+		        PlayerCol.GetComponent<PlayerInfo>().leftHand.GetComponent<CheckGrip>().BurnHand(feedbackMessage);
+		        PlayerCol.GetComponent<PlayerInfo>().rightHand.GetComponent<CheckGrip>().BurnHand(feedbackMessage);
+            }
+		}
 	}
 }

@@ -136,6 +136,7 @@ public class DeathManager : MonoBehaviour
             // Teleports the player
             rootTrans.transform.position = spawnPos;
 
+            // Resets body parts
             for (int i = 0; i < transforms.Length; i++)
             {
                 if (transforms[i].name != "Root_M")
@@ -146,12 +147,14 @@ public class DeathManager : MonoBehaviour
                 transforms[i].localRotation = originRot[i];
             }
         }
+        // No spawn point was found
         else
         {
             Debug.LogError("No spawn points were found!");
             manager.GetComponent<DebugText>().AddText("ERROR!!! No spawn points were found!");
         }
 
+        // Activates ghost mode
         GetComponent<GhostManager>().Ghost(ghostTime);
             
         playDeathGrunt();

@@ -25,8 +25,9 @@ public class LowerMass : MonoBehaviour {
 		startPosY = transform.localPosition.y;
 	}
 
+
 	// Rotate and float up and down
-	 void Update()
+	void Update()
 	{
 		// Rotate
 		transform.Rotate(new Vector3(0f, Time.deltaTime * rotateSpeed, 0f), Space.World);
@@ -38,6 +39,7 @@ public class LowerMass : MonoBehaviour {
 		transform.localPosition = new Vector3(transform.localPosition.x, tempPosY, transform.localPosition.z);
 	}
 
+
 	// Set player mass on trigger enter
 	void OnTriggerEnter(Collider other)
 	{
@@ -48,7 +50,7 @@ public class LowerMass : MonoBehaviour {
 
             if (PlayerCol.tag == "Player")
             {
-                if (PlayerCol.GetComponent<PlayerInfo>().solid)
+                if (MassPercent < 1 || (PlayerCol.GetComponent<PlayerInfo>().solid && MassPercent > 1))
                 {
                     // get script and then change value of MassPercent
                     PlayerPowerups playerpowerups = PlayerCol.transform.root.gameObject.GetComponent<PlayerPowerups>();
