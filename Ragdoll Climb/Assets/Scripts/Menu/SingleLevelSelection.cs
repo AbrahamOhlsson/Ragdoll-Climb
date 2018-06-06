@@ -51,6 +51,7 @@ public class SingleLevelSelection : MonoBehaviour
             singleton.levelStats_volcano = new List<SP_LevelStats>();
             singleton.levelStats_woods = new List<SP_LevelStats>();
             singleton.levelStats_metal = new List<SP_LevelStats>();
+            singleton.levelStats_castle = new List<SP_LevelStats>();
 
             // Adds as many level stats objects as there are level buttons
             for (int i = 0; i < levelButtons_ice.Length; i++)
@@ -61,9 +62,15 @@ public class SingleLevelSelection : MonoBehaviour
                 singleton.levelStats_woods.Add(new SP_LevelStats());
             for (int i = 0; i < levelButtons_metal.Length; i++)
                 singleton.levelStats_metal.Add(new SP_LevelStats());
+            for (int i = 0; i < levelButtons_castle.Length; i++)
+                singleton.levelStats_castle.Add(new SP_LevelStats());
+
         }
         else
             singleton.Load();
+
+        if (singleton.levelStats_castle == null)
+            singleton.levelStats_castle = new List<SP_LevelStats>();
 
         // Adds further level stats objects in lists if there are fewer of them than buttons
         if (singleton.levelStats_ice.Count < levelButtons_ice.Length)
@@ -81,12 +88,17 @@ public class SingleLevelSelection : MonoBehaviour
             for (int i = singleton.levelStats_woods.Count; i < levelButtons_woods.Length; i++)
                 singleton.levelStats_woods.Add(new SP_LevelStats());
         }
-        if (singleton.levelStats_woods.Count < levelButtons_metal.Length)
+        if (singleton.levelStats_metal.Count < levelButtons_metal.Length)
         {
             for (int i = singleton.levelStats_metal.Count; i < levelButtons_metal.Length; i++)
                 singleton.levelStats_metal.Add(new SP_LevelStats());
         }
-        
+        if (singleton.levelStats_castle.Count < levelButtons_castle.Length)
+        {
+            for (int i = singleton.levelStats_castle.Count; i < levelButtons_castle.Length; i++)
+                singleton.levelStats_castle.Add(new SP_LevelStats());
+        }
+
         // Sets button number, star amount and best time to be displayed
         for (int i = 0; i < levelButtons_ice.Length; i++)
             levelButtons_ice[i].SetButtonValues(singleton.levelStats_ice[i].starAmount, i + 1, singleton.levelStats_ice[i].bestTime_flt);

@@ -44,6 +44,11 @@ public class KeyProgression : MonoBehaviour
 
     public void CheckLevelsComplete()
     {
+        singleton = Singleton.instance;
+
+        print(singleton.name);
+        print(singleton.seenFinalLevelUnlock);
+
         if (!singleton.seenFinalLevelUnlock)
         {
             lineLeft.fillAmount = 0;
@@ -59,10 +64,9 @@ public class KeyProgression : MonoBehaviour
             if (keyAmount == 99)
             {
                 StartCoroutine(DrawLines());
+                singleton.seenFinalLevelUnlock = true;
+                singleton.Save();
             }
-
-            singleton.seenFinalLevelUnlock = true;
-            singleton.Save();
         }
     }
 
