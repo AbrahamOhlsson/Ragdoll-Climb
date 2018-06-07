@@ -81,6 +81,13 @@ public class FinishLine : MonoBehaviour
             rematchCanvas.SetActive(true);
             doItButton.Select();
 
+            MultiplayerManager manager = FindObjectOfType<MultiplayerManager>();
+
+            FindObjectOfType<PauseMenuManager>().canPause = false;
+
+            foreach (GameObject player in manager.players)
+                player.SetActive(false);
+
             Time.timeScale = 0f;
         }
     }

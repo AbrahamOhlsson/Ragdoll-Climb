@@ -94,6 +94,7 @@ public class PauseMenuManager : MonoBehaviour
         {
             if (paused)
             {
+                // Resets groups
                 mainGroup.SetActive(false);
                 howToPlayGroup.SetActive(false);
                 optionsGroup.SetActive(false);
@@ -101,6 +102,7 @@ public class PauseMenuManager : MonoBehaviour
 
                 groupPath.Clear();
 
+                // No button selected
                 eventSystem.SetSelectedGameObject(null);
 
                 paused = false;
@@ -110,10 +112,12 @@ public class PauseMenuManager : MonoBehaviour
             }
             else
             {
+                // Opens first menu group
                 MenuGroup firstGroup = new MenuGroup(mainGroup, mainGroup.GetComponentInChildren<Selectable>().gameObject);
                 groupPath.Push(firstGroup);
                 mainGroup.SetActive(true);
 
+                // Highlights first button in group
                 eventSystem.SetSelectedGameObject(groupPath.Peek().highlightedBtn);
 
                 paused = true;
@@ -158,7 +162,13 @@ public class PauseMenuManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        MultiplayerManager manager = FindObjectOfType<MultiplayerManager>();
+
+        foreach (GameObject player in manager.players)
+            player.SetActive(false);
+
         Time.timeScale = 1f;
+        canPause = false;
         loadingScreen.LoadLevelAsync("Castle Menu");
     }
 

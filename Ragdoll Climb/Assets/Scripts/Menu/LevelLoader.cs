@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
 
 public class LevelLoader : MonoBehaviour
 {
     [SerializeField] Image progressBar;
     [SerializeField] Text progressText;
     [SerializeField] Text punText;
+    [SerializeField] Button continueButton;
     [SerializeField] string[] puns;
     [SerializeField] float punSwitchTime = 5;
     [SerializeField] Animator[] leftPulsing;
@@ -22,7 +25,9 @@ public class LevelLoader : MonoBehaviour
     float punTimer = 0;
 
     float animTimer = 0;
-    
+
+    GamePadState[] state = new GamePadState[4];
+
 
     private void Start()
     {
@@ -30,6 +35,7 @@ public class LevelLoader : MonoBehaviour
         canvas = GetComponent<Canvas>();
         progressBar.fillAmount = 0;
         progressText.text = "0%";
+        continueButton.gameObject.SetActive(false);
     }
 
 
@@ -59,6 +65,12 @@ public class LevelLoader : MonoBehaviour
     }
 
 
+    public void ActivateLoadedLevel()
+    {
+        operation.allowSceneActivation = true;
+    }
+
+
     // Loads level asyncroniously and manages loading sreen
     IEnumerator LoadAsync(string levelName)
     {
@@ -67,8 +79,8 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
 
         operation = SceneManager.LoadSceneAsync(levelName);
-
-        // 
+        operation.allowSceneActivation = false;
+        
         while(!operation.isDone)
         {
             // Progress goes from 0 to 1, instead of 0 to 0.9
@@ -85,7 +97,21 @@ public class LevelLoader : MonoBehaviour
                 RandomizePun();
             else
                 punTimer += Time.deltaTime;
-            
+
+            if (progress == 1)
+            {
+                continueButton.gameObject.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
+
+                for (int i = 0; i < 4; i++)
+                {
+                    state[i] = GamePad.GetState((PlayerIndex)i);
+
+                    if (state[i].Buttons.Start == ButtonState.Pressed)
+                        ActivateLoadedLevel();
+                }
+            }
+
             yield return null;
         }
     }

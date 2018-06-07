@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class SingleLevelSelection : MonoBehaviour
 {
+    // Parent objects containing level buttons
     [SerializeField] Transform levelBtnGroup_ice;
     [SerializeField] Transform levelBtnGroup_volcano;
     [SerializeField] Transform levelBtnGroup_woods;
@@ -38,6 +39,7 @@ public class SingleLevelSelection : MonoBehaviour
     {
         singleton = Singleton.instance;
 
+        // Gets buttons
         levelButtons_ice = levelBtnGroup_ice.GetComponentsInChildren<SP_LevelButton>(true);
         levelButtons_volcano = levelBtnGroup_volcano.GetComponentsInChildren<SP_LevelButton>(true);
         levelButtons_woods = levelBtnGroup_woods.GetComponentsInChildren<SP_LevelButton>(true);
@@ -111,14 +113,18 @@ public class SingleLevelSelection : MonoBehaviour
         for (int i = 0; i < levelButtons_castle.Length; i++)
             levelButtons_castle[i].SetButtonValues(singleton.levelStats_metal[i].starAmount, i + 1, singleton.levelStats_metal[i].bestTime_flt);
         
+        // Goes through each button
         for (int i = 0; i < singleton.levelStats_woods.Count; i++)
         {
+            // If level is completed
             if (singleton.levelStats_woods[i].completed)
             {
+                // Unlocks next level if the level isn't the last one in the group
                 if (i < singleton.levelStats_woods.Count - 1)
                     levelButtons_woods[i + 1].gameObject.SetActive(true);
                 else
                 {
+                    // Activates the first level of ice, lava and metal if all woods are completed
                     levelButtons_ice[0].gameObject.SetActive(true);
                     levelButtons_metal[0].gameObject.SetActive(true);
                     levelButtons_volcano[0].gameObject.SetActive(true);
@@ -163,6 +169,7 @@ public class SingleLevelSelection : MonoBehaviour
             else
                 break;
         }
+        // Unlocks Mannequin character if castle level is completed
         for (int i = 0; i < singleton.levelStats_castle.Count; i++)
         {
             if (singleton.levelStats_castle[i].completed)
@@ -181,7 +188,8 @@ public class SingleLevelSelection : MonoBehaviour
 
     private void Update()
     {
-        if (EventSystem.current.currentSelectedGameObject.GetComponent<SP_LevelButton>())
+        // Showcases level name and time record on selected button
+        if (EventSystem.current.currentSelectedGameObject != null && EventSystem.current.currentSelectedGameObject.GetComponent<SP_LevelButton>())
         {
             UpdateLevelInfo(EventSystem.current.currentSelectedGameObject.GetComponent<SP_LevelButton>(), false);
         }
@@ -193,11 +201,13 @@ public class SingleLevelSelection : MonoBehaviour
         // Determines name of scene that should be loaded by getting the button's world and level index values
         string levelName = "SP_level" + "_" + levelButtonScript.world + levelButtonScript.levelIndex;
 
+        // Gives singleton valuable information
         singleton.selectedLevel = levelName;
         singleton.currSpLevelIndex = levelButtonScript.levelIndex - 1;
         singleton.currSpWorld = levelButtonScript.world;
         singleton.mode = Singleton.Modes.Single;
-
+        
+        // Lets singleton know which world is being played
         if (singleton.currSpWorld == "woods")
             singleton.currLevelStats = singleton.levelStats_woods[singleton.currSpLevelIndex];
         else if (singleton.currSpWorld == "ice")
@@ -209,6 +219,7 @@ public class SingleLevelSelection : MonoBehaviour
         else if (singleton.currSpWorld == "castle")
             singleton.currLevelStats = singleton.levelStats_castle[singleton.currSpLevelIndex];
 
+        // Loads level
         loader.LoadLevelAsync(levelName);
     }
     

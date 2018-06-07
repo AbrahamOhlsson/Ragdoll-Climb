@@ -94,6 +94,7 @@ public class Options : MonoBehaviour
 
     public void SaveOptions()
     {
+        // Stores slider, dropdown and toggle values in singleton
         singleton.qualityIndex = qualityDropdown.value;
         singleton.resIndex = resDropdown.value;
         singleton.fullscreen = fullScrToggle.isOn;
@@ -101,6 +102,7 @@ public class Options : MonoBehaviour
         singleton.sfxVol = sfxSlider.value;
         singleton.musicVol = musicSlider.value;
 
+        // Saves options in a savefile
         singleton.SaveOptions();
 
         saveButton.gameObject.SetActive(false);
@@ -162,12 +164,14 @@ public class Options : MonoBehaviour
     {
         if (singleton.OptionsFileExists())
         {
+            // Sets video and volume settings to mathc the values in the save file
             Screen.SetResolution(resolutions[singleton.resIndex].width, resolutions[singleton.resIndex].height, singleton.fullscreen);
             QualitySettings.SetQualityLevel(qualityDropdown.value, true);
             master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(singleton.masterVol));
             sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(singleton.sfxVol));
             music.audioMixer.SetFloat("MusicVolume", CalculateMixerVol(singleton.musicVol));
 
+            // Sets options UI to match the values in save file
             int index = resolutions.FindIndex(x => x.height == resolutions[singleton.resIndex].height && x.width == resolutions[singleton.resIndex].width);
             resDropdown.value = index;
             qualityDropdown.value = singleton.qualityIndex;
@@ -181,6 +185,7 @@ public class Options : MonoBehaviour
         }
         else
         {
+            // Sets options UI to match the current settings values
             int index = resolutions.FindIndex(x => x.height == Screen.currentResolution.height && x.width == Screen.currentResolution.width);
             resDropdown.value = index;
             qualityDropdown.value = QualitySettings.GetQualityLevel();
