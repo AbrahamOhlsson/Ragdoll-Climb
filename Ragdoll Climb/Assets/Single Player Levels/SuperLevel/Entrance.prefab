@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 33905707725962858}
   - component: {fileID: 23640071724166688}
   - component: {fileID: 54847347249495852}
+  - component: {fileID: 64965645171854346}
   m_Layer: 16
   m_Name: Entrance
   m_TagString: Wall
@@ -397,7 +398,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1921235618440320}
   m_LocalRotation: {x: 0.124360636, y: -0.69608504, z: 0.12436064, w: 0.6960851}
-  m_LocalPosition: {x: -1.97, y: -3.03, z: 0.12800002}
+  m_LocalPosition: {x: -2.73, y: -3.03, z: 0.12800002}
   m_LocalScale: {x: 1.533287, y: 1.5332876, z: 1.5332876}
   m_Children: []
   m_Father: {fileID: 4839845952409628}
@@ -894,6 +895,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64965645171854346
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1678683682616550}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 137e3baa669dc19459fad359feefb953, type: 2}
 --- !u!65 &65064738145525238
 BoxCollider:
   m_ObjectHideFlags: 1
