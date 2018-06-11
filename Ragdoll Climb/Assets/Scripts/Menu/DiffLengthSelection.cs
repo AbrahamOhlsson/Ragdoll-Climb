@@ -18,12 +18,16 @@ public class DiffLengthSelection : MonoBehaviour
     [SerializeField] string[] diffNames;
     [SerializeField] string[] lengthNames;
 
+    soundManager soundManager;
+
     Singleton singleton;
 
 
     private void Awake()
     {
         singleton = Singleton.instance;
+
+        soundManager = FindObjectOfType<soundManager>();
     }
 
 
@@ -46,6 +50,7 @@ public class DiffLengthSelection : MonoBehaviour
         diffText.text = diffNames[Mathf.RoundToInt(diffSlider.value)];
         diffImage.sprite = diffSprites[Mathf.RoundToInt(diffSlider.value)];
         singleton.levelDifficulty = (Singleton.Difficulties)Mathf.RoundToInt(diffSlider.value);
+        soundManager.PlaySound("ButtonClick");
     }
 
 
@@ -59,6 +64,7 @@ public class DiffLengthSelection : MonoBehaviour
         }
 
         singleton.levelLength = (Singleton.Lengths)Mathf.RoundToInt(lengthSlider.value);
+        soundManager.PlaySound("ButtonClick");
     }
 
 

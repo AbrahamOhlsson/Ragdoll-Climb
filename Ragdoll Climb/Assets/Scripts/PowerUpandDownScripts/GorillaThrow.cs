@@ -105,6 +105,8 @@ public class GorillaThrow : MonoBehaviour
                     }
                 }
 
+                soundManager.PlaySound("YetiThrow");
+
                 inactiveTimer = inactiveTime;
 
                 //Apply stun effect to the player.
@@ -171,6 +173,7 @@ public class GorillaThrow : MonoBehaviour
             {
                 //
                 playerForce.transform.root.GetComponent<PlayerInfo>().feedbackText.Activate("is being wrecked by a yeti!");
+                soundManager.PlaySound("YetiGrab");
             }
             else if (name.Contains("Cement"))
             {

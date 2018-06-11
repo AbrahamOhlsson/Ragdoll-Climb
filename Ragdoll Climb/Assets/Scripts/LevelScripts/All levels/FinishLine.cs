@@ -88,6 +88,8 @@ public class FinishLine : MonoBehaviour
             foreach (GameObject player in manager.players)
                 player.SetActive(false);
 
+            Cursor.visible = true;
+
             Time.timeScale = 0f;
         }
     }
