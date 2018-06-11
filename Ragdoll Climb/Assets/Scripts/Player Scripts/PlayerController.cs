@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
     Renderer rightStaminaBar;
 
     // sound manager
-    soundManager soundManager;
+    playerSound soundManager;
 
     // grunt Manager
     PlayerGrunts gruntManager;
@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour
 		wristStartRotLeft = leftHand.transform.localRotation;
 		wristStartRotRight = rightHand.transform.localRotation;
 
-        soundManager = FindObjectOfType<soundManager>();
+        soundManager = GetComponent<playerSound>();
 
         gruntManager = transform.GetComponent<PlayerGrunts>();
     }
@@ -823,8 +823,9 @@ public class PlayerController : MonoBehaviour
         }
 
         hand.GetComponent<TrailRenderer>().enabled = true;
-        
-        soundManager.PlaySound("punchSwoosh");
+
+        int swooshIndex = Random.Range(1, 6);
+        soundManager.PlaySound("PunchSwoosh" + swooshIndex);
 
         yield return new WaitForFixedUpdate();
         // Pulls back arm before punch
@@ -872,6 +873,9 @@ public class PlayerController : MonoBehaviour
     {
         if (left && gripLeft && checkGripLeft != null)
         {
+            if (checkGripLeft.currentGripping != null && checkGripLeft.currentGripping.tag == "Sticky")
+                soundManager.PlaySoundRandPitch("Slime1");
+
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
                 checkGripLeft.Disconnect(pushDirLeft, throwForce);
@@ -884,6 +888,9 @@ public class PlayerController : MonoBehaviour
         }
         else if (!left && gripRight && checkGripRight != null)
         {
+            if (checkGripRight.currentGripping != null && checkGripRight.currentGripping.tag == "Sticky")
+                soundManager.PlaySoundRandPitch("Slime1");
+
             // Disconnects from the grabbed object, also pushes it if it is a throwable
             if (throwReleasedObj)
                 checkGripRight.Disconnect(pushDirRight, throwForce);
@@ -902,6 +909,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(stickyReleaseDelay);
         
         ReleaseGrip(left, false);
+        
+        //soundManager.PlaySoundRandPitch("Slime1");
 
         yield return null;
     }

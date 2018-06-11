@@ -24,14 +24,12 @@ public class PunchCheck : MonoBehaviour
     [Range(0f, 2f)]
     [SerializeField] float dmgResetDelay = 0.4f;
 
-    [SerializeField] AudioClip punchHitSfx;
+    playerSound soundManager;
 
     float dmgResetTimer = 0f;
 
     PlayerController controller;
-
-    AudioSource source;
-
+    
     public AudioMixerGroup myMixGroup;
 
     public AudioMixer mixer;
@@ -42,10 +40,10 @@ public class PunchCheck : MonoBehaviour
        // mixer = Resources.Load("TEST") as AudioMixer;
        
         controller = transform.root.GetComponent<PlayerController>();
-        source = transform.root.GetComponent<AudioSource>();
         //print(mixer.name + " test namn");
         //source.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
-        
+
+        soundManager = GetComponent<playerSound>();
     }
 
 
@@ -76,7 +74,8 @@ public class PunchCheck : MonoBehaviour
 
             dmgResetTimer = 0f;
 
-            source.PlayOneShot(punchHitSfx);
+            int hitIndex = Random.Range(1, 7);
+            soundManager.PlaySoundRandPitch("PunchHit" + hitIndex);
         }
     }
 }

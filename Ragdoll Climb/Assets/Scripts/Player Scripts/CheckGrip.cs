@@ -47,6 +47,8 @@ public class CheckGrip : MonoBehaviour
     
     Rigidbody rb;
     Rigidbody tempRb = new Rigidbody();
+
+    playerSound soundManager;
     
     
     void Start ()
@@ -57,6 +59,8 @@ public class CheckGrip : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = Vector3.zero;
+
+        soundManager = transform.root.GetComponent<playerSound>();
     }
 	
 
@@ -431,6 +435,8 @@ public class CheckGrip : MonoBehaviour
                 // If a breakable wall is grabbed, it will start to break
                 else if (currentGripable.tag == "Breaking")
                     currentGripable.transform.parent.GetComponent<BreakingSurface>().AddGrabbingHand(this);
+                else if (currentGripable.tag == "Sticky")
+                    soundManager.PlaySoundRandPitch("Slime2");
 
                 if (currentGripable.tag == "Throwable")
                 {
@@ -526,6 +532,7 @@ public class CheckGrip : MonoBehaviour
             fireParticle.transform.GetChild(1).GetComponent<ParticleSystem>().Play();
             transform.root.GetComponent<PlayerInfo>().feedbackText.Activate(feedbackText);
             transform.root.GetComponent<VibrationManager>().VibrateTimed(0.8f, fireTime, 12);
+            soundManager.PlaySoundRandPitch("CatchFire");
         }
     }
 

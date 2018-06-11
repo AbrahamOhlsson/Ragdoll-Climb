@@ -24,6 +24,13 @@ public class GorillaThrow : MonoBehaviour
     bool playerCollision = false;
     bool inactive;
 
+    float swooshSoundTimer = 0;
+    float hitSoundTimer = 0;
+    float minSoundDelay = 0.1f;
+    float maxSoundDelay = 0.4f;
+    float swooshDelay;
+    float hitDelay;
+
     Vector3 lerpPos;
     ParticleSystem stars;
     ParticleSystem smoke;
@@ -31,12 +38,19 @@ public class GorillaThrow : MonoBehaviour
     Rigidbody playerForce;
     Rigidbody[] bodyParts;
 
+    soundManager soundManager;
+
 	// Use this for initialization
 	void Start ()
     {
         smoke = GetComponent<ParticleSystem>();
-        stars = GetComponentInChildren<ParticleSystem>(); 
-	}
+        stars = GetComponentInChildren<ParticleSystem>();
+
+        hitDelay = Random.Range(minSoundDelay, maxSoundDelay);
+        swooshDelay = Random.Range(minSoundDelay, maxSoundDelay);
+
+        soundManager = FindObjectOfType<soundManager>();
+    }
 
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -45,6 +59,28 @@ public class GorillaThrow : MonoBehaviour
         {
             playerForce.AddForce((lerpPos - playerForce.position).normalized * 750f);
             throwTimer -= Time.deltaTime;
+
+            if (hitSoundTimer >= hitDelay)
+            {
+                int hitIndex = Random.Range(1, 7);
+                playerForce.transform.root.GetComponent<playerSound>().PlaySoundRandPitch("PunchHit" + hitIndex);
+
+                hitDelay = Random.Range(minSoundDelay, maxSoundDelay);
+                hitSoundTimer = 0;
+            }
+            else
+                hitSoundTimer += Time.deltaTime;
+
+            if (swooshSoundTimer >= swooshDelay)
+            {
+                int swooshIndex = Random.Range(1, 6);
+                playerForce.transform.root.GetComponent<playerSound>().PlaySoundRandPitch("PunchSwoosh" + swooshIndex);
+
+                swooshDelay = Random.Range(minSoundDelay, maxSoundDelay);
+                swooshSoundTimer = 0;
+            }
+            else
+                swooshSoundTimer += Time.deltaTime;
 
             if (throwTimer <= 0)
             {

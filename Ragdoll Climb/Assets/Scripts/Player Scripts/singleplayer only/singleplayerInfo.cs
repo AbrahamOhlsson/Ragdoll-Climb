@@ -13,6 +13,8 @@ public class singleplayerInfo : MonoBehaviour {
     internal Text TimerText;
 
     Image[] keyImages;
+
+    soundManager soundManager;
    
 
 	// Use this for initialization
@@ -20,6 +22,8 @@ public class singleplayerInfo : MonoBehaviour {
     {
         TimerText = GameObject.Find("Debug Canvas/Timer").GetComponent<Text>();
         keyImages = GameObject.Find("Debug Canvas/Key Images").GetComponentsInChildren<Image>();
+
+        soundManager = FindObjectOfType<soundManager>();
     }
 	
 	// Update is called once per frame
@@ -41,5 +45,7 @@ public class singleplayerInfo : MonoBehaviour {
     {
         stars++;
         keyImages[stars - 1].color = Color.yellow;
+
+        soundManager.PlaySoundRandPitch("Key");
     }
 }
