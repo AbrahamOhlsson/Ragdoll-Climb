@@ -63,12 +63,16 @@ public class Lobby : MonoBehaviour
     GamePadState[] states_nonSpec = new GamePadState[4];
     GamePadState[] prevStates_nonSpec = new GamePadState[4];
 
+    soundManager soundManager;
+
     Singleton singleton;
 
 
     private void Awake()
     {
         singleton = Singleton.instance;
+
+        soundManager = FindObjectOfType<soundManager>();
 
         colorTaken = new bool[colors.Length];
 
@@ -174,6 +178,8 @@ public class Lobby : MonoBehaviour
                     readyBoxImg[addedIndex].color = uiColor;
 
                     playerModels[addedIndex].SetActive(true);
+
+                    soundManager.PlaySound("ButtonClick");
                 }
             }
 
@@ -223,6 +229,8 @@ public class Lobby : MonoBehaviour
                         // Everyone isn't ready anymore in case they were
                         allReady = false;
                         continueButton.SetActive(false);
+
+                        soundManager.PlaySound("ButtonClick");
                     }
                     // Readies player
                     else
@@ -251,6 +259,8 @@ public class Lobby : MonoBehaviour
                                     continueButton.SetActive(true);
                                 }
                             }
+
+                            soundManager.PlaySound("ButtonClick");
                         }
                     }
                 }
@@ -287,48 +297,55 @@ public class Lobby : MonoBehaviour
     // Switches color of character model
     private void SwitchColor(int playerIndex, bool next)
     {
-        // Index of previously selected color
-        int initialIndex = colorIndexAssigned[playerIndex];
-
-        // Searches for available color
-        while (colorTaken[colorIndexAssigned[playerIndex]])
+        if (!canSwitchCharacter && characterIndexAssigned[playerIndex] == 1)
+        { }
+        else
         {
-            // Next color, if right was pressed
-            if (next)
+            // Index of previously selected color
+            int initialIndex = colorIndexAssigned[playerIndex];
+
+            // Searches for available color
+            while (colorTaken[colorIndexAssigned[playerIndex]])
             {
-                colorIndexAssigned[playerIndex]++;
+                // Next color, if right was pressed
+                if (next)
+                {
+                    colorIndexAssigned[playerIndex]++;
 
-                // Loops back index to 0 if index is beyond length of array
-                if (colorIndexAssigned[playerIndex] >= colorTaken.Length)
-                    colorIndexAssigned[playerIndex] = 0;
+                    // Loops back index to 0 if index is beyond length of array
+                    if (colorIndexAssigned[playerIndex] >= colorTaken.Length)
+                        colorIndexAssigned[playerIndex] = 0;
+                }
+                // Previous color, if left was pressed
+                else
+                {
+                    colorIndexAssigned[playerIndex]--;
+
+                    // Loops to end of array if index was less than 0
+                    if (colorIndexAssigned[playerIndex] < 0)
+                        colorIndexAssigned[playerIndex] = colorTaken.Length - 1;
+                }
             }
-            // Previous color, if left was pressed
-            else
+
+            // Recolors all renderers of character model
+            for (int i = 0; i < playerRenderers[playerIndex].Count; i++)
             {
-                colorIndexAssigned[playerIndex]--;
-
-                // Loops to end of array if index was less than 0
-                if (colorIndexAssigned[playerIndex] < 0)
-                    colorIndexAssigned[playerIndex] = colorTaken.Length - 1;
+                playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
             }
+
+            Color uiColor = AddHSV(colors[colorIndexAssigned[playerIndex]], 0f, uiColorSat - 1, 1f);
+            joinedPlayerImg[playerIndex].color = uiColor;
+            playerSlotImg[playerIndex].color = uiColor;
+            readyBoxImg[playerIndex].color = uiColor;
+
+            // The new color is now taken and can't be assigned to other players
+            colorTaken[colorIndexAssigned[playerIndex]] = true;
+
+            // The previously selected color can now be assigned to other players
+            colorTaken[initialIndex] = false;
+
+            soundManager.PlaySound("ButtonNavigation");
         }
-
-        // Recolors all renderers of character model
-        for (int i = 0; i < playerRenderers[playerIndex].Count; i++)
-        {
-            playerRenderers[playerIndex][i].material.color = colors[colorIndexAssigned[playerIndex]];
-        }
-
-        Color uiColor = AddHSV(colors[colorIndexAssigned[playerIndex]], 0f, uiColorSat - 1, 1f);
-        joinedPlayerImg[playerIndex].color = uiColor;
-        playerSlotImg[playerIndex].color = uiColor;
-        readyBoxImg[playerIndex].color = uiColor;
-
-        // The new color is now taken and can't be assigned to other players
-        colorTaken[colorIndexAssigned[playerIndex]] = true;
-
-        // The previously selected color can now be assigned to other players
-        colorTaken[initialIndex] = false;
     }
 
 
@@ -387,6 +404,8 @@ public class Lobby : MonoBehaviour
             foreach (MaskableGraphic graphic in graphics)
                 graphic.color = new Color(graphic.color.r, graphic.color.g, graphic.color.b, 1f);
         }
+
+        soundManager.PlaySound("ButtonNavigation");
     }
 
 
@@ -435,7 +454,9 @@ public class Lobby : MonoBehaviour
 		allReady = false;
 
         canControl = false;
-	}
+
+        soundManager.PlaySound("ButtonClick");
+    }
 
     
     // Resets variables in case the lobby has been open before
