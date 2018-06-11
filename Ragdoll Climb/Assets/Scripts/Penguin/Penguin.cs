@@ -39,6 +39,8 @@ public class Penguin : MonoBehaviour
 
     Animation anim;
 
+    soundManager soundManager;
+
 
     void Start()
     {
@@ -51,6 +53,8 @@ public class Penguin : MonoBehaviour
 
         anim = GetComponent<Animation>();
         anim.Play("walk");
+
+        soundManager = FindObjectOfType<soundManager>();
     }
 
     
@@ -124,6 +128,8 @@ public class Penguin : MonoBehaviour
 
                         // Deactivates crosshair
                         playerTarget.GetChild(1).gameObject.SetActive(false);
+
+                        soundManager.PlaySoundRandPitch("Penguin_attack");
 
                         state = PenguinStates.Launched;
                     }

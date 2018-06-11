@@ -13,6 +13,8 @@ public class PenguinScout : MonoBehaviour
     Penguin penguin;
     Material mat;
 
+    soundManager soundManager;
+
 
     void Start ()
     {
@@ -22,6 +24,8 @@ public class PenguinScout : MonoBehaviour
         targetAlpha = minAlpha;
         currAlpha = maxAlpha;
         mat.color = new Color(1, 1, 0, 0);
+
+        soundManager = FindObjectOfType<soundManager>();
     }
 
 
@@ -54,6 +58,8 @@ public class PenguinScout : MonoBehaviour
             penguin.PrepareLaunch(other.transform.root.GetComponent<PlayerInfo>().spine.transform);
 
             mat.color = new Color(1, 0, 0, currAlpha);
+
+            soundManager.PlaySoundRandPitch("Penguin_spot");
         }
     }
 }
