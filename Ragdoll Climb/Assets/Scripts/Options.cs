@@ -29,11 +29,15 @@ public class Options : MonoBehaviour
 
     GamePadState[] states = new GamePadState[4];
 
+    soundManager soundManager;
+
 
     void Start ()
     {
         singleton = Singleton.instance;
-        
+
+        soundManager = FindObjectOfType<soundManager>();
+
         Resolution res1 = new Resolution();
         res1.width = 1920;
         res1.height = 1080;
@@ -72,7 +76,7 @@ public class Options : MonoBehaviour
         singleton.LoadOptions();
         ResetOptions();
         SaveOptions();
-
+        
         saveButton.gameObject.SetActive(false);
 	}
 
@@ -116,6 +120,8 @@ public class Options : MonoBehaviour
         QualitySettings.SetQualityLevel(qualityDropdown.value, true);
 
         saveButton.gameObject.SetActive(true);
+
+        soundManager.PlaySound("ButtonClick");
     }
 
 
@@ -125,6 +131,8 @@ public class Options : MonoBehaviour
         Screen.SetResolution(res.width, res.height, fullScrToggle.isOn);
 
         saveButton.gameObject.SetActive(true);
+
+        soundManager.PlaySound("ButtonClick");
     }
 
 
@@ -133,6 +141,8 @@ public class Options : MonoBehaviour
         Screen.fullScreen = fullScrToggle.isOn;
 
         saveButton.gameObject.SetActive(true);
+
+        soundManager.PlaySound("ButtonClick");
     }
 
 
@@ -141,6 +151,8 @@ public class Options : MonoBehaviour
         master.audioMixer.SetFloat("MasterVolume", CalculateMixerVol(masterSlider.value));
 
         saveButton.gameObject.SetActive(true);
+
+        soundManager.PlaySound("ButtonClick");
     }
 
 
@@ -149,6 +161,8 @@ public class Options : MonoBehaviour
         sfx.audioMixer.SetFloat("SFXVolume", CalculateMixerVol(sfxSlider.value));
 
         saveButton.gameObject.SetActive(true);
+
+        soundManager.PlaySound("ButtonClick");
     }
 
 
