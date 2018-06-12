@@ -67,12 +67,11 @@ public class RocketInTheButt : MonoBehaviour {
 
             if (rocketFuel >= rocketTank)
             {
-                rocketFuel = 0;
-                flyReady = false;
-                gameObject.SetActive(false);
+                ResetRocket();
             }
         }
 	}
+
 
     public void startTheRocket()
     {
@@ -80,5 +79,13 @@ public class RocketInTheButt : MonoBehaviour {
         flyReady = true;
         print("The Rocket is online! " + player);
         //GetComponent<PlayerController>().ReleaseGrip(true, false);
+    }
+
+
+    public void ResetRocket()
+    {
+        rocketFuel = 0;
+        flyReady = false;
+        gameObject.SetActive(false);
     }
 }

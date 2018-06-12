@@ -27,13 +27,9 @@ public class TeleportRandom : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            
-            if (other.transform.root.GetComponent<PlayerInfo>().solid)
-            {
-                PlayerTP = other.transform.root.gameObject;
-                GetTeleportPosition();
-                Destroy(gameObject);
-            }
+            PlayerTP = other.transform.root.gameObject;
+            GetTeleportPosition();
+            Destroy(gameObject);
         }
         //else if (other.tag == "BottomObj")
         //    Destroy(gameObject);

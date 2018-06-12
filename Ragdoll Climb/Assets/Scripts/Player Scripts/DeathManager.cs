@@ -154,6 +154,9 @@ public class DeathManager : MonoBehaviour
             manager.GetComponent<DebugText>().AddText("ERROR!!! No spawn points were found!");
         }
 
+        GetComponentInChildren<RocketInTheButt>().ResetRocket();
+
+
         // Activates ghost mode
         GetComponent<GhostManager>().Ghost(ghostTime);
             

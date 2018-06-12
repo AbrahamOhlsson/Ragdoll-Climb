@@ -42,8 +42,6 @@ public class PunchCheck : MonoBehaviour
         controller = transform.root.GetComponent<PlayerController>();
         //print(mixer.name + " test namn");
         //source.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
-
-        soundManager = GetComponent<playerSound>();
     }
 
 
@@ -75,7 +73,7 @@ public class PunchCheck : MonoBehaviour
             dmgResetTimer = 0f;
 
             int hitIndex = Random.Range(1, 7);
-            soundManager.PlaySoundRandPitch("PunchHit" + hitIndex);
+            transform.root.GetComponent<playerSound>().PlaySoundRandPitch("PunchHit" + hitIndex);
         }
     }
 }
