@@ -26,6 +26,8 @@ public class SP_ResultsMenu : MonoBehaviour
 
     Singleton singleton;
 
+    VibrationManager vibManager;
+
 
     void Start ()
     {
@@ -48,6 +50,8 @@ public class SP_ResultsMenu : MonoBehaviour
 
         if ((singleton.currSpWorld == "woods" && singleton.currSpLevelIndex == 2) || singleton.currSpLevelIndex == 9)
             nextLvlButton.SetActive(false);
+
+        vibManager = FindObjectOfType<VibrationManager>();
 
         gameObject.SetActive(false);
     }
@@ -73,6 +77,8 @@ public class SP_ResultsMenu : MonoBehaviour
         GetComponent<Canvas>().enabled = true;
 
         EventSystem.current.SetSelectedGameObject(GetComponentInChildren<Button>().gameObject);
+
+        vibManager.StopVibration(10000);
     }
 
 

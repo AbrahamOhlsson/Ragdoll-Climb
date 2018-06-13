@@ -38,6 +38,7 @@ public class singleplayerEnd : MonoBehaviour
             levelStats = singleton.levelStats_castle;
     }
 
+
     void OnTriggerEnter(Collider other)
     {
         Player = other.transform.root.gameObject;
