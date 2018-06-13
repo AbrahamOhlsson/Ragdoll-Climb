@@ -13,6 +13,7 @@ public class CharacterSelection_SP : MonoBehaviour
 
     [SerializeField] GameObject nextGroup;
     [SerializeField] GameObject playerModel;
+    [SerializeField] GameObject continueButton;
 
     [SerializeField] Image playerSlotImg;
     [SerializeField] Image joinedPlayerImg;
@@ -21,7 +22,7 @@ public class CharacterSelection_SP : MonoBehaviour
 
     [SerializeField] Color[] colors;
     [SerializeField] GameObject[] characterModels;
-
+    
     [SerializeField] GameObject lockedCharacter;
 
     [SerializeField] EventSystem eventSystem;
@@ -39,12 +40,16 @@ public class CharacterSelection_SP : MonoBehaviour
     GamePadState state;
     GamePadState prevState;
 
+    soundManager soundManager;
+
     Singleton singleton;
 
 
     private void Awake()
     {
         singleton = Singleton.instance;
+
+        soundManager = FindObjectOfType<soundManager>();
 
         menuManager = transform.root.GetComponent<WorldMenuManager>();
 
@@ -92,26 +97,31 @@ public class CharacterSelection_SP : MonoBehaviour
         // Rotation of character
         playerModel.transform.Rotate(new Vector3(0f, state.ThumbSticks.Right.X, 0f) * rotateSpeed * Time.deltaTime);
 
-        // Switching of color and character
-        // Up on stick or D-pad
-        if ((state.ThumbSticks.Left.Y >= 0.3f && prevState.ThumbSticks.Left.Y < 0.3f) || (state.DPad.Up == ButtonState.Pressed && prevState.DPad.Up == ButtonState.Released))
-            SwitchColor(true);
+        if (!canSwitchCharacter && characterIndex == 1)
+        { }
+        else
+        {
+            // Switching of color and character
+            // Up on stick or D-pad
+            if ((state.ThumbSticks.Left.Y >= 0.3f && prevState.ThumbSticks.Left.Y < 0.3f) || (state.DPad.Up == ButtonState.Pressed && prevState.DPad.Up == ButtonState.Released))
+                SwitchColor(true);
 
-        // Down on stick or D-pad
-        else if ((state.ThumbSticks.Left.Y <= -0.3f && prevState.ThumbSticks.Left.Y > -0.3f) || (state.DPad.Down == ButtonState.Pressed && prevState.DPad.Down == ButtonState.Released))
-            SwitchColor(false);
+            // Down on stick or D-pad
+            else if ((state.ThumbSticks.Left.Y <= -0.3f && prevState.ThumbSticks.Left.Y > -0.3f) || (state.DPad.Down == ButtonState.Pressed && prevState.DPad.Down == ButtonState.Released))
+                SwitchColor(false);
+
+            // Continues if Start is pressed
+            if (state.Buttons.Start == ButtonState.Pressed && prevState.Buttons.Start == ButtonState.Released)
+                Continue();
+        }
 
         // Right on stick or D-pad
-        else if ((state.ThumbSticks.Left.X >= 0.3f && prevState.ThumbSticks.Left.X < 0.3f) || (state.DPad.Right == ButtonState.Pressed && prevState.DPad.Right == ButtonState.Released))
+        if ((state.ThumbSticks.Left.X >= 0.3f && prevState.ThumbSticks.Left.X < 0.3f) || (state.DPad.Right == ButtonState.Pressed && prevState.DPad.Right == ButtonState.Released))
             SwitchCharacter(true);
 
         // Left on stick or D-pad
         else if ((state.ThumbSticks.Left.X <= -0.3f && prevState.ThumbSticks.Left.X > -0.3f) || (state.DPad.Left == ButtonState.Pressed && prevState.DPad.Left == ButtonState.Released))
             SwitchCharacter(false);
-        
-        // Continues if Start is pressed
-        if (state.Buttons.Start == ButtonState.Pressed && prevState.Buttons.Start == ButtonState.Released)
-            Continue();
     }
 
 
@@ -146,6 +156,8 @@ public class CharacterSelection_SP : MonoBehaviour
         Color uiColor = AddHSV(colors[colorIndex], 0f, uiColorSat - 1, 1f);
         joinedPlayerImg.color = uiColor;
         playerSlotImg.color = uiColor;
+
+        soundManager.PlaySound("ButtonNavigation");
     }
 
 
@@ -178,6 +190,8 @@ public class CharacterSelection_SP : MonoBehaviour
         {
             GameObject newModel = Instantiate(lockedCharacter, playerModel.transform);
             nameText.text = "LOCKED";
+
+            continueButton.SetActive(false);
         }
         else
         {
@@ -194,7 +208,11 @@ public class CharacterSelection_SP : MonoBehaviour
             }
 
             nameText.text = characterNames[characterIndex];
+
+            continueButton.SetActive(true);
         }
+
+        soundManager.PlaySound("ButtonNavigation");
     }
 
 
@@ -229,6 +247,8 @@ public class CharacterSelection_SP : MonoBehaviour
 
         // Opens next menu group
         menuManager.OpenMenuGroup(nextGroup);
+
+        soundManager.PlaySound("ButtonClick");
     }
 
 

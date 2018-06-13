@@ -49,6 +49,7 @@ public class KeyProgression : MonoBehaviour
 
             Color btnColor = finalLevelButton.GetComponent<Image>().color;
 
+            finalLevelButton.gameObject.SetActive(false);
             finalLevelButton.interactable = false;
             finalLevelButton.GetComponent<Image>().color = new Color(btnColor.r, btnColor.g, btnColor.b, 0);
 
@@ -84,6 +85,8 @@ public class KeyProgression : MonoBehaviour
     //courotine to draw out lines on the map
     IEnumerator DrawLines()
     {
+        finalLevelButton.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(0.5f);
 
         while (lineLeft.fillAmount < 1)
@@ -98,6 +101,7 @@ public class KeyProgression : MonoBehaviour
             yield return null;
         }
 
+        
         finalLevelButton.interactable = true;
         yield return null;
     }
