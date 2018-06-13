@@ -11,6 +11,9 @@ public class BottomObjPowerUp : MonoBehaviour {
 
 	int index;
 
+    float nullTimer = 0;
+    float nullSpawnDelay = 3f;
+
 	private void Start()
 	{
 		lastTrans = Instantiate(powerUps[index], transform.position, transform.rotation, powerupParent).AddComponent<MoveToRight>().transform;
@@ -18,12 +21,22 @@ public class BottomObjPowerUp : MonoBehaviour {
 
 	void Update()
 	{
+        if (lastTrans == null)
+        {
+            if (nullTimer >= nullSpawnDelay)
+            {
+                index = Random.Range(0, powerUps.Length);
+                lastTrans = Instantiate(powerUps[index], transform.position, transform.rotation, powerupParent).AddComponent<MoveToRight>().transform;
+                nullTimer = 0;
+            }
 
-		index = Random.Range(0, powerUps.Length);
-		
-		if(Vector3.Distance(lastTrans.position, transform.position) >= spawnOffset)
+            nullTimer += Time.deltaTime;
+        }
+
+		if(lastTrans != null && Vector3.Distance(lastTrans.position, transform.position) >= spawnOffset)
 		{
-			lastTrans = Instantiate(powerUps[index], transform.position, transform.rotation, powerupParent).AddComponent<MoveToRight>().transform;
+            index = Random.Range(0, powerUps.Length);
+            lastTrans = Instantiate(powerUps[index], transform.position, transform.rotation, powerupParent).AddComponent<MoveToRight>().transform;
 		}
 	}
 }
