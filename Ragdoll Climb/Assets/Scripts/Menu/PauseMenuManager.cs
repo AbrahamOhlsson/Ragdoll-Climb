@@ -28,6 +28,8 @@ public class PauseMenuManager : MonoBehaviour
     GamePadState[] states = new GamePadState[4];
     GamePadState[] prevStates = new GamePadState[4];
 
+    VibrationManager[] vibrationManagers;
+
 
     private void Start ()
     {
@@ -49,6 +51,8 @@ public class PauseMenuManager : MonoBehaviour
         playerIndexes[3] = PlayerIndex.Four;
 
         loadingScreen = GameObject.Find("Loading Screen Canvas").GetComponent<LevelLoader>();
+
+        vibrationManagers = FindObjectsOfType<VibrationManager>();
     }
 
 
@@ -119,6 +123,9 @@ public class PauseMenuManager : MonoBehaviour
 
                 // Highlights first button in group
                 eventSystem.SetSelectedGameObject(groupPath.Peek().highlightedBtn);
+
+                foreach (VibrationManager vibManager in vibrationManagers)
+                    vibManager.StopVibration(10000);
 
                 paused = true;
                 Time.timeScale = 0f;

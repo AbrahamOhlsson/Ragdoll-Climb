@@ -23,14 +23,7 @@ public class KeyProgression : MonoBehaviour
     {
         singleton = Singleton.instance;
 
-        for (int i = 0; i < singleton.levelStats_woods.Count; i++)
-            keyAmount += singleton.levelStats_woods[i].starAmount;
-        for (int i = 0; i < singleton.levelStats_ice.Count; i++)
-            keyAmount += singleton.levelStats_ice[i].starAmount;
-        for (int i = 0; i < singleton.levelStats_volcano.Count; i++)
-            keyAmount += singleton.levelStats_volcano[i].starAmount;
-        for (int i = 0; i < singleton.levelStats_metal.Count; i++)
-            keyAmount += singleton.levelStats_metal[i].starAmount;
+        CountKeys();
 
         //if (keyAmount == 99)
         //{
@@ -45,7 +38,9 @@ public class KeyProgression : MonoBehaviour
     public void CheckLevelsComplete()
     {
         singleton = Singleton.instance;
-        
+
+        CountKeys();
+
         if (!singleton.seenFinalLevelUnlock)
         {
             lineLeft.fillAmount = 0;
@@ -57,9 +52,13 @@ public class KeyProgression : MonoBehaviour
             finalLevelButton.interactable = false;
             finalLevelButton.GetComponent<Image>().color = new Color(btnColor.r, btnColor.g, btnColor.b, 0);
 
+            print(keyAmount);
+
             // If all keys are collected
             if (keyAmount == 99)
             {
+                print("All Keys");
+
                 StartCoroutine(DrawLines());
                 singleton.seenFinalLevelUnlock = true;
                 singleton.Save();
@@ -67,10 +66,25 @@ public class KeyProgression : MonoBehaviour
         }
     }
 
+
+    void CountKeys()
+    {
+        keyAmount = 0;
+
+        for (int i = 0; i < singleton.levelStats_woods.Count; i++)
+            keyAmount += singleton.levelStats_woods[i].starAmount;
+        for (int i = 0; i < singleton.levelStats_ice.Count; i++)
+            keyAmount += singleton.levelStats_ice[i].starAmount;
+        for (int i = 0; i < singleton.levelStats_volcano.Count; i++)
+            keyAmount += singleton.levelStats_volcano[i].starAmount;
+        for (int i = 0; i < singleton.levelStats_metal.Count; i++)
+            keyAmount += singleton.levelStats_metal[i].starAmount;
+    }
+
     //courotine to draw out lines on the map
     IEnumerator DrawLines()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         while (lineLeft.fillAmount < 1)
         {

@@ -21,6 +21,8 @@ public class FinishLine : MonoBehaviour
     bool gameOver = false;
 
     private string winnerText;
+
+    VibrationManager[] vibrationManagers;
     
 
     private void Awake()
@@ -43,7 +45,9 @@ public class FinishLine : MonoBehaviour
         rematchCanvas = GameObject.Find("CanvasShowWinnerAndMenu");
         doItButton = GameObject.Find("Do It Button").GetComponent<Button>();
 
+        vibrationManagers = FindObjectsOfType<VibrationManager>();
     }
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -87,6 +91,9 @@ public class FinishLine : MonoBehaviour
 
             foreach (GameObject player in manager.players)
                 player.SetActive(false);
+
+            foreach (VibrationManager vibManager in vibrationManagers)
+                vibManager.StopVibration(10000);
 
             Cursor.visible = true;
 
