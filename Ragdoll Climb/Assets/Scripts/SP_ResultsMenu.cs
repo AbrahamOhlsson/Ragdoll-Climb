@@ -59,6 +59,8 @@ public class SP_ResultsMenu : MonoBehaviour
 
     public void Activate(singleplayerInfo info)
     {
+        vibManager = FindObjectOfType<VibrationManager>();
+
         gameObject.SetActive(true);
         pauseMenu.canPause = false;
 
