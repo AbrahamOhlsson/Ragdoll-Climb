@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.Audio;
 
 public class MovingCranePlatform : MonoBehaviour {
@@ -34,7 +33,7 @@ public class MovingCranePlatform : MonoBehaviour {
 
         myAudioSource = gameObject.AddComponent<AudioSource>();
 
-        myAudioSource.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Music and sound/SFX/worldSpark.wav", typeof(AudioClip));
+        myAudioSource.clip = (AudioClip)Resources.Load("worldSpark");
        
         myAudioSource.playOnAwake = true;
         myAudioSource.loop = true;
