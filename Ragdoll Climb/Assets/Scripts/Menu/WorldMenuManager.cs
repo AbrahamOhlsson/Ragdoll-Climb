@@ -184,6 +184,7 @@ public class WorldMenuManager : MonoBehaviour
     public void LoadLevel()
     {
         levelLoader.LoadLevelAsync(singleton.selectedLevel);
+        gameObject.SetActive(false);
     }
 
 

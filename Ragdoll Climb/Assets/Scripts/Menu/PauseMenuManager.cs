@@ -177,12 +177,14 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 1f;
         canPause = false;
         loadingScreen.LoadLevelAsync("Castle Menu");
+        gameObject.SetActive(false);
     }
 
 
     public void RestartLevel()
     {
         loadingScreen.LoadLevelAsync(SceneManager.GetActiveScene().name);
+        gameObject.SetActive(false);
     }
 
 

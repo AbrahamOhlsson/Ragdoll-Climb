@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 222612879012391586}
   - component: {fileID: 114204908955782270}
   - component: {fileID: 114181036097642970}
+  - component: {fileID: 114674051782915398}
   m_Layer: 5
   m_Name: Back Button
   m_TagString: Untagged
@@ -211,6 +212,7 @@ GameObject:
   - component: {fileID: 114746350541278182}
   - component: {fileID: 114918465661564586}
   - component: {fileID: 95202169920579726}
+  - component: {fileID: 114414500406719066}
   m_Layer: 5
   m_Name: HTP Button
   m_TagString: Untagged
@@ -333,6 +335,7 @@ GameObject:
   - component: {fileID: 114856506493943542}
   - component: {fileID: 114078268330437374}
   - component: {fileID: 95491109738407994}
+  - component: {fileID: 114143217044446496}
   m_Layer: 5
   m_Name: Continue Button
   m_TagString: Untagged
@@ -401,6 +404,7 @@ GameObject:
   - component: {fileID: 114949278310781278}
   - component: {fileID: 114944835220577126}
   - component: {fileID: 95111842402319988}
+  - component: {fileID: 114589394673691328}
   m_Layer: 5
   m_Name: Save Button
   m_TagString: Untagged
@@ -437,6 +441,7 @@ GameObject:
   - component: {fileID: 114212769843786958}
   - component: {fileID: 114087253643809552}
   - component: {fileID: 95496166404989402}
+  - component: {fileID: 114971316876480738}
   m_Layer: 5
   m_Name: Restart Button
   m_TagString: Untagged
@@ -808,6 +813,7 @@ GameObject:
   - component: {fileID: 114931883908506490}
   - component: {fileID: 114620823617780474}
   - component: {fileID: 95939092264796054}
+  - component: {fileID: 114964890885086264}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -958,6 +964,7 @@ GameObject:
   - component: {fileID: 114997269840565080}
   - component: {fileID: 114944886576541214}
   - component: {fileID: 95662223411931458}
+  - component: {fileID: 114235658229750788}
   m_Layer: 5
   m_Name: Options Button
   m_TagString: Untagged
@@ -1116,6 +1123,7 @@ GameObject:
   - component: {fileID: 222643905872331128}
   - component: {fileID: 114500578030815794}
   - component: {fileID: 114123539604183862}
+  - component: {fileID: 114047290696837236}
   m_Layer: 5
   m_Name: Back Button
   m_TagString: Untagged
@@ -1422,6 +1430,7 @@ GameObject:
   - component: {fileID: 222426320253000978}
   - component: {fileID: 114369322027736950}
   - component: {fileID: 114306280821526308}
+  - component: {fileID: 114178782566737650}
   m_Layer: 5
   m_Name: Back Button
   m_TagString: Untagged
@@ -1475,6 +1484,7 @@ GameObject:
   - component: {fileID: 114441861848382348}
   - component: {fileID: 114763975272753156}
   - component: {fileID: 95276623884763114}
+  - component: {fileID: 114449678035782800}
   m_Layer: 5
   m_Name: QuitToMenu Button
   m_TagString: Untagged
@@ -1758,6 +1768,7 @@ GameObject:
   - component: {fileID: 114598798584537838}
   - component: {fileID: 114847660319828206}
   - component: {fileID: 95536855395239304}
+  - component: {fileID: 114166781121092228}
   m_Layer: 5
   m_Name: QuitToDesktop Button
   m_TagString: Untagged
@@ -2385,6 +2396,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114047290696837236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451375427575664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114074631368581974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2457,9 +2479,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114620823617780474}
+    m_SelectOnDown: {fileID: 114087253643809552}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -2542,9 +2564,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114078268330437374}
+    m_SelectOnDown: {fileID: 114918465661564586}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -2862,6 +2884,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: SAVE OPTIONS
+--- !u!114 &114143217044446496
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1131569287228826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114144554593913682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2970,6 +3003,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114166781121092228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1830384205882706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114172233431170138
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3096,6 +3140,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Dropdown+DropdownEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114178782566737650
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1579701611743914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114181036097642970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3468,6 +3523,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114235658229750788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409691002687092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114241397158420026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3717,9 +3783,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114847660319828206}
+    m_SelectOnDown: {fileID: 114763975272753156}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -3976,6 +4042,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114414500406719066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1084331527988418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114429135360055986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4034,6 +4111,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 0
   m_FillOrigin: 0
+--- !u!114 &114449678035782800
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1599476338689454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114457483160023934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4462,6 +4550,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Grahpichs Quality
+--- !u!114 &114589394673691328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1155996693576790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114598372688997820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4555,9 +4654,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114944886576541214}
+    m_SelectOnDown: {fileID: 114078268330437374}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -4763,6 +4862,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114674051782915398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1042232711546152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114685217729786686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5264,9 +5374,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114847660319828206}
+    m_SelectOnDown: {fileID: 114847660319828206}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -5785,9 +5895,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114763975272753156}
+    m_SelectOnDown: {fileID: 114306280821526308}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -6094,9 +6204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114087253643809552}
+    m_SelectOnDown: {fileID: 114944886576541214}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -6303,9 +6413,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
+    m_Mode: 4
+    m_SelectOnUp: {fileID: 114918465661564586}
+    m_SelectOnDown: {fileID: 114620823617780474}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 3
@@ -6511,6 +6621,28 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114964890885086264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1346663896116344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114971316876480738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1175216379004190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268da4f7d47760f47bc6c805c1a7749f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114994680044293122
 MonoBehaviour:
   m_ObjectHideFlags: 1
