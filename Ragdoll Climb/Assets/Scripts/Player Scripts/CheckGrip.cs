@@ -427,7 +427,7 @@ public class CheckGrip : MonoBehaviour
 
                     // Randomized sound fro slipping
                     int squeakIndex = Random.Range(1, 4);
-                    transform.root.GetComponent<playerSound>().PlaySoundRandPitch("IceSqueak" + squeakIndex);
+                    //transform.root.GetComponent<playerSound>().PlaySoundRandPitch("IceSqueak" + squeakIndex);
                 }
                 // If a player is grabbed, that player will know it
                 else if (currentGripable.tag == "Player")
