@@ -206,6 +206,7 @@ public class PlayerController : MonoBehaviour
 
     // Death ########
     float deathTimer;
+    bool died = false;
     [Space]
 	[SerializeField] float deathPressTime;
 
@@ -576,7 +577,7 @@ public class PlayerController : MonoBehaviour
 
 
         // DPad DEATH     ###############################################################################################################
-        if (state.DPad.Down == ButtonState.Pressed)
+        if (state.DPad.Down == ButtonState.Pressed && !died)
 		{
 			if (prevState.DPad.Down == ButtonState.Released)
 			{
@@ -598,17 +599,18 @@ public class PlayerController : MonoBehaviour
 
 			if(deathTimer > deathPressTime)
 			{
-				GetComponent<DeathManager>().Death();
-				GetComponent<FreezePD>().StartFreeze(1f, true);
 				deathTimer = 0;
 				Destroy(respawnCounter);
+                died = true;
+				GetComponent<DeathManager>().Death();
+				GetComponent<FreezePD>().StartFreeze(1f, true);
 			}
 
 			deathTimer += Time.deltaTime;
 		}
 
 
-		if (state.DPad.Down == ButtonState.Released)
+		if (state.DPad.Down == ButtonState.Released && prevState.DPad.Down == ButtonState.Pressed)
 		{
             if (deathTimer != 0)
 			{
@@ -616,6 +618,8 @@ public class PlayerController : MonoBehaviour
 				deathTimer = 0;
 				Destroy(respawnCounter);
 			}
+
+            died = false;
         }
 	}
 
