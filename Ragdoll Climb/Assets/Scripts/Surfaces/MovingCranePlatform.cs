@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using UnityEngine.Audio;
 
 public class MovingCranePlatform : MonoBehaviour {
 
@@ -23,10 +25,26 @@ public class MovingCranePlatform : MonoBehaviour {
     Vector3 velocity = Vector3.zero;
     Transform destination;
 
+    AudioSource myAudioSource;
+
 
     private void Start()
     {
         SetDestination(startTransform);
+
+        myAudioSource = gameObject.AddComponent<AudioSource>();
+
+        myAudioSource.clip = (AudioClip)AssetDatabase.LoadAssetAtPath("Assets/Music and sound/SFX/worldSpark.wav", typeof(AudioClip));
+       
+        myAudioSource.playOnAwake = true;
+        myAudioSource.loop = true;
+        myAudioSource.time = Random.Range(0, myAudioSource.clip.length);
+        myAudioSource.spatialBlend = 1;
+        myAudioSource.maxDistance = 30;
+        myAudioSource.minDistance = 0.5f;
+        myAudioSource.Play();
+
+        myAudioSource.outputAudioMixerGroup = GameObject.Find("music and sound").GetComponent<soundManager>().MyMixerGroup;
     }
 
 
