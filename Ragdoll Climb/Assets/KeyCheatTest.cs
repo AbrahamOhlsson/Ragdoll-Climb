@@ -24,7 +24,6 @@ public class KeyCheatTest : MonoBehaviour
 
                 if (i != 0)
                 {
-                    print("First");
                     singleton.levelStats_woods[i].starAmount = 3;
                 }
             }
