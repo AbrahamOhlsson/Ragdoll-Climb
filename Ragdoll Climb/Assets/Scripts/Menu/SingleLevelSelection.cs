@@ -228,7 +228,13 @@ public class SingleLevelSelection : MonoBehaviour
     {
         if (!mouseOverBtn)
         {
-            string levelName = spButton.world + " " + spButton.levelIndex;
+            string levelName;
+
+            if (spButton.world != "castle")
+                levelName = spButton.world + " " + spButton.levelIndex;
+            else
+                levelName = "castle";
+
             levelNameTxt.text = levelName.ToUpper();
 
             if (spButton.bestTime == Mathf.Infinity)
