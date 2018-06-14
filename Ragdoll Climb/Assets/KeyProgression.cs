@@ -12,6 +12,9 @@ public class KeyProgression : MonoBehaviour
     [SerializeField] Image lineTop;
     [SerializeField] Button finalLevelButton;
 
+    [SerializeField] Lobby lobby;
+    [SerializeField] CharacterSelection_SP characterSelection;
+
     int keyAmount;
 
     float imgAlpha = 0;
@@ -25,11 +28,11 @@ public class KeyProgression : MonoBehaviour
 
         CountKeys();
 
-        //if (keyAmount == 99)
-        //{
-        //    lobby.canSwitchCharacter = true;
-        //    characterSelection.canSwitchCharacter = true;
-        //}
+        if (singleton.levelStats_castle[0].completed)
+        {
+            lobby.canSwitchCharacter = true;
+            characterSelection.canSwitchCharacter = true;
+        }
 
         keyAmountText.text = keyAmount + " / 99";
     }

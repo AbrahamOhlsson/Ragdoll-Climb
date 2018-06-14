@@ -48,7 +48,7 @@ public class SP_ResultsMenu : MonoBehaviour
             bestTimeText.text = bestTime + " sec";
         }
 
-        if ((singleton.currSpWorld == "woods" && singleton.currSpLevelIndex == 2) || singleton.currSpLevelIndex == 9)
+        if ((singleton.currSpWorld == "woods" && singleton.currSpLevelIndex == 2) || singleton.currSpWorld == "castle" || singleton.currSpLevelIndex == 9)
             nextLvlButton.SetActive(false);
 
         vibManager = FindObjectOfType<VibrationManager>();
